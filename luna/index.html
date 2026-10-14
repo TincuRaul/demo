@@ -39,10 +39,17 @@ a { color: inherit; }
 .mark svg { width: 34px; height: 34px; }
 .mark span { font-family: "Cormorant Garamond", serif; font-size: 20px; letter-spacing: .02em; }
 .hero nav a.wa { font-size: 14px; font-weight: 500; text-decoration: none; padding: 9px 16px; border: 1px solid rgba(236,220,191,.4); border-radius: 999px; }
-.sky { position: relative; flex: 1; display: grid; place-items: center; padding: 10px 20px 0; }
-#bigmoon { width: min(64vw, 340px); height: auto; filter: drop-shadow(0 0 60px rgba(236,220,191,.35)); }
-.hero-copy { position: relative; z-index: 2; padding: 0 20px 44px; text-align: center; }
-.hero h1 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: clamp(64px, 20vw, 132px); line-height: .9; letter-spacing: -.01em; }
+.sky { position: relative; flex: 1; display: grid; place-items: end center; padding: 0 0 8px; min-height: 330px; }
+#scene { width: min(100%, 560px); height: auto; overflow: visible; }
+#halo { transform-origin: 280px 230px; }
+.phases { display: flex; justify-content: center; gap: 10px; margin-top: 22px; text-decoration: none; }
+.phases svg { width: 18px; height: 18px; opacity: 0; transform: translateY(6px); transition: opacity .5s, transform .5s; }
+.phases.on svg { opacity: 1; transform: none; }
+.phases-l { display: block; margin-top: 8px; font-size: 14px; color: #b9ab95; text-decoration: none; }
+.hero-copy { position: relative; z-index: 2; padding: 0 20px 34px; text-align: center; }
+.hero h1 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: clamp(72px, 24vw, 150px); line-height: .85; letter-spacing: .02em; }
+.hero h1 span { display: inline-block; opacity: 0; transform: translateY(.25em); filter: blur(6px); transition: opacity .9s, transform .9s, filter .9s; }
+.hero h1.on span { opacity: 1; transform: none; filter: none; }
 .hero .lead { margin: 14px auto 0; max-width: 30ch; font-size: 18px; font-weight: 300; color: #d9ccb6; }
 .hero .cta { display: inline-flex; margin-top: 24px; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: 999px; background: var(--moon); color: var(--night); font-weight: 600; font-size: 16px; text-decoration: none; border: 0; cursor: pointer; }
@@ -124,12 +131,44 @@ footer { padding: 30px 20px 40px; text-align: center; font-size: 13px; color: va
     <a class="mark" href="#" aria-label="Luna Studio"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="none" stroke="#b8925a" stroke-width="1"/><path d="M24 8a12 12 0 1 0 0 24a10 10 0 1 1 0-24z" fill="#b8925a"/><path d="M18 13v14h6" fill="none" stroke="#ecdcbf" stroke-width="1.6"/></svg><span>Luna Studio</span></a>
     <a class="wa" href="https://wa.me/40746369735">Programează-te</a>
   </nav>
-  <div class="sky"><svg id="bigmoon" viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="mg" cx="40%" cy="38%" r="70%"><stop offset="0" stop-color="#fff4dc"/><stop offset=".7" stop-color="#ecdcbf"/><stop offset="1" stop-color="#cdb790"/></radialGradient></defs><circle cx="100" cy="100" r="88" fill="#ecdcbf" opacity=".07"/><path id="bigphase" fill="url(#mg)"/></svg></div>
+  <div class="sky">
+    <svg id="scene" viewBox="0 0 560 360" aria-hidden="true">
+      <defs>
+        <radialGradient id="mg" cx="42%" cy="38%" r="70%"><stop offset="0" stop-color="#fff6e2"/><stop offset=".65" stop-color="#ecdcbf"/><stop offset="1" stop-color="#cbb38a"/></radialGradient>
+        <radialGradient id="hg"><stop offset="0" stop-color="#ecdcbf" stop-opacity=".35"/><stop offset=".55" stop-color="#ecdcbf" stop-opacity=".08"/><stop offset="1" stop-color="#ecdcbf" stop-opacity="0"/></radialGradient>
+        <clipPath id="above"><rect x="-200" y="-200" width="960" height="500"/></clipPath>
+      </defs>
+      <g id="rise" clip-path="url(#above)">
+        <circle id="halo" cx="280" cy="230" r="230" fill="url(#hg)"/>
+        <circle cx="280" cy="230" r="150" fill="#ecdcbf" opacity=".06"/>
+        <path id="bigphase" fill="url(#mg)" transform="translate(130 80) scale(1.5)"/>
+        <g id="craters" fill="#b89e74" opacity="0">
+          <circle cx="320" cy="180" r="16" opacity=".22"/><circle cx="360" cy="250" r="10" opacity=".2"/><circle cx="300" cy="290" r="22" opacity=".14"/>
+          <circle cx="250" cy="200" r="9" opacity=".18"/><circle cx="215" cy="265" r="14" opacity=".14"/><circle cx="385" cy="200" r="6" opacity=".22"/>
+        </g>
+      </g>
+      <!-- the horizon is the reformer's rail; she lies on it, one leg reaching for the moon -->
+      <g id="sil" fill="#17141a" stroke="#17141a" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="40" y="300" width="480" height="8" rx="4" stroke="none"/>
+        <rect x="70" y="308" width="8" height="40" stroke="none"/><rect x="482" y="308" width="8" height="40" stroke="none"/>
+        <rect x="86" y="236" width="10" height="64" rx="3" stroke="none"/>
+        <rect x="200" y="282" width="210" height="18" rx="6" stroke="none"/>
+        <rect x="390" y="270" width="40" height="12" rx="5" stroke="none"/>
+        <circle cx="414" cy="258" r="13" stroke="none"/>
+        <path d="M398 270Q340 276 300 276" fill="none" stroke-width="15"/>
+        <path id="legA" d="M300 278Q236 214 196 226Q150 238 102 238" fill="none" stroke-width="11"/>
+        <path id="legB" fill="none" stroke-width="12"/>
+        <path d="M376 270L330 280" fill="none" stroke-width="9"/>
+      </g>
+    </svg>
+  </div>
   <div class="hero-copy">
-    <h1>Luna</h1>
+    <h1 id="word" aria-label="Luna"><span>L</span><span>u</span><span>n</span><span>a</span></h1>
     <p class="lead">Pilates pe reformer în Negrești-Oaș. Cel mult două persoane la o ședință.</p>
     <a class="btn cta" href="https://wa.me/40746369735"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a11.5 11.5 0 0 1-4.6-4c-.4-.6-1.1-1.7-1.1-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7a8.4 8.4 0 0 0 4 3.5c.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.4.1.1.1.7-.1 1.2z"/></svg>Scrie-ne pe WhatsApp</a>
     <span class="trial">Prima ședință de probă: 70 lei</span>
+    <a class="phases" id="phases" href="#abonamente" aria-label="Vezi abonamentele"></a>
+    <a class="phases-l" href="#abonamente">Abonamente de la 58,6 lei ședința</a>
   </div>
 </header>
 
@@ -140,19 +179,34 @@ footer { padding: 30px 20px 40px; text-align: center; font-size: 13px; color: va
       <p class="line"><b>Doar tu și încă una.</b><span>Grupele au cel mult două persoane, așa că instructoarea te vede tot timpul și te corectează pe loc.</span></p>
       <p class="line"><b>Forță, fără impact.</b><span>Arcurile reformerului lucrează cu tine. Tonifiere, elasticitate și o postură mai bună, bună și pentru durerile de spate.</span></p>
     </div>
-    <svg id="reformer" viewBox="40 50 700 270" aria-hidden="true">
+    <svg id="reformer" viewBox="40 0 700 330" aria-hidden="true">
+      <!-- a small moon crosses the sky while you scroll -->
+      <path id="smoon" fill="#b8925a" opacity=".85"/>
+      <circle id="smoonring" r="16" fill="none" stroke="#b8925a" stroke-width="1" opacity=".35"/>
       <!-- tower -->
-      <path class="st" d="M640 70V250M700 70V250M640 70H700"/>
-      <path class="gd" d="M650 95H690"/>
+      <path class="st draw" pathLength="1" d="M640 70V250M700 70V250M640 70H700"/>
+      <path class="gd draw" pathLength="1" d="M650 95H690"/>
       <!-- frame on legs -->
-      <path class="st" d="M60 250H720M60 268H720M80 268V300M700 268V300M380 268V300"/>
+      <path class="st draw" pathLength="1" d="M60 250H720M60 268H720M80 268V300M700 268V300M380 268V300"/>
       <!-- foot bar -->
-      <path class="st" d="M96 250V150M96 150H120M120 150V250"/>
-      <!-- springs, carriage, shoulder blocks: moved by script -->
+      <path class="st draw" pathLength="1" d="M96 250V150M96 150H124M124 150V250"/>
+      <ellipse id="shade" cx="0" cy="250" rx="130" ry="5" fill="#3a2e25" opacity=".08"/>
+      <!-- springs, carriage, shoulder blocks and head rest: moved by script -->
       <path class="gd" id="springs"/>
-      <g id="carriage"><rect class="pad" x="0" y="214" width="250" height="30" rx="8"/><path class="st" d="M20 214V196h22v18M70 214V196h22v18"/><rect class="pad" x="200" y="198" width="70" height="16" rx="6"/></g>
-      <!-- straps from the tower -->
-      <path class="st" id="strap" d="M640 120Q560 160 470 205"/>
+      <g id="carriage">
+        <rect class="pad draw" pathLength="1" x="0" y="214" width="250" height="30" rx="8"/>
+        <path class="st draw" pathLength="1" d="M178 214V196h20v18M206 214V196h20v18"/>
+        <rect class="pad draw" pathLength="1" x="226" y="200" width="56" height="14" rx="6"/>
+      </g>
+      <!-- the woman on the reformer: one gold line, legs solved from hips to the foot bar -->
+      <g id="body" fill="none" stroke="#b8925a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+        <circle id="head" r="12" fill="#b8925a" stroke="none"/>
+        <path id="torso"/>
+        <path id="arm"/>
+        <path id="leg"/>
+      </g>
+      <path class="st" id="strap"/>
+      <text id="cue" x="390" y="324" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="22" fill="#6f6052"></text>
     </svg>
   </div>
 </section>
@@ -224,27 +278,78 @@ function moon(f, r = 90, c = 100) {
   for (let i = 0; i < 70; i++) h += `<i style="left:${(rnd() * 100).toFixed(1)}%;top:${(rnd() * 70).toFixed(1)}%;opacity:${(.2 + rnd() * .6).toFixed(2)}"></i>`;
   $("stars").innerHTML = h; })();
 
-// hero: the moon grows from a thin crescent to almost full, once
-(() => { const p = $("bigphase"); if (reduce) { p.setAttribute("d", moon(.94, 80)); return; }
-  const t0 = performance.now(), D = 2200;
-  const step = (n) => { const u = cl((n - t0) / D); p.setAttribute("d", moon(.06 + .88 * eio(u), 80)); if (u < 1) requestAnimationFrame(step); };
-  requestAnimationFrame(step); })();
+// hero: the moon rises behind her and fills up, the word comes in, the phases light one by one; her raised leg circles slowly
+(() => {
+  const p = $("bigphase"), rise = $("rise"), cr = $("craters"), word = $("word"), ph = $("phases");
+  ph.innerHTML = [1, 4, 6, 8, 10, 12, 14].map((n) => `<svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="88" fill="none" stroke="#b8925a" stroke-width="10" opacity=".55"/><path fill="#b8925a" d="${moon(n / 14, 88)}"/></svg>`).join("");
+  [...ph.children].forEach((c, i) => (c.style.transitionDelay = 1.5 + i * .12 + "s"));
+  // the raised leg stays straight and draws a slow circle with the toes (pilates "leg circles")
+  const leg = (t) => { const a = -1.62 + .16 * Math.sin(t * 1.2), L = 150;
+    const hx = 300, hy = 276, fx = hx + L * Math.cos(a) + 10 * Math.cos(t * 1.2), fy = hy + L * Math.sin(a) + 6 * Math.sin(t * 1.2);
+    const tx = fx + 10 * Math.cos(a - .9), ty = fy + 10 * Math.sin(a - .9);
+    $("legB").setAttribute("d", `M${hx} ${hy}L${fx.toFixed(1)} ${fy.toFixed(1)}L${tx.toFixed(1)} ${ty.toFixed(1)}`); };
+  if (reduce) { p.setAttribute("d", moon(.96)); cr.setAttribute("opacity", 1); word.classList.add("on"); ph.classList.add("on"); leg(0); return; }
+  const t0 = performance.now();
+  requestAnimationFrame(() => { word.classList.add("on"); ph.classList.add("on"); });
+  [...word.children].forEach((c, i) => (c.style.transitionDelay = .5 + i * .12 + "s"));
+  const step = (n) => {
+    const t = (n - t0) / 1000, u = cl(t / 2.4);
+    p.setAttribute("d", moon(.1 + .86 * eio(u)));
+    rise.setAttribute("transform", `translate(0 ${(1 - eio(cl(t / 2))) * 120})`);
+    cr.setAttribute("opacity", cl((t - 1.4) / 1));
+    $("halo").setAttribute("transform", `scale(${1 + .03 * Math.sin(t * .8)})`);
+    leg(t);
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+})();
 
-// the reformer: scroll moves the carriage out and back, the springs stretch with it
+// the reformer: as you scroll it draws itself, then she presses three times; the moon crosses the sky
 const story = $("story"), lines = [...story.querySelectorAll(".line")];
+const draws = [...story.querySelectorAll(".draw")];
+draws.forEach((d) => { d.style.strokeDasharray = 1; });
 function springs(x) {
-  const x0 = 120, x1 = x + 2, y = [226, 236], n = 9; let d = "";
-  y.forEach((yy) => { d += `M${x0} ${yy}`; for (let i = 1; i <= n * 2; i++) d += `L${x0 + (x1 - x0) * i / (n * 2)} ${yy + (i % 2 ? -5 : 5)}`; });
+  const x0 = 124, x1 = x + 2, y = [226, 236], n = 9; let d = "";
+  y.forEach((yy) => { d += `M${x0} ${yy}`; for (let i = 1; i <= n * 2; i++) d += `L${x0 + (x1 - x0) * i / (n * 2)} ${yy + (i % 2 ? -4 : 4)}`; });
   return d;
 }
+// two-bone leg: hip -> knee -> foot, knee bends upwards
+function knee(hx, hy, fx, fy, a = 118, b = 118) {
+  const dx = fx - hx, dy = fy - hy, d = Math.min(Math.hypot(dx, dy), a + b - .01);
+  const ang = Math.atan2(dy, dx), k = Math.acos((a * a + d * d - b * b) / (2 * a * d));
+  return [hx + a * Math.cos(ang + k), hy + a * Math.sin(ang + k)];
+}
+let lastPush = 0;
 function onScroll() {
   const r = story.getBoundingClientRect(), total = story.offsetHeight - innerHeight;
-  const u = reduce ? 0 : cl(-r.top / total);
-  const push = Math.sin(u * Math.PI * 3) * .5 + .5;           // three slow presses while you scroll through
-  const x = 170 + 200 * push;
+  const u = reduce ? .5 : cl(-r.top / total);
+  // the drawing traces itself in the first part of the scroll
+  const dr = reduce ? 1 : eio(cl(u / .16));
+  draws.forEach((d) => { d.style.strokeDashoffset = 1 - dr; });
+  $("body").style.opacity = cl((u - .1) / .08);
+  // three slow presses
+  const w = cl((u - .16) / .84);
+  const push = .5 - .5 * Math.cos(w * Math.PI * 6);
+  const x = 150 + 86 * push;
   $("carriage").setAttribute("transform", `translate(${x} 0)`);
-  $("springs").setAttribute("d", springs(x));
-  $("strap").setAttribute("d", `M640 120Q${560 - push * 40} ${160 + push * 10} ${x + 230} 205`);
+  $("springs").setAttribute("d", springs(x)); $("springs").style.opacity = dr;
+  $("shade").setAttribute("cx", x + 125); $("shade").setAttribute("rx", 120 + push * 6);
+  // body: head on the rest, shoulders against the blocks, hips mid carriage, feet on the foot bar
+  const hx = x + 254, hy = 196, sx = x + 214, sy = 206, px = x + 108, py = 210, fx = 116, fy = 168;
+  $("head").setAttribute("cx", hx); $("head").setAttribute("cy", hy);
+  $("torso").setAttribute("d", `M${sx + 22} ${sy - 4}Q${(sx + px) / 2} ${sy + 1} ${px} ${py - 2}`); $("torso").style.strokeWidth = 11;
+  $("arm").setAttribute("d", `M${sx} ${sy - 1}L${sx - 40} ${sy + 3}L${sx - 74} ${sy + 4}`); $("arm").style.strokeWidth = 5;
+  const [kx, ky] = knee(px, py, fx, fy);
+  $("leg").setAttribute("d", `M${px} ${py}L${kx} ${ky}L${fx} ${fy}`);
+  $("strap").setAttribute("d", `M640 120Q${590 - push * 30} ${150 + push * 8} ${x + 282} 204`); $("strap").style.opacity = dr;
+  // breathing cue follows the direction of the movement
+  const dir = push - lastPush; lastPush = push;
+  if (w > 0 && Math.abs(dir) > .0005) $("cue").textContent = dir > 0 ? "Expiră și împinge" : "Inspiră și revino";
+  if (w <= 0) $("cue").textContent = "";
+  // the moon crosses the sky and fills up
+  const mx = 90 + 560 * u, my = 46 - 26 * Math.sin(u * Math.PI);
+  $("smoon").setAttribute("d", moon(.08 + .9 * u, 15, 0)); $("smoon").setAttribute("transform", `translate(${mx} ${my})`);
+  $("smoonring").setAttribute("cx", mx); $("smoonring").setAttribute("cy", my);
   const k = Math.min(lines.length - 1, Math.floor(u * lines.length));
   lines.forEach((l, i) => l.classList.toggle("on", i === k));
 }
