@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Luna Studio, pilates pe reformer în Negrești-Oaș</title>
+<meta name="description" content="Pilates pe reformer în Negrești-Oaș, cel mult două persoane la o ședință. Abonamente de la 58,6 lei pe ședință." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  /* from Luna Studio's own price sheet: sand paper, brown-gold stars, espresso ink */
+  --night: #1d1a1f;
+  --night-2: #2a2530;
+  --moon: #ecdcbf;
+  --gold: #b8925a;
+  --gold-deep: #8f6c3d;
+  --sand: #efe6d8;
+  --sand-2: #e3d6c3;
+  --ink: #3a2e25;
+  --ink-soft: #6f6052;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body { font-family: "Jost", system-ui, sans-serif; font-weight: 400; color: var(--ink); background: var(--sand); line-height: 1.55; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.serif { font-family: "Cormorant Garamond", Georgia, serif; }
+.wrap { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+/* ---------- night: the moon rises over the studio ---------- */
+.hero { position: relative; min-height: 100svh; background: radial-gradient(120% 70% at 50% 100%, #3a2f3a 0%, var(--night-2) 40%, var(--night) 75%); color: var(--moon); overflow: hidden; display: flex; flex-direction: column; }
+.stars { position: absolute; inset: 0; pointer-events: none; }
+.stars i { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff6e4; opacity: .55; }
+.hero nav { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; }
+.mark { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.mark svg { width: 34px; height: 34px; }
+.mark span { font-family: "Cormorant Garamond", serif; font-size: 20px; letter-spacing: .02em; }
+.hero nav a.wa { font-size: 14px; font-weight: 500; text-decoration: none; padding: 9px 16px; border: 1px solid rgba(236,220,191,.4); border-radius: 999px; }
+.sky { position: relative; flex: 1; display: grid; place-items: center; padding: 10px 20px 0; }
+#bigmoon { width: min(64vw, 340px); height: auto; filter: drop-shadow(0 0 60px rgba(236,220,191,.35)); }
+.hero-copy { position: relative; z-index: 2; padding: 0 20px 44px; text-align: center; }
+.hero h1 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: clamp(64px, 20vw, 132px); line-height: .9; letter-spacing: -.01em; }
+.hero .lead { margin: 14px auto 0; max-width: 30ch; font-size: 18px; font-weight: 300; color: #d9ccb6; }
+.hero .cta { display: inline-flex; margin-top: 24px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: 999px; background: var(--moon); color: var(--night); font-weight: 600; font-size: 16px; text-decoration: none; border: 0; cursor: pointer; }
+.btn.dark { background: var(--ink); color: var(--sand); }
+.btn svg { width: 20px; height: 20px; }
+.trial { display: block; margin-top: 12px; font-size: 14px; color: #b9ab95; }
+
+/* ---------- the reformer, drawn in one line, moves as you scroll ---------- */
+.story { position: relative; height: 300vh; background: var(--sand); }
+.story .pin { position: sticky; top: 0; height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; align-content: center; gap: 48px; padding: 24px 12px; overflow: hidden; }
+.story .lines { position: relative; min-height: 150px; }
+.story .line { position: absolute; left: 0; right: 0; text-align: center; padding: 0 20px; opacity: 0; transform: translateY(14px); transition: opacity .5s, transform .5s; }
+.story .line.on { opacity: 1; transform: none; }
+.story .line b { display: block; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: clamp(38px, 10vw, 64px); line-height: 1; }
+.story .line span { display: block; margin: 10px auto 0; max-width: 34ch; color: var(--ink-soft); font-size: 17px; }
+#reformer { width: 100%; max-width: 940px; margin: 0 auto; display: block; }
+#reformer .st { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+#reformer .gd { fill: none; stroke: var(--gold); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+#reformer .pad { fill: var(--sand-2); stroke: var(--ink); stroke-width: 2.4; }
+
+/* ---------- memberships as phases of the moon ---------- */
+.plans { background: var(--sand); padding: 70px 0 60px; }
+.plans h2, .special h2, .info h2 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: clamp(40px, 10vw, 62px); line-height: 1; text-align: center; }
+.plans .sub { text-align: center; margin: 12px auto 0; max-width: 36ch; color: var(--ink-soft); }
+.phase { margin: 34px auto 0; max-width: 520px; text-align: center; }
+#pmoon { width: 210px; height: 210px; display: block; margin: 0 auto; }
+.phase .total { margin-top: 14px; font-family: "Cormorant Garamond", serif; font-size: 64px; line-height: 1; font-weight: 600; }
+.phase .total small { font-size: 26px; font-weight: 500; }
+.phase .per { margin-top: 6px; color: var(--ink-soft); font-size: 16px; }
+.phase .pop { display: inline-block; margin-top: 10px; padding: 4px 12px; border-radius: 999px; background: var(--gold); color: #fff; font-size: 13px; font-weight: 500; visibility: hidden; }
+.phase .pop.on { visibility: visible; }
+.picker { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin: 26px auto 0; max-width: 520px; }
+.picker button { border: 0; background: none; cursor: pointer; padding: 8px 0 6px; border-radius: 12px; color: var(--ink-soft); font-family: inherit; }
+.picker button svg { width: 34px; height: 34px; display: block; margin: 0 auto 6px; }
+.picker button b { display: block; font-size: 17px; font-weight: 600; color: var(--ink); }
+.picker button span { font-size: 11px; }
+.picker button[aria-pressed="true"] { background: var(--sand-2); }
+.valid { text-align: center; margin-top: 18px; font-size: 14px; color: var(--ink-soft); }
+
+/* ---------- special sessions ---------- */
+.special { background: var(--sand-2); padding: 64px 0; }
+.sp { max-width: 640px; margin: 30px auto 0; }
+.sp article { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 22px 0; border-top: 1px solid rgba(58,46,37,.18); }
+.sp article:last-child { border-bottom: 1px solid rgba(58,46,37,.18); }
+.sp h3 { font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 28px; line-height: 1.1; }
+.sp .pr { font-family: "Cormorant Garamond", serif; font-size: 28px; font-weight: 600; white-space: nowrap; }
+.sp .pr small { font-family: "Jost", sans-serif; font-size: 13px; font-weight: 400; color: var(--ink-soft); }
+.sp p { grid-column: 1 / -1; color: var(--ink-soft); max-width: 50ch; }
+
+/* ---------- first visit + rules + contact ---------- */
+.info { background: var(--sand); padding: 64px 0 40px; }
+.first { max-width: 640px; margin: 28px auto 0; padding: 26px 24px; border-radius: 18px; background: var(--night); color: var(--moon); text-align: center; }
+.first p { font-size: 17px; color: #d9ccb6; }
+.first b { display: block; margin: 6px 0 16px; font-family: "Cormorant Garamond", serif; font-size: 56px; line-height: 1; font-weight: 600; color: var(--moon); }
+.rules { max-width: 640px; margin: 34px auto 0; display: grid; gap: 14px; }
+.rules p { display: grid; grid-template-columns: 26px 1fr; gap: 10px; }
+.rules p::before { content: ""; width: 14px; height: 14px; margin-top: 6px; border-radius: 50%; box-shadow: inset -5px 0 0 0 var(--gold); border: 1.5px solid var(--gold); }
+.where { max-width: 640px; margin: 44px auto 0; text-align: center; }
+.where h3 { font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 400; font-size: 34px; }
+.where address { font-style: normal; margin-top: 8px; font-size: 18px; }
+.where .acts { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+.btn.line { background: none; color: var(--ink); border: 1.5px solid var(--ink); }
+footer { padding: 30px 20px 40px; text-align: center; font-size: 13px; color: var(--ink-soft); }
+
+@media (min-width: 760px) {
+  .plans .phase { margin-top: 44px; }
+  #pmoon { width: 260px; height: 260px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story { height: auto; } .story .pin { position: static; height: auto; }
+  .story .line { position: static; opacity: 1; transform: none; margin-bottom: 18px; }
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="stars" id="stars"></div>
+  <nav>
+    <a class="mark" href="#" aria-label="Luna Studio"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="none" stroke="#b8925a" stroke-width="1"/><path d="M24 8a12 12 0 1 0 0 24a10 10 0 1 1 0-24z" fill="#b8925a"/><path d="M18 13v14h6" fill="none" stroke="#ecdcbf" stroke-width="1.6"/></svg><span>Luna Studio</span></a>
+    <a class="wa" href="https://wa.me/40746369735">Programează-te</a>
+  </nav>
+  <div class="sky"><svg id="bigmoon" viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="mg" cx="40%" cy="38%" r="70%"><stop offset="0" stop-color="#fff4dc"/><stop offset=".7" stop-color="#ecdcbf"/><stop offset="1" stop-color="#cdb790"/></radialGradient></defs><circle cx="100" cy="100" r="88" fill="#ecdcbf" opacity=".07"/><path id="bigphase" fill="url(#mg)"/></svg></div>
+  <div class="hero-copy">
+    <h1>Luna</h1>
+    <p class="lead">Pilates pe reformer în Negrești-Oaș. Cel mult două persoane la o ședință.</p>
+    <a class="btn cta" href="https://wa.me/40746369735"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a11.5 11.5 0 0 1-4.6-4c-.4-.6-1.1-1.7-1.1-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7a8.4 8.4 0 0 0 4 3.5c.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.4.1.1.1.7-.1 1.2z"/></svg>Scrie-ne pe WhatsApp</a>
+    <span class="trial">Prima ședință de probă: 70 lei</span>
+  </div>
+</header>
+
+<section class="story" id="story" aria-label="Cum arată o ședință">
+  <div class="pin">
+    <div class="lines">
+      <p class="line on"><b>50 de minute.</b><span>Atât durează o ședință pe reformerul cu turn. Fără grabă, fără sală plină.</span></p>
+      <p class="line"><b>Doar tu și încă una.</b><span>Grupele au cel mult două persoane, așa că instructoarea te vede tot timpul și te corectează pe loc.</span></p>
+      <p class="line"><b>Forță, fără impact.</b><span>Arcurile reformerului lucrează cu tine. Tonifiere, elasticitate și o postură mai bună, bună și pentru durerile de spate.</span></p>
+    </div>
+    <svg id="reformer" viewBox="40 50 700 270" aria-hidden="true">
+      <!-- tower -->
+      <path class="st" d="M640 70V250M700 70V250M640 70H700"/>
+      <path class="gd" d="M650 95H690"/>
+      <!-- frame on legs -->
+      <path class="st" d="M60 250H720M60 268H720M80 268V300M700 268V300M380 268V300"/>
+      <!-- foot bar -->
+      <path class="st" d="M96 250V150M96 150H120M120 150V250"/>
+      <!-- springs, carriage, shoulder blocks: moved by script -->
+      <path class="gd" id="springs"/>
+      <g id="carriage"><rect class="pad" x="0" y="214" width="250" height="30" rx="8"/><path class="st" d="M20 214V196h22v18M70 214V196h22v18"/><rect class="pad" x="200" y="198" width="70" height="16" rx="6"/></g>
+      <!-- straps from the tower -->
+      <path class="st" id="strap" d="M640 120Q560 160 470 205"/>
+    </svg>
+  </div>
+</section>
+
+<section class="plans" id="abonamente">
+  <div class="wrap">
+    <h2>Abonamente</h2>
+    <p class="sub">Cu cât vii mai des, cu atât luna se umple și ședința iese mai ieftin.</p>
+    <div class="phase">
+      <svg id="pmoon" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="90" fill="none" stroke="#b8925a" stroke-width="1.4" opacity=".5"/><path id="pphase" fill="#b8925a"/></svg>
+      <p class="total serif" id="total" aria-live="polite">520 <small>lei</small></p>
+      <p class="per" id="per">8 ședințe, 65 lei ședința</p>
+      <span class="pop" id="pop">Cel mai ales</span>
+    </div>
+    <div class="picker" id="picker" role="group" aria-label="Alege numărul de ședințe"></div>
+    <p class="valid">Abonamentele sunt valabile 30 de zile.</p>
+  </div>
+</section>
+
+<section class="special">
+  <div class="wrap">
+    <h2>Ședințe speciale</h2>
+    <div class="sp">
+      <article><h3>Pilates pentru gravide</h3><p class="pr">90 <small>lei / ședință</small></p><p>Antrenament adaptat fiecărui trimestru, pentru o sarcină sănătoasă și o recuperare mai ușoară.</p></article>
+      <article><h3>Pilates pentru adolescente, 14–18 ani</h3><p class="pr">85 <small>lei / ședință</small></p><p>Corectarea posturii, tonifiere, mobilitate și încredere în sine.</p></article>
+      <article><h3>Ședință privată</h3><p class="pr">150 <small>lei / ședință</small></p><p>Antrenament unu la unu, cu program făcut după obiectivele tale.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="info">
+  <div class="wrap">
+    <h2>Prima dată la Luna</h2>
+    <div class="first"><p>Prima ședință de probă</p><b>70 lei</b><a class="btn" href="https://wa.me/40746369735">Programează ședința de probă</a></div>
+    <div class="rules">
+      <p>Abonamentele sunt valabile 30 de zile.</p>
+      <p>O ședință se anulează sau se mută cu cel puțin 4 ore înainte.</p>
+      <p>Ședințele pierdute se recuperează, în funcție de locurile libere.</p>
+    </div>
+    <div class="where">
+      <h3>Unde ne găsești?</h3>
+      <address>Str. Garoafelor nr. 1/A, Negrești-Oaș</address>
+      <div class="acts">
+        <a class="btn dark" href="tel:+40746369735">Sună: 0746 369 735</a>
+        <a class="btn line" href="https://www.google.com/maps/search/?api=1&query=Str.+Garoafelor+1A+Negre%C8%99ti-Oa%C8%99">Deschide harta</a>
+        <a class="btn line" href="https://www.instagram.com/luna.studio_reformer/">Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>Luna Studio, Negrești-Oaș. Demo de site realizat de RTWEB, rtweb.ro</footer>
+
+<script>
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (id) => document.getElementById(id);
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const eio = (x) => (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+
+// lit part of a waxing moon, f = 0 (new) .. 1 (full); lit side on the right
+function moon(f, r = 90, c = 100) {
+  f = cl(f, 0.0001, 1);
+  const k = Math.abs(1 - 2 * f) * r;
+  const sweep = f < .5 ? 0 : 1;
+  return `M${c} ${c - r}A${r} ${r} 0 0 1 ${c} ${c + r}A${k} ${r} 0 0 ${sweep} ${c} ${c - r}Z`;
+}
+
+// a few stars, the same every time
+(() => { let s = 11, h = ""; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 70; i++) h += `<i style="left:${(rnd() * 100).toFixed(1)}%;top:${(rnd() * 70).toFixed(1)}%;opacity:${(.2 + rnd() * .6).toFixed(2)}"></i>`;
+  $("stars").innerHTML = h; })();
+
+// hero: the moon grows from a thin crescent to almost full, once
+(() => { const p = $("bigphase"); if (reduce) { p.setAttribute("d", moon(.94, 80)); return; }
+  const t0 = performance.now(), D = 2200;
+  const step = (n) => { const u = cl((n - t0) / D); p.setAttribute("d", moon(.06 + .88 * eio(u), 80)); if (u < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step); })();
+
+// the reformer: scroll moves the carriage out and back, the springs stretch with it
+const story = $("story"), lines = [...story.querySelectorAll(".line")];
+function springs(x) {
+  const x0 = 120, x1 = x + 2, y = [226, 236], n = 9; let d = "";
+  y.forEach((yy) => { d += `M${x0} ${yy}`; for (let i = 1; i <= n * 2; i++) d += `L${x0 + (x1 - x0) * i / (n * 2)} ${yy + (i % 2 ? -5 : 5)}`; });
+  return d;
+}
+function onScroll() {
+  const r = story.getBoundingClientRect(), total = story.offsetHeight - innerHeight;
+  const u = reduce ? 0 : cl(-r.top / total);
+  const push = Math.sin(u * Math.PI * 3) * .5 + .5;           // three slow presses while you scroll through
+  const x = 170 + 200 * push;
+  $("carriage").setAttribute("transform", `translate(${x} 0)`);
+  $("springs").setAttribute("d", springs(x));
+  $("strap").setAttribute("d", `M640 120Q${560 - push * 40} ${160 + push * 10} ${x + 230} 205`);
+  const k = Math.min(lines.length - 1, Math.floor(u * lines.length));
+  lines.forEach((l, i) => l.classList.toggle("on", i === k));
+}
+addEventListener("scroll", () => requestAnimationFrame(onScroll), { passive: true });
+onScroll();
+
+// memberships: the moon fills with the number of sessions
+const PLANS = [[1, 70], [4, 280], [6, 400], [8, 520], [10, 610], [12, 720], [14, 820]];
+const fmt = (n) => n.toLocaleString("ro-RO", { maximumFractionDigits: 1 });
+let cur = 8, shown = 8 / 14;
+$("picker").innerHTML = PLANS.map(([n]) => `<button type="button" data-n="${n}" aria-pressed="${n === cur}"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="88" fill="none" stroke="#b8925a" stroke-width="8" opacity=".45"/><path fill="#b8925a" d="${moon(n / 14, 88)}"/></svg><b>${n}</b><span>${n === 1 ? "ședință" : "ședințe"}</span></button>`).join("");
+function pick(n) {
+  cur = n; const [, price] = PLANS.find((p) => p[0] === n);
+  $("total").innerHTML = `${fmt(price)} <small>lei</small>`;
+  $("per").textContent = `${n} ${n === 1 ? "ședință" : "ședințe"}, ${fmt(Math.round(price / n * 10) / 10)} lei ședința`;
+  $("pop").classList.toggle("on", n === 8);
+  $("picker").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", +b.dataset.n === n));
+  const from = shown, to = n / 14, t0 = performance.now();
+  const step = (t) => { const u = reduce ? 1 : cl((t - t0) / 600); shown = from + (to - from) * eio(u); $("pphase").setAttribute("d", moon(shown)); if (u < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+$("picker").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) pick(+b.dataset.n); });
+pick(8);
+</script>
+</body>
+</html>
