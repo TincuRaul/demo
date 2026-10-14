@@ -151,14 +151,16 @@ footer { padding: 30px 20px 40px; text-align: center; font-size: 13px; color: va
       <g id="sil" fill="#17141a" stroke="#17141a" stroke-linecap="round" stroke-linejoin="round">
         <rect x="40" y="300" width="480" height="8" rx="4" stroke="none"/>
         <rect x="70" y="308" width="8" height="40" stroke="none"/><rect x="482" y="308" width="8" height="40" stroke="none"/>
-        <rect x="86" y="236" width="10" height="64" rx="3" stroke="none"/>
-        <rect x="200" y="282" width="210" height="18" rx="6" stroke="none"/>
-        <rect x="390" y="270" width="40" height="12" rx="5" stroke="none"/>
-        <circle cx="414" cy="258" r="13" stroke="none"/>
-        <path d="M398 270Q340 276 300 276" fill="none" stroke-width="15"/>
-        <path id="legA" d="M300 278Q236 214 196 226Q150 238 102 238" fill="none" stroke-width="11"/>
-        <path id="legB" fill="none" stroke-width="12"/>
-        <path d="M376 270L330 280" fill="none" stroke-width="9"/>
+        <rect x="150" y="232" width="10" height="68" rx="3" stroke="none"/>
+        <rect x="200" y="284" width="214" height="16" rx="6" stroke="none"/>
+        <rect x="402" y="274" width="36" height="10" rx="4" stroke="none"/>
+        <!-- woman lying on her back: head with a bun, chest, waist, hips -->
+        <circle cx="422" cy="262" r="13" stroke="none"/>
+        <circle cx="437" cy="255" r="7" stroke="none"/>
+        <!-- neck, chest, waist, hips: a woman on her back -->
+        <path stroke="none" d="M412 284L411 272Q408 266 400 266Q394 262 384 259Q374 254 366 258Q360 262 352 266Q342 271 330 270Q318 268 306 266Q294 266 289 276L290 284Z"/>
+        <path id="hArm" stroke="none"/>
+        <path id="hLegA" stroke="none"/><path id="hLegB" stroke="none"/>
       </g>
     </svg>
   </div>
@@ -199,11 +201,11 @@ footer { padding: 30px 20px 40px; text-align: center; font-size: 13px; color: va
         <rect class="pad draw" pathLength="1" x="226" y="200" width="56" height="14" rx="6"/>
       </g>
       <!-- the woman on the reformer: one gold line, legs solved from hips to the foot bar -->
-      <g id="body" fill="none" stroke="#b8925a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
-        <circle id="head" r="12" fill="#b8925a" stroke="none"/>
-        <path id="torso"/>
-        <path id="arm"/>
-        <path id="leg"/>
+      <g id="body" fill="#b8925a" stroke="#b8925a" stroke-linecap="round" stroke-linejoin="round">
+        <circle id="head" r="12" stroke="none"/><circle id="bun" r="6" stroke="none"/>
+        <path id="torso" stroke="none"/>
+        <path id="arm" stroke="none"/>
+        <path id="legS" stroke="none"/>
       </g>
       <path class="st" id="strap"/>
       <text id="cue" x="390" y="324" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="22" fill="#6f6052"></text>
@@ -273,6 +275,28 @@ function moon(f, r = 90, c = 100) {
   return `M${c} ${c - r}A${r} ${r} 0 0 1 ${c} ${c + r}A${k} ${r} 0 0 ${sweep} ${c} ${c - r}Z`;
 }
 
+// two-bone leg: hip -> knee -> foot, knee bends upwards
+function knee(hx, hy, fx, fy, a = 118, b = 118) {
+  const dx = fx - hx, dy = fy - hy, d = Math.min(Math.hypot(dx, dy), a + b - .01);
+  const ang = Math.atan2(dy, dx), k = Math.acos((a * a + d * d - b * b) / (2 * a * d));
+  return [hx + a * Math.cos(ang + k), hy + a * Math.sin(ang + k)];
+}
+
+// a limb as a filled shape: from A (radius ra) to B (radius rb), widest (rm) at "at" along the way
+function limb(A, B, ra, rb, rm = Math.max(ra, rb), at = .35) {
+  const dx = B[0] - A[0], dy = B[1] - A[1], L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
+  const M = [A[0] + dx * at, A[1] + dy * at];
+  const P = (q, k) => `${(q[0] + nx * k).toFixed(1)} ${(q[1] + ny * k).toFixed(1)}`;
+  const c = (k) => `${(M[0] + nx * k * 1.15).toFixed(1)} ${(M[1] + ny * k * 1.15).toFixed(1)}`;
+  return `M${P(A, ra)}Q${c(rm)} ${P(B, rb)}L${P(B, -rb)}Q${c(-rm)} ${P(A, -ra)}Z` +
+    `M${(A[0] + ra).toFixed(1)} ${A[1].toFixed(1)}a${ra} ${ra} 0 1 0 ${(-2 * ra).toFixed(1)} 0a${ra} ${ra} 0 1 0 ${(2 * ra).toFixed(1)} 0Z` +
+    `M${(B[0] + rb).toFixed(1)} ${B[1].toFixed(1)}a${rb} ${rb} 0 1 0 ${(-2 * rb).toFixed(1)} 0a${rb} ${rb} 0 1 0 ${(2 * rb).toFixed(1)} 0Z`;
+}
+// a whole leg: thigh, calf with its curve, pointed foot
+function legPath(H, K, Ank, toe, s = 1) {
+  return limb(H, K, 12 * s, 7.5 * s, 12.5 * s, .2) + limb(K, Ank, 7.5 * s, 3.6 * s, 8.6 * s, .32) + limb(Ank, toe, 3.6 * s, 1.6 * s, 3.8 * s, .4);
+}
+
 // a few stars, the same every time
 (() => { let s = 11, h = ""; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
   for (let i = 0; i < 70; i++) h += `<i style="left:${(rnd() * 100).toFixed(1)}%;top:${(rnd() * 70).toFixed(1)}%;opacity:${(.2 + rnd() * .6).toFixed(2)}"></i>`;
@@ -283,11 +307,14 @@ function moon(f, r = 90, c = 100) {
   const p = $("bigphase"), rise = $("rise"), cr = $("craters"), word = $("word"), ph = $("phases");
   ph.innerHTML = [1, 4, 6, 8, 10, 12, 14].map((n) => `<svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="88" fill="none" stroke="#b8925a" stroke-width="10" opacity=".55"/><path fill="#b8925a" d="${moon(n / 14, 88)}"/></svg>`).join("");
   [...ph.children].forEach((c, i) => (c.style.transitionDelay = 1.5 + i * .12 + "s"));
-  // the raised leg stays straight and draws a slow circle with the toes (pilates "leg circles")
-  const leg = (t) => { const a = -1.62 + .16 * Math.sin(t * 1.2), L = 150;
-    const hx = 300, hy = 276, fx = hx + L * Math.cos(a) + 10 * Math.cos(t * 1.2), fy = hy + L * Math.sin(a) + 6 * Math.sin(t * 1.2);
-    const tx = fx + 10 * Math.cos(a - .9), ty = fy + 10 * Math.sin(a - .9);
-    $("legB").setAttribute("d", `M${hx} ${hy}L${fx.toFixed(1)} ${fy.toFixed(1)}L${tx.toFixed(1)} ${ty.toFixed(1)}`); };
+  // one foot on the bar, the other leg straight up, toes drawing a slow circle (pilates "leg circles")
+  const hip = [298, 274];
+  $("hArm").setAttribute("d", limb([392, 270], [340, 279], 5, 3.5, 5.5, .3) + limb([340, 279], [322, 281], 3.5, 2.6));
+  { const ank = [164, 232], kn = knee(hip[0], hip[1], ank[0], ank[1], 86, 84); $("hLegA").setAttribute("d", legPath(hip, kn, ank, [156, 218])); }
+  const leg = (t) => { const a = -1.6 + .13 * Math.sin(t * 1.2);
+    const kn = [hip[0] + 84 * Math.cos(a), hip[1] + 84 * Math.sin(a)];
+    const b = a + .05 * Math.cos(t * 1.2), ank = [kn[0] + 80 * Math.cos(b), kn[1] + 80 * Math.sin(b)];
+    $("hLegB").setAttribute("d", legPath(hip, kn, ank, [ank[0] + 16 * Math.cos(b - .5), ank[1] + 16 * Math.sin(b - .5)])); };
   if (reduce) { p.setAttribute("d", moon(.96)); cr.setAttribute("opacity", 1); word.classList.add("on"); ph.classList.add("on"); leg(0); return; }
   const t0 = performance.now();
   requestAnimationFrame(() => { word.classList.add("on"); ph.classList.add("on"); });
@@ -313,12 +340,6 @@ function springs(x) {
   y.forEach((yy) => { d += `M${x0} ${yy}`; for (let i = 1; i <= n * 2; i++) d += `L${x0 + (x1 - x0) * i / (n * 2)} ${yy + (i % 2 ? -4 : 4)}`; });
   return d;
 }
-// two-bone leg: hip -> knee -> foot, knee bends upwards
-function knee(hx, hy, fx, fy, a = 118, b = 118) {
-  const dx = fx - hx, dy = fy - hy, d = Math.min(Math.hypot(dx, dy), a + b - .01);
-  const ang = Math.atan2(dy, dx), k = Math.acos((a * a + d * d - b * b) / (2 * a * d));
-  return [hx + a * Math.cos(ang + k), hy + a * Math.sin(ang + k)];
-}
 let lastPush = 0;
 function onScroll() {
   const r = story.getBoundingClientRect(), total = story.offsetHeight - innerHeight;
@@ -334,13 +355,13 @@ function onScroll() {
   $("carriage").setAttribute("transform", `translate(${x} 0)`);
   $("springs").setAttribute("d", springs(x)); $("springs").style.opacity = dr;
   $("shade").setAttribute("cx", x + 125); $("shade").setAttribute("rx", 120 + push * 6);
-  // body: head on the rest, shoulders against the blocks, hips mid carriage, feet on the foot bar
-  const hx = x + 254, hy = 196, sx = x + 214, sy = 206, px = x + 108, py = 210, fx = 116, fy = 168;
-  $("head").setAttribute("cx", hx); $("head").setAttribute("cy", hy);
-  $("torso").setAttribute("d", `M${sx + 22} ${sy - 4}Q${(sx + px) / 2} ${sy + 1} ${px} ${py - 2}`); $("torso").style.strokeWidth = 11;
-  $("arm").setAttribute("d", `M${sx} ${sy - 1}L${sx - 40} ${sy + 3}L${sx - 74} ${sy + 4}`); $("arm").style.strokeWidth = 5;
-  const [kx, ky] = knee(px, py, fx, fy);
-  $("leg").setAttribute("d", `M${px} ${py}L${kx} ${ky}L${fx} ${fy}`);
+  // body: head on the rest, back on the carriage, feet on the foot bar
+  $("head").setAttribute("cx", x + 256); $("head").setAttribute("cy", 196);
+  $("bun").setAttribute("cx", x + 270); $("bun").setAttribute("cy", 190);
+  $("torso").setAttribute("d", `M${x + 246} 214L${x + 245} 203Q${x + 241} 198 ${x + 233} 198Q${x + 225} 194 ${x + 212} 190Q${x + 200} 186 ${x + 191} 191Q${x + 184} 196 ${x + 174} 200Q${x + 160} 205 ${x + 145} 203Q${x + 128} 200 ${x + 114} 198Q${x + 99} 198 ${x + 92} 208L${x + 92} 214Z`);
+  $("arm").setAttribute("d", limb([x + 226, 202], [x + 168, 209], 4.5, 3.2, 5, .3) + limb([x + 168, 209], [x + 150, 211], 3.2, 2.4));
+  const hp = [x + 104, 204], an = [122, 170], kn = knee(hp[0], hp[1], an[0], an[1], 118, 112);
+  $("legS").setAttribute("d", legPath(hp, kn, an, [114, 154], 1));
   $("strap").setAttribute("d", `M640 120Q${590 - push * 30} ${150 + push * 8} ${x + 282} 204`); $("strap").style.opacity = dr;
   // breathing cue follows the direction of the movement
   const dir = push - lastPush; lastPush = push;
