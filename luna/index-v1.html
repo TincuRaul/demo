@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Luna Studio, pilates pe reformer în Negrești-Oaș</title>
+<meta name="description" content="Pilates pe reformer în Negrești-Oaș, cel mult două persoane la o ședință. Abonamente de la 58,6 lei pe ședință." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  /* from Luna Studio's own price sheet: sand paper, brown-gold stars, espresso ink */
+  --night: #1d1a1f;
+  --night-2: #2a2530;
+  --moon: #ecdcbf;
+  --gold: #b8925a;
+  --gold-deep: #8f6c3d;
+  --sand: #efe6d8;
+  --sand-2: #e3d6c3;
+  --ink: #3a2e25;
+  --ink-soft: #6f6052;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body { font-family: "Jost", system-ui, sans-serif; font-weight: 400; color: var(--ink); background: var(--sand); line-height: 1.55; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.serif { font-family: "Cormorant Garamond", Georgia, serif; }
+.wrap { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+/* ---------- night: the moon rises over the studio ---------- */
+.hero { position: relative; min-height: 100svh; background: radial-gradient(120% 70% at 50% 100%, #3a2f3a 0%, var(--night-2) 40%, var(--night) 75%); color: var(--moon); overflow: hidden; display: flex; flex-direction: column; }
+.stars { position: absolute; inset: 0; pointer-events: none; }
+.stars i { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff6e4; opacity: .55; }
+.hero nav { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; }
+.mark { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.mark svg { width: 34px; height: 34px; }
+.mark span { font-family: "Cormorant Garamond", serif; font-size: 20px; letter-spacing: .02em; }
+.hero nav a.wa { font-size: 14px; font-weight: 500; text-decoration: none; padding: 9px 16px; border: 1px solid rgba(236,220,191,.4); border-radius: 999px; }
+.sky { position: relative; flex: 1; display: grid; place-items: end center; padding: 0 0 8px; min-height: 330px; }
+#scene { width: min(100%, 560px); height: auto; overflow: visible; }
+#halo { transform-origin: 280px 230px; }
+.phases { display: flex; justify-content: center; gap: 10px; margin-top: 22px; text-decoration: none; }
+.phases svg { width: 18px; height: 18px; opacity: 0; transform: translateY(6px); transition: opacity .5s, transform .5s; }
+.phases.on svg { opacity: 1; transform: none; }
+.phases-l { display: block; margin-top: 8px; font-size: 14px; color: #b9ab95; text-decoration: none; }
+.hero-copy { position: relative; z-index: 2; padding: 0 20px 34px; text-align: center; }
+.hero h1 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: clamp(72px, 24vw, 150px); line-height: .85; letter-spacing: .02em; }
+.hero h1 span { display: inline-block; opacity: 0; transform: translateY(.25em); filter: blur(6px); transition: opacity .9s, transform .9s, filter .9s; }
+.hero h1.on span { opacity: 1; transform: none; filter: none; }
+.hero .lead { margin: 14px auto 0; max-width: 30ch; font-size: 18px; font-weight: 300; color: #d9ccb6; }
+.hero .cta { display: inline-flex; margin-top: 24px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: 999px; background: var(--moon); color: var(--night); font-weight: 600; font-size: 16px; text-decoration: none; border: 0; cursor: pointer; }
+.btn.dark { background: var(--ink); color: var(--sand); }
+.btn svg { width: 20px; height: 20px; }
+.trial { display: block; margin-top: 12px; font-size: 14px; color: #b9ab95; }
+
+/* ---------- the reformer, drawn in one line, moves as you scroll ---------- */
+.story { position: relative; height: 300vh; background: var(--sand); }
+.story .pin { position: sticky; top: 0; height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; align-content: center; gap: 48px; padding: 24px 12px; overflow: hidden; }
+.story .lines { position: relative; min-height: 150px; }
+.story .line { position: absolute; left: 0; right: 0; text-align: center; padding: 0 20px; opacity: 0; transform: translateY(14px); transition: opacity .5s, transform .5s; }
+.story .line.on { opacity: 1; transform: none; }
+.story .line b { display: block; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: clamp(38px, 10vw, 64px); line-height: 1; }
+.story .line span { display: block; margin: 10px auto 0; max-width: 34ch; color: var(--ink-soft); font-size: 17px; }
+#reformer { width: 100%; max-width: 940px; margin: 0 auto; display: block; }
+#reformer .st { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+#reformer .gd { fill: none; stroke: var(--gold); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+#reformer .pad { fill: var(--sand-2); stroke: var(--ink); stroke-width: 2.4; }
+
+/* ---------- memberships as phases of the moon ---------- */
+.plans { background: var(--sand); padding: 70px 0 60px; }
+.plans h2, .special h2, .info h2 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: clamp(40px, 10vw, 62px); line-height: 1; text-align: center; }
+.plans .sub { text-align: center; margin: 12px auto 0; max-width: 36ch; color: var(--ink-soft); }
+.phase { margin: 34px auto 0; max-width: 520px; text-align: center; }
+#pmoon { width: 210px; height: 210px; display: block; margin: 0 auto; }
+.phase .total { margin-top: 14px; font-family: "Cormorant Garamond", serif; font-size: 64px; line-height: 1; font-weight: 600; }
+.phase .total small { font-size: 26px; font-weight: 500; }
+.phase .per { margin-top: 6px; color: var(--ink-soft); font-size: 16px; }
+.phase .pop { display: inline-block; margin-top: 10px; padding: 4px 12px; border-radius: 999px; background: var(--gold); color: #fff; font-size: 13px; font-weight: 500; visibility: hidden; }
+.phase .pop.on { visibility: visible; }
+.picker { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin: 26px auto 0; max-width: 520px; }
+.picker button { border: 0; background: none; cursor: pointer; padding: 8px 0 6px; border-radius: 12px; color: var(--ink-soft); font-family: inherit; }
+.picker button svg { width: 34px; height: 34px; display: block; margin: 0 auto 6px; }
+.picker button b { display: block; font-size: 17px; font-weight: 600; color: var(--ink); }
+.picker button span { font-size: 11px; }
+.picker button[aria-pressed="true"] { background: var(--sand-2); }
+.valid { text-align: center; margin-top: 18px; font-size: 14px; color: var(--ink-soft); }
+
+/* ---------- special sessions ---------- */
+.special { background: var(--sand-2); padding: 64px 0; }
+.sp { max-width: 640px; margin: 30px auto 0; }
+.sp article { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 22px 0; border-top: 1px solid rgba(58,46,37,.18); }
+.sp article:last-child { border-bottom: 1px solid rgba(58,46,37,.18); }
+.sp h3 { font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 28px; line-height: 1.1; }
+.sp .pr { font-family: "Cormorant Garamond", serif; font-size: 28px; font-weight: 600; white-space: nowrap; }
+.sp .pr small { font-family: "Jost", sans-serif; font-size: 13px; font-weight: 400; color: var(--ink-soft); }
+.sp p { grid-column: 1 / -1; color: var(--ink-soft); max-width: 50ch; }
+
+/* ---------- first visit + rules + contact ---------- */
+.info { background: var(--sand); padding: 64px 0 40px; }
+.first { max-width: 640px; margin: 28px auto 0; padding: 26px 24px; border-radius: 18px; background: var(--night); color: var(--moon); text-align: center; }
+.first p { font-size: 17px; color: #d9ccb6; }
+.first b { display: block; margin: 6px 0 16px; font-family: "Cormorant Garamond", serif; font-size: 56px; line-height: 1; font-weight: 600; color: var(--moon); }
+.rules { max-width: 640px; margin: 34px auto 0; display: grid; gap: 14px; }
+.rules p { display: grid; grid-template-columns: 26px 1fr; gap: 10px; }
+.rules p::before { content: ""; width: 14px; height: 14px; margin-top: 6px; border-radius: 50%; box-shadow: inset -5px 0 0 0 var(--gold); border: 1.5px solid var(--gold); }
+.where { max-width: 640px; margin: 44px auto 0; text-align: center; }
+.where h3 { font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 400; font-size: 34px; }
+.where address { font-style: normal; margin-top: 8px; font-size: 18px; }
+.where .acts { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+.btn.line { background: none; color: var(--ink); border: 1.5px solid var(--ink); }
+footer { padding: 30px 20px 40px; text-align: center; font-size: 13px; color: var(--ink-soft); }
+
+@media (min-width: 760px) {
+  .plans .phase { margin-top: 44px; }
+  #pmoon { width: 260px; height: 260px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story { height: auto; } .story .pin { position: static; height: auto; }
+  .story .line { position: static; opacity: 1; transform: none; margin-bottom: 18px; }
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="stars" id="stars"></div>
+  <nav>
+    <a class="mark" href="#" aria-label="Luna Studio"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="none" stroke="#b8925a" stroke-width="1"/><path d="M24 8a12 12 0 1 0 0 24a10 10 0 1 1 0-24z" fill="#b8925a"/><path d="M18 13v14h6" fill="none" stroke="#ecdcbf" stroke-width="1.6"/></svg><span>Luna Studio</span></a>
+    <a class="wa" href="https://wa.me/40746369735">Programează-te</a>
+  </nav>
+  <div class="sky">
+    <svg id="scene" viewBox="0 0 560 360" aria-hidden="true">
+      <defs>
+        <radialGradient id="mg" cx="42%" cy="38%" r="70%"><stop offset="0" stop-color="#fff6e2"/><stop offset=".65" stop-color="#ecdcbf"/><stop offset="1" stop-color="#cbb38a"/></radialGradient>
+        <radialGradient id="hg"><stop offset="0" stop-color="#ecdcbf" stop-opacity=".35"/><stop offset=".55" stop-color="#ecdcbf" stop-opacity=".08"/><stop offset="1" stop-color="#ecdcbf" stop-opacity="0"/></radialGradient>
+        <clipPath id="above"><rect x="-200" y="-200" width="960" height="500"/></clipPath>
+      </defs>
+      <g id="rise" clip-path="url(#above)">
+        <circle id="halo" cx="280" cy="230" r="230" fill="url(#hg)"/>
+        <circle cx="280" cy="230" r="150" fill="#ecdcbf" opacity=".06"/>
+        <path id="bigphase" fill="url(#mg)" transform="translate(130 80) scale(1.5)"/>
+        <g id="craters" fill="#b89e74" opacity="0">
+          <circle cx="320" cy="180" r="16" opacity=".22"/><circle cx="360" cy="250" r="10" opacity=".2"/><circle cx="300" cy="290" r="22" opacity=".14"/>
+          <circle cx="250" cy="200" r="9" opacity=".18"/><circle cx="215" cy="265" r="14" opacity=".14"/><circle cx="385" cy="200" r="6" opacity=".22"/>
+        </g>
+      </g>
+      <!-- the horizon is the reformer's rail; she lies on it, one leg reaching for the moon -->
+      <g id="sil" fill="#17141a" stroke="#17141a" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="40" y="300" width="480" height="8" rx="4" stroke="none"/>
+        <rect x="70" y="308" width="8" height="40" stroke="none"/><rect x="482" y="308" width="8" height="40" stroke="none"/>
+        <rect x="150" y="232" width="10" height="68" rx="3" stroke="none"/>
+        <rect x="200" y="284" width="214" height="16" rx="6" stroke="none"/>
+        <rect x="402" y="274" width="36" height="10" rx="4" stroke="none"/>
+        <!-- woman lying on her back: head with a bun, chest, waist, hips -->
+        <circle cx="422" cy="262" r="13" stroke="none"/>
+        <circle cx="437" cy="255" r="7" stroke="none"/>
+        <!-- neck, chest, waist, hips: a woman on her back -->
+        <path stroke="none" d="M412 284L411 272Q408 266 400 266Q394 262 384 259Q374 254 366 258Q360 262 352 266Q342 271 330 270Q318 268 306 266Q294 266 289 276L290 284Z"/>
+        <path id="hArm" stroke="none"/>
+        <path id="hLegA" stroke="none"/><path id="hLegB" stroke="none"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-copy">
+    <h1 id="word" aria-label="Luna"><span>L</span><span>u</span><span>n</span><span>a</span></h1>
+    <p class="lead">Pilates pe reformer în Negrești-Oaș. Cel mult două persoane la o ședință.</p>
+    <a class="btn cta" href="https://wa.me/40746369735"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a11.5 11.5 0 0 1-4.6-4c-.4-.6-1.1-1.7-1.1-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7a8.4 8.4 0 0 0 4 3.5c.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.4.1.1.1.7-.1 1.2z"/></svg>Scrie-ne pe WhatsApp</a>
+    <span class="trial">Prima ședință de probă: 70 lei</span>
+    <a class="phases" id="phases" href="#abonamente" aria-label="Vezi abonamentele"></a>
+    <a class="phases-l" href="#abonamente">Abonamente de la 58,6 lei ședința</a>
+  </div>
+</header>
+
+<section class="story" id="story" aria-label="Cum arată o ședință">
+  <div class="pin">
+    <div class="lines">
+      <p class="line on"><b>50 de minute.</b><span>Atât durează o ședință pe reformerul cu turn. Fără grabă, fără sală plină.</span></p>
+      <p class="line"><b>Doar tu și încă una.</b><span>Grupele au cel mult două persoane, așa că instructoarea te vede tot timpul și te corectează pe loc.</span></p>
+      <p class="line"><b>Forță, fără impact.</b><span>Arcurile reformerului lucrează cu tine. Tonifiere, elasticitate și o postură mai bună, bună și pentru durerile de spate.</span></p>
+    </div>
+    <svg id="reformer" viewBox="40 0 700 330" aria-hidden="true">
+      <!-- a small moon crosses the sky while you scroll -->
+      <path id="smoon" fill="#b8925a" opacity=".85"/>
+      <circle id="smoonring" r="16" fill="none" stroke="#b8925a" stroke-width="1" opacity=".35"/>
+      <!-- tower -->
+      <path class="st draw" pathLength="1" d="M640 70V250M700 70V250M640 70H700"/>
+      <path class="gd draw" pathLength="1" d="M650 95H690"/>
+      <!-- frame on legs -->
+      <path class="st draw" pathLength="1" d="M60 250H720M60 268H720M80 268V300M700 268V300M380 268V300"/>
+      <!-- foot bar -->
+      <path class="st draw" pathLength="1" d="M96 250V150M96 150H124M124 150V250"/>
+      <ellipse id="shade" cx="0" cy="250" rx="130" ry="5" fill="#3a2e25" opacity=".08"/>
+      <!-- springs, carriage, shoulder blocks and head rest: moved by script -->
+      <path class="gd" id="springs"/>
+      <g id="carriage">
+        <rect class="pad draw" pathLength="1" x="0" y="214" width="250" height="30" rx="8"/>
+        <path class="st draw" pathLength="1" d="M178 214V196h20v18M206 214V196h20v18"/>
+        <rect class="pad draw" pathLength="1" x="226" y="200" width="56" height="14" rx="6"/>
+      </g>
+      <!-- the woman on the reformer: one gold line, legs solved from hips to the foot bar -->
+      <g id="body" fill="#b8925a" stroke="#b8925a" stroke-linecap="round" stroke-linejoin="round">
+        <circle id="head" r="12" stroke="none"/><circle id="bun" r="6" stroke="none"/>
+        <path id="torso" stroke="none"/>
+        <path id="arm" stroke="none"/>
+        <path id="legS" stroke="none"/>
+      </g>
+      <path class="st" id="strap"/>
+      <text id="cue" x="390" y="324" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="22" fill="#6f6052"></text>
+    </svg>
+  </div>
+</section>
+
+<section class="plans" id="abonamente">
+  <div class="wrap">
+    <h2>Abonamente</h2>
+    <p class="sub">Cu cât vii mai des, cu atât luna se umple și ședința iese mai ieftin.</p>
+    <div class="phase">
+      <svg id="pmoon" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="90" fill="none" stroke="#b8925a" stroke-width="1.4" opacity=".5"/><path id="pphase" fill="#b8925a"/></svg>
+      <p class="total serif" id="total" aria-live="polite">520 <small>lei</small></p>
+      <p class="per" id="per">8 ședințe, 65 lei ședința</p>
+      <span class="pop" id="pop">Cel mai ales</span>
+    </div>
+    <div class="picker" id="picker" role="group" aria-label="Alege numărul de ședințe"></div>
+    <p class="valid">Abonamentele sunt valabile 30 de zile.</p>
+  </div>
+</section>
+
+<section class="special">
+  <div class="wrap">
+    <h2>Ședințe speciale</h2>
+    <div class="sp">
+      <article><h3>Pilates pentru gravide</h3><p class="pr">90 <small>lei / ședință</small></p><p>Antrenament adaptat fiecărui trimestru, pentru o sarcină sănătoasă și o recuperare mai ușoară.</p></article>
+      <article><h3>Pilates pentru adolescente, 14–18 ani</h3><p class="pr">85 <small>lei / ședință</small></p><p>Corectarea posturii, tonifiere, mobilitate și încredere în sine.</p></article>
+      <article><h3>Ședință privată</h3><p class="pr">150 <small>lei / ședință</small></p><p>Antrenament unu la unu, cu program făcut după obiectivele tale.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="info">
+  <div class="wrap">
+    <h2>Prima dată la Luna</h2>
+    <div class="first"><p>Prima ședință de probă</p><b>70 lei</b><a class="btn" href="https://wa.me/40746369735">Programează ședința de probă</a></div>
+    <div class="rules">
+      <p>Abonamentele sunt valabile 30 de zile.</p>
+      <p>O ședință se anulează sau se mută cu cel puțin 4 ore înainte.</p>
+      <p>Ședințele pierdute se recuperează, în funcție de locurile libere.</p>
+    </div>
+    <div class="where">
+      <h3>Unde ne găsești?</h3>
+      <address>Str. Garoafelor nr. 1/A, Negrești-Oaș</address>
+      <div class="acts">
+        <a class="btn dark" href="tel:+40746369735">Sună: 0746 369 735</a>
+        <a class="btn line" href="https://www.google.com/maps/search/?api=1&query=Str.+Garoafelor+1A+Negre%C8%99ti-Oa%C8%99">Deschide harta</a>
+        <a class="btn line" href="https://www.instagram.com/luna.studio_reformer/">Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>Luna Studio, Negrești-Oaș. Demo de site realizat de RTWEB, rtweb.ro</footer>
+
+<script>
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (id) => document.getElementById(id);
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const eio = (x) => (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+
+// lit part of a waxing moon, f = 0 (new) .. 1 (full); lit side on the right
+function moon(f, r = 90, c = 100) {
+  f = cl(f, 0.0001, 1);
+  const k = Math.abs(1 - 2 * f) * r;
+  const sweep = f < .5 ? 0 : 1;
+  return `M${c} ${c - r}A${r} ${r} 0 0 1 ${c} ${c + r}A${k} ${r} 0 0 ${sweep} ${c} ${c - r}Z`;
+}
+
+// two-bone leg: hip -> knee -> foot, knee bends upwards
+function knee(hx, hy, fx, fy, a = 118, b = 118) {
+  const dx = fx - hx, dy = fy - hy, d = Math.min(Math.hypot(dx, dy), a + b - .01);
+  const ang = Math.atan2(dy, dx), k = Math.acos((a * a + d * d - b * b) / (2 * a * d));
+  return [hx + a * Math.cos(ang + k), hy + a * Math.sin(ang + k)];
+}
+
+// a limb as a filled shape: from A (radius ra) to B (radius rb), widest (rm) at "at" along the way
+function limb(A, B, ra, rb, rm = Math.max(ra, rb), at = .35) {
+  const dx = B[0] - A[0], dy = B[1] - A[1], L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
+  const M = [A[0] + dx * at, A[1] + dy * at];
+  const P = (q, k) => `${(q[0] + nx * k).toFixed(1)} ${(q[1] + ny * k).toFixed(1)}`;
+  const c = (k) => `${(M[0] + nx * k * 1.15).toFixed(1)} ${(M[1] + ny * k * 1.15).toFixed(1)}`;
+  return `M${P(A, ra)}Q${c(rm)} ${P(B, rb)}L${P(B, -rb)}Q${c(-rm)} ${P(A, -ra)}Z` +
+    `M${(A[0] + ra).toFixed(1)} ${A[1].toFixed(1)}a${ra} ${ra} 0 1 0 ${(-2 * ra).toFixed(1)} 0a${ra} ${ra} 0 1 0 ${(2 * ra).toFixed(1)} 0Z` +
+    `M${(B[0] + rb).toFixed(1)} ${B[1].toFixed(1)}a${rb} ${rb} 0 1 0 ${(-2 * rb).toFixed(1)} 0a${rb} ${rb} 0 1 0 ${(2 * rb).toFixed(1)} 0Z`;
+}
+// a whole leg: thigh, calf with its curve, pointed foot
+function legPath(H, K, Ank, toe, s = 1) {
+  return limb(H, K, 12 * s, 7.5 * s, 12.5 * s, .2) + limb(K, Ank, 7.5 * s, 3.6 * s, 8.6 * s, .32) + limb(Ank, toe, 3.6 * s, 1.6 * s, 3.8 * s, .4);
+}
+
+// a few stars, the same every time
+(() => { let s = 11, h = ""; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 70; i++) h += `<i style="left:${(rnd() * 100).toFixed(1)}%;top:${(rnd() * 70).toFixed(1)}%;opacity:${(.2 + rnd() * .6).toFixed(2)}"></i>`;
+  $("stars").innerHTML = h; })();
+
+// hero: the moon rises behind her and fills up, the word comes in, the phases light one by one; her raised leg circles slowly
+(() => {
+  const p = $("bigphase"), rise = $("rise"), cr = $("craters"), word = $("word"), ph = $("phases");
+  ph.innerHTML = [1, 4, 6, 8, 10, 12, 14].map((n) => `<svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="88" fill="none" stroke="#b8925a" stroke-width="10" opacity=".55"/><path fill="#b8925a" d="${moon(n / 14, 88)}"/></svg>`).join("");
+  [...ph.children].forEach((c, i) => (c.style.transitionDelay = 1.5 + i * .12 + "s"));
+  // one foot on the bar, the other leg straight up, toes drawing a slow circle (pilates "leg circles")
+  const hip = [298, 274];
+  $("hArm").setAttribute("d", limb([392, 270], [340, 279], 5, 3.5, 5.5, .3) + limb([340, 279], [322, 281], 3.5, 2.6));
+  { const ank = [164, 232], kn = knee(hip[0], hip[1], ank[0], ank[1], 86, 84); $("hLegA").setAttribute("d", legPath(hip, kn, ank, [156, 218])); }
+  const leg = (t) => { const a = -1.6 + .13 * Math.sin(t * 1.2);
+    const kn = [hip[0] + 84 * Math.cos(a), hip[1] + 84 * Math.sin(a)];
+    const b = a + .05 * Math.cos(t * 1.2), ank = [kn[0] + 80 * Math.cos(b), kn[1] + 80 * Math.sin(b)];
+    $("hLegB").setAttribute("d", legPath(hip, kn, ank, [ank[0] + 16 * Math.cos(b - .5), ank[1] + 16 * Math.sin(b - .5)])); };
+  if (reduce) { p.setAttribute("d", moon(.96)); cr.setAttribute("opacity", 1); word.classList.add("on"); ph.classList.add("on"); leg(0); return; }
+  const t0 = performance.now();
+  requestAnimationFrame(() => { word.classList.add("on"); ph.classList.add("on"); });
+  [...word.children].forEach((c, i) => (c.style.transitionDelay = .5 + i * .12 + "s"));
+  const step = (n) => {
+    const t = (n - t0) / 1000, u = cl(t / 2.4);
+    p.setAttribute("d", moon(.1 + .86 * eio(u)));
+    rise.setAttribute("transform", `translate(0 ${(1 - eio(cl(t / 2))) * 120})`);
+    cr.setAttribute("opacity", cl((t - 1.4) / 1));
+    $("halo").setAttribute("transform", `scale(${1 + .03 * Math.sin(t * .8)})`);
+    leg(t);
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+})();
+
+// the reformer: as you scroll it draws itself, then she presses three times; the moon crosses the sky
+const story = $("story"), lines = [...story.querySelectorAll(".line")];
+const draws = [...story.querySelectorAll(".draw")];
+draws.forEach((d) => { d.style.strokeDasharray = 1; });
+function springs(x) {
+  const x0 = 124, x1 = x + 2, y = [226, 236], n = 9; let d = "";
+  y.forEach((yy) => { d += `M${x0} ${yy}`; for (let i = 1; i <= n * 2; i++) d += `L${x0 + (x1 - x0) * i / (n * 2)} ${yy + (i % 2 ? -4 : 4)}`; });
+  return d;
+}
+let lastPush = 0;
+function onScroll() {
+  const r = story.getBoundingClientRect(), total = story.offsetHeight - innerHeight;
+  const u = reduce ? .5 : cl(-r.top / total);
+  // the drawing traces itself in the first part of the scroll
+  const dr = reduce ? 1 : eio(cl(u / .16));
+  draws.forEach((d) => { d.style.strokeDashoffset = 1 - dr; });
+  $("body").style.opacity = cl((u - .1) / .08);
+  // three slow presses
+  const w = cl((u - .16) / .84);
+  const push = .5 - .5 * Math.cos(w * Math.PI * 6);
+  const x = 150 + 86 * push;
+  $("carriage").setAttribute("transform", `translate(${x} 0)`);
+  $("springs").setAttribute("d", springs(x)); $("springs").style.opacity = dr;
+  $("shade").setAttribute("cx", x + 125); $("shade").setAttribute("rx", 120 + push * 6);
+  // body: head on the rest, back on the carriage, feet on the foot bar
+  $("head").setAttribute("cx", x + 256); $("head").setAttribute("cy", 196);
+  $("bun").setAttribute("cx", x + 270); $("bun").setAttribute("cy", 190);
+  $("torso").setAttribute("d", `M${x + 246} 214L${x + 245} 203Q${x + 241} 198 ${x + 233} 198Q${x + 225} 194 ${x + 212} 190Q${x + 200} 186 ${x + 191} 191Q${x + 184} 196 ${x + 174} 200Q${x + 160} 205 ${x + 145} 203Q${x + 128} 200 ${x + 114} 198Q${x + 99} 198 ${x + 92} 208L${x + 92} 214Z`);
+  $("arm").setAttribute("d", limb([x + 226, 202], [x + 168, 209], 4.5, 3.2, 5, .3) + limb([x + 168, 209], [x + 150, 211], 3.2, 2.4));
+  const hp = [x + 104, 204], an = [122, 170], kn = knee(hp[0], hp[1], an[0], an[1], 118, 112);
+  $("legS").setAttribute("d", legPath(hp, kn, an, [114, 154], 1));
+  $("strap").setAttribute("d", `M640 120Q${590 - push * 30} ${150 + push * 8} ${x + 282} 204`); $("strap").style.opacity = dr;
+  // breathing cue follows the direction of the movement
+  const dir = push - lastPush; lastPush = push;
+  if (w > 0 && Math.abs(dir) > .0005) $("cue").textContent = dir > 0 ? "Expiră și împinge" : "Inspiră și revino";
+  if (w <= 0) $("cue").textContent = "";
+  // the moon crosses the sky and fills up
+  const mx = 90 + 560 * u, my = 46 - 26 * Math.sin(u * Math.PI);
+  $("smoon").setAttribute("d", moon(.08 + .9 * u, 15, 0)); $("smoon").setAttribute("transform", `translate(${mx} ${my})`);
+  $("smoonring").setAttribute("cx", mx); $("smoonring").setAttribute("cy", my);
+  const k = Math.min(lines.length - 1, Math.floor(u * lines.length));
+  lines.forEach((l, i) => l.classList.toggle("on", i === k));
+}
+addEventListener("scroll", () => requestAnimationFrame(onScroll), { passive: true });
+onScroll();
+
+// memberships: the moon fills with the number of sessions
+const PLANS = [[1, 70], [4, 280], [6, 400], [8, 520], [10, 610], [12, 720], [14, 820]];
+const fmt = (n) => n.toLocaleString("ro-RO", { maximumFractionDigits: 1 });
+let cur = 8, shown = 8 / 14;
+$("picker").innerHTML = PLANS.map(([n]) => `<button type="button" data-n="${n}" aria-pressed="${n === cur}"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="88" fill="none" stroke="#b8925a" stroke-width="8" opacity=".45"/><path fill="#b8925a" d="${moon(n / 14, 88)}"/></svg><b>${n}</b><span>${n === 1 ? "ședință" : "ședințe"}</span></button>`).join("");
+function pick(n) {
+  cur = n; const [, price] = PLANS.find((p) => p[0] === n);
+  $("total").innerHTML = `${fmt(price)} <small>lei</small>`;
+  $("per").textContent = `${n} ${n === 1 ? "ședință" : "ședințe"}, ${fmt(Math.round(price / n * 10) / 10)} lei ședința`;
+  $("pop").classList.toggle("on", n === 8);
+  $("picker").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", +b.dataset.n === n));
+  const from = shown, to = n / 14, t0 = performance.now();
+  const step = (t) => { const u = reduce ? 1 : cl((t - t0) / 600); shown = from + (to - from) * eio(u); $("pphase").setAttribute("d", moon(shown)); if (u < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+$("picker").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) pick(+b.dataset.n); });
+pick(8);
+</script>
+</body>
+</html>
