@@ -5,373 +5,376 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Luna Studio, pilates pe reformer în Negrești-Oaș</title>
-<meta name="description" content="Pilates pe reformer cu turn, în Negrești-Oaș. Cel mult două persoane la o ședință. Prima ședință de probă: 70 lei." />
+<meta name="description" content="Pilates pe reformer în Negrești-Oaș. Cel mult două persoane la o ședință. Prima ședință de probă: 70 lei." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="img5/doi.webp" />
 <style>
-:root {
-  /* taken from their room: charcoal walls, warm tiles, the sun coming through the blinds */
-  --wall: #222124;
-  --wall-2: #2c2a2e;
-  --line: #3b383d;
-  --text: #ece4d8;
-  --muted: #a59b8f;
-  --sun: #e4c38f;
-  --floor: #b9a58b;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-text-size-adjust: 100%; }
-body { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-optical-sizing: auto; font-weight: 350; color: var(--text); background: var(--wall); line-height: 1.55; font-size: 17px; }
-a { color: inherit; }
-img, video, canvas { display: block; max-width: 100%; }
-:focus-visible { outline: 2px solid var(--sun); outline-offset: 3px; }
-.wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 20px; }
-h1, h2, h3 { font-weight: 560; letter-spacing: -.025em; line-height: 1.02; }
+  :root {
+    --wall: #ebeae6;      /* peretele sălii, luminat */
+    --sheet: #f6f5f2;
+    --wood: #dcc8a6;      /* lemnul reformerului */
+    --wood-d: #b89a6c;
+    --ink: #22211f;
+    --ink-2: #4f4c47;
+    --line: #d3d0c9;
+    --ease: cubic-bezier(.2,.7,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--wall); color: var(--ink);
+    font-family: "Schibsted Grotesk", system-ui, sans-serif;
+    font-size: 18px; line-height: 1.55; font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, video { display: block; max-width: 100%; }
+  a { color: inherit; }
+  .wrap { width: min(1160px, 100% - 40px); margin-inline: auto; }
 
-/* plain, straight buttons */
-.bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 58px; padding: 0 20px; border-radius: 3px; background: var(--sun); color: #1d1b1e; font-size: 17px; font-weight: 560; text-decoration: none; transition: background .3s; }
-.bar:hover { background: #ecd0a3; }
-.bar svg { width: 20px; height: 20px; flex: none; }
-.bar.line { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px var(--line); }
-.bar.line:hover { box-shadow: inset 0 0 0 1px var(--muted); }
+  h1, h2 { font-weight: 700; letter-spacing: -.025em; line-height: 1.04; text-wrap: balance; }
+  h1 { font-size: clamp(44px, 5vw, 68px); }
+  h2 { font-size: clamp(34px, 5vw, 58px); }
+  p { max-width: 34em; }
+  .lead { font-size: clamp(19px, 1.7vw, 22px); color: var(--ink-2); }
 
-/* words come in one by one, out of a soft blur (same move as on rtweb.ro) */
-.r .w { display: inline-block; opacity: 0; filter: blur(10px); transform: translateY(.28em); transition: opacity .8s cubic-bezier(.2,.65,.25,1), filter .8s cubic-bezier(.2,.65,.25,1), transform .8s cubic-bezier(.2,.65,.25,1); transition-delay: calc(var(--i) * 42ms + var(--d, 0ms)); }
-.r.in .w { opacity: 1; filter: none; transform: none; }
-.r.soft .w { transition-duration: .6s; transition-delay: calc(var(--i) * 14ms + var(--d, 0ms)); filter: blur(4px); }
+  /* butoane: dreptunghi, text normal, fără săgeți */
+  .btn {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    min-height: 60px; padding: 0 22px; border-radius: 4px;
+    background: var(--ink); color: var(--sheet);
+    font-family: inherit; font-weight: 600; font-size: 18px; line-height: 1.2; text-decoration: none;
+    transition: background .2s;
+  }
+  .btn:hover { background: #3a3835; }
+  .btn svg { width: 22px; height: 22px; flex: none; }
+  .btn.wood { background: var(--wood); color: var(--ink); }
+  .btn.wood:hover { background: #d2bb95; }
+  .btn:focus-visible, .row:focus-visible { outline: 3px solid var(--wood-d); outline-offset: 3px; }
 
-/* ---------- top ---------- */
-.top { position: absolute; z-index: 10; left: 0; right: 0; top: 0; }
-.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-.logo { display: flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 560; font-size: 18px; letter-spacing: -.01em; }
-.logo svg { width: 36px; height: 36px; }
-.top a.tel { font-size: 15px; text-decoration: none; color: var(--text); opacity: .85; }
+  /* sus */
+  .top { position: absolute; inset: 0 0 auto; z-index: 5; }
+  .top .wrap { display: flex; justify-content: space-between; align-items: center; height: 72px; }
+  .brand { font-weight: 800; font-size: 21px; letter-spacing: -.02em; text-decoration: none; }
+  .top .tel { font-weight: 600; font-size: 17px; text-decoration: none; }
 
-/* ---------- hero: their own photo, the two of them ---------- */
-.hero { position: relative; }
-.hero .ph { position: relative; height: 78svh; min-height: 480px; overflow: hidden; }
-.hero .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transform: scale(1.06); transition: transform 2.6s cubic-bezier(.2,.7,.2,1); }
-.hero.in .ph img { transform: none; }
-.hero .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(34,33,36,.55) 0%, rgba(34,33,36,0) 20%, rgba(34,33,36,0) 55%, var(--wall) 100%); }
-.hero .copy { position: relative; margin-top: -120px; padding-bottom: 56px; }
-.hero h1 { font-size: clamp(44px, 12.4vw, 104px); max-width: 12ch; }
-.hero .lead { margin-top: 18px; max-width: 40ch; color: var(--muted); font-size: 18px; }
-.hero .acts { margin-top: 28px; display: grid; gap: 10px; max-width: 420px; }
-.hero .trial { font-size: 15px; color: var(--muted); padding-left: 2px; }
-.hero .trial b { color: var(--text); font-weight: 560; }
+  /* hero */
+  .hero { padding: 72px 0 0; }
+  .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; min-height: calc(100svh - 72px); padding: 24px 0 72px; }
+  .hero figure { position: relative; overflow: hidden; border-radius: 3px; aspect-ratio: 1 / 1; background: #cfccc6; }
+  .hero figure img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 1.8s var(--ease); }
+  .ready .hero figure img { transform: none; }
+  .hero figcaption { position: absolute; left: 14px; bottom: 12px; font-size: 15px; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
+  .hero .txt { padding-bottom: 6px; }
+  .hero h1 { margin-bottom: 26px; }
+  .hero .lead { margin-bottom: 32px; }
+  .hero .btn { max-width: 420px; }
+  .hero .probe { margin-top: 16px; font-size: 17px; color: var(--ink-2); }
+  .hero .probe b { color: var(--ink); font-weight: 700; }
 
-/* ---------- her words, from Instagram ---------- */
-.quote { padding: 70px 0 90px; border-top: 1px solid var(--line); }
-.quote blockquote { font-size: clamp(28px, 7.4vw, 50px); font-weight: 420; letter-spacing: -.02em; line-height: 1.14; max-width: 24ch; }
-.quote cite { display: block; margin-top: 22px; font-style: normal; font-size: 15px; color: var(--muted); }
+  /* titlurile intră cuvânt cu cuvânt, ca pe rtweb.ro */
+  .r .w { display: inline-block; opacity: 0; filter: blur(8px); transform: translateY(.32em);
+    transition: opacity .9s var(--ease), filter .9s var(--ease), transform .9s var(--ease);
+    transition-delay: calc(var(--i) * 55ms); }
+  .r.in .w { opacity: 1; filter: none; transform: none; }
+  .fade { opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease) .25s, transform .8s var(--ease) .25s; }
+  .fade.in { opacity: 1; transform: none; }
 
-/* ---------- the session, scrubbed by scroll ---------- */
-.reel { position: relative; height: 340vh; }
-.reel .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; }
-.reel canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.reel .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(34,33,36,.35) 0%, rgba(34,33,36,0) 30%, rgba(34,33,36,0) 50%, rgba(34,33,36,.92) 100%); }
-.reel .lines { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 20px 64px; max-width: 1120px; margin: 0 auto; }
-.reel .ln { position: absolute; left: 20px; right: 20px; bottom: 64px; }
-.reel .ln h2 { font-size: clamp(46px, 13vw, 110px); }
-.reel .ln p { margin-top: 12px; max-width: 34ch; color: #d4cabd; font-size: 18px; }
-.reel .count { position: absolute; right: 20px; top: 84px; font-size: 14px; color: #d4cabd; font-variant-numeric: tabular-nums; }
+  section { padding: 104px 0; }
+  .sheet { background: var(--sheet); }
 
-/* ---------- what you get ---------- */
-.get { padding: 96px 0 80px; }
-.get .grid { display: grid; gap: 40px; }
-.get h2 { font-size: clamp(38px, 9.6vw, 72px); max-width: 12ch; }
-.get ul { list-style: none; margin-top: 28px; border-top: 1px solid var(--line); }
-.get li { padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 19px; font-weight: 450; }
-.get li span { display: block; margin-top: 2px; font-size: 16px; font-weight: 350; color: var(--muted); }
-.get figure { position: relative; aspect-ratio: 9 / 14; max-height: 640px; border-radius: 3px; overflow: hidden; background: #000; }
-.get figure video { width: 100%; height: 100%; object-fit: cover; }
-.get figcaption { position: absolute; left: 14px; bottom: 12px; font-size: 14px; color: #e6ddd0; }
+  /* vocea ei */
+  .voice blockquote { font-size: clamp(26px, 3.4vw, 40px); font-weight: 500; line-height: 1.25; letter-spacing: -.015em; max-width: 26em; }
+  .voice cite { display: block; margin-top: 22px; font-style: normal; font-size: 17px; color: var(--ink-2); }
 
-/* ---------- memberships: a moon in their dark room ---------- */
-.plans { padding: 96px 0 90px; background: var(--wall-2); }
-.plans .head { display: grid; gap: 14px; }
-.plans h2 { font-size: clamp(38px, 9.6vw, 72px); }
-.plans .head p { color: var(--muted); max-width: 38ch; }
-.plans .stage { display: grid; gap: 30px; margin-top: 44px; align-items: center; }
-.moonbox { width: min(78vw, 360px); margin: 0 auto; }
-#moon { width: 100%; height: auto; overflow: visible; }
-.read .tot { font-size: clamp(64px, 18vw, 120px); font-weight: 560; letter-spacing: -.04em; line-height: .95; font-variant-numeric: tabular-nums; }
-.read .tot small { font-size: .32em; letter-spacing: 0; font-weight: 450; }
-.read .per { margin-top: 10px; color: var(--muted); font-size: 18px; }
-.read .pop { margin-top: 8px; font-size: 15px; color: var(--sun); min-height: 1.5em; }
-.pick { margin-top: 26px; display: grid; grid-template-columns: repeat(7, 1fr); border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
-.pick button { border: 0; border-right: 1px solid var(--line); background: none; color: var(--muted); font: inherit; font-size: 18px; font-weight: 500; padding: 14px 0 12px; cursor: pointer; }
-.pick button:last-child { border-right: 0; }
-.pick button small { display: block; font-size: 11px; font-weight: 350; margin-top: 1px; }
-.pick button[aria-pressed="true"] { background: var(--sun); color: #1d1b1e; }
-.pick button[aria-pressed="true"] small { color: #3a3438; }
-.valid { margin-top: 14px; font-size: 14px; color: var(--muted); }
+  /* ședința */
+  .session .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .session video { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 3px; background: #cfccc6; }
+  .session h2 { margin-bottom: 22px; }
+  .facts { list-style: none; margin-top: 36px; border-top: 1px solid var(--line); }
+  .facts li { padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .facts b { display: block; font-size: 24px; font-weight: 700; letter-spacing: -.01em; margin-bottom: 2px; }
+  .facts span { color: var(--ink-2); }
 
-/* ---------- special sessions ---------- */
-.spec { padding: 96px 0 70px; }
-.spec h2 { font-size: clamp(38px, 9.6vw, 72px); }
-.spec .list { margin-top: 30px; border-top: 1px solid var(--line); }
-.spec article { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; padding: 24px 0; border-bottom: 1px solid var(--line); }
-.spec h3 { font-size: 24px; font-weight: 520; letter-spacing: -.015em; }
-.spec .pr { font-size: 24px; font-weight: 560; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.spec .pr small { font-size: 14px; font-weight: 350; color: var(--muted); }
-.spec p { grid-column: 1 / -1; color: var(--muted); max-width: 52ch; }
+  /* abonamente: luna crește odată cu numărul de ședințe */
+  .plans .head { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 48px; }
+  .list { border-top: 1px solid var(--ink); }
+  .row {
+    width: 100%; display: grid; grid-template-columns: 56px 1fr auto; gap: 18px; align-items: center;
+    padding: 18px 8px; border: 0; border-bottom: 1px solid var(--line); background: none; color: inherit;
+    font: inherit; text-align: left; cursor: pointer; transition: background .25s;
+  }
+  .row:hover { background: rgba(220,200,166,.25); }
+  .row[aria-pressed="true"] { background: var(--wood); border-bottom-color: var(--wood); }
+  .moon { width: 44px; height: 44px; }
+  .moon .dark { fill: #dcd8d0; stroke: #bfb9ae; stroke-width: 1.2; }
+  .moon .lit { fill: #a8824a; }
+  .row[aria-pressed="true"] .moon .dark { fill: #e8d9bd; stroke: #b39565; }
+  .row[aria-pressed="true"] .moon .lit { fill: #6f5128; }
+  .n { font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+  .n small { display: block; font-size: 16px; font-weight: 400; color: var(--ink-2); letter-spacing: 0; }
+  .row[aria-pressed="true"] .n small { color: #3d3a35; }
+  .p { font-size: 26px; font-weight: 700; letter-spacing: -.02em; text-align: right; white-space: nowrap; }
+  .p span { font-size: 17px; font-weight: 500; }
+  .pick { margin-top: 28px; display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
+  .pick p { font-size: 17px; color: var(--ink-2); }
+  .pick .btn { min-width: 340px; }
 
-/* ---------- first time ---------- */
-.first { padding: 40px 0 90px; }
-.first .card { border: 1px solid var(--line); border-radius: 3px; padding: 30px 22px; display: grid; gap: 22px; }
-.first h2 { font-size: clamp(34px, 8.6vw, 60px); max-width: 14ch; }
-.first .price { font-size: clamp(60px, 16vw, 104px); font-weight: 560; letter-spacing: -.04em; line-height: .95; color: var(--sun); }
-.first .price small { font-size: .3em; letter-spacing: 0; color: var(--muted); font-weight: 400; }
-.first p { color: var(--muted); max-width: 44ch; }
-.rules { list-style: none; display: grid; gap: 10px; margin-top: 6px; font-size: 16px; color: var(--muted); }
-.rules li { padding-left: 20px; position: relative; }
-.rules li::before { content: ""; position: absolute; left: 0; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--sun); opacity: .8; }
+  /* ședințe speciale */
+  .special .grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 44px; border-top: 1px solid var(--ink); }
+  .special article { padding: 26px 28px 26px 0; }
+  .special article + article { border-left: 1px solid var(--line); padding-left: 28px; }
+  .special h3 { font-size: 23px; font-weight: 700; letter-spacing: -.01em; margin-bottom: 8px; }
+  .special .price { font-size: 34px; font-weight: 700; letter-spacing: -.02em; margin: 18px 0 2px; }
+  .special .price span { font-size: 18px; font-weight: 500; }
+  .special p { color: var(--ink-2); }
 
-/* ---------- where ---------- */
-.where { padding: 80px 0 120px; border-top: 1px solid var(--line); }
-.where h2 { font-size: clamp(38px, 9.6vw, 72px); }
-.where address { font-style: normal; margin-top: 16px; font-size: 20px; }
-.where .acts { display: grid; gap: 10px; margin-top: 26px; max-width: 420px; }
-footer { padding: 0 20px 110px; font-size: 13px; color: #776e66; max-width: 1120px; margin: 0 auto; }
+  /* prima dată */
+  .first .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+  .first .big { font-size: clamp(64px, 9vw, 120px); font-weight: 800; letter-spacing: -.04em; line-height: 1; margin: 26px 0 8px; }
+  .first .big span { font-size: .3em; font-weight: 600; letter-spacing: -.01em; }
+  .first .btn { max-width: 420px; margin-top: 28px; }
+  .rules { list-style: none; border-top: 1px solid var(--ink); align-self: start; margin-top: 8px; }
+  .rules li { padding: 22px 0; border-bottom: 1px solid var(--line); font-size: 19px; }
+  .rules b { font-weight: 700; }
 
-/* the phone keeps WhatsApp one tap away */
-.dock { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 30; transform: translateY(140%); transition: transform .5s cubic-bezier(.2,.7,.2,1); }
-.dock.on { transform: none; }
-.dock .bar { box-shadow: 0 12px 30px rgba(0,0,0,.45); }
+  /* unde */
+  .where .wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; }
+  .addr { font-size: clamp(24px, 2.6vw, 30px); font-weight: 600; letter-spacing: -.015em; line-height: 1.3; margin: 22px 0 30px; }
+  .where .btns { display: grid; gap: 12px; max-width: 420px; }
+  .where iframe { width: 100%; aspect-ratio: 5 / 4; border: 0; border-radius: 3px; filter: grayscale(.85) contrast(.95); background: #d9d6cf; }
 
-@media (min-width: 860px) {
-  .wrap { padding: 0 40px; }
-  .hero .ph { position: absolute; inset: 0; height: auto; }
-  .hero { min-height: 100svh; display: grid; align-items: end; }
-  .hero .ph img { object-position: 50% 40%; }
-  .hero .ph::after { background: linear-gradient(90deg, rgba(34,33,36,.92) 0%, rgba(34,33,36,.55) 38%, rgba(34,33,36,0) 64%), linear-gradient(180deg, rgba(34,33,36,.5) 0%, rgba(34,33,36,0) 18%); }
-  .hero .copy { margin-top: 0; padding-bottom: 90px; }
-  .get .grid { grid-template-columns: 1.1fr .9fr; gap: 80px; align-items: center; }
-  .plans .stage { grid-template-columns: 1fr 1fr; gap: 60px; }
-  .first .card { grid-template-columns: 1fr 1fr; padding: 48px; align-items: center; }
-  .reel .ln, .reel .count { left: 40px; right: 40px; }
-  .reel .count { left: auto; }
+  footer { padding: 40px 0 110px; font-size: 16px; color: var(--ink-2); border-top: 1px solid var(--line); }
+  footer a { font-weight: 600; color: var(--ink); }
+
   .dock { display: none; }
-  footer { padding: 0 40px 40px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .r .w { opacity: 1 !important; filter: none !important; transform: none !important; transition: none !important; }
-  .hero .ph img { transform: none; transition: none; }
-}
+
+  @media (max-width: 860px) {
+    .wrap { width: calc(100% - 32px); }
+    .top .wrap { height: 64px; }
+    .hero { padding-top: 64px; }
+    .hero .wrap { grid-template-columns: 1fr; gap: 28px; min-height: 0; padding: 0 0 64px; }
+    .hero figure { margin-inline: -16px; border-radius: 0; }
+    .hero h1 { font-size: 46px; margin-bottom: 18px; }
+    section { padding: 72px 0; }
+    .session .wrap, .plans .head, .first .wrap, .where .wrap { grid-template-columns: 1fr; gap: 32px; }
+    .session video { margin-inline: -16px; width: calc(100% + 32px); max-width: none; border-radius: 0; }
+    .plans .head { margin-bottom: 28px; gap: 16px; }
+    .row { grid-template-columns: 44px 1fr auto; gap: 14px; padding: 16px 4px; }
+    .moon { width: 38px; height: 38px; }
+    .n { font-size: 20px; }
+    .p { font-size: 23px; }
+    .pick { grid-template-columns: 1fr; }
+    .pick .btn { min-width: 0; }
+    .special .grid { grid-template-columns: 1fr; }
+    .special article, .special article + article { padding: 24px 0; border-left: 0; border-bottom: 1px solid var(--line); }
+    .dock { display: grid; grid-template-columns: 1fr auto; gap: 8px; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 10;
+      transform: translateY(140%); transition: transform .4s var(--ease); }
+    .dock.on { transform: none; }
+    .dock .btn { min-height: 56px; box-shadow: 0 6px 24px rgba(34,33,31,.22); }
+    .dock .btn.wood { padding: 0 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .r .w, .fade { opacity: 1; filter: none; transform: none; transition: none; }
+    .hero figure img { transform: none; transition: none; }
+  }
 </style>
 </head>
 <body>
+
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#" aria-label="Luna Studio">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="#2c2a2e" stroke="#e4c38f" stroke-width=".8"/><path d="M28 10a14 14 0 1 0 0 28a12 12 0 1 1 0-28z" fill="#e4c38f"/><path d="M21 16v15h8" fill="none" stroke="#ece4d8" stroke-width="1.4"/></svg>
-      Luna Studio
-    </a>
+    <a class="brand" href="#">Luna Studio</a>
     <a class="tel" href="tel:+40746369735">0746 369 735</a>
   </div>
 </header>
 
-<section class="hero" id="hero">
-  <div class="ph"><img src="img/doi.webp" alt="Două femei pe reformerul cu turn de la Luna Studio, față în față, cu mâinile prinse deasupra" width="1352" height="1345" fetchpriority="high" /></div>
-  <div class="copy wrap">
-    <h1 class="r">Două reformere. Cel mult două persoane.</h1>
-    <p class="lead r soft" style="--d:350ms">Pilates pe reformer cu turn, în Negrești-Oaș. Fiecare ședință durează 50 de minute și o faci cu cineva care te urmărește tot timpul.</p>
-    <div class="acts">
-      <a class="bar" href="https://wa.me/40746369735"><span>Scrie-mi pe WhatsApp</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a11.5 11.5 0 0 1-4.6-4c-.4-.6-1.1-1.7-1.1-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7a8.4 8.4 0 0 0 4 3.5c.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.4.1.1.1.7-.1 1.2z"/></svg></a>
-      <span class="trial">Prima ședință de probă: <b>70 lei</b></span>
-    </div>
-  </div>
-</section>
-
-<section class="quote">
-  <div class="wrap">
-    <blockquote class="r">„Încă de la început mi-am dorit ca Pilates Reformer să nu fie doar un serviciu premium, ci o investiție accesibilă în sănătate.”</blockquote>
-    <cite>Luna Studio, pe Instagram</cite>
-  </div>
-</section>
-
-<section class="reel" id="reel" aria-label="O ședință la Luna">
-  <div class="pin">
-    <canvas id="cv" aria-hidden="true"></canvas>
-    <div class="shade"></div>
-    <p class="count" id="count">minutul 1 din 50</p>
-    <div class="ln" data-k="0"><h2 class="r">50 de minute.</h2><p class="r soft" style="--d:250ms">Atât durează o ședință pe reformer. Fără grabă și fără sală plină.</p></div>
-    <div class="ln" data-k="1"><h2 class="r">Doar tu și încă una.</h2><p class="r soft" style="--d:250ms">Grupele au cel mult două persoane, așa că fiecare mișcare e urmărită și corectată pe loc.</p></div>
-    <div class="ln" data-k="2"><h2 class="r">Forță, fără impact.</h2><p class="r soft" style="--d:250ms">Tonifiere, elasticitate și o postură mai bună, bune și pentru durerile de spate.</p></div>
-  </div>
-</section>
-
-<section class="get">
-  <div class="wrap grid">
-    <div>
-      <h2 class="r">Ce găsești la Luna</h2>
-      <ul>
-        <li>Grupe de maximum 2 persoane<span>Nimeni nu se pierde în mulțime.</span></li>
-        <li>Atenție și îndrumare permanentă<span>Te corectez pe loc, de la prima ședință.</span></li>
-        <li>Clase pentru gravide și adolescente<span>Antrenamente gândite pentru fiecare etapă.</span></li>
-        <li>Un spațiu liniștit<span>Fiecare antrenament e adaptat nevoilor tale.</span></li>
-        <li>Potrivit la orice vârstă și nivel<span>Pornești de unde ești acum.</span></li>
-      </ul>
-    </div>
-    <figure>
-      <video src="img/turn.mp4" poster="img/turn-poster.jpg" muted loop playsinline autoplay preload="metadata"></video>
-      <figcaption>Pe turnul reformerului, la Luna</figcaption>
-    </figure>
-  </div>
-</section>
-
-<section class="plans" id="abonamente">
-  <div class="wrap">
-    <div class="head"><h2 class="r">Abonamente</h2><p>Cu cât vii mai des, cu atât luna se umple, iar ședința iese mai ieftin.</p></div>
-    <div class="stage">
-      <div class="moonbox">
-        <svg id="moon" viewBox="0 0 300 300" aria-hidden="true">
-          <defs>
-            <radialGradient id="lit" cx="40%" cy="36%" r="72%"><stop offset="0" stop-color="#fbf3e2"/><stop offset=".6" stop-color="#eadbc0"/><stop offset="1" stop-color="#bfa881"/></radialGradient>
-            <radialGradient id="dark" cx="44%" cy="40%" r="72%"><stop offset="0" stop-color="#3a373c"/><stop offset="1" stop-color="#29272b"/></radialGradient>
-            <filter id="surface" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".022" numOctaves="4" seed="7"/><feColorMatrix values="0 0 0 0 .5  0 0 0 0 .42  0 0 0 0 .3  0 0 0 -1.6 1.25"/></filter>
-            <filter id="fine" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="2"/><feColorMatrix values="0 0 0 0 .45  0 0 0 0 .38  0 0 0 0 .28  0 0 0 -1.4 .9"/></filter>
-            <clipPath id="disc"><circle cx="150" cy="150" r="130"/></clipPath>
-            <clipPath id="litclip"><path id="litpath"/></clipPath>
-            <radialGradient id="glow"><stop offset=".55" stop-color="#e4c38f" stop-opacity=".22"/><stop offset="1" stop-color="#e4c38f" stop-opacity="0"/></radialGradient>
-          </defs>
-          <circle cx="150" cy="150" r="150" fill="url(#glow)" id="halo"/>
-          <g clip-path="url(#disc)">
-            <circle cx="150" cy="150" r="130" fill="url(#dark)"/>
-            <rect width="300" height="300" filter="url(#surface)" opacity=".18"/>
-            <g clip-path="url(#litclip)">
-              <circle cx="150" cy="150" r="130" fill="url(#lit)"/>
-              <rect width="300" height="300" filter="url(#surface)" opacity=".55"/>
-              <rect width="300" height="300" filter="url(#fine)" opacity=".35"/>
-              <g fill="#a99068" opacity=".38"><circle cx="196" cy="112" r="13"/><circle cx="214" cy="178" r="8"/><circle cx="168" cy="206" r="18"/><circle cx="120" cy="96" r="7"/><circle cx="96" cy="170" r="11"/></g>
-            </g>
-          </g>
-        </svg>
-      </div>
-      <div class="read" aria-live="polite">
-        <p class="tot" id="tot">520 <small>lei</small></p>
-        <p class="per" id="per">8 ședințe, 65 lei ședința</p>
-        <p class="pop" id="pop">Cel mai ales</p>
-        <div class="pick" id="pick" role="group" aria-label="Alege numărul de ședințe"></div>
-        <p class="valid">Abonamentele sunt valabile 30 de zile.</p>
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <figure>
+        <img src="img5/doi.webp" alt="Două cursante pe reformerul cu turn de la Luna Studio, cu mâinile unite deasupra unei mingi" width="1100" height="1094" />
+        <figcaption>La noi în sală, pe Garoafelor</figcaption>
+      </figure>
+      <div class="txt">
+        <h1 class="r">Pilates pe reformer, cel mult doi oameni o dată.</h1>
+        <p class="lead fade">Am două reformere în sală. La fiecare ședință lucrezi singură sau cu încă o persoană, 50 de minute, iar eu sunt lângă tine tot timpul.</p>
+        <a class="btn fade" href="https://wa.me/40746369735?text=Bun%C4%83%2C%20a%C8%99%20vrea%20s%C4%83%20vin%20la%20o%20%C8%99edin%C8%9B%C4%83%20de%20prob%C4%83."><span>Scrie-mi pe WhatsApp</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a11.5 11.5 0 0 1-4.6-4c-.4-.6-1.1-1.7-1.1-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7a8.4 8.4 0 0 0 4 3.5c.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.4.1.1.1.7-.1 1.2z"/></svg></a>
+        <p class="probe fade">Prima ședință e de probă și costă <b>70 lei</b>.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="spec">
-  <div class="wrap">
-    <h2 class="r">Ședințe speciale</h2>
-    <div class="list">
-      <article><h3>Pilates pentru gravide</h3><p class="pr">90 <small>lei</small></p><p>Antrenament adaptat fiecărui trimestru, pentru o sarcină sănătoasă și o recuperare mai ușoară.</p></article>
-      <article><h3>Pilates pentru adolescente, 14–18 ani</h3><p class="pr">85 <small>lei</small></p><p>Corectarea posturii, tonifiere, mobilitate și încredere în sine.</p></article>
-      <article><h3>Ședință privată</h3><p class="pr">150 <small>lei</small></p><p>Antrenament unu la unu, cu program făcut după obiectivele tale.</p></article>
+  <section class="voice">
+    <div class="wrap">
+      <blockquote class="r">„Încă de la început mi-am dorit ca Pilates Reformer să nu fie doar un serviciu premium, ci o investiție accesibilă în sănătate.”</blockquote>
+      <cite class="fade">Am scris asta pe Instagram când am deschis studioul.</cite>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="first">
-  <div class="wrap">
-    <div class="card">
+  <section class="session sheet">
+    <div class="wrap">
+      <video src="img5/sedinta.mp4" poster="img5/sedinta.webp" muted loop playsinline autoplay preload="metadata" aria-label="O cursantă pe reformer, în sala Luna Studio"></video>
       <div>
-        <h2 class="r">Prima dată pe reformer?</h2>
-        <p style="margin-top:14px">Prima ședință e de probă. Îți arăt cum funcționează reformerul și vedem împreună de unde pornești.</p>
-      </div>
-      <div>
-        <p class="price">70 <small>lei</small></p>
-        <a class="bar" href="https://wa.me/40746369735" style="margin-top:18px"><span>Programează ședința de probă</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a11.5 11.5 0 0 1-4.6-4c-.4-.6-1.1-1.7-1.1-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7a8.4 8.4 0 0 0 4 3.5c.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.4.1.1.1.7-.1 1.2z"/></svg></a>
-        <ul class="rules" style="margin-top:22px">
-          <li>Abonamentele sunt valabile 30 de zile.</li>
-          <li>O ședință se anulează sau se mută cu cel puțin 4 ore înainte.</li>
-          <li>Ședințele pierdute se recuperează, în funcție de locurile libere.</li>
+        <h2 class="r">Cum arată o ședință la mine</h2>
+        <p class="lead fade">Reformerul e un pat cu cărucior și arcuri. Arcurile îți dau rezistență, așa că lucrezi forța fără sărituri și fără să-ți forțezi genunchii.</p>
+        <ul class="facts fade">
+          <li><b>50 de minute</b><span>Încălzire, exerciții pe reformer și pe turn, întinderi la final.</span></li>
+          <li><b>Cel mult două persoane</b><span>Te văd tot timpul și îți corectez poziția din mers.</span></li>
+          <li><b>Pornești de unde ești</b><span>Nu trebuie să fi făcut sport până acum. Ajustez arcurile pentru tine.</span></li>
         </ul>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="where">
-  <div class="wrap">
-    <h2 class="r">Unde ne găsești</h2>
-    <address>Str. Garoafelor nr. 1/A, Negrești-Oaș</address>
-    <div class="acts">
-      <a class="bar" href="tel:+40746369735"><span>Sună: 0746 369 735</span></a>
-      <a class="bar line" href="https://www.google.com/maps/search/?api=1&query=Str.+Garoafelor+1A+Negre%C8%99ti-Oa%C8%99"><span>Deschide harta</span></a>
-      <a class="bar line" href="https://www.instagram.com/luna.studio_reformer/"><span>Instagram</span></a>
+  <section class="plans" id="abonamente">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="r">Abonamente</h2>
+        <p class="lead fade">Cu cât vii mai des, cu atât o ședință te costă mai puțin. Toate abonamentele sunt valabile 30 de zile.</p>
+      </div>
+      <div class="list" id="list"></div>
+      <div class="pick">
+        <p id="pickTxt">Ai ales 8 ședințe, adică 65 lei ședința.</p>
+        <a class="btn" id="pickBtn" href="#"><span>Vreau 8 ședințe</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a11.5 11.5 0 0 1-4.6-4c-.4-.6-1.1-1.7-1.1-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7a8.4 8.4 0 0 0 4 3.5c.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.4.1.1.1.7-.1 1.2z"/></svg></a>
+      </div>
     </div>
-  </div>
-</section>
-<footer>Luna Studio, Negrești-Oaș. Demo de site realizat de RTWEB, rtweb.ro, cu fotografiile și filmările studioului.</footer>
+  </section>
 
-<div class="dock" id="dock"><a class="bar" href="https://wa.me/40746369735"><span>Scrie-mi pe WhatsApp</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a11.5 11.5 0 0 1-4.6-4c-.4-.6-1.1-1.7-1.1-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7a8.4 8.4 0 0 0 4 3.5c.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.4.1.1.1.7-.1 1.2z"/></svg></a></div>
+  <section class="special sheet">
+    <div class="wrap">
+      <h2 class="r">Ședințe pentru momente speciale</h2>
+      <div class="grid fade">
+        <article>
+          <h3>Pentru gravide</h3>
+          <p>Exerciții alese pentru fiecare trimestru, ca să-ți fie mai ușor cu spatele și cu respirația.</p>
+          <div class="price">90 <span>lei ședința</span></div>
+        </article>
+        <article>
+          <h3>Pentru adolescente</h3>
+          <p>Între 14 și 18 ani. Postură, spate drept și forță, fără greutăți.</p>
+          <div class="price">85 <span>lei ședința</span></div>
+        </article>
+        <article>
+          <h3>Ședință privată</h3>
+          <p>Sala e doar a ta, iar ora o stabilim împreună.</p>
+          <div class="price">150 <span>lei ședința</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="first">
+    <div class="wrap">
+      <div>
+        <h2 class="r">Prima dată pe reformer?</h2>
+        <div class="big fade">70 <span>lei</span></div>
+        <p class="lead fade">Atât costă prima ședință. Îți arăt cum funcționează reformerul și vedem împreună de unde pornești.</p>
+        <a class="btn fade" href="https://wa.me/40746369735?text=Bun%C4%83%2C%20a%C8%99%20vrea%20o%20%C8%99edin%C8%9B%C4%83%20de%20prob%C4%83."><span>Programează ședința de probă</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a11.5 11.5 0 0 1-4.6-4c-.4-.6-1.1-1.7-1.1-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7a8.4 8.4 0 0 0 4 3.5c.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.4.1.1.1.7-.1 1.2z"/></svg></a>
+      </div>
+      <ul class="rules fade">
+        <li>Abonamentele sunt valabile <b>30 de zile</b> de la prima ședință.</li>
+        <li>O ședință se anulează sau se mută cu <b>cel puțin 4 ore</b> înainte.</li>
+        <li>Ședințele pierdute le recuperezi în funcție de locurile libere.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="where sheet">
+    <div class="wrap">
+      <div>
+        <h2 class="r">Unde mă găsești</h2>
+        <p class="addr fade">Str. Garoafelor nr. 1/A<br />Negrești-Oaș</p>
+        <div class="btns fade">
+          <a class="btn" href="tel:+40746369735"><span>Sună la 0746 369 735</span></a>
+          <a class="btn wood" href="https://www.instagram.com/luna.studio_reformer/"><span>Vezi studioul pe Instagram</span></a>
+        </div>
+      </div>
+      <iframe class="fade" title="Harta: Str. Garoafelor 1/A, Negrești-Oaș" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=Strada%20Garoafelor%201A%2C%20Negre%C8%99ti-Oa%C8%99&z=16&output=embed"></iframe>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Demo de site făcut de <a href="https://rtweb.ro">RTWEB</a> pentru Luna Studio, cu fotografiile și filmările studioului.</div>
+</footer>
+
+<div class="dock" id="dock">
+  <a class="btn" href="https://wa.me/40746369735"><span>WhatsApp</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a11.5 11.5 0 0 1-4.6-4c-.4-.6-1.1-1.7-1.1-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7a8.4 8.4 0 0 0 4 3.5c.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.4.1.1.1.7-.1 1.2z"/></svg></a>
+  <a class="btn wood" href="tel:+40746369735"><span>Sună</span></a>
+</div>
 
 <script>
-const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const $ = (id) => document.getElementById(id);
-const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
-const eio = (x) => (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+  // abonamentele, din lista de prețuri de pe Instagram
+  const plans = [[1, 70], [4, 280], [6, 400], [8, 520], [10, 610], [12, 720], [14, 820]];
+  const wa = (t) => "https://wa.me/40746369735?text=" + encodeURIComponent(t);
 
-// split every revealed text into words once
-document.querySelectorAll(".r").forEach((el) => {
-  const words = el.textContent.trim().split(/\s+/);
-  el.innerHTML = words.map((w, i) => `<span class="w" style="--i:${i}">${w}</span>`).join(" ");
-});
-const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .3 });
-document.querySelectorAll(".r").forEach((el) => { if (!el.closest(".ln")) io.observe(el); });
-requestAnimationFrame(() => requestAnimationFrame(() => $("hero").classList.add("in")));
+  // faza lunii: f = 0 (lună nouă) … 1 (lună plină); partea luminată crește din dreapta
+  function moonPath(f) {
+    const r = 20, c = 22, k = Math.cos(Math.PI * f), rx = Math.abs(k) * r;
+    const d = f >= 1 ? `M${c},${c - r} A${r},${r} 0 1 1 ${c},${c + r} A${r},${r} 0 1 1 ${c},${c - r}Z`
+      : `M${c},${c - r} A${r},${r} 0 0 1 ${c},${c + r} A${rx},${r} 0 0 ${k > 0 ? 0 : 1} ${c},${c - r}Z`;
+    return d;
+  }
+  const moonSVG = (f) => `<svg class="moon" viewBox="0 0 44 44" aria-hidden="true"><circle class="dark" cx="22" cy="22" r="20"/><path class="lit" d="${moonPath(f)}"/></svg>`;
+  const list = document.getElementById("list");
+  list.innerHTML = plans.map(([n, p]) => {
+    const per = Math.round(p / n), f = n === 1 ? 0.12 : n / 14;
+    const label = n === 1 ? "O ședință" : `${n} ședințe`;
+    const note = n === 1 ? "fără abonament" : n === 8 ? `${per} lei ședința, cel mai ales` : `${per} lei ședința`;
+    return `<button class="row" data-n="${n}" data-f="${f}" aria-pressed="${n === 8}">${moonSVG(f)}<span class="n">${label}<small>${note}</small></span><span class="p">${p} <span>lei</span></span></button>`;
+  }).join("");
+  const pickTxt = document.getElementById("pickTxt"), pickBtn = document.getElementById("pickBtn");
+  function choose(n) {
+    const [, p] = plans.find((x) => x[0] === n);
+    list.querySelectorAll(".row").forEach((b) => b.setAttribute("aria-pressed", +b.dataset.n === n));
+    const label = n === 1 ? "o ședință" : `${n} ședințe`;
+    pickTxt.textContent = n === 1 ? "Ai ales o ședință, 70 lei." : `Ai ales ${label}, adică ${Math.round(p / n)} lei ședința.`;
+    pickBtn.firstElementChild.textContent = n === 1 ? "Vreau o ședință" : `Vreau ${label}`;
+    pickBtn.href = wa(n === 1 ? "Bună, aș vrea să vin la o ședință." : `Bună, aș vrea abonamentul de ${label} (${p} lei).`);
+  }
+  list.addEventListener("click", (e) => { const b = e.target.closest(".row"); if (b) choose(+b.dataset.n); });
+  choose(8);
 
-// the session: their video, played by the scroll; frames load only when the section gets close
-const reel = $("reel"), cv = $("cv"), ctx = cv.getContext("2d"), N = 118, frames = [];
-let loaded = false, last = -1;
-function load() {
-  if (loaded) return; loaded = true;
-  for (let i = 0; i < N; i++) { const im = new Image(); im.decoding = "async"; im.src = `img/scrub/f${String(i + 1).padStart(3, "0")}.webp`; im.onload = () => { if (i === Math.max(0, last)) draw(i); }; frames[i] = im; }
-}
-new IntersectionObserver((es) => { if (es[0].isIntersecting) load(); }, { rootMargin: "800px" }).observe(reel);
-function size() { const r = cv.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); cv.width = r.width * d; cv.height = r.height * d; last = -1; }
-function draw(i) {
-  let im = frames[i]; if (!im || !im.complete || !im.naturalWidth) { for (let k = i; k >= 0; k--) if (frames[k] && frames[k].complete && frames[k].naturalWidth) { im = frames[k]; break; } }
-  if (!im || !im.naturalWidth) return;
-  const W = cv.width, H = cv.height, s = Math.max(W / im.naturalWidth, H / im.naturalHeight), w = im.naturalWidth * s, h = im.naturalHeight * s;
-  ctx.drawImage(im, (W - w) / 2, (H - h) / 2, w, h);
-}
-const lns = [...reel.querySelectorAll(".ln")];
-function onScroll() {
-  const r = reel.getBoundingClientRect(), u = cl(-r.top / (reel.offsetHeight - innerHeight));
-  const i = reduce ? 40 : Math.round(u * (N - 1));
-  if (i !== last && loaded) { last = i; draw(i); }
-  const k = Math.min(2, Math.floor(u * 3));
-  lns.forEach((l, j) => { const on = j === k && r.top < innerHeight * .5 && r.bottom > innerHeight * .6; l.querySelectorAll(".r").forEach((x) => x.classList.toggle("in", on)); l.style.visibility = j === k ? "visible" : "hidden"; });
-  $("count").textContent = `minutul ${Math.max(1, Math.round(u * 50))} din 50`;
-  $("dock").classList.toggle("on", scrollY > innerHeight * .8 && document.documentElement.scrollHeight - scrollY - innerHeight > 500);
-}
-addEventListener("scroll", () => requestAnimationFrame(onScroll), { passive: true });
-addEventListener("resize", () => { size(); onScroll(); });
-size(); onScroll();
+  // când ajungi la abonamente, lunile cresc una după alta, de la lună nouă la faza lor
+  const rows = [...list.querySelectorAll(".row")];
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!still) {
+    rows.forEach((b) => b.querySelector(".lit").setAttribute("d", moonPath(0.001)));
+    new IntersectionObserver((es, o) => {
+      if (!es[0].isIntersecting) return; o.disconnect();
+      const t0 = performance.now();
+      const tick = (t) => {
+        let busy = false;
+        rows.forEach((b, i) => {
+          const u = Math.min(1, Math.max(0, (t - t0 - i * 130) / 1100)), e = 1 - Math.pow(1 - u, 3);
+          b.querySelector(".lit").setAttribute("d", moonPath(Math.max(0.001, +b.dataset.f * e)));
+          if (u < 1) busy = true;
+        });
+        if (busy) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, { rootMargin: "0px 0px -25% 0px" }).observe(list);
+  }
 
-// memberships: the lit part of the moon follows the number of sessions
-function moonPath(f, r = 130, c = 150) {
-  f = cl(f, .0001, 1); const k = Math.abs(1 - 2 * f) * r, sweep = f < .5 ? 0 : 1;
-  return `M${c} ${c - r}A${r} ${r} 0 0 1 ${c} ${c + r}A${k} ${r} 0 0 ${sweep} ${c} ${c - r}Z`;
-}
-const PLANS = [[1, 70], [4, 280], [6, 400], [8, 520], [10, 610], [12, 720], [14, 820]];
-const fmt = (n) => n.toLocaleString("ro-RO", { maximumFractionDigits: 1 });
-$("pick").innerHTML = PLANS.map(([n], i) => `<button type="button" data-i="${i}" aria-pressed="false">${n}<small>${n === 1 ? "ședință" : "ședințe"}</small></button>`).join("");
-let shown = 8 / 14;
-function pick(i) {
-  const [n, price] = PLANS[i];
-  $("tot").innerHTML = `${fmt(price)} <small>lei</small>`;
-  $("per").textContent = `${n} ${n === 1 ? "ședință" : "ședințe"}, ${fmt(Math.round(price / n * 10) / 10)} lei ședința`;
-  $("pop").textContent = n === 8 ? "Cel mai ales" : "";
-  $("pick").querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-pressed", j === i));
-  const from = shown, to = n / 14, t0 = performance.now();
-  const step = (t) => { const u = reduce ? 1 : cl((t - t0) / 900); shown = from + (to - from) * eio(u); $("litpath").setAttribute("d", moonPath(shown)); $("halo").setAttribute("opacity", .3 + .7 * shown); if (u < 1) requestAnimationFrame(step); };
-  requestAnimationFrame(step);
-}
-$("pick").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) pick(+b.dataset.i); });
-$("litpath").setAttribute("d", moonPath(shown)); pick(3);
+  // titlurile se împart în cuvinte
+  document.querySelectorAll(".r").forEach((el) => {
+    let i = 0;
+    el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="w" style="--i:${i++}">${w}</span>`).join(" ");
+  });
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -12% 0px" });
+  document.querySelectorAll(".r, .fade").forEach((el) => io.observe(el));
+  requestAnimationFrame(() => document.documentElement.classList.add("ready"));
+
+  // bara de jos apare după hero, pe telefon
+  const dock = document.getElementById("dock");
+  addEventListener("scroll", () => dock.classList.toggle("on", scrollY > 420), { passive: true });
 </script>
 </body>
 </html>
