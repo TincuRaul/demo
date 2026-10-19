@@ -19,7 +19,8 @@
   :root { --orange: #f05433; --orange-d: #d8441f; --blue: #2848e6; --ink: #1c1f23; --ink-2: #2a2e33; --paper: #ffffff; --soft: #f4f3f0; --line: #e3e1dc; --muted: #5d6167; --pad: 20px; }
   @media (min-width: 900px) { :root { --pad: 40px; } }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; overflow-x: hidden; touch-action: pan-y pinch-zoom; }
+  main, footer, .hero, section { max-width: 100%; overflow-x: clip; }
   body { font: 400 17px/1.55 "Satoshi", system-ui, sans-serif; color: var(--ink); background: var(--paper); overflow-x: clip; }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
@@ -402,7 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   gsap.utils.toArray(".rv").forEach((el) => gsap.fromTo(el, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
   gsap.utils.toArray(".rvi").forEach((el) => gsap.fromTo(el, { clipPath: "inset(12% 0 12% 0)", opacity: .2 }, { clipPath: "inset(0% 0 0% 0)", opacity: 1, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
-  gsap.utils.toArray(".item").forEach((el, i) => gsap.fromTo(el, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 92%" } }));
+  gsap.utils.toArray(".item").forEach((el, i) => gsap.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 92%" } }));
 
   // cifrele urcă de la zero
   document.querySelectorAll(".num b").forEach((b) => { const to = +b.dataset.to, from = b.hasAttribute("data-plain") ? 1990 : 0, o = { v: from };
