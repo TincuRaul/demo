@@ -42,24 +42,35 @@
   .btn.dark::before { background: var(--ink); }
   .btn.dark:hover { color: #fff; }
 
-  /* meniul */
-  .top { position: sticky; top: 0; z-index: 50; display: flex; align-items: stretch; height: 64px; background: #fff; border-bottom: 1px solid var(--line); }
-  .logo { display: flex; align-items: center; gap: 9px; padding: 0 16px 0 var(--pad); background: var(--ink); color: #fff; }
+  /* meniul simplu: logo, telefon, ofertă și „Meniu” care se deschide pe tot ecranul */
+  .top { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 10px; height: 64px; padding: 0 var(--pad); background: #fff; border-bottom: 1px solid var(--line); }
+  .logo { display: flex; align-items: center; gap: 9px; margin-right: auto; color: var(--ink); }
   .logo svg { width: 30px; height: 30px; flex: none; }
-  .logo b { font: 700 17px/1 "Satoshi"; letter-spacing: .02em; }
-  @media (min-width: 900px) { .logo b { font-size: 19px; } .quote { font-size: 15px; } }
+  .logo b { font: 700 18px/1 "Satoshi"; letter-spacing: .02em; }
   .logo b i { font-style: normal; color: var(--orange); }
-  .logo b u { text-decoration: none; color: #6f8cff; }
-  .nav { display: none; flex: 1; align-items: center; gap: 30px; padding: 0 28px; font-weight: 500; font-size: 16px; }
-  .nav a { position: relative; }
-  .nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .35s; }
-  .nav a:hover::after { transform: scaleX(1); }
-  .call { display: none; align-items: center; padding: 0 22px; font-weight: 700; }
-  .mcall { display: flex; align-items: center; justify-content: center; width: 64px; margin-left: auto; border-left: 1px solid var(--line); color: var(--ink); }
-  .mcall svg { width: 22px; height: 22px; }
-  .quote { display: flex; align-items: center; white-space: nowrap; padding: 0 16px; font-size: 14px; padding: 0 20px; background: var(--orange); color: #fff; font-weight: 700; text-transform: uppercase; font-size: 15px; }
-  .quote:hover { background: var(--orange-d); }
-  @media (min-width: 1100px) { .nav { display: flex; } .call { display: flex; margin-left: auto; } .mcall { display: none; } .quote { padding: 0 28px; } }
+  .logo b u { text-decoration: none; color: var(--blue); }
+  .call { display: none; font-weight: 700; margin-right: 8px; }
+  .call:hover { color: var(--orange); }
+  .tbtn { min-height: 44px; padding: 0 16px; font-size: 14px; }
+  .tq { display: none; }
+  .mcall { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--ink); color: var(--ink); }
+  .mcall svg { width: 18px; height: 18px; }
+  .menuBtn { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 14px; background: var(--ink); color: #fff; border: 0; cursor: pointer; font: 700 14px/1 "Satoshi"; text-transform: uppercase; }
+  .menuBtn .bars { display: grid; gap: 4px; }
+  .menuBtn .bars i { display: block; width: 18px; height: 2px; background: currentColor; transition: transform .35s, opacity .35s; }
+  .menuOpen .menuBtn .bars i:first-child { transform: translateY(3px) rotate(45deg); }
+  .menuOpen .menuBtn .bars i:last-child { transform: translateY(-3px) rotate(-45deg); }
+  @media (min-width: 900px) { .call { display: inline; } .mcall { display: none; } .tq { display: inline-flex; } .logo b { font-size: 20px; } }
+
+  .menu { position: fixed; z-index: 45; inset: 64px 0 0 0; background: var(--ink); color: #fff; display: flex; flex-direction: column; justify-content: space-between; padding: 28px var(--pad) calc(28px + env(safe-area-inset-bottom));
+    opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s .25s; }
+  .menuOpen .menu { opacity: 1; visibility: visible; transition: opacity .25s; }
+  .menu nav { display: grid; }
+  .menu nav a { font: 500 clamp(34px, 9vw, 64px)/1.15 "Satoshi"; letter-spacing: -.03em; padding: 10px 0; border-bottom: 1px solid #3a3f46; transition: color .3s; }
+  .menu nav a:hover { color: var(--orange); }
+  .menu .mfoot { display: grid; gap: 14px; margin-top: 28px; color: #c9ccd1; }
+  .menu .mfoot a { color: #fff; font-weight: 700; font-size: 22px; }
+  html.menuOpen { overflow: hidden; }
 
   /* primul ecran */
   .hero { position: relative; height: calc(100svh - 64px); min-height: 560px; max-height: 920px; overflow: hidden; color: #fff; background: var(--ink); }
@@ -216,17 +227,21 @@
 </head>
 <body>
   <header class="top">
-    <a class="logo" href="#" aria-label="Thermostar, prima pagină">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="26" height="26" fill="none" stroke="#6f8cff" stroke-width="2.4"/><path d="M16 3v26M3 16h26" stroke="#6f8cff" stroke-width="2.4"/><path d="M20 21l7 3-7 3z" fill="#f05433"/></svg>
+    <a class="logo" href="#sus" aria-label="Thermostar, prima pagină">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="26" height="26" fill="none" stroke="#2848e6" stroke-width="2.4"/><path d="M16 3v26M3 16h26" stroke="#2848e6" stroke-width="2.4"/><path d="M20 21l7 3-7 3z" fill="#f05433"/></svg>
       <b><i>THERMO</i><u>STAR</u></b>
     </a>
-    <nav class="nav" aria-label="Meniu">
-      <a href="#ce-facem">Ferestre și uși</a><a href="#profile">Profile</a><a href="#lucrari">Lucrări</a><a href="#despre">Despre noi</a><a href="#oferta">Contact</a>
-    </nav>
-    <a class="call" href="tel:+40744266537">Sună: 0744 266 537</a>
+    <a class="call" href="tel:+40744266537">0744 266 537</a>
+    <a class="btn full tbtn tq" href="#oferta"><span>Cere ofertă</span></a>
     <a class="mcall" href="tel:+40744266537" aria-label="Sună la 0744 266 537"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" fill="currentColor"/></svg></a>
-    <a class="quote" href="#oferta">Cere ofertă</a>
+    <button class="menuBtn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu"><span>Meniu</span><span class="bars"><i></i><i></i></span></button>
   </header>
+  <div class="menu" id="menu" aria-hidden="true">
+    <nav aria-label="Meniu">
+      <a href="#ce-facem">Ferestre și uși</a><a href="#profile">Profile Rehau și Salamander</a><a href="#lucrari">Lucrări</a><a href="#despre">Despre noi</a><a href="#oferta">Cere ofertă</a>
+    </nav>
+    <div class="mfoot"><a href="tel:+40744266537">0744 266 537</a><span>Str. Păulești nr. 26, Satu Mare</span></div>
+  </div>
 
   <main>
     <section class="hero" id="sus">
@@ -360,6 +375,11 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const mb = document.getElementById("menuBtn"), menu = document.getElementById("menu");
+  const setMenu = (on) => { document.documentElement.classList.toggle("menuOpen", on); mb.setAttribute("aria-expanded", on); menu.setAttribute("aria-hidden", !on); mb.firstElementChild.textContent = on ? "Închide" : "Meniu"; };
+  mb.addEventListener("click", () => setMenu(!document.documentElement.classList.contains("menuOpen")));
+  menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  addEventListener("keydown", (e) => e.key === "Escape" && setMenu(false));
   const form = document.getElementById("f");
   form.addEventListener("submit", (e) => { e.preventDefault(); document.getElementById("ok").style.display = "block"; });
   const bar = document.getElementById("mbar");
