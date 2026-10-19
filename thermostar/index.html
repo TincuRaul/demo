@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Thermostar, termopane în Satu Mare din 2004</title>
+<meta name="description" content="Ferestre pe profile Rehau și Salamander, uși, uși de garaj, rulouri și plase. Măsurăm, livrăm și montăm în Satu Mare, din 2004." />
+<link rel="preload" href="fonts/Satoshi-Medium.otf" as="font" type="font/otf" crossorigin />
+<link rel="preload" href="img/hero.webp" as="image" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js" defer></script>
+<style>
+  @font-face { font-family: "Satoshi"; src: url(fonts/Satoshi-Regular.otf) format("opentype"); font-weight: 400; font-display: swap; }
+  @font-face { font-family: "Satoshi"; src: url(fonts/Satoshi-Medium.otf) format("opentype"); font-weight: 500; font-display: swap; }
+  @font-face { font-family: "Satoshi"; src: url(fonts/Satoshi-Bold.otf) format("opentype"); font-weight: 700; font-display: swap; }
+
+  /* culorile din firma lor luminoasă: THERMO portocaliu, STAR albastru */
+  :root { --orange: #f05433; --orange-d: #d8441f; --blue: #2848e6; --ink: #1c1f23; --ink-2: #2a2e33; --paper: #ffffff; --soft: #f4f3f0; --line: #e3e1dc; --muted: #5d6167; --pad: 20px; }
+  @media (min-width: 900px) { :root { --pad: 40px; } }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { font: 400 17px/1.55 "Satoshi", system-ui, sans-serif; color: var(--ink); background: var(--paper); overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1440px; margin: 0 auto; }
+
+  /* butonul: contur, iar la hover o bandă înclinată îl umple */
+  .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px; isolation: isolate; overflow: hidden; cursor: pointer;
+    min-height: 52px; padding: 0 24px; border: 2px solid var(--orange); background: transparent; color: var(--orange);
+    font: 700 16px/1 "Satoshi"; text-transform: uppercase; transition: color .5s; }
+  .btn::before { content: ""; position: absolute; top: 0; left: -40px; width: 0; height: 100%; transform: skewX(45deg); background: var(--orange); z-index: -1; transition: width .5s; }
+  .btn:hover { color: #fff; }
+  .btn:hover::before { width: 160%; }
+  .btn.full { background: var(--orange); color: #fff; }
+  .btn.full::before { background: var(--ink); }
+  .btn.light { border-color: #fff; color: #fff; }
+  .btn.light::before { background: #fff; }
+  .btn.light:hover { color: var(--ink); }
+  .btn.dark { border-color: var(--ink); color: var(--ink); }
+  .btn.dark::before { background: var(--ink); }
+  .btn.dark:hover { color: #fff; }
+
+  /* meniul */
+  .top { position: sticky; top: 0; z-index: 50; display: flex; align-items: stretch; height: 64px; background: #fff; border-bottom: 1px solid var(--line); }
+  .logo { display: flex; align-items: center; gap: 9px; padding: 0 16px 0 var(--pad); background: var(--ink); color: #fff; }
+  .logo svg { width: 30px; height: 30px; flex: none; }
+  .logo b { font: 700 17px/1 "Satoshi"; letter-spacing: .02em; }
+  @media (min-width: 900px) { .logo b { font-size: 19px; } .quote { font-size: 15px; } }
+  .logo b i { font-style: normal; color: var(--orange); }
+  .logo b u { text-decoration: none; color: #6f8cff; }
+  .nav { display: none; flex: 1; align-items: center; gap: 30px; padding: 0 28px; font-weight: 500; font-size: 16px; }
+  .nav a { position: relative; }
+  .nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .35s; }
+  .nav a:hover::after { transform: scaleX(1); }
+  .call { display: none; align-items: center; padding: 0 22px; font-weight: 700; }
+  .mcall { display: flex; align-items: center; justify-content: center; width: 64px; margin-left: auto; border-left: 1px solid var(--line); color: var(--ink); }
+  .mcall svg { width: 22px; height: 22px; }
+  .quote { display: flex; align-items: center; white-space: nowrap; padding: 0 16px; font-size: 14px; padding: 0 20px; background: var(--orange); color: #fff; font-weight: 700; text-transform: uppercase; font-size: 15px; }
+  .quote:hover { background: var(--orange-d); }
+  @media (min-width: 1100px) { .nav { display: flex; } .call { display: flex; margin-left: auto; } .mcall { display: none; } .quote { padding: 0 28px; } }
+
+  /* primul ecran */
+  .hero { position: relative; height: calc(100svh - 64px); min-height: 560px; max-height: 920px; overflow: hidden; color: #fff; background: var(--ink); }
+  .hero img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; transform-origin: 50% 60%; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,22,25,.15) 0%, rgba(20,22,25,.05) 35%, rgba(20,22,25,.72) 78%, rgba(20,22,25,.86) 100%); }
+  .heroIn { position: absolute; z-index: 2; left: var(--pad); right: var(--pad); bottom: 34px; display: flex; flex-direction: column; gap: 26px; }
+  h1 { font: 500 clamp(40px, 9.4vw, 84px)/1.02 "Satoshi"; letter-spacing: -.03em; max-width: 15ch; }
+  .lm { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+  .lm > span { display: block; will-change: transform; }
+  .heroLead { font-size: 19px; line-height: 1.45; max-width: 34ch; }
+  .heroLead .cycle { display: block; min-height: 1.45em; color: #fff; font-weight: 700; }
+  .ch { display: inline-block; white-space: pre; will-change: filter, opacity, transform; }
+  .heroText { display: flex; flex-direction: column; gap: 18px; }
+  .heroBtns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .heroCard { display: none; }
+  @media (min-width: 900px) {
+    .heroIn { bottom: 56px; flex-direction: row; align-items: flex-end; justify-content: space-between; }
+    .heroText { display: flex; flex-direction: column; gap: 22px; }
+    .heroCard { display: block; width: 330px; background: #fff; color: var(--ink); padding: 8px 8px 0; box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+    .heroCard img { width: 100%; height: 200px; object-fit: cover; }
+    .heroCard p { padding: 14px 8px 4px; font-size: 15px; color: var(--muted); }
+    .heroCard p b { color: var(--ink); font-weight: 700; }
+    .heroCard .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 10px -8px 0; }
+    .heroCard .row a { display: flex; align-items: center; justify-content: center; height: 52px; font-weight: 700; font-size: 15px; text-transform: uppercase; transition: background .3s; }
+    .heroCard .row a:first-child { background: var(--ink); color: #fff; }
+    .heroCard .row a:last-child { background: var(--orange); color: #fff; }
+    .heroCard .row a:hover { filter: brightness(1.12); }
+  }
+
+  /* titlurile secțiunilor */
+  .sec { border-bottom: 1px solid var(--line); }
+  .h2 { font: 500 clamp(32px, 6.6vw, 60px)/1.06 "Satoshi"; letter-spacing: -.03em; max-width: 20ch; }
+  .lead { font-size: 19px; line-height: 1.55; color: var(--muted); max-width: 56ch; }
+  .lead strong { color: var(--ink); font-weight: 700; }
+  .k { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--muted); }
+  .k::before { content: ""; width: 18px; height: 2px; background: var(--orange); }
+
+  .intro { padding: 72px var(--pad) 56px; }
+  .intro .k { margin-bottom: 18px; }
+
+  /* povestea firmei: poza cu duba lor, lângă text */
+  .story { display: grid; }
+  .story figure { padding: 0 var(--pad) 28px; }
+  .story figure img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .story .txt { padding: 8px var(--pad) 64px; display: flex; flex-direction: column; gap: 18px; }
+  .story h3 { font: 500 clamp(26px, 4.6vw, 38px)/1.15 "Satoshi"; letter-spacing: -.02em; }
+  .story p { color: var(--muted); max-width: 52ch; }
+  .story .btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+  @media (min-width: 900px) { .story { grid-template-columns: 1fr 1fr; } .story figure { padding: 56px var(--pad); border-right: 1px solid var(--line); } .story .txt { padding: 56px var(--pad); justify-content: center; } }
+
+  /* ce facem: lista mare, cu poza care se schimbă */
+  .what { display: grid; }
+  .whatHead { padding: 64px var(--pad) 28px; }
+  .whatHead .k { margin-bottom: 18px; }
+  .list { border-top: 1px solid var(--line); }
+  .item { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; padding: 22px var(--pad); border-bottom: 1px solid var(--line); transition: background .35s; }
+  .item h3 { font: 500 clamp(24px, 4.4vw, 34px)/1.15 "Satoshi"; letter-spacing: -.02em; }
+  .item p { grid-column: 1 / -1; color: var(--muted); font-size: 16px; max-width: 56ch; }
+  .item .ar { width: 42px; height: 42px; border: 2px solid var(--ink); display: grid; place-items: center; transition: background .35s, border-color .35s, color .35s; }
+  .item .ar svg { width: 16px; height: 16px; }
+  .item .th { grid-column: 1 / -1; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; margin-top: 4px; }
+  @media (min-width: 900px) { .item .th { display: none; } }
+  .item:hover { background: var(--soft); }
+  .item:hover .ar { background: var(--orange); border-color: var(--orange); color: #fff; }
+  .whatImg { display: none; }
+  @media (min-width: 900px) {
+    .what { grid-template-columns: 5fr 6fr; }
+    .whatHead { grid-column: 1 / -1; display: grid; grid-template-columns: 5fr 6fr; gap: 40px; align-items: end; }
+    .whatImg { display: block; position: relative; border-right: 1px solid var(--line); }
+    .whatImg .stick { position: sticky; top: 64px; height: calc(100vh - 64px); max-height: 760px; padding: 28px var(--pad); }
+    .whatImg img { position: absolute; inset: 28px var(--pad); width: calc(100% - var(--pad) * 2); height: calc(100% - 56px); object-fit: cover; opacity: 0; transition: opacity .6s, transform 1.2s; transform: scale(1.04); }
+    .whatImg img.on { opacity: 1; transform: scale(1); }
+    .list { border-top: 1px solid var(--line); }
+    .item { padding: 30px var(--pad); }
+  }
+
+  /* cifrele reale */
+  .nums { display: grid; border-bottom: 1px solid var(--line); }
+  .num { padding: 34px var(--pad); border-top: 1px solid var(--line); }
+  .num b { display: block; font: 500 clamp(56px, 12vw, 110px)/1 "Satoshi"; letter-spacing: -.04em; color: var(--orange); }
+  .num span { display: block; margin-top: 10px; font-size: 17px; color: var(--muted); max-width: 26ch; }
+  @media (min-width: 900px) { .nums { grid-template-columns: repeat(3, 1fr); } .num { border-top: 0; border-right: 1px solid var(--line); padding: 56px var(--pad) 48px; min-height: 360px; display: flex; flex-direction: column; } .num:nth-child(2) { justify-content: center; } .num:nth-child(3) { justify-content: flex-end; border-right: 0; } }
+
+  /* profilele: banda închisă la culoare */
+  .prof { background: var(--ink); color: #fff; padding: 64px var(--pad); }
+  .prof .k { color: #aeb2b8; margin-bottom: 18px; }
+  .prof .h2 { margin-bottom: 18px; }
+  .prof .lead { color: #c3c6cb; margin-bottom: 36px; }
+  .brands { display: grid; gap: 1px; background: #3a3f46; border: 1px solid #3a3f46; }
+  .brand { background: var(--ink); padding: 26px 22px; }
+  .brand h3 { font: 700 22px/1.2 "Satoshi"; margin-bottom: 14px; }
+  .brand ul { list-style: none; display: grid; gap: 10px; }
+  .brand li { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid #3a3f46; font-size: 17px; }
+  .brand li span { color: #9aa0a7; font-size: 15px; }
+  @media (min-width: 900px) { .prof { padding: 96px var(--pad); } .brands { grid-template-columns: 1fr 1fr; } .brand { padding: 36px 32px; } }
+
+  /* lucrările */
+  .work { padding: 64px var(--pad); }
+  .work .k { margin-bottom: 18px; }
+  .work .h2 { margin-bottom: 36px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid figure { position: relative; overflow: hidden; background: var(--soft); }
+  .grid img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(.22,1,.36,1); }
+  .grid figure:hover img { transform: scale(1.05); }
+  .grid figcaption { position: absolute; left: 0; bottom: 0; padding: 8px 12px; background: #fff; font-size: 14px; font-weight: 500; }
+  .g1 { grid-column: 1 / -1; aspect-ratio: 4 / 3; } .g2, .g3 { aspect-ratio: 4 / 5; } .g4 { grid-column: 1 / -1; aspect-ratio: 16 / 10; } .g5, .g6 { aspect-ratio: 4 / 5; }
+  @media (min-width: 900px) { .work { padding: 96px var(--pad); } .grid { grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .g1 { grid-column: 1 / 8; aspect-ratio: 16 / 11; } .g2 { grid-column: 8 / 13; aspect-ratio: 80 / 77; } .g3 { grid-column: 1 / 5; aspect-ratio: 4 / 5; } .g4 { grid-column: 5 / 13; aspect-ratio: 8 / 5; } .g5 { grid-column: 3 / 7; aspect-ratio: 4 / 5; } .g6 { grid-column: 7 / 11; aspect-ratio: 4 / 5; } }
+
+  /* cum lucrează */
+  .how { display: grid; }
+  .how .head { padding: 64px var(--pad) 28px; }
+  .how .head .k { margin-bottom: 18px; }
+  .steps { display: grid; border-top: 1px solid var(--line); }
+  .step { padding: 28px var(--pad); border-bottom: 1px solid var(--line); }
+  .step h3 { font: 700 21px/1.25 "Satoshi"; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+  .step h3::before { content: ""; width: 12px; height: 12px; background: var(--orange); flex: none; }
+  .step p { color: var(--muted); }
+  @media (min-width: 900px) { .steps { grid-template-columns: repeat(4, 1fr); } .step { border-bottom: 0; border-right: 1px solid var(--line); padding: 40px var(--pad) 56px; } .step:last-child { border-right: 0; } }
+
+  /* cererea de ofertă */
+  .offer { display: grid; background: var(--soft); }
+  .offer .left { padding: 64px var(--pad) 28px; }
+  .offer .left .k { margin-bottom: 18px; }
+  .offer .left .h2 { margin-bottom: 18px; }
+  .offer .phones { margin-top: 28px; display: grid; gap: 8px; }
+  .offer .phones a { font: 700 26px/1.2 "Satoshi"; letter-spacing: -.01em; }
+  .offer .phones a:hover { color: var(--orange); }
+  form { background: #fff; margin: 0 var(--pad) 64px; padding: 26px 22px; display: grid; gap: 16px; border-top: 4px solid var(--orange); }
+  label { display: grid; gap: 6px; font-size: 15px; font-weight: 500; }
+  input, select, textarea { width: 100%; font: 400 17px/1.4 "Satoshi"; color: var(--ink); padding: 14px 14px; border: 1px solid #cfcbc4; background: #fff; border-radius: 0; appearance: none; }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--blue); outline-offset: 0; border-color: var(--blue); }
+  .two { display: grid; gap: 16px; }
+  .ok { display: none; padding: 14px; background: #eef2ff; color: #1b2f9e; font-size: 15px; }
+  @media (min-width: 900px) { .offer { grid-template-columns: 1fr 1fr; } .offer .left { padding: 96px var(--pad); } form { margin: 96px var(--pad) 96px 0; padding: 36px 32px; } .two { grid-template-columns: 1fr 1fr; } }
+
+  /* subsolul */
+  footer { background: var(--ink); color: #c9ccd1; padding: 56px var(--pad) 40px; display: grid; gap: 32px; font-size: 16px; }
+  footer .logo { padding: 0; background: none; }
+  footer h4 { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+  footer a:hover { color: #fff; }
+  footer .demo { border-top: 1px solid #3a3f46; padding-top: 22px; font-size: 14px; color: #8d929a; }
+  @media (min-width: 900px) { footer { grid-template-columns: 1.4fr 1fr 1fr 1fr; } footer .demo { grid-column: 1 / -1; } }
+
+  /* bara de jos pe telefon: sună sau cere ofertă */
+  .mbar { position: fixed; z-index: 60; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: 1fr 1fr; padding-bottom: env(safe-area-inset-bottom); background: var(--ink); transform: translateY(110%); transition: transform .45s cubic-bezier(.22,1,.36,1); }
+  .mbar.on { transform: none; }
+  .mbar a { display: flex; align-items: center; justify-content: center; gap: 8px; height: 58px; color: #fff; font-weight: 700; text-transform: uppercase; font-size: 15px; }
+  .mbar a:last-child { background: var(--orange); }
+  @media (min-width: 900px) { .mbar { display: none; } }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+  <header class="top">
+    <a class="logo" href="#" aria-label="Thermostar, prima pagină">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="26" height="26" fill="none" stroke="#6f8cff" stroke-width="2.4"/><path d="M16 3v26M3 16h26" stroke="#6f8cff" stroke-width="2.4"/><path d="M20 21l7 3-7 3z" fill="#f05433"/></svg>
+      <b><i>THERMO</i><u>STAR</u></b>
+    </a>
+    <nav class="nav" aria-label="Meniu">
+      <a href="#ce-facem">Ferestre și uși</a><a href="#profile">Profile</a><a href="#lucrari">Lucrări</a><a href="#despre">Despre noi</a><a href="#oferta">Contact</a>
+    </nav>
+    <a class="call" href="tel:+40744266537">Sună: 0744 266 537</a>
+    <a class="mcall" href="tel:+40744266537" aria-label="Sună la 0744 266 537"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" fill="currentColor"/></svg></a>
+    <a class="quote" href="#oferta">Cere ofertă</a>
+  </header>
+
+  <main>
+    <section class="hero" id="sus">
+      <img class="bg" id="heroImg" src="img/hero.webp" alt="Casă din Satu Mare cu tâmplărie Thermostar montată" fetchpriority="high" />
+      <div class="heroIn">
+        <div class="heroText">
+          <h1><span class="lm"><span>Ferestre și uși</span></span><span class="lm"><span>care țin casa caldă.</span></span></h1>
+          <p class="heroLead" id="heroLead">Măsurăm, livrăm și montăm noi, în Satu Mare, din 2004.<span class="cycle" id="cycle" aria-live="off"></span></p>
+          <div class="heroBtns">
+            <a class="btn full" href="#oferta"><span>Cere ofertă gratuită</span></a>
+            <a class="btn light" href="tel:+40744266537"><span>0744 266 537</span></a>
+          </div>
+        </div>
+        <aside class="heroCard" id="heroCard">
+          <img src="img/veranda-s.webp" alt="Verandă închisă cu glisante din aluminiu" loading="eager" />
+          <p><b>Lucrare recentă:</b> verandă închisă cu glisante din aluminiu.</p>
+          <div class="row"><a href="#lucrari">Lucrări</a><a href="#oferta">Ofertă</a></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="sec intro" id="despre">
+      <span class="k rv">Cine suntem</span>
+      <h2 class="h2 rvl">Tâmplărie PVC și aluminiu, de la măsurători până la montaj.</h2>
+    </section>
+
+    <section class="sec story">
+      <figure class="rvi"><img src="img/duba-s.webp" alt="Duba Thermostar la o casă în construcție" loading="lazy" /></figure>
+      <div class="txt">
+        <h3 class="rvl">O firmă din Satu Mare, din 2004.</h3>
+        <p class="rv">Am pornit în 2004 cu doi oameni. Între timp echipa a crescut, iar pe lângă casele din Satu Mare am lucrat și cu constructori din Ungaria, Belgia, Franța și Italia.</p>
+        <p class="rv">Venim la dumneavoastră, măsurăm gratuit, vă arătăm variantele și vă dăm prețul înainte de orice comandă. Montajul îl facem tot noi.</p>
+        <div class="btns rv"><a class="btn dark" href="#lucrari"><span>Vezi lucrările</span></a><a class="btn" href="#oferta"><span>Cere ofertă</span></a></div>
+      </div>
+    </section>
+
+    <section class="sec what" id="ce-facem">
+      <div class="whatHead">
+        <div><span class="k rv">Ce montăm</span><h2 class="h2 rvl">Tot ce intră într-un gol de zid.</h2></div>
+        <p class="lead rv">Ferestre, uși, uși de garaj și tot ce vine pe lângă: rulouri, jaluzele, plase și pervaze. Le alegeți o singură dată, de la un singur loc.</p>
+      </div>
+      <div class="whatImg"><div class="stick">
+        <img src="img/casa-alba.webp" data-k="0" class="on" alt="" loading="lazy" />
+        <img src="img/usa.webp" data-k="1" alt="" loading="lazy" />
+        <img src="img/fatada.webp" data-k="2" alt="" loading="lazy" />
+        <img src="img/glisanta.webp" data-k="3" alt="" loading="lazy" />
+        <img src="img/veranda.webp" data-k="4" alt="" loading="lazy" />
+      </div></div>
+      <div class="list">
+        <a class="item" href="#profile" data-k="0"><h3>Ferestre termopan</h3><span class="ar"><svg viewBox="0 0 16 16"><path d="M3 8h9M8 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><p>Pe profile germane Rehau și Salamander, albe sau colorate, cu geam termopan.</p><img class="th" src="img/casa-alba-s.webp" alt="" loading="lazy" /></a>
+        <a class="item" href="#oferta" data-k="1"><h3>Uși de intrare</h3><span class="ar"><svg viewBox="0 0 16 16"><path d="M3 8h9M8 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><p>Uși din PVC și panouri Trionic și Drupanel, pentru case și blocuri.</p><img class="th" src="img/usa-s.webp" alt="" loading="lazy" /></a>
+        <a class="item" href="#oferta" data-k="2"><h3>Uși de garaj</h3><span class="ar"><svg viewBox="0 0 16 16"><path d="M3 8h9M8 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><p>Pe măsura garajului dumneavoastră, cu montaj inclus.</p><img class="th" src="img/fatada-s.webp" alt="" loading="lazy" /></a>
+        <a class="item" href="#oferta" data-k="3"><h3>Rulouri și jaluzele</h3><span class="ar"><svg viewBox="0 0 16 16"><path d="M3 8h9M8 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><p>Jaluzele exterioare aplicate, tencuibile sau suprapuse, rolete textile și day &amp; night.</p><img class="th" src="img/glisanta-s.webp" alt="" loading="lazy" /></a>
+        <a class="item" href="#oferta" data-k="4"><h3>Plase contra insectelor</h3><span class="ar"><svg viewBox="0 0 16 16"><path d="M3 8h9M8 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><p>Cu cleme, cu balamale, tip rulou, plisse sau culisante.</p><img class="th" src="img/veranda-s.webp" alt="" loading="lazy" /></a>
+      </div>
+    </section>
+
+    <section class="nums" aria-label="Thermostar în cifre">
+      <div class="num"><b data-to="2004" data-plain>2004</b><span>Anul în care a pornit Thermostar, cu doi oameni.</span></div>
+      <div class="num"><b data-to="7">7</b><span>Sisteme de profile Rehau și Salamander din care alegeți.</span></div>
+      <div class="num"><b data-to="4">4</b><span>Țări în care am lucrat cu constructori: Ungaria, Belgia, Franța și Italia.</span></div>
+    </section>
+
+    <section class="prof" id="profile">
+      <span class="k rv">Profilele</span>
+      <h2 class="h2 rvl">Profile germane, alese după cât de cald vreți să fie.</h2>
+      <p class="lead rv">Cu cât numărul e mai mare, cu atât profilul e mai lat și izolează mai bine. Vă spunem sincer de care aveți nevoie, nu de cel mai scump.</p>
+      <div class="brands">
+        <div class="brand rv"><h3>Rehau</h3><ul><li>Euro Design 70 <span>70 mm</span></li><li>Brilliant Design 70 <span>70 mm</span></li><li>Synego 80 <span>80 mm</span></li><li>Geneo 86 <span>86 mm</span></li></ul></div>
+        <div class="brand rv"><h3>Salamander</h3><ul><li>Streamline 76 <span>76 mm</span></li><li>BluEvolution 82 <span>82 mm</span></li><li>BluEvolution 92 <span>92 mm</span></li></ul></div>
+      </div>
+    </section>
+
+    <section class="sec work" id="lucrari">
+      <span class="k rv">Lucrări</span>
+      <h2 class="h2 rvl">Montate de noi, în Satu Mare și împrejurimi.</h2>
+      <div class="grid">
+        <figure class="g1 rvi"><img src="img/hero-s.webp" alt="Casă cu ferestre mari și fațadă din piatră" loading="lazy" /><figcaption>Ferestre mari, rame maro</figcaption></figure>
+        <figure class="g2 rvi"><img src="img/veranda-s.webp" alt="Verandă închisă cu glisante" loading="lazy" /><figcaption>Verandă cu glisante</figcaption></figure>
+        <figure class="g3 rvi"><img src="img/usa-s.webp" alt="Ușă de intrare cu rulouri pe laterale" loading="lazy" /><figcaption>Ușă de intrare și rulouri</figcaption></figure>
+        <figure class="g4 rvi"><img src="img/fatada-s.webp" alt="Casă cu ferestre arcuite" loading="lazy" /><figcaption>Ferestre arcuite</figcaption></figure>
+        <figure class="g5 rvi"><img src="img/casa-alba-s.webp" alt="Casă albă cu ferestre maro" loading="lazy" /><figcaption>Rame culoare lemn</figcaption></figure>
+        <figure class="g6 rvi"><img src="img/glisanta-s.webp" alt="Ușă glisantă mare" loading="lazy" /><figcaption>Glisantă PVC</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="sec how">
+      <div class="head"><span class="k rv">Cum lucrăm</span><h2 class="h2 rvl">Patru pași, fără surprize la preț.</h2></div>
+      <div class="steps">
+        <div class="step rv"><h3>Vorbim</h3><p>Ne sunați sau ne scrieți ce vă trebuie. Vă spunem din prima ce variante aveți.</p></div>
+        <div class="step rv"><h3>Măsurăm gratuit</h3><p>Venim la dumneavoastră și luăm măsurile exacte, golul cu golul.</p></div>
+        <div class="step rv"><h3>Oferta în scris</h3><p>Primiți prețul complet, cu montaj, înainte de orice comandă.</p></div>
+        <div class="step rv"><h3>Montăm</h3><p>Măsurătorile și montajul le face tot echipa noastră.</p></div>
+      </div>
+    </section>
+
+    <section class="offer" id="oferta">
+      <div class="left">
+        <span class="k rv">Cerere de ofertă</span>
+        <h2 class="h2 rvl">Spuneți-ne ce vă trebuie, vă trimitem prețul.</h2>
+        <p class="lead rv">Măsurătorile sunt gratuite. Dacă aveți deja dimensiunile, oferta vine și mai repede.</p>
+        <div class="phones rv"><a href="tel:+40744266537">0744 266 537</a><a href="tel:+40755071844">0755 071 844</a><a href="tel:+40361800880">0361 800 880</a></div>
+      </div>
+      <form id="f" novalidate>
+        <div class="two">
+          <label>Nume<input name="nume" autocomplete="name" required /></label>
+          <label>Telefon<input name="tel" type="tel" inputmode="tel" autocomplete="tel" required /></label>
+        </div>
+        <label>Ce vă trebuie<select name="tip"><option>Ferestre termopan</option><option>Uși de intrare</option><option>Uși de garaj</option><option>Rulouri și jaluzele</option><option>Plase contra insectelor</option><option>Mai multe</option></select></label>
+        <label>Dimensiuni aproximative (opțional)<input name="dim" placeholder="de exemplu 3 ferestre de 120 × 140 cm" /></label>
+        <label>Mesaj<textarea name="msg" rows="4" placeholder="Casă nouă, renovare, ce culoare vă place…"></textarea></label>
+        <button class="btn full" type="submit"><span>Trimite cererea</span></button>
+        <p class="ok" id="ok">Acesta e un demo: pe site-ul final, cererea ajunge pe loc pe telefonul firmei.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <a class="logo" href="#sus" aria-label="Thermostar"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="26" height="26" fill="none" stroke="#6f8cff" stroke-width="2.4"/><path d="M16 3v26M3 16h26" stroke="#6f8cff" stroke-width="2.4"/><path d="M20 21l7 3-7 3z" fill="#f05433"/></svg><b><i>THERMO</i><u>STAR</u></b></a>
+      <p style="margin-top:14px;max-width:34ch">Tâmplărie PVC și aluminiu cu geam termopan, în Satu Mare din 2004.</p>
+    </div>
+    <div><h4>Adresa</h4><p>SC Thermostar SRL<br />Str. Păulești nr. 26<br />440250 Satu Mare</p><p style="margin-top:8px"><a href="https://www.google.com/maps/search/?api=1&amp;query=Str.+P%C4%83ule%C8%99ti+26+Satu+Mare">Deschide în Google Maps</a></p></div>
+    <div><h4>Telefon</h4><p><a href="tel:+40744266537">0744 266 537</a><br /><a href="tel:+40755071844">0755 071 844</a><br /><a href="tel:+40361800880">0361 800 880</a></p></div>
+    <div><h4>Email</h4><p><a href="mailto:thermostar.office@yahoo.com">thermostar.office@yahoo.com</a></p><p style="margin-top:8px"><a href="https://www.facebook.com/thermostar.ro">Facebook</a></p></div>
+    <p class="demo">Propunere de site realizată de RTWEB pentru Thermostar. Pozele și textele sunt ale firmei.</p>
+  </footer>
+
+  <nav class="mbar" id="mbar" aria-label="Contact rapid"><a href="tel:+40744266537">Sună</a><a href="#oferta">Cere ofertă</a></nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const form = document.getElementById("f");
+  form.addEventListener("submit", (e) => { e.preventDefault(); document.getElementById("ok").style.display = "block"; });
+  const bar = document.getElementById("mbar");
+  addEventListener("scroll", () => bar.classList.toggle("on", scrollY > innerHeight * .7), { passive: true });
+
+  // „Ce montăm”: rândul peste care ești aprinde poza lui
+  const imgs = [...document.querySelectorAll(".whatImg img")];
+  document.querySelectorAll(".item").forEach((it) => it.addEventListener("mouseenter", () => imgs.forEach((im) => im.classList.toggle("on", im.dataset.k === it.dataset.k))));
+
+  if (typeof gsap === "undefined" || reduce) { document.getElementById("cycle").textContent = "Ferestre pe profile Rehau."; return; }
+  gsap.registerPlugin(ScrollTrigger);
+
+  // textul care se schimbă literă cu literă, din blur (ca la cselitegrowth)
+  const phrases = ["Ferestre pe profile Rehau.", "Uși de intrare și de garaj.", "Rulouri, jaluzele și plase.", "Măsurători gratuite."];
+  const cyc = document.getElementById("cycle"); let pi = 0;
+  const stag = (n) => (n > 1 ? (1.8 - .8) / (n - 1) : 0);
+  const show = (i) => { const ch = [...phrases[i]]; cyc.innerHTML = ch.map((c) => `<span class="ch">${c === " " ? "&nbsp;" : c}</span>`).join("");
+    gsap.fromTo(cyc.children, { opacity: 0, filter: "blur(8px)", yPercent: 55 }, { opacity: 1, filter: "blur(0px)", yPercent: 0, duration: .8, ease: "power2.inOut", stagger: stag(ch.length) }); };
+  const next = () => gsap.to(cyc.children, { opacity: 0, filter: "blur(8px)", yPercent: -55, duration: .8, ease: "power2.inOut", stagger: stag(cyc.children.length), onComplete: () => { pi = (pi + 1) % phrases.length; show(pi); } });
+
+  // intrarea primului ecran: titlul urcă din mască, apoi restul
+  gsap.set(".hero .lm > span", { yPercent: 112 });
+  gsap.set(["#heroLead", ".heroBtns"], { opacity: 0, y: 30 });
+  gsap.set("#heroCard", { opacity: 0, x: 44 });
+  const t = gsap.timeline({ delay: .15 });
+  t.fromTo("#heroImg", { scale: 1.12 }, { scale: 1, duration: 2.4, ease: "expo.out" }, 0);
+  t.to(".hero .lm > span", { yPercent: 0, duration: 1.7, ease: "expo.out", stagger: .22 }, .1);
+  t.to("#heroLead", { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }, .7);
+  t.add(() => { show(0); setInterval(next, 2000 + 1.8 * 2000); }, .9);
+  t.to(".heroBtns", { opacity: 1, y: 0, duration: 1.1, ease: "power3.out" }, 1.1);
+  t.to("#heroCard", { opacity: 1, x: 0, duration: 1.4, ease: "power3.out" }, 1.2);
+
+  // poza din primul ecran coboară puțin la scroll
+  gsap.to("#heroImg", { yPercent: 12, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+  // titlurile secțiunilor: fiecare rând urcă din mască când ajunge pe ecran
+  document.querySelectorAll(".rvl").forEach((el) => {
+    const words = el.textContent.trim().split(/\s+/);
+    el.innerHTML = words.map((w) => `<span class="lm" style="display:inline-block;vertical-align:top"><span style="display:inline-block">${w}&nbsp;</span></span>`).join("");
+    gsap.fromTo(el.querySelectorAll(".lm > span"), { yPercent: 112 }, { yPercent: 0, duration: 1.3, ease: "expo.out", stagger: .035, scrollTrigger: { trigger: el, start: "top 88%" } });
+  });
+  gsap.utils.toArray(".rv").forEach((el) => gsap.fromTo(el, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
+  gsap.utils.toArray(".rvi").forEach((el) => gsap.fromTo(el, { clipPath: "inset(12% 0 12% 0)", opacity: .2 }, { clipPath: "inset(0% 0 0% 0)", opacity: 1, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
+  gsap.utils.toArray(".item").forEach((el, i) => gsap.fromTo(el, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 92%" } }));
+
+  // cifrele urcă de la zero
+  document.querySelectorAll(".num b").forEach((b) => { const to = +b.dataset.to, from = b.hasAttribute("data-plain") ? 1990 : 0, o = { v: from };
+    gsap.to(o, { v: to, duration: 1.6, ease: "power2.out", scrollTrigger: { trigger: b, start: "top 88%" }, onUpdate: () => (b.textContent = Math.round(o.v)) }); });
+
+  // pe desktop, la scroll prin listă, se schimbă și poza
+  if (matchMedia("(min-width: 900px)").matches) document.querySelectorAll(".item").forEach((it) => ScrollTrigger.create({ trigger: it, start: "top 55%", end: "bottom 55%", onToggle: (s) => s.isActive && imgs.forEach((im) => im.classList.toggle("on", im.dataset.k === it.dataset.k)) }));
+});
+</script>
+</body>
+</html>
