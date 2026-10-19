@@ -6,6 +6,9 @@
 <meta name="robots" content="noindex, nofollow" />
 <title>Thermostar, termopane în Satu Mare din 2004</title>
 <meta name="description" content="Ferestre pe profile Rehau și Salamander, uși, uși de garaj, rulouri și plase. Măsurăm, livrăm și montăm în Satu Mare, din 2004." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&amp;display=swap" rel="stylesheet" />
 <link rel="preload" href="fonts/Satoshi-Medium.otf" as="font" type="font/otf" crossorigin />
 <link rel="preload" href="img/hero.webp" as="image" />
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" defer></script>
@@ -16,7 +19,7 @@
   @font-face { font-family: "Satoshi"; src: url(fonts/Satoshi-Bold.otf) format("opentype"); font-weight: 700; font-display: swap; }
 
   /* culorile din firma lor luminoasă: THERMO portocaliu, STAR albastru */
-  :root { --orange: #f05433; --orange-d: #d8441f; --blue: #2848e6; --ink: #1c1f23; --ink-2: #2a2e33; --paper: #ffffff; --soft: #f4f3f0; --line: #e3e1dc; --muted: #5d6167; --pad: 20px; }
+  :root { --orange: #f45a3a; --orange-d: #dc4526; --blue: #2848e8; --ink: #1c1f23; --ink-2: #2a2e33; --paper: #ffffff; --soft: #f4f3f0; --line: #e3e1dc; --muted: #5d6167; --pad: 20px; }
   @media (min-width: 900px) { :root { --pad: 40px; } }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; overflow-x: hidden; touch-action: pan-y pinch-zoom; }
@@ -45,10 +48,14 @@
   /* meniul simplu: logo, telefon, ofertă și „Meniu” care se deschide pe tot ecranul */
   .top { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 10px; height: 64px; padding: 0 var(--pad); background: #fff; border-bottom: 1px solid var(--line); }
   .logo { display: flex; align-items: center; gap: 9px; margin-right: auto; color: var(--ink); }
-  .logo svg { width: 30px; height: 30px; flex: none; }
-  .logo b { font: 700 18px/1 "Satoshi"; letter-spacing: .02em; }
-  .logo b i { font-style: normal; color: var(--orange); }
-  .logo b u { text-decoration: none; color: var(--blue); }
+  .lgi { width: 40px; height: auto; flex: none; }
+  .lgt { display: grid; gap: 3px; }
+  .lgt b { font: 500 17px/1 "Montserrat", sans-serif; letter-spacing: .09em; }
+  .lgt b i { font-style: normal; color: var(--orange); }
+  .lgt b u { text-decoration: none; color: var(--blue); }
+  .lgt small { display: none; font: 400 7.5px/1 "Montserrat", sans-serif; letter-spacing: .11em; color: #3b3f45; }
+  @media (min-width: 900px) { .lgi { width: 54px; } .lgt b { font-size: 23px; } .lgt small { display: block; font-size: 9.2px; } }
+  footer .lgt small { display: block; color: #9aa0a7; }
   .call { display: none; font-weight: 700; margin-right: 8px; }
   .call:hover { color: var(--orange); }
   .tbtn { min-height: 44px; padding: 0 16px; font-size: 14px; }
@@ -60,7 +67,7 @@
   .menuBtn .bars i { display: block; width: 18px; height: 2px; background: currentColor; transition: transform .35s, opacity .35s; }
   .menuOpen .menuBtn .bars i:first-child { transform: translateY(3px) rotate(45deg); }
   .menuOpen .menuBtn .bars i:last-child { transform: translateY(-3px) rotate(-45deg); }
-  @media (min-width: 900px) { .call { display: inline; } .mcall { display: none; } .tq { display: inline-flex; } .logo b { font-size: 20px; } }
+  @media (min-width: 900px) { .call { display: inline; } .mcall { display: none; } .tq { display: inline-flex; } }
 
   .menu { position: fixed; z-index: 45; inset: 64px 0 0 0; background: var(--ink); color: #fff; display: flex; flex-direction: column; justify-content: space-between; padding: 28px var(--pad) calc(28px + env(safe-area-inset-bottom));
     opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s .25s; }
@@ -252,8 +259,7 @@
 <body>
   <header class="top">
     <a class="logo" href="#sus" aria-label="Thermostar, prima pagină">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="26" height="26" fill="none" stroke="#2848e6" stroke-width="2.4"/><path d="M16 3v26M3 16h26" stroke="#2848e6" stroke-width="2.4"/><path d="M20 21l7 3-7 3z" fill="#f05433"/></svg>
-      <b><i>THERMO</i><u>STAR</u></b>
+      <svg class="lgi" viewBox="0 0 360 290" aria-hidden="true"><g fill="none" stroke="#2848e8" stroke-width="15" stroke-linejoin="miter"><path d="M8 12 L182 58 L180 282 L18 244 Z"/><path d="M96 35 L98 263 M12 128 L181 170"/></g><g fill="#2848e8"><path d="M203 184 L286 211 L203 234 Z"/><path d="M203 246 L281 263 L203 286 Z"/><path d="M224 241 L300 222 L360 241 L300 258 Z"/></g></svg><span class="lgt"><b><i>THERMO</i><u>STAR</u></b><small>TAMPLARIE PVC SI ALUMINIU CU GEAM TERMOPAN</small></span>
     </a>
     <a class="call" href="tel:+40744266537">0744 266 537</a>
     <a class="btn full tbtn tq" href="#oferta"><span>Cere ofertă</span></a>
@@ -385,7 +391,7 @@
 
   <footer>
     <div>
-      <a class="logo" href="#sus" aria-label="Thermostar"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="26" height="26" fill="none" stroke="#6f8cff" stroke-width="2.4"/><path d="M16 3v26M3 16h26" stroke="#6f8cff" stroke-width="2.4"/><path d="M20 21l7 3-7 3z" fill="#f05433"/></svg><b><i>THERMO</i><u>STAR</u></b></a>
+      <a class="logo" href="#sus" aria-label="Thermostar"><svg class="lgi" viewBox="0 0 360 290" aria-hidden="true"><g fill="none" stroke="#2848e8" stroke-width="15" stroke-linejoin="miter"><path d="M8 12 L182 58 L180 282 L18 244 Z"/><path d="M96 35 L98 263 M12 128 L181 170"/></g><g fill="#2848e8"><path d="M203 184 L286 211 L203 234 Z"/><path d="M203 246 L281 263 L203 286 Z"/><path d="M224 241 L300 222 L360 241 L300 258 Z"/></g></svg><span class="lgt"><b><i>THERMO</i><u>STAR</u></b><small>TAMPLARIE PVC SI ALUMINIU CU GEAM TERMOPAN</small></span></a>
       <p style="margin-top:14px;max-width:34ch">Tâmplărie PVC și aluminiu cu geam termopan, în Satu Mare din 2004.</p>
     </div>
     <div><h4>Adresa</h4><p>SC Thermostar SRL<br />Str. Păulești nr. 26<br />440250 Satu Mare</p><p style="margin-top:8px"><a href="https://www.google.com/maps/search/?api=1&amp;query=Str.+P%C4%83ule%C8%99ti+26+Satu+Mare">Deschide în Google Maps</a></p></div>
