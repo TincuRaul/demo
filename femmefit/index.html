@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>FemmeFit Pilates, Satu Mare</title>
+<meta name="description" content="Pilates pe aparate în Satu Mare: Reformer, Cadillac, Wunda Chair și Barrel. Bulevardul Vasile Lucaciu 18." />
+<link rel="icon" href="img/favicon.png" />
+<link rel="preload" href="fonts/GeneralSans-Light.otf" as="font" type="font/otf" crossorigin />
+<link rel="preload" href="img/hero-s.webp" as="image" media="(max-width: 899px)" />
+<link rel="preload" href="img/hero.webp" as="image" media="(min-width: 900px)" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js" defer></script>
+<style>
+  @font-face { font-family: "GS"; src: url(fonts/GeneralSans-Light.otf) format("opentype"); font-weight: 300; font-display: swap; }
+  @font-face { font-family: "GS"; src: url(fonts/GeneralSans-Regular.otf) format("opentype"); font-weight: 400; font-display: swap; }
+  @font-face { font-family: "GS"; src: url(fonts/GeneralSans-Medium.otf) format("opentype"); font-weight: 500; font-display: swap; }
+  :root { --ink: #0b0b0b; --paper: #f7f6f3; --gold: #b19863; --gold-l: #cdb27a; --mute: #8a857c; --line: #dedad2; --pad: 20px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: hidden; touch-action: pan-y pinch-zoom; -webkit-text-size-adjust: 100%; }
+  body { background: var(--paper); color: var(--ink); font: 400 18px/1.55 "GS", system-ui, sans-serif; overflow-x: hidden; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  section { overflow-x: clip; }
+  .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 var(--pad); }
+
+  /* header */
+  .top { position: fixed; inset: 0 0 auto; z-index: 50; background: var(--ink); color: #fff; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--pad); padding-top: env(safe-area-inset-top); }
+  .top .wm { height: 15px; width: auto; }
+  .top nav { display: none; gap: 30px; font-size: 15px; color: #cfcac0; }
+  .top nav a:hover { color: #fff; }
+  .top .call { font-size: 15px; font-weight: 500; color: var(--gold-l); border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+
+  /* hero */
+  .hero { position: relative; background: var(--ink); color: #fff; padding-top: 60px; }
+  .hero .pic { position: relative; height: 62svh; min-height: 380px; overflow: hidden; }
+  .hero .pic img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; }
+  .hero .txt { position: relative; padding: 34px var(--pad) 46px; }
+  h1 { font-weight: 300; font-size: clamp(40px, 11vw, 92px); line-height: 1.02; letter-spacing: -0.035em; }
+  .lm { display: block; overflow: hidden; padding-bottom: 0.06em; }
+  .lm > span { display: block; }
+  .hero .lead { margin-top: 18px; max-width: 34ch; font-size: 19px; font-weight: 300; color: #d9d4ca; }
+  .hero .lead b { font-weight: 500; color: var(--gold-l); }
+  .acts { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 0 26px; font: 500 16px "GS"; border-radius: 0; transition: background .3s, color .3s; }
+  .btn.g { background: var(--gold); color: var(--ink); }
+  .btn.g:hover { background: var(--gold-l); }
+  .btn.o { border: 1px solid #4a463f; color: #fff; }
+  .btn.o:hover { border-color: var(--gold); }
+
+  /* fraza care se aprinde */
+  .say { padding: 96px 0 80px; }
+  .say p { font-weight: 300; font-size: clamp(27px, 6.6vw, 50px); line-height: 1.22; letter-spacing: -0.02em; max-width: 24ch; }
+  .say .w { color: #c9c4ba; transition: color .2s; }
+  .say .w.on { color: var(--ink); }
+  .vline { width: 1px; height: 80px; background: var(--line); margin: 0 auto; }
+
+  /* aparatele */
+  .apps { position: relative; padding: 70px 0 90px; }
+  .apps .blk { position: absolute; top: 0; bottom: 0; left: 0; right: 0; background: var(--ink); z-index: 0; }
+  .apps .wrap { position: relative; z-index: 1; color: #fff; }
+  .k { font-size: 15px; color: var(--mute); }
+  .apps .k { color: #9b958a; }
+  h2 { font-weight: 300; font-size: clamp(32px, 8vw, 58px); line-height: 1.08; letter-spacing: -0.03em; max-width: 18ch; margin-top: 10px; }
+  .grid { margin-top: 40px; display: grid; gap: 34px; }
+  .list { list-style: none; }
+  .list li { padding: 18px 0; border-top: 1px solid #2a2824; cursor: default; }
+  .list li:last-child { border-bottom: 1px solid #2a2824; }
+  .list h3 { font-weight: 400; font-size: clamp(30px, 8.4vw, 54px); line-height: 1; letter-spacing: -0.03em; color: #4b4740; transition: color .35s; }
+  .list p { max-height: 0; overflow: hidden; opacity: 0; color: #bdb7ab; font-weight: 300; font-size: 17px; max-width: 40ch; transition: max-height .45s, opacity .35s, margin .35s; }
+  .list li.on h3 { color: #fff; }
+  .list li.on h3::after { content: ""; display: inline-block; width: 9px; height: 9px; margin-left: 14px; vertical-align: middle; background: var(--gold); }
+  .list li.on p { max-height: 120px; opacity: 1; margin-top: 10px; }
+  .photo { position: relative; }
+  .photo img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; }
+  .photo .card { position: absolute; left: -1px; bottom: -1px; background: var(--ink); color: #fff; padding: 16px 20px 18px; max-width: 78%; font-weight: 300; font-size: 16px; }
+  .photo .card b { display: block; font-weight: 500; color: var(--gold-l); font-size: 15px; margin-bottom: 2px; }
+
+  /* cum începi */
+  .start { padding: 100px 0 90px; }
+  .steps { margin-top: 44px; display: grid; gap: 0; counter-reset: s; }
+  .step { display: grid; grid-template-columns: 54px 1fr; gap: 6px 14px; padding: 24px 0; border-top: 1px solid var(--line); }
+  .step:last-child { border-bottom: 1px solid var(--line); }
+  .step .n { font-size: 15px; color: var(--mute); padding-top: 6px; }
+  .step h3 { font-weight: 400; font-size: 26px; letter-spacing: -0.02em; line-height: 1.15; }
+  .step p { grid-column: 2; color: #55514a; font-weight: 300; max-width: 46ch; }
+  .note { margin-top: 30px; max-width: 52ch; color: #55514a; font-weight: 300; }
+  .tri { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-weight: 500; border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+  .tri::before { content: "▸"; font-size: 12px; color: var(--gold); }
+
+  /* contact */
+  .contact { position: relative; padding: 0 0 100px; }
+  .contact .blk { background: var(--ink); color: #fff; margin-left: 6%; padding: 70px var(--pad) 60px; }
+  .contact .semn { width: 120px; height: auto; margin-bottom: 26px; }
+  .rows { margin-top: 34px; display: grid; gap: 22px; }
+  .rows div span { display: block; font-size: 14px; color: #8f897e; margin-bottom: 3px; }
+  .rows a, .rows p { font-size: 22px; font-weight: 300; }
+  .rows a { border-bottom: 1px solid #3a372f; }
+  .rows a:hover { border-color: var(--gold); }
+  .map { margin-top: 40px; border: 0; width: 100%; height: 300px; filter: grayscale(1) contrast(1.05); display: block; }
+  footer { padding: 30px var(--pad) 110px; font-size: 14px; color: var(--mute); text-align: center; }
+  footer a { border-bottom: 1px solid currentColor; }
+
+  /* bara de jos pe telefon */
+  .mbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); padding-bottom: env(safe-area-inset-bottom); transform: translateY(110%); transition: transform .35s; }
+  .mbar.show { transform: none; }
+  .mbar a { display: flex; align-items: center; justify-content: center; height: 58px; font-weight: 500; font-size: 16px; color: #fff; }
+  .mbar a:first-child { background: var(--gold); color: var(--ink); }
+
+  @media (min-width: 900px) {
+    :root { --pad: 48px; }
+    .top { height: 72px; }
+    .top .wm { height: 18px; }
+    .top nav { display: flex; }
+    .hero { padding-top: 72px; min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; }
+    .hero .pic { order: 2; height: auto; min-height: 0; }
+    .hero .txt { align-self: end; padding: 60px 48px 80px; }
+    .say { padding: 160px 0 120px; }
+    .apps { padding: 110px 0 130px; }
+    .apps .blk { right: 26%; }
+    .grid { grid-template-columns: 1.15fr 0.85fr; gap: 70px; align-items: start; margin-top: 56px; }
+    .photo { position: sticky; top: 110px; transform: translateX(14%); max-width: 460px; }
+    .start .wrap { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 80px; }
+    .steps { margin-top: 6px; }
+    .contact .blk { margin-left: 14%; padding: 90px 80px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+    .map { margin-top: 0; height: 100%; min-height: 380px; }
+    .mbar { display: none; }
+    footer { padding-bottom: 40px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .say .w { color: var(--ink); } }
+</style>
+</head>
+<body>
+  <header class="top">
+    <a href="#sus" aria-label="FemmeFit, prima pagină"><img class="wm" src="img/wordmark.webp" alt="FemmeFit" width="380" height="70" /></a>
+    <nav aria-label="Meniu"><a href="#aparate">Aparatele</a><a href="#incepi">Cum începi</a><a href="#contact">Contact</a></nav>
+    <a class="call" href="tel:+40773752072">0773 752 072</a>
+  </header>
+
+  <main id="sus">
+    <section class="hero">
+      <div class="pic"><picture><source media="(min-width: 900px)" srcset="img/hero.webp" /><img id="heroImg" src="img/hero-s.webp" alt="Ședință de pilates pe reformer" width="1536" height="1024" fetchpriority="high" /></picture></div>
+      <div class="txt">
+        <h1><span class="lm"><span>Pilates pe aparate,</span></span><span class="lm"><span>în Satu Mare.</span></span></h1>
+        <p class="lead rv">Reformer, Cadillac, Wunda Chair și Barrel. <b>Prima ședință e gratuită.</b></p>
+        <div class="acts rv"><a class="btn g" href="tel:+40773752072">Programează prima ședință</a><a class="btn o" href="#aparate">Vezi aparatele</a></div>
+      </div>
+    </section>
+
+    <section class="say">
+      <div class="wrap"><p id="say">Fiecare program pornește de la obiectivul tău și de la cum te simți acum. De aceea prima ședință e gratuită: ne cunoaștem, vedem de unde pornim și abia apoi alegem pachetul.</p></div>
+    </section>
+    <div class="vline"></div>
+
+    <section class="apps" id="aparate">
+      <div class="blk" aria-hidden="true"></div>
+      <div class="wrap">
+        <span class="k rv">Aparatele</span>
+        <h2 class="rvl">Patru aparate, fiecare cu rostul lui.</h2>
+        <div class="grid">
+          <ul class="list" id="list">
+            <li class="on"><h3>Reformer</h3><p>Platforma care alunecă pe șine, cu arcuri. Pe el se lucrează cele mai multe exerciții.</p></li>
+            <li><h3>Cadillac</h3><p>Masa cu cadru, bare și arcuri deasupra. Pentru întinderi și pentru lucrul cu sprijin.</p></li>
+            <li><h3>Wunda Chair</h3><p>Scaunul cu pedală pe arcuri. Mic, dar cere echilibru și forță.</p></li>
+            <li><h3>Barrel</h3><p>Butoiul curbat, pentru spate, postură și mobilitate.</p></li>
+          </ul>
+          <div class="photo rvi"><img src="img/sala.webp" alt="Exercițiu pe reformer în studio" width="1196" height="1806" loading="lazy" /><div class="card"><b>Pe lângă pilates</b>Programe de remodelare și nutriție.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="start" id="incepi">
+      <div class="wrap">
+        <div><span class="k rv">Cum începi</span><h2 class="rvl">Trei pași până la primul pachet.</h2></div>
+        <div>
+          <div class="steps">
+            <div class="step rv"><span class="n">1</span><h3>Ne suni</h3><p>Stabilim o zi și o oră pentru prima ședință.</p></div>
+            <div class="step rv"><span class="n">2</span><h3>Prima ședință, gratuită</h3><p>Ne spui ce obiectiv ai și cum te simți, iar noi vedem de unde pornim.</p></div>
+            <div class="step rv"><span class="n">3</span><h3>Alegem pachetul</h3><p>Prețul îl stabilim împreună, după obiectivul și starea ta de sănătate.</p></div>
+          </div>
+          <a class="tri rv" href="tel:+40773752072">Sună la 0773 752 072</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="blk">
+        <div>
+          <img class="semn rv" src="img/semn.webp" alt="" width="300" height="300" loading="lazy" />
+          <h2 class="rvl">Te așteptăm pe Lucaciu.</h2>
+          <div class="rows">
+            <div class="rv"><span>Telefon și programări</span><a href="tel:+40773752072">0773 752 072</a></div>
+            <div class="rv"><span>Adresa</span><p>Bulevardul Vasile Lucaciu nr. 18, Satu Mare</p></div>
+            <div class="rv"><span>Cum ajungi</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Bulevardul+Vasile+Lucaciu+18+Satu+Mare">Deschide în Google Maps</a></div>
+          </div>
+        </div>
+        <iframe class="map" title="Harta" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Bulevardul+Vasile+Lucaciu+18,+Satu+Mare&amp;output=embed"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>Demo al site-ului realizat de <a href="https://rtweb.ro">RTWEB</a> pentru FemmeFit Pilates</footer>
+  <nav class="mbar" id="mbar" aria-label="Contact rapid"><a href="tel:+40773752072">Sună</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Bulevardul+Vasile+Lucaciu+18+Satu+Mare">Cum ajungi</a></nav>
+
+<script>
+addEventListener("DOMContentLoaded", () => {
+  const say = document.getElementById("say");
+  say.innerHTML = say.textContent.trim().split(/\s+/).map((w) => `<span class="w">${w}</span>`).join(" ");
+  const words = [...say.querySelectorAll(".w")];
+  const items = [...document.querySelectorAll("#list li")];
+  const pick = (i) => items.forEach((li, j) => li.classList.toggle("on", i === j));
+  items.forEach((li, i) => li.addEventListener("mouseenter", () => pick(i)));
+  items.forEach((li, i) => li.addEventListener("click", () => pick(i)));
+
+  const mbar = document.getElementById("mbar");
+  const onScroll = () => mbar.classList.toggle("show", scrollY > innerHeight * 0.6);
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  if (!window.gsap || matchMedia("(prefers-reduced-motion: reduce)").matches) { words.forEach((w) => w.classList.add("on")); return; }
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from(".hero h1 .lm > span", { yPercent: 112, duration: 1.1, ease: "expo.out", stagger: 0.09, delay: 0.1 });
+  gsap.from(".hero .rv", { y: 18, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.1, delay: 0.45 });
+  gsap.fromTo("#heroImg", { scale: 1.08 }, { scale: 1, duration: 2.2, ease: "power2.out" });
+
+  ScrollTrigger.create({ trigger: say, start: "top 78%", end: "bottom 45%", scrub: true,
+    onUpdate: (s) => { const n = Math.round(s.progress * words.length); words.forEach((w, i) => w.classList.toggle("on", i < n)); } });
+
+  document.querySelectorAll("main .rvl").forEach((el) => {
+    el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="lm" style="display:inline-block;vertical-align:top"><span style="display:inline-block">${w}&nbsp;</span></span>`).join("");
+    gsap.from(el.querySelectorAll(".lm > span"), { yPercent: 112, duration: 1, ease: "expo.out", stagger: 0.04, scrollTrigger: { trigger: el, start: "top 86%" } });
+  });
+  gsap.utils.toArray("main section:not(.hero) .rv").forEach((el) => gsap.from(el, { y: 22, opacity: 0, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
+  gsap.utils.toArray(".rvi").forEach((el) => gsap.from(el, { y: 40, opacity: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
+  gsap.from(".apps .blk", { scaleX: 0.86, transformOrigin: "left center", duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: ".apps", start: "top 80%" } });
+
+  // pe telefon, rândul din mijlocul ecranului se aprinde singur
+  if (matchMedia("(max-width: 899px)").matches) items.forEach((li, i) => ScrollTrigger.create({ trigger: li, start: "top 60%", end: "bottom 60%", onToggle: (s) => s.isActive && pick(i) }));
+});
+</script>
+</body>
+</html>
