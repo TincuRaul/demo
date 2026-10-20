@@ -77,8 +77,10 @@
   #s1 { object-position: 50% 30%; }
   .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,11,11,.7) 0%, rgba(11,11,11,0) 26%, rgba(11,11,11,.35) 55%, rgba(11,11,11,.85) 100%); }
   .hero .txt { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 0 var(--pad) calc(34px + env(safe-area-inset-bottom)); }
-  h1 { font-weight: 900; font-size: clamp(46px, 13.4vw, 112px); line-height: 0.95; letter-spacing: -0.04em; }
-  .cyc { display: block; min-height: 1.5em; margin-top: 12px; font-weight: 700; font-size: 20px; color: var(--gold); }
+  h1 { font-weight: 700; font-size: clamp(38px, 10.6vw, 78px); line-height: 1; letter-spacing: -0.035em; }
+  .hl { margin-top: 14px; font-weight: 500; font-size: 20px; color: #e9e4da; }
+  .cyc { display: inline-block; font-weight: 700; color: var(--gold); }
+  .free { margin-top: 14px; font-size: 15px; color: #cfc9be; }
   .cyc .ch { display: inline-block; }
   .hero .acts { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .hero .acts .btn { min-height: 52px; padding: 0 12px; font-size: 14px; }
@@ -115,7 +117,6 @@
   .offer .card { position: relative; overflow: hidden; background: var(--ink); color: #fff; min-height: 340px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; }
   .offer .card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; opacity: .55; }
   .offer .card h2 { position: relative; color: #fff; }
-  .offer .card .cyc { position: relative; }
   .offer ul { margin-top: 22px; padding-left: 20px; display: grid; gap: 8px; color: #3d3a35; max-width: 60ch; }
   .offer .note { margin-top: 14px; font-size: 15px; color: var(--mute); }
   .offer .btn { margin-top: 26px; }
@@ -165,8 +166,10 @@
     .top nav { display: flex; margin-right: 18px; }
     .tcall, .menuBtn { display: none; }
     .tbtn { display: inline-flex; }
-    .hero .txt { padding-bottom: 70px; max-width: 1180px; margin: 0 auto; }
-    .cyc { font-size: 24px; }
+    .hero .txt { right: auto; width: min(800px, 62vw); padding: 0 0 80px var(--pad); }
+    .hero::after { background: linear-gradient(180deg, rgba(11,11,11,.55) 0%, rgba(11,11,11,0) 22%), linear-gradient(90deg, rgba(11,11,11,.82) 0%, rgba(11,11,11,.5) 38%, rgba(11,11,11,0) 62%); }
+    .hl { font-size: 24px; margin-top: 18px; }
+    .hero .acts { margin-top: 26px; }
     .about { padding: 130px 0 90px; }
     .about .wrap { grid-template-columns: 90px 1fr; gap: 50px; }
     .side { writing-mode: vertical-rl; transform: rotate(180deg); align-self: start; flex-direction: row-reverse; font-size: 40px; }
@@ -183,7 +186,7 @@
     .circles { grid-template-columns: repeat(3, 1fr); gap: 30px; }
     .circles .c:nth-child(n) { justify-self: center; margin: 0; }
     .offer .wrap > div:last-child { margin-top: 0; }
-    .hero .acts { display: flex; }
+    .hero .acts { display: flex; gap: 12px; }
     .hero .acts .btn { padding: 0 26px; font-size: 15px; min-height: 54px; }
     .blocks > div { border-top: 0; padding-top: 0; }
     .c { width: 100%; max-width: 300px; }
@@ -217,8 +220,9 @@
       </div>
       <div class="txt">
         <h1><span class="lm"><span>Pilates pe aparate,</span></span><span class="lm"><span>în Satu Mare.</span></span></h1>
-        <span class="cyc" id="cyc" aria-live="off"></span>
+        <p class="hl rv">Ședințe pe <span class="cyc" id="cyc" aria-live="off">Reformer</span></p>
         <div class="acts rv"><a class="btn full" href="tel:+40773752072">Programează-te</a><a class="btn w" href="#prima">Prima ședință</a></div>
+        <p class="free rv">Prima ședință e gratuită.</p>
       </div>
     </section>
 
@@ -325,9 +329,9 @@ addEventListener("DOMContentLoaded", () => {
   setInterval(() => { slides[si].classList.remove("on"); si = (si + 1) % slides.length; slides[si].classList.add("on"); }, 5500);
 
   const cyc = document.getElementById("cyc");
-  const phrases = ["Reformer.", "Cadillac.", "Wunda Chair.", "Barrel.", "Prima ședință e gratuită."];
+  const phrases = ["Reformer", "Cadillac", "Wunda Chair", "Barrel"];
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!window.gsap || reduce) { cyc.textContent = phrases[4]; return; }
+  if (!window.gsap || reduce) { return; }
   gsap.registerPlugin(ScrollTrigger);
 
   // rândul care se schimbă literă cu literă, din blur
