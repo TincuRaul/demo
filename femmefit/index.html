@@ -358,5 +358,16 @@ addEventListener("DOMContentLoaded", () => {
   gsap.fromTo("#wideImg", { yPercent: -8 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: ".wide", start: "top bottom", end: "bottom top", scrub: true } });
 });
 </script>
+<script>
+// linkurile din pagină derulează lin, fără să lase #ancora în adresă
+document.addEventListener("click", (e) => {
+  const a = e.target.closest('a[href^="#"]'); if (!a) return;
+  const id = a.getAttribute("href").slice(1), el = id && id !== "sus" ? document.getElementById(id) : null;
+  e.preventDefault();
+  const top = el ? el.getBoundingClientRect().top + scrollY - (document.querySelector(".top")?.offsetHeight || 0) : 0;
+  scrollTo({ top, behavior: "smooth" });
+  history.replaceState(null, "", location.pathname + location.search);
+});
+</script>
 </body>
 </html>

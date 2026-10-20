@@ -478,5 +478,16 @@ document.addEventListener("DOMContentLoaded", () => {
   if (matchMedia("(min-width: 900px)").matches) document.querySelectorAll(".item").forEach((it) => ScrollTrigger.create({ trigger: it, start: "top 55%", end: "bottom 55%", onToggle: (s) => s.isActive && imgs.forEach((im) => im.classList.toggle("on", im.dataset.k === it.dataset.k)) }));
 });
 </script>
+<script>
+// linkurile din pagină derulează lin, fără să lase #ancora în adresă
+document.addEventListener("click", (e) => {
+  const a = e.target.closest('a[href^="#"]'); if (!a) return;
+  const id = a.getAttribute("href").slice(1), el = id && id !== "sus" ? document.getElementById(id) : null;
+  e.preventDefault();
+  const top = el ? el.getBoundingClientRect().top + scrollY - (document.querySelector(".top")?.offsetHeight || 0) : 0;
+  scrollTo({ top, behavior: "smooth" });
+  history.replaceState(null, "", location.pathname + location.search);
+});
+</script>
 </body>
 </html>
