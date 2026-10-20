@@ -40,12 +40,32 @@
   .btn.w { border-color: #fff; color: #fff; }
   .btn.w::before { background: #fff; }
 
-  /* header */
-  .top { position: fixed; inset: 0 0 auto; z-index: 50; height: 60px; background: var(--ink); color: #fff; display: flex; align-items: center; gap: 18px; padding: 0 var(--pad); }
-  .top .wm { height: 15px; width: auto; margin-right: auto; }
-  .top nav { display: none; gap: 30px; font-weight: 500; font-size: 15px; color: #cfc9be; }
-  .top nav a:hover { color: #fff; }
-  .top .call { font-weight: 700; font-size: 15px; color: var(--gold); }
+  /* header: transparent peste poză, negru după scroll */
+  .top { position: fixed; inset: 0 0 auto; z-index: 50; height: 64px; display: flex; align-items: center; gap: 10px; padding: 0 var(--pad); padding-top: env(safe-area-inset-top); color: #fff; transition: background .35s, height .35s, box-shadow .35s; }
+  .top.solid, .menuOpen .top { background: var(--ink); box-shadow: 0 1px 0 #24221f; }
+  .logo { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+  .logo .sg { width: 42px; height: 42px; }
+  .logo .wm { height: 15px; width: auto; filter: brightness(1.3); }
+  .logo .sg { filter: brightness(1.2); }
+  .top nav { display: none; gap: 28px; font-weight: 500; font-size: 15px; }
+  .top nav a { opacity: .85; transition: opacity .3s, color .3s; }
+  .top nav a:hover { opacity: 1; color: var(--gold); }
+  .tcall { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid rgba(255,255,255,.8); color: #fff; }
+  .tcall svg { width: 18px; height: 18px; }
+  .menuBtn { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 14px; background: var(--gold); color: var(--ink); border: 0; cursor: pointer; font: 700 14px/1 "Satoshi"; text-transform: uppercase; }
+  .menuBtn .bars { display: grid; gap: 4px; }
+  .menuBtn .bars i { display: block; width: 18px; height: 2px; background: currentColor; transition: transform .35s; }
+  .menuOpen .menuBtn .bars i:first-child { transform: translateY(3px) rotate(45deg); }
+  .menuOpen .menuBtn .bars i:last-child { transform: translateY(-3px) rotate(-45deg); }
+  .tbtn { display: none; min-height: 46px; padding: 0 20px; font-size: 14px; }
+  .menu { position: fixed; z-index: 45; inset: 0; background: var(--ink); color: #fff; display: flex; flex-direction: column; justify-content: space-between; padding: calc(96px + env(safe-area-inset-top)) var(--pad) calc(28px + env(safe-area-inset-bottom)); opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s .25s; }
+  .menuOpen .menu { opacity: 1; visibility: visible; transition: opacity .25s; }
+  .menu nav { display: grid; }
+  .menu nav a { font: 900 clamp(36px, 10vw, 64px)/1.1 "Satoshi"; letter-spacing: -.035em; padding: 12px 0; border-bottom: 1px solid #2a2824; transition: color .3s; }
+  .menu nav a:hover { color: var(--gold); }
+  .menu .mfoot { display: grid; gap: 6px; margin-top: 28px; color: #9a948a; font-size: 15px; }
+  .menu .mfoot a { color: var(--gold); font-weight: 700; font-size: 24px; }
+  html.menuOpen { overflow: hidden; }
 
   /* primul ecran */
   .hero { position: relative; height: 100svh; min-height: 600px; background: var(--ink); color: #fff; overflow: hidden; }
@@ -55,73 +75,80 @@
   @keyframes kb { from { transform: scale(1.08); } to { transform: scale(1); } }
   #s0 { object-position: 66% 50%; }
   #s1 { object-position: 50% 30%; }
-  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,11,11,.25) 0%, rgba(11,11,11,0) 30%, rgba(11,11,11,.35) 55%, rgba(11,11,11,.85) 100%); }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,11,11,.7) 0%, rgba(11,11,11,0) 26%, rgba(11,11,11,.35) 55%, rgba(11,11,11,.85) 100%); }
   .hero .txt { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 0 var(--pad) calc(34px + env(safe-area-inset-bottom)); }
   h1 { font-weight: 900; font-size: clamp(46px, 13.4vw, 112px); line-height: 0.95; letter-spacing: -0.04em; }
-  .cyc { display: block; min-height: 1.6em; margin-top: 16px; font-weight: 700; font-size: 21px; color: var(--gold); }
+  .cyc { display: block; min-height: 1.5em; margin-top: 12px; font-weight: 700; font-size: 20px; color: var(--gold); }
   .cyc .ch { display: inline-block; }
-  .hero .acts { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .hero .acts { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .hero .acts .btn { min-height: 52px; padding: 0 12px; font-size: 14px; }
 
   /* despre, cu eticheta verticală */
-  .about { padding: 84px 0 70px; }
-  .about .wrap { display: grid; gap: 34px; }
-  .side { display: flex; align-items: center; gap: 14px; font-weight: 900; font-size: 34px; letter-spacing: -0.03em; }
+  .about { padding: 64px 0 44px; }
+  .about .wrap { display: grid; gap: 24px; }
+  .side { display: flex; align-items: center; gap: 14px; font-weight: 900; font-size: 30px; letter-spacing: -0.03em; }
   .side::after { content: ""; width: 60px; height: 2px; background: var(--ink); }
-  .blocks { display: grid; gap: 30px; }
-  .blocks h3 { font-weight: 900; font-size: 22px; letter-spacing: -0.02em; }
+  .blocks { display: grid; gap: 22px; }
+  .blocks > div { padding-top: 18px; border-top: 1px solid var(--line); }
+  .blocks h3 { font-weight: 900; font-size: 21px; letter-spacing: -0.02em; }
   .blocks p { margin-top: 6px; color: #3d3a35; max-width: 56ch; }
 
   /* aparatele */
-  .apps { padding: 30px 0 90px; text-align: center; }
+  .apps { padding: 40px 0 64px; text-align: center; }
   .apps .sub { margin: 16px auto 0; max-width: 44ch; color: var(--mute); }
-  .fmt { list-style: none; margin: 40px auto 0; display: inline-grid; gap: 14px; text-align: left; }
-  .fmt li { font-size: 19px; line-height: 1.35; }
+  .fmt { list-style: none; margin: 30px auto 0; display: grid; gap: 0; text-align: left; max-width: 560px; }
+  .fmt li { font-size: 18px; line-height: 1.35; padding: 14px 0; border-top: 1px solid var(--line); }
+  .fmt li:last-child { border-bottom: 1px solid var(--line); }
   .fmt b { font-weight: 900; letter-spacing: -0.01em; }
   .fmt span { color: var(--gold-d); font-weight: 700; margin: 0 6px; }
 
   /* poza mare cu eticheta */
-  .wide { position: relative; height: 72svh; min-height: 420px; overflow: hidden; background: var(--ink); }
+  .wide { position: relative; height: 58svh; min-height: 380px; overflow: hidden; background: var(--ink); }
   .wide img { width: 100%; height: 118%; object-fit: cover; object-position: 50% 35%; }
   .wide .lab { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: rgba(11,11,11,.72); color: #fff; padding: 16px 26px; text-align: center; }
   .wide .lab b { display: block; font-weight: 900; font-size: 30px; letter-spacing: -0.02em; line-height: 1.1; }
   .wide .lab small { font-weight: 500; font-size: 14px; color: var(--gold); }
 
   /* oferta: prima ședință */
-  .offer { padding: 90px 0 80px; }
-  .offer .card { position: relative; overflow: hidden; background: var(--ink); color: #fff; min-height: 420px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 50px 24px; }
+  .offer { padding: 64px 0 56px; }
+  .offer .wrap > div:last-child { margin-top: 36px; }
+  .offer .card { position: relative; overflow: hidden; background: var(--ink); color: #fff; min-height: 340px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; }
   .offer .card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; opacity: .55; }
   .offer .card h2 { position: relative; color: #fff; }
   .offer .card .cyc { position: relative; }
-  .offer ul { margin-top: 34px; padding-left: 20px; display: grid; gap: 8px; color: #3d3a35; max-width: 60ch; }
+  .offer ul { margin-top: 22px; padding-left: 20px; display: grid; gap: 8px; color: #3d3a35; max-width: 60ch; }
   .offer .note { margin-top: 14px; font-size: 15px; color: var(--mute); }
   .offer .btn { margin-top: 26px; }
 
   /* cercurile: cum începi */
-  .start { padding: 10px 0 100px; }
-  .circles { margin-top: 40px; display: grid; justify-items: center; gap: 22px; }
-  .c { width: min(76vw, 250px); aspect-ratio: 1; border-radius: 50%; background: var(--ink); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 26px; }
+  .start { padding: 8px 0 72px; }
+  .circles { margin-top: 30px; display: grid; gap: 0; }
+  .circles .c:nth-child(1) { justify-self: start; }
+  .circles .c:nth-child(2) { justify-self: end; margin-top: -26px; }
+  .circles .c:nth-child(3) { justify-self: start; margin-top: -26px; margin-left: 18px; }
+  .c { width: min(58vw, 215px); aspect-ratio: 1; border-radius: 50%; background: var(--ink); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 26px; }
   .c .n { font-weight: 700; font-size: 15px; color: var(--gold); }
-  .c b { margin-top: 4px; font-weight: 900; font-size: 25px; line-height: 1.08; letter-spacing: -0.02em; }
+  .c b { margin-top: 4px; font-weight: 900; font-size: 22px; line-height: 1.08; letter-spacing: -0.02em; }
   .c small { margin-top: 8px; font-size: 14px; line-height: 1.4; color: #c7c1b6; }
   .c.g { background: var(--gold); color: var(--ink); }
   .c.g .n { color: var(--ink); opacity: .7; }
   .c.g small { color: #2b261c; }
 
   /* banda nisip: prețul */
-  .price { background: var(--sand); padding: 80px 0; }
-  .price p { margin-top: 18px; max-width: 54ch; color: #3d3a35; font-size: 18px; }
+  .price { background: var(--sand); padding: 60px 0; }
+  .price p { margin-top: 16px; max-width: 54ch; color: #3d3a35; font-size: 17px; }
   .price .btn { margin-top: 28px; }
 
   /* contact */
-  .contact { background: var(--ink); color: #fff; padding: 80px 0 60px; }
-  .contact .wrap { display: grid; gap: 40px; }
-  .contact .semn { width: 110px; height: auto; margin-bottom: 20px; }
+  .contact { background: var(--ink); color: #fff; padding: 64px 0 44px; }
+  .contact .wrap { display: grid; gap: 32px; }
+  .contact .semn { width: 90px; height: auto; margin-bottom: 16px; }
   .rows { margin-top: 30px; display: grid; gap: 20px; }
   .rows span { display: block; font-size: 14px; color: #8f897e; }
   .rows a, .rows p { font-weight: 500; font-size: 21px; }
   .rows a { border-bottom: 2px solid var(--gold); }
   .map { display: block; border: 0; width: 100%; min-width: 0; height: 300px; filter: grayscale(1) contrast(1.05); }
-  footer { background: var(--ink); color: #8f897e; text-align: center; font-size: 14px; padding: 0 var(--pad) 100px; }
+  footer { background: var(--ink); color: #8f897e; text-align: center; font-size: 14px; padding: 8px var(--pad) calc(82px + env(safe-area-inset-bottom)); }
   footer a { color: #fff; border-bottom: 1px solid currentColor; }
 
   .mbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); padding-bottom: env(safe-area-inset-bottom); transform: translateY(110%); transition: transform .35s; }
@@ -131,9 +158,13 @@
 
   @media (min-width: 900px) {
     :root { --pad: 48px; }
-    .top { height: 72px; }
-    .top .wm { height: 18px; }
-    .top nav { display: flex; }
+    .top { height: 80px; }
+    .top.solid { height: 68px; }
+    .logo .sg { width: 46px; height: 46px; }
+    .logo .wm { height: 19px; }
+    .top nav { display: flex; margin-right: 18px; }
+    .tcall, .menuBtn { display: none; }
+    .tbtn { display: inline-flex; }
     .hero .txt { padding-bottom: 70px; max-width: 1180px; margin: 0 auto; }
     .cyc { font-size: 24px; }
     .about { padding: 130px 0 90px; }
@@ -150,6 +181,11 @@
     .offer .card { min-height: 520px; }
     .offer ul { margin-top: 0; }
     .circles { grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .circles .c:nth-child(n) { justify-self: center; margin: 0; }
+    .offer .wrap > div:last-child { margin-top: 0; }
+    .hero .acts { display: flex; }
+    .hero .acts .btn { padding: 0 26px; font-size: 15px; min-height: 54px; }
+    .blocks > div { border-top: 0; padding-top: 0; }
     .c { width: 100%; max-width: 300px; }
     .price { padding: 110px 0; }
     .contact { padding: 110px 0 70px; }
@@ -161,11 +197,17 @@
 </style>
 </head>
 <body>
-  <header class="top">
-    <a href="#sus" aria-label="FemmeFit, prima pagină"><img class="wm" src="img/wordmark.webp" alt="FemmeFit" width="380" height="70" /></a>
+  <header class="top" id="top">
+    <a class="logo" href="#sus" aria-label="FemmeFit, prima pagină"><img class="sg" src="img/semn-a.webp" alt="" width="300" height="300" /><img class="wm" src="img/wm-a.webp" alt="FemmeFit" width="380" height="70" /></a>
     <nav aria-label="Meniu"><a href="#despre">Despre</a><a href="#aparate">Aparatele</a><a href="#prima">Prima ședință</a><a href="#contact">Contact</a></nav>
-    <a class="call" href="tel:+40773752072">0773 752 072</a>
+    <a class="btn full tbtn" href="tel:+40773752072">0773 752 072</a>
+    <a class="tcall" href="tel:+40773752072" aria-label="Sună la 0773 752 072"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" fill="currentColor"/></svg></a>
+    <button class="menuBtn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu"><span>Meniu</span><span class="bars"><i></i><i></i></span></button>
   </header>
+  <div class="menu" id="menu" aria-hidden="true">
+    <nav aria-label="Meniu pe telefon"><a href="#despre">Despre</a><a href="#aparate">Aparatele</a><a href="#prima">Prima ședință</a><a href="#contact">Contact</a></nav>
+    <div class="mfoot"><a href="tel:+40773752072">0773 752 072</a><span>Bulevardul Vasile Lucaciu nr. 18, Satu Mare</span></div>
+  </div>
 
   <main id="sus">
     <section class="hero">
@@ -250,7 +292,7 @@
     <section class="contact" id="contact">
       <div class="wrap">
         <div>
-          <img class="semn rv" src="img/semn.webp" alt="" width="300" height="300" loading="lazy" />
+          <img class="semn rv" src="img/semn-a.webp" alt="" width="300" height="300" loading="lazy" />
           <h2 class="rvl">Te așteptăm.</h2>
           <div class="rows">
             <div class="rv"><span>Telefon și programări</span><a href="tel:+40773752072">0773 752 072</a></div>
@@ -269,7 +311,12 @@
 <script>
 addEventListener("DOMContentLoaded", () => {
   const mbar = document.getElementById("mbar");
-  const onScroll = () => mbar.classList.toggle("show", scrollY > innerHeight * 0.7);
+  const top = document.getElementById("top");
+  const onScroll = () => { mbar.classList.toggle("show", scrollY > innerHeight * 0.7); top.classList.toggle("solid", scrollY > 40); };
+  const mb = document.getElementById("menuBtn"), menu = document.getElementById("menu");
+  const setMenu = (o) => { document.documentElement.classList.toggle("menuOpen", o); mb.setAttribute("aria-expanded", o); menu.setAttribute("aria-hidden", !o); mb.querySelector("span").textContent = o ? "Închide" : "Meniu"; };
+  mb.addEventListener("click", () => setMenu(!document.documentElement.classList.contains("menuOpen")));
+  menu.querySelectorAll("nav a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
   addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
   // pozele din primul ecran se schimbă singure
