@@ -81,7 +81,11 @@
 
   /* primul ecran */
   .hero { position: relative; height: calc(100svh - 64px); min-height: 560px; max-height: 920px; overflow: hidden; color: #fff; background: var(--ink); }
-  .hero img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; transform-origin: 50% 60%; }
+  .slides { position: absolute; inset: 0; will-change: transform; }
+  .hero img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; opacity: 0; transition: opacity 1.4s ease; }
+  .hero img.bg.on { opacity: 1; }
+  .hero img.bg.zoom { animation: kb 7s ease-out both; }
+  @keyframes kb { from { transform: scale(1.08); } to { transform: scale(1); } }
   .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,22,25,.15) 0%, rgba(20,22,25,.05) 35%, rgba(20,22,25,.72) 78%, rgba(20,22,25,.86) 100%); }
   .heroIn { position: absolute; z-index: 2; left: var(--pad); right: var(--pad); bottom: 34px; display: flex; flex-direction: column; gap: 26px; }
   h1 { font: 500 clamp(40px, 9.4vw, 84px)/1.02 "Satoshi"; letter-spacing: -.03em; max-width: 15ch; }
@@ -277,7 +281,12 @@
 
   <main>
     <section class="hero" id="sus">
-      <img class="bg" id="heroImg" src="img/hero.webp" alt="Casă din Satu Mare cu tâmplărie Thermostar montată" fetchpriority="high" />
+      <div class="slides" id="slides">
+        <img class="bg on" src="img/hero.webp" alt="Casă din Satu Mare cu tâmplărie Thermostar montată" fetchpriority="high" />
+        <img class="bg" src="img/casa-alba.webp" alt="Casă albă cu ferestre în culoare lemn" loading="lazy" />
+        <img class="bg" src="img/veranda.webp" alt="Verandă închisă cu glisante din aluminiu" loading="lazy" />
+        <img class="bg" src="img/fatada.webp" alt="Casă cu ferestre arcuite" loading="lazy" />
+      </div>
       <div class="heroIn">
         <div class="heroText">
           <h1><span class="lm"><span>Termopane montate</span></span><span class="lm"><span>în Satu Mare, din 2004.</span></span></h1>
@@ -418,6 +427,10 @@ document.addEventListener("DOMContentLoaded", () => {
   addEventListener("scroll", () => bar.classList.toggle("on", scrollY > innerHeight * .7), { passive: true });
 
   // „Ce montăm”: rândul peste care ești aprinde poza lui
+  const slides = [...document.querySelectorAll("#slides img")]; let si = 0;
+  if (!reduce) { slides[0].classList.add("zoom");
+    setInterval(() => { const cur = slides[si]; si = (si + 1) % slides.length; const nx = slides[si];
+      nx.classList.remove("zoom"); void nx.offsetWidth; nx.classList.add("zoom", "on"); cur.classList.remove("on"); }, 5500); }
   const imgs = [...document.querySelectorAll(".whatImg img")];
   document.querySelectorAll(".item").forEach((it) => it.addEventListener("mouseenter", () => imgs.forEach((im) => im.classList.toggle("on", im.dataset.k === it.dataset.k))));
 
@@ -437,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
   gsap.set(["#heroLead", ".heroBtns"], { opacity: 0, y: 30 });
   gsap.set("#heroCard", { opacity: 0, x: 44 });
   const t = gsap.timeline({ delay: .15 });
-  t.fromTo("#heroImg", { scale: 1.12 }, { scale: 1, duration: 2.4, ease: "expo.out" }, 0);
+  
   t.to(".hero .lm > span", { yPercent: 0, duration: 1.7, ease: "expo.out", stagger: .22 }, .1);
   t.to("#heroLead", { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }, .7);
   t.add(() => { show(0); setInterval(next, 2000 + 1.8 * 2000); }, .9);
@@ -445,7 +458,7 @@ document.addEventListener("DOMContentLoaded", () => {
   t.to("#heroCard", { opacity: 1, x: 0, duration: 1.4, ease: "power3.out" }, 1.2);
 
   // poza din primul ecran coboară puțin la scroll
-  gsap.to("#heroImg", { yPercent: 12, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  gsap.to("#slides", { yPercent: 12, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 
   // titlurile secțiunilor: fiecare rând urcă din mască când ajunge pe ecran
   document.querySelectorAll(".rvl").forEach((el) => {
