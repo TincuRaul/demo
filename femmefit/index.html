@@ -180,12 +180,12 @@
   @media (min-width: 900px) { .ben li { grid-template-columns: 260px 1fr; gap: 30px; padding: 34px 0 36px; } .ben li > span { padding-top: 14px; } .pil { padding: 130px 0 100px; } .hist { grid-template-columns: auto 1fr; align-items: end; gap: 30px; } .hist p { font-size: 20px; padding-bottom: 22px; } }
   /* v2: tehnici apple.com (scene fixate la scroll, progres continuu amortizat), pe identitatea FemmeFit */
   .heroScene { position: relative; height: 210svh; background: #fff; }
-  .heroPin { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  .heroPin { position: sticky; top: 0; height: var(--vh, 100svh); overflow: hidden; }
   .heroScene .hero { position: absolute; inset: 0; height: auto; min-height: 0; will-change: transform; transform-origin: 50% 50%; }
   .after { position: absolute; left: 0; right: 0; bottom: 9svh; text-align: center; padding: 0 var(--pad); font-weight: 900; font-size: clamp(28px, 7.4vw, 56px); line-height: 1.05; letter-spacing: -.035em; color: var(--ink); pointer-events: none; }
   .after span { display: block; padding: .04em 0 .2em; margin-bottom: -.16em; clip-path: inset(0 0 100% 0); }
   .scene { position: relative; height: 380svh; background: var(--ink); color: #fff; }
-  .scene .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; grid-template-rows: 46svh 1fr; }
+  .scene .pin { position: sticky; top: 0; height: var(--vh, 100svh); overflow: hidden; display: grid; grid-template-rows: 46svh 1fr; }
   .scene .ph { position: relative; overflow: hidden; }
   .scene .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; transform-origin: 50% 40%; }
   .scene .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,11,11,0) 55%, var(--ink)); }
@@ -194,9 +194,12 @@
   .scene ol { list-style: none; margin-top: 8px; }
   .scene li { padding: 7px 0; }
   .scene li b { display: block; font-weight: 900; font-size: clamp(34px, 9.6vw, 74px); line-height: 1; letter-spacing: -.04em; color: #3a3631; transition: color .4s; }
-  .scene li p { max-height: 0; overflow: hidden; color: #c9c3b8; font-size: 16px; clip-path: inset(0 0 100% 0); transition: max-height .45s, clip-path .55s cubic-bezier(.2,.8,.2,1), margin .45s; }
   .scene li.on b { color: #fff; }
-  .scene li.on p { max-height: 60px; margin-top: 6px; clip-path: inset(0); }
+  .scene li p { display: none; }
+  .scene .desc { position: relative; height: 2.9em; margin-top: 10px; overflow: hidden; color: #c9c3b8; font-size: 16px; line-height: 1.4; }
+  .scene .desc span { position: absolute; left: 0; right: 0; top: 0; transition: transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s; }
+  .scene .desc span.out { transform: translateY(-60%); opacity: 0; }
+  .scene .desc span.pre { transform: translateY(60%); opacity: 0; }
   .scene .bar { margin-top: 18px; height: 2px; background: #2a2824; max-width: 360px; }
   .scene .bar i { display: block; height: 100%; width: 100%; background: var(--gold); transform-origin: 0 50%; transform: scaleX(0); }
   .c { animation: float 5.5s ease-in-out infinite alternate; }
@@ -207,8 +210,7 @@
     .scene .ph::after { background: linear-gradient(90deg, rgba(11,11,11,0) 60%, var(--ink)); }
     .scene .names { align-self: center; padding: 0 64px; }
     .scene li { padding: 10px 0; }
-    .scene li p { font-size: 18px; }
-  }
+    }
   @media (prefers-reduced-motion: reduce) { .ben li::before { --ln: 1; } .heroScene { height: auto; } .heroPin { position: relative; height: 100svh; } .after { display: none; } .scene { height: auto; } .scene .pin { position: relative; } .scene li p { max-height: none; clip-path: none; } .c { animation: none; } }
 </style>
 </head>
@@ -267,6 +269,7 @@
             <li><b>Wunda Chair</b><p>Scaunul cu pedală pe arcuri.</p></li>
             <li><b>Barrel</b><p>Butoiul curbat, pentru spate și postură.</p></li>
           </ol>
+          <p class="desc" id="desc"><span>Platforma care alunecă pe șine, cu arcuri.</span></p>
           <div class="bar"><i id="bar"></i></div>
         </div>
       </div>
@@ -358,8 +361,10 @@ addEventListener("DOMContentLoaded", () => {
     const aft = [...after.children], sc = document.getElementById("aparate"), img = document.getElementById("scImg"), bar = document.getElementById("bar");
     const names = [...document.querySelectorAll("#names li")];
     const pil = document.getElementById("despre"), hist = document.getElementById("hist"), cnt = document.getElementById("cnt");
-    let sy = scrollY, cur = -1;
-    const prog = (el) => { const r = el.offsetTop, h = el.offsetHeight - innerHeight; return clamp((sy - r) / h); };
+    let sy = scrollY, cur = -1; const desc = document.getElementById("desc");
+    // pe telefon înălțimea se schimbă când apare sau dispare bara Safari; o fixez, ca scena să nu tremure
+    let VH = innerHeight, VW = innerWidth; document.documentElement.style.setProperty("--vh", VH + "px"); addEventListener("resize", () => { if (innerWidth !== VW) { VW = innerWidth; VH = innerHeight; document.documentElement.style.setProperty("--vh", VH + "px"); } });
+    const prog = (el) => { const r = el.offsetTop, h = el.offsetHeight - VH; return clamp((sy - r) / h); };
     const tick = () => {
       sy += (scrollY - sy) * 0.1;
       // primul ecran: poza se strânge într-un cadru, apoi intră fraza
@@ -368,13 +373,16 @@ addEventListener("DOMContentLoaded", () => {
       hero.querySelector(".txt").style.opacity = 1 - map(p, .05, .3, 0, 1);
       aft.forEach((s, i) => { const v = map(p, .42 + i * .16, .62 + i * .16, 100, 0); s.style.clipPath = `inset(0 0 ${v}% 0)`; });
       // despre pilates: fondul se încălzește, contorul urcă
-      const pr = pil.getBoundingClientRect(), k = map(pr.top, innerHeight, innerHeight * .2, 0, 1);
+      const pr = pil.getBoundingClientRect(), k = map(pr.top, VH, VH * .2, 0, 1);
       pil.style.background = `rgb(${Math.round(255 - 19 * k)},${Math.round(255 - 24 * k)},${Math.round(255 - 33 * k)})`;
-      const hr = hist.getBoundingClientRect(); cnt.textContent = Math.round(map(hr.top, innerHeight, innerHeight * .45, 0, 100));
+      const hr = hist.getBoundingClientRect(); cnt.textContent = Math.round(map(hr.top, VH, VH * .45, 0, 100));
       // aparatele: poza se apropie încet, numele se aprind pe rând
-      const a = prog(sc); img.style.transform = `scale(${1.18 - a * .18})`; bar.style.transform = `scaleX(${a})`;
+      const a = prog(sc); img.style.transform = `scale(${1.1 - a * .1})`; bar.style.transform = `scaleX(${a})`;
       const n = Math.min(names.length - 1, Math.floor(a * names.length * .999));
-      if (n !== cur) { cur = n; names.forEach((li, i) => li.classList.toggle("on", i === n)); }
+      if (n !== cur) { const first = cur < 0; cur = n; names.forEach((li, i) => li.classList.toggle("on", i === n));
+        if (first) desc.firstElementChild.textContent = names[n].querySelector("p").textContent;
+        else { const old = desc.querySelector("span:not(.out)"), nw = document.createElement("span"); nw.className = "pre"; nw.textContent = names[n].querySelector("p").textContent; desc.appendChild(nw);
+          if (old) { old.classList.add("out"); setTimeout(() => old.remove(), 650); } requestAnimationFrame(() => requestAnimationFrame(() => nw.classList.remove("pre"))); } }
       requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
@@ -387,10 +395,10 @@ addEventListener("DOMContentLoaded", () => {
     const ch = [...phrases[i]];
     cyc.innerHTML = ch.map((c) => `<span class="ch">${c === " " ? "&nbsp;" : c}</span>`).join("");
     const els = cyc.querySelectorAll(".ch");
-    gsap.fromTo(els, { opacity: 0, filter: "blur(8px)", y: 6 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.8, ease: "power3.out", stagger: els.length > 1 ? (1.8 - 0.8) / (els.length - 1) : 0 });
+    gsap.fromTo(els, { opacity: 0, filter: "blur(6px)", y: 4 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 1.1, ease: "power2.out", stagger: els.length > 1 ? 0.6 / (els.length - 1) : 0 });
   };
   show(0);
-  setInterval(() => { pi = (pi + 1) % phrases.length; show(pi); }, 2000 + 1.8 * 1000);
+  setInterval(() => { pi = (pi + 1) % phrases.length; gsap.to(cyc.querySelectorAll(".ch"), { opacity: 0, filter: "blur(6px)", y: -4, duration: 0.45, ease: "power2.in", stagger: 0.02, onComplete: () => show(pi) }); }, 3600);
 
   gsap.from(".hero h1 .lm > span", { yPercent: 112, duration: 1.15, ease: "expo.out", stagger: 0.1, delay: 0.1 });
   gsap.from(".hero .rv", { y: 18, opacity: 0, duration: 0.9, ease: "power3.out", delay: 0.6 });
