@@ -10,7 +10,7 @@
 <link rel="icon" href="img/favicon.png" />
 <link rel="preload" href="fonts/Satoshi-Black.otf" as="font" type="font/otf" crossorigin />
 <link rel="preload" href="img/hero-m.webp" as="image" media="(max-width: 899px)" />
-<link rel="preload" href="img/hero-d.webp" as="image" media="(min-width: 900px)" />
+<link rel="preload" href="img/femeie.webp" as="image" media="(min-width: 900px)" />
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js" defer></script>
 <style>
@@ -102,8 +102,6 @@
   .offer .btn { margin-top: 26px; }
 
   /* cercurile: cum începi */
-  .start { padding: 8px 0 72px; }
-  .ben.steps2 { margin-top: 28px; padding: 0; }
 
   /* banda nisip: prețul */
   .price { background: var(--sand); padding: 60px 0; }
@@ -149,21 +147,10 @@
       footer { padding-bottom: 40px; }
   }
 
-  .pil { padding: 70px 0 60px; background: #fff; }
-  .lit { font-weight: 700; font-size: clamp(28px, 7.4vw, 60px); line-height: 1.12; letter-spacing: -0.03em; max-width: 22ch; }
-  .ben { list-style: none; margin-top: 54px; }
-  .ben li { position: relative; display: grid; gap: 6px; padding: 22px 0 24px; }
-  .ben li::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: rgba(11,11,11,.18); transform-origin: 0 50%; transform: scaleX(var(--ln, 0)); transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
-  .ben li.in::before { --ln: 1; }
-  .ben li > span { font-weight: 700; font-size: 15px; color: var(--gold-d); }
-  .ben h3 { font-weight: 900; font-size: clamp(28px, 7.6vw, 52px); line-height: 1.05; letter-spacing: -0.035em; }
-  .ben p { margin-top: 6px; font-size: 17px; color: #4a4640; max-width: 44ch; }
-  @media (min-width: 900px) { .ben li { grid-template-columns: 260px 1fr; gap: 30px; padding: 34px 0 36px; } .ben li > span { padding-top: 14px; } .pil { padding: 130px 0 100px; } }
   .anim .hero h1, .anim .hero .rv { opacity: 0; }
   /* Body Bliss */
   .logo .sg { border-radius: 50%; }
   .wmt { font-weight: 700; font-size: 17px; letter-spacing: -.01em; color: #fff; }
-  .pil { background: var(--sand); }
   .prices { padding: 70px 0 64px; background: #fff; }
   .prices .sub { margin-top: 12px; color: var(--mute); max-width: 46ch; }
   .plist { list-style: none; margin-top: 30px; }
@@ -184,6 +171,32 @@
   .gal .g1 { grid-row: span 2; aspect-ratio: 3 / 4.6; } .gal .g2, .gal .g3 { aspect-ratio: 1; }
   .gal figcaption { position: absolute; left: 10px; bottom: 10px; padding: 4px 10px; border-radius: 20em; background: rgba(30,27,22,.7); color: #fff; font-size: 13px; }
   @media (min-width: 900px) { .prices { padding: 120px 0 100px; } .prices .wrap { max-width: 900px; } .plist span { font-size: 20px; } .plist b { font-size: 28px; } .gal .grid { grid-template-columns: 1.2fr 1fr 1fr; gap: 16px; } .gal .g1 { grid-row: auto; aspect-ratio: 4 / 5; } .gal .g2, .gal .g3 { aspect-ratio: 4 / 5; } }
+  /* ședințele, mesajele și pașii */
+  .ses { background: var(--ink); color: #fff; padding: 64px 0 56px; }
+  .ses .sub, .rev .sub { margin-top: 10px; color: #a9a39a; max-width: 46ch; }
+  .srows { list-style: none; margin-top: 26px; display: grid; gap: 12px; }
+  .srows li { display: grid; grid-template-columns: 92px 1fr; gap: 16px; align-items: center; padding: 10px; border-radius: 18px; background: #2a2622; }
+  .srows img { width: 92px; height: 92px; object-fit: cover; border-radius: 12px; display: block; }
+  .srows li span { font-weight: 700; font-size: 13px; color: var(--gold); }
+  .srows h3 { font-weight: 900; font-size: 21px; line-height: 1.1; letter-spacing: -.02em; margin-top: 2px; }
+  .srows p { margin-top: 4px; font-size: 15px; color: #c9c3b8; line-height: 1.4; }
+  .rev { background: var(--sand); padding: 64px 0 56px; overflow: hidden; }
+  .rev .sub { color: var(--mute); }
+  .rtrack { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 26px var(--pad) 8px; scroll-padding: 0 var(--pad); scrollbar-width: none; }
+  .rtrack::-webkit-scrollbar { display: none; }
+  .rtrack blockquote { flex: 0 0 78%; scroll-snap-align: start; background: #fff; border-radius: 18px; padding: 22px 20px 24px; font-weight: 500; font-size: 18px; line-height: 1.4; box-shadow: 0 10px 30px -18px rgba(30,27,22,.35); }
+  .rtrack blockquote::before { content: "“"; display: block; font-weight: 900; font-size: 48px; line-height: .6; color: var(--gold-d); margin-bottom: 10px; }
+  .steps3 { padding: 60px 0 64px; background: #fff; }
+  .steps3 ol { list-style: none; margin-top: 24px; display: grid; gap: 0; counter-reset: k; }
+  .steps3 li { counter-increment: k; display: grid; grid-template-columns: 40px 1fr; gap: 2px 12px; padding: 14px 0; border-top: 1px solid var(--line); }
+  .steps3 li::before { content: counter(k); grid-row: span 2; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--gold); color: var(--ink); font-weight: 700; font-size: 14px; }
+  .steps3 li > b { font-weight: 900; font-size: 20px; letter-spacing: -.02em; }
+  .steps3 li > span { color: #55514a; font-size: 15px; }
+  @media (min-width: 900px) {
+    .ses { padding: 120px 0 110px; } .srows { grid-template-columns: 1fr 1fr; gap: 16px; } .srows li { grid-template-columns: 140px 1fr; padding: 14px; gap: 22px; } .srows img { width: 140px; height: 140px; } .srows h3 { font-size: 26px; }
+    .rev { padding: 120px 0 100px; } .rtrack { padding-left: max(var(--pad), calc((100vw - 1180px) / 2 + var(--pad))); } .rtrack blockquote { flex-basis: 380px; font-size: 20px; }
+    .steps3 { padding: 110px 0; } .steps3 ol { grid-template-columns: repeat(3, 1fr); gap: 24px; } .steps3 li { border-top: 2px solid var(--ink); padding-top: 20px; }
+  }
   /* v2: tehnici apple.com (scene fixate la scroll, progres continuu amortizat), pe identitatea Body Bliss */
   .scene { position: relative; height: 300svh; background: var(--ink); color: #fff; }
   .scene .pin { position: sticky; top: 0; height: var(--vh, 100svh); overflow: hidden; display: grid; grid-template-rows: 46svh 1fr; }
@@ -219,7 +232,7 @@
     .scene li.on p { color: #e2ddd3; }
     .scene .desc, .scene .bar { display: none; }
   }
-  @media (prefers-reduced-motion: reduce) { .ben li::before { --ln: 1; } .scene { height: auto; } .scene .pin { position: relative; } .scene li p { max-height: none; clip-path: none; } }
+  @media (prefers-reduced-motion: reduce) { .scene { height: auto; } .scene .pin { position: relative; } .scene li p { max-height: none; clip-path: none; } }
 </style>
 </head>
 <body>
@@ -237,7 +250,7 @@
 
   <main id="sus">
     <section class="hero" id="hero">
-      <div class="slides" id="slides"><picture><source media="(min-width: 900px)" srcset="img/hero-d.webp" /><img id="s0" class="on" src="img/hero-m.webp" alt="Sala Body Bliss, cu reformere cu turn" width="1080" height="1440" fetchpriority="high" /></picture></div>
+      <div class="slides" id="slides"><picture><source media="(min-width: 900px)" srcset="img/femeie.webp" /><img id="s0" class="on" src="img/hero-m.webp" alt="Sala Body Bliss, cu reformere cu turn" width="1080" height="1440" fetchpriority="high" /></picture></div>
       <div class="txt">
         <h1><span class="lm"><span>Pilates pe Reformer,</span></span><span class="lm"><span>în Satu Mare.</span></span></h1>
         <p class="hl rv"><span class="lm" style="display:inline-block;vertical-align:top"><span style="display:inline-block">Ședințe&nbsp;</span></span><span class="cyc" id="cyc" aria-live="off"></span></p>
@@ -245,16 +258,17 @@
       </div>
     </section>
 
-    <section class="pil" id="despre">
+    <section class="ses" id="despre">
       <div class="wrap">
-        <p class="lit rvl" id="lit">Lucrăm în grupuri mici, pe Reformer Tower și Combo Chair. Instructorul te vede pe tine, nu o sală plină.</p>
+        <h2 class="rvl">Ședințele.</h2>
+        <p class="sub rv">Pe Reformer Tower și Combo Chair, cu prețul pe persoană.</p>
+        <ul class="srows">
+          <li class="rv"><img src="img/t-semi.webp" alt="" width="400" height="400" loading="lazy" /><div><span>Semi-private</span><h3>În grup mic</h3><p>De la 90 de lei ședința, cu abonament.</p></div></li>
+          <li class="rv"><img src="img/t-priv.webp" alt="" width="400" height="400" loading="lazy" /><div><span>Privat</span><h3>Doar tu și instructorul</h3><p>250 de lei ședința.</p></div></li>
+          <li class="rv"><img src="img/t-roll.webp" alt="" width="400" height="400" loading="lazy" /><div><span>Bodyroll</span><h3>Masaj activ cu infraroșu</h3><p>Drenaj limfatic, relaxare musculară și tonifiere.</p></div></li>
+          <li class="rv"><img src="img/t-str.webp" alt="" width="400" height="400" loading="lazy" /><div><span>Stretching</span><h3>Flexibilitate</h3><p>Pilates, stretching și flexibilitate, în aceeași sală.</p></div></li>
+        </ul>
       </div>
-      <ul class="wrap ben">
-        <li><span class="rv">Semi-private</span><div><h3 class="rvl">Ședințe în grup mic.</h3><p class="rv">Prețul e pe persoană, de la 90 de lei ședința, cu abonament.</p></div></li>
-        <li><span class="rv">Privat</span><div><h3 class="rvl">Doar tu și instructorul.</h3><p class="rv">O ședință privată costă 250 de lei.</p></div></li>
-        <li><span class="rv">Bodyroll</span><div><h3 class="rvl">Masaj activ cu infraroșu.</h3><p class="rv">Pentru drenaj limfatic, relaxare musculară și tonifiere. A ajuns în studio la cererea clientelor.</p></div></li>
-        <li><span class="rv">Stretching</span><div><h3 class="rvl">Flexibilitate, pas cu pas.</h3><p class="rv">Pilates, stretching și flexibilitate, toate în aceeași sală.</p></div></li>
-      </ul>
     </section>
 
     <section class="scene" id="aparate">
@@ -301,14 +315,26 @@
       </div>
     </section>
 
-    <section class="start">
+    <section class="rev">
+      <div class="wrap"><h2 class="rvl">Ce ne scriu clientele.</h2><p class="sub rv">Din mesajele primite după ședințe.</p></div>
+      <div class="rtrack" tabindex="0" aria-label="Mesaje de la cliente">
+        <blockquote>Ai mâini de aur… așa bine mă simt… nu mă mai doare aproape deloc.</blockquote>
+        <blockquote>Să știi că spatele îmi e ca nou!!! Tare bine mă simt.</blockquote>
+        <blockquote>Am ieșit de acolo tremurând din toate încheieturile, dar a fost cea mai faină oră de tare multă vreme.</blockquote>
+        <blockquote>Fără tine nu mi se transforma mie corpul. Mi-a crescut stima de sine în ultimul hal.</blockquote>
+        <blockquote>Mi-a plăcut maxim antrenamentul de azi! M-a rupt, dar îmi place!</blockquote>
+        <blockquote>Iulia, ce m-ai lucrat. La spate și picioare simt. Mulțumesc!</blockquote>
+      </div>
+    </section>
+
+    <section class="steps3">
       <div class="wrap">
         <h2 class="rvl">Cum începi.</h2>
-        <ul class="ben steps2">
-          <li><span class="rv">Întâi</span><div><h3 class="rvl">Ne suni.</h3><p class="rv">Stabilim ziua și ora.</p></div></li>
-          <li><span class="rv">Apoi</span><div><h3 class="rvl">Alegi abonamentul.</h3><p class="rv">Semi-privat sau privat, cât ți se potrivește.</p></div></li>
-          <li><span class="rv">Bine de știut</span><div><h3 class="rvl">Anunță cu 4 ore înainte.</h3><p class="rv">Dacă nu poți ajunge, muți ședința fără s-o pierzi.</p></div></li>
-        </ul>
+        <ol>
+          <li class="rv"><b>Ne suni</b><span>Stabilim ziua și ora.</span></li>
+          <li class="rv"><b>Alegi abonamentul</b><span>Semi-privat sau privat.</span></li>
+          <li class="rv"><b>Anunți cu 4 ore înainte</b><span>Dacă nu poți ajunge, muți ședința.</span></li>
+        </ol>
       </div>
     </section>
 
@@ -411,7 +437,6 @@ addEventListener("DOMContentLoaded", () => {
     gsap.from(el.querySelectorAll(".lm > span"), { yPercent: 112, duration: 1, ease: "expo.out", stagger: 0.05, scrollTrigger: { trigger: el, start: "top 88%" } });
   });
   gsap.utils.toArray("main section:not(.hero) .rv").filter((el) => !el.closest(".hero")).forEach((el) => gsap.from(el, { y: 22, opacity: 0, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
-  document.querySelectorAll(".ben li").forEach((li) => ScrollTrigger.create({ trigger: li, start: "top 88%", once: true, onEnter: () => li.classList.add("in") }));
   gsap.utils.toArray(".rvi").forEach((el) => gsap.from(el, { y: 40, opacity: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
 });
 </script>
