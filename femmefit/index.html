@@ -56,6 +56,11 @@
   .menuBtn .bars i { display: block; width: 18px; height: 2px; background: currentColor; transition: transform .35s; }
   .menuOpen .menuBtn .bars i:first-child { transform: translateY(3px) rotate(45deg); }
   .menuOpen .menuBtn .bars i:last-child { transform: translateY(-3px) rotate(-45deg); }
+  /* butonul rotund de apel, în colțul din dreapta jos, apare după primul ecran */
+  .fab { position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 60; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; color: var(--ink);
+    background: linear-gradient(0deg, #a88d57 0%, #c9ad74 100%); box-shadow: 0 .7em 1.5em -.5em rgba(0,0,0,.55); opacity: 0; transform: translateY(16px) scale(.9); pointer-events: none; transition: opacity .35s, transform .45s cubic-bezier(.2,.8,.2,1); }
+  .fab.show { opacity: 1; transform: none; pointer-events: auto; }
+  .fab svg { width: 24px; height: 24px; }
   /* meniul și butonul de apel, în același stil cu butoanele */
   .menuBtn { border-radius: 20em; padding: 0 16px; background: linear-gradient(0deg, #a88d57 0%, #c9ad74 100%); box-shadow: 0 .7em 1.5em -.6em rgba(0,0,0,.6); font-weight: 500; text-transform: none; font-size: 15px; letter-spacing: .02em; }
   .tcall { border-radius: 50%; border: 0; background: linear-gradient(0deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.2) 100%); box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
@@ -128,13 +133,9 @@
   .rows a, .rows p { font-weight: 500; font-size: 21px; }
   .rows a { border-bottom: 2px solid var(--gold); }
   .map { display: block; border: 0; width: 100%; min-width: 0; height: 300px; filter: grayscale(1) contrast(1.05); }
-  footer { background: var(--ink); color: #8f897e; text-align: center; font-size: 14px; padding: 8px var(--pad) calc(82px + env(safe-area-inset-bottom)); }
+  footer { background: var(--ink); color: #8f897e; text-align: center; font-size: 14px; padding: 8px var(--pad) calc(90px + env(safe-area-inset-bottom)); }
   footer a { color: #fff; border-bottom: 1px solid currentColor; }
 
-  .mbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); padding-bottom: env(safe-area-inset-bottom); transform: translateY(110%); transition: transform .35s; }
-  .mbar.show { transform: none; }
-  .mbar a { display: flex; align-items: center; justify-content: center; height: 58px; font-weight: 700; font-size: 15px; text-transform: uppercase; color: #fff; }
-  .mbar a:first-child { background: var(--gold); color: var(--ink); }
 
   @media (min-width: 900px) {
     :root { --pad: 48px; }
@@ -163,8 +164,7 @@
     .contact { padding: 110px 0 70px; }
     .contact .wrap { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 70px; align-items: center; }
     .map { height: 420px; }
-    .mbar { display: none; }
-    footer { padding-bottom: 40px; }
+      footer { padding-bottom: 40px; }
   }
 
   .pil { padding: 70px 0 60px; background: #fff; }
@@ -343,7 +343,7 @@
   </main>
 
   <footer>Demo al site-ului realizat de <a href="https://rtweb.ro">RTWEB</a> pentru FemmeFit Pilates</footer>
-  <nav class="mbar" id="mbar" aria-label="Contact rapid"><a href="tel:+40773752072">Sună</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Bulevardul+Vasile+Lucaciu+18+Satu+Mare">Cum ajungi</a></nav>
+  <a class="fab" id="fab" href="tel:+40773752072" aria-label="Sună la 0773 752 072"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></a>
 
 <script>
 addEventListener("DOMContentLoaded", () => {
@@ -352,9 +352,9 @@ addEventListener("DOMContentLoaded", () => {
   const ICON = { tel: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>',
     jos: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 4h2v12.2l4.6-4.6 1.4 1.4-7 7-7-7 1.4-1.4 4.6 4.6z"/></svg>' };
   document.querySelectorAll("a.btn").forEach((a) => a.insertAdjacentHTML("afterbegin", a.getAttribute("href").startsWith("tel:") ? ICON.tel : ICON.jos));
-  const mbar = document.getElementById("mbar");
+  const fab = document.getElementById("fab");
   const top = document.getElementById("top");
-  const onScroll = () => { mbar.classList.toggle("show", scrollY > innerHeight * 0.7); top.classList.toggle("solid", scrollY > 40); };
+  const onScroll = () => { fab.classList.toggle("show", scrollY > innerHeight * 0.7); top.classList.toggle("solid", scrollY > 40); };
   const mb = document.getElementById("menuBtn"), menu = document.getElementById("menu");
   const setMenu = (o) => { document.documentElement.classList.toggle("menuOpen", o); mb.setAttribute("aria-expanded", o); menu.setAttribute("aria-hidden", !o); mb.querySelector("span").textContent = o ? "Închide" : "Meniu"; };
   mb.addEventListener("click", () => setMenu(!document.documentElement.classList.contains("menuOpen")));
