@@ -213,6 +213,16 @@
     .scene .names { align-self: center; padding: 0 64px; }
     .scene li { padding: 10px 0; }
     }
+  @media (max-width: 899px) {
+    .scene { height: auto; padding-bottom: 40px; }
+    .scene .pin { position: relative; height: auto; display: block; overflow: visible; }
+    .scene .ph { height: 58vh; }
+    .scene .names { padding-top: 6px; }
+    .scene li { padding: 16px 0; border-top: 1px solid #2a2824; }
+    .scene li p { display: block; margin-top: 6px; color: #8d877d; font-size: 16px; transition: color .4s; }
+    .scene li.on p { color: #e2ddd3; }
+    .scene .desc, .scene .bar { display: none; }
+  }
   @media (prefers-reduced-motion: reduce) { .ben li::before { --ln: 1; } .heroScene { height: auto; } .heroPin { position: relative; height: 100svh; } .after { display: none; } .scene { height: auto; } .scene .pin { position: relative; } .scene li p { max-height: none; clip-path: none; } .c { animation: none; } }
 </style>
 </head>
@@ -363,6 +373,9 @@ addEventListener("DOMContentLoaded", () => {
     const aft = [...after.children], sc = document.getElementById("aparate"), img = document.getElementById("scImg"), bar = document.getElementById("bar");
     const names = [...document.querySelectorAll("#names li")];
     const pil = document.getElementById("despre"), hist = document.getElementById("hist"), cnt = document.getElementById("cnt");
+    const mob = matchMedia("(max-width: 899px)").matches;
+    // pe telefon se aprinde rândul care trece prin mijlocul ecranului
+    if (mob) names.forEach((li) => new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && names.forEach((x) => x.classList.toggle("on", x === li))), { rootMargin: "-45% 0px -45% 0px" }).observe(li));
     let sy = scrollY, cur = -1; const desc = document.getElementById("desc");
     // pe telefon înălțimea se schimbă când apare sau dispare bara Safari; o fixez, ca scena să nu tremure
     let VH = innerHeight, VW = innerWidth; document.documentElement.style.setProperty("--vh", VH + "px"); addEventListener("resize", () => { if (innerWidth !== VW) { VW = innerWidth; VH = innerHeight; document.documentElement.style.setProperty("--vh", VH + "px"); } });
@@ -379,12 +392,14 @@ addEventListener("DOMContentLoaded", () => {
       pil.style.background = `rgb(${Math.round(255 - 19 * k)},${Math.round(255 - 24 * k)},${Math.round(255 - 33 * k)})`;
       const hr = hist.getBoundingClientRect(); cnt.textContent = Math.round(map(hr.top, VH, VH * .45, 0, 100));
       // aparatele: poza se apropie încet, numele se aprind pe rând
+      if (!mob) {
       const a = prog(sc); img.style.transform = `scale(${1.1 - a * .1})`; bar.style.transform = `scaleX(${a})`;
       const n = Math.min(names.length - 1, Math.floor(a * names.length * .999));
       if (n !== cur) { const first = cur < 0; cur = n; names.forEach((li, i) => li.classList.toggle("on", i === n));
         if (first) desc.firstElementChild.textContent = names[n].querySelector("p").textContent;
         else { const old = desc.querySelector("span:not(.out)"), nw = document.createElement("span"); nw.className = "pre"; nw.textContent = names[n].querySelector("p").textContent; desc.appendChild(nw);
           if (old) { old.classList.add("out"); setTimeout(() => old.remove(), 650); } requestAnimationFrame(() => requestAnimationFrame(() => nw.classList.remove("pre"))); } }
+      }
       requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
