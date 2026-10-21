@@ -9,8 +9,7 @@
 <meta name="description" content="Ședințe semi-private și private pe Reformer Tower și Combo Chair, plus Bodyroll, în Satu Mare. Bulevardul Cloșca 72B." />
 <link rel="icon" href="img/favicon.png" />
 <link rel="preload" href="fonts/Satoshi-Black.otf" as="font" type="font/otf" crossorigin />
-<link rel="preload" href="img/hero-m.webp" as="image" media="(max-width: 899px)" />
-<link rel="preload" href="img/femeie.webp" as="image" media="(min-width: 900px)" />
+<link rel="preload" href="img/femeie.webp" as="image" />
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js" defer></script>
 <style>
@@ -233,6 +232,63 @@
     .scene .desc, .scene .bar { display: none; }
   }
   @media (prefers-reduced-motion: reduce) { .scene { height: auto; } .scene .pin { position: relative; } .scene li p { max-height: none; clip-path: none; } }
+  @media (max-width: 899px) {
+    .hero { height: auto; min-height: 0; padding-top: 64px; }
+    .hero .slides { position: relative; height: 54svh; }
+    .hero .slides img { object-position: 22% 62%; }
+    .hero::after { display: none; }
+    .hero .txt { position: relative; padding: 24px var(--pad) 30px; }
+    .hero h1 { font-size: clamp(32px, 9vw, 44px); }
+    .hl { font-size: 18px; }
+    /* mai puțin spațiu și mai puțin alb pe telefon */
+    .ses { padding: 48px 0 40px; }
+    .scene .ph { height: 44vh; }
+    .scene li { padding: 11px 0; }
+    .scene { padding-bottom: 28px; }
+    .prices, .gal, .steps3 { background: var(--sand); }
+    .prices { padding: 46px 0 36px; }
+    .plist { margin-top: 20px; }
+    .plist li { padding: 11px 0; }
+    .plist span { font-size: 16px; } .plist b { font-size: 21px; }
+    .info { margin-top: 18px; font-size: 15px; gap: 8px; }
+    .prices .btn { margin-top: 20px; }
+    .gal { padding: 4px 0 36px; }
+    .rev { padding: 36px 0 30px; border-top: 1px solid var(--line); }
+    .rtrack { padding-top: 18px; }
+    .rtrack blockquote { font-size: 16px; padding: 18px 18px 20px; }
+    .steps3 { padding: 36px 0 44px; border-top: 1px solid var(--line); }
+    .steps3 ol { margin-top: 14px; }
+    .steps3 li { padding: 11px 0; }
+    .contact { padding: 48px 0 30px; }
+    .contact .semn { width: 64px; }
+    .contact .wrap { gap: 24px; }
+    .rows { margin-top: 20px; gap: 14px; }
+    .rows a, .rows p { font-size: 18px; }
+    .map { height: 220px; }
+    h2 { font-size: clamp(32px, 9vw, 44px); }
+      /* pe telefon: plat și sobru, ca lista lor de prețuri, fără gradient, umbre și carduri */
+    h2 { font-weight: 700; letter-spacing: -.03em; }
+    .btn, .btn:hover { background: var(--gold); box-shadow: none; transform: none; border-radius: 12px; min-height: 50px; }
+    .menuBtn { background: var(--gold); box-shadow: none; border-radius: 12px; }
+    .tcall { border-radius: 12px; }
+    .fab { background: var(--gold); box-shadow: 0 6px 18px -8px rgba(0,0,0,.5); border-radius: 16px; }
+    .srows { gap: 0; margin-top: 18px; }
+    .srows li { background: none; border-radius: 0; padding: 14px 0; border-top: 1px solid #36312b; grid-template-columns: 76px 1fr; gap: 14px; }
+    .srows li:last-child { border-bottom: 1px solid #36312b; }
+    .srows img { width: 76px; height: 76px; border-radius: 0; }
+    .srows h3 { font-weight: 700; font-size: 19px; }
+    .plist .best { background: none; margin: 0; padding-left: 0; padding-right: 0; }
+    .plist .best span::after { content: "cel mai mic preț pe ședință"; display: block; font-size: 13px; color: var(--gold-d); font-weight: 500; }
+    .plist .best i { display: none; }
+    .rtrack { gap: 0; padding-left: var(--pad); }
+    .rtrack blockquote { flex-basis: 82%; background: none; box-shadow: none; border-radius: 0; border-left: 1px solid rgba(30,27,22,.2); padding: 4px 18px 6px; font-size: 17px; }
+    .rtrack blockquote:first-child { border-left: 0; padding-left: 0; }
+    .rtrack blockquote::before { content: none; }
+    .steps3 li::before { content: counter(k) "."; width: auto; height: auto; background: none; color: var(--gold-d); font-weight: 700; font-size: 17px; display: block; }
+    .steps3 li { grid-template-columns: 26px 1fr; }
+    .steps3 li > b { font-weight: 700; }
+    .gal figcaption { border-radius: 0; background: rgba(30,27,22,.75); }
+  }
 </style>
 </head>
 <body>
@@ -250,7 +306,7 @@
 
   <main id="sus">
     <section class="hero" id="hero">
-      <div class="slides" id="slides"><picture><source media="(min-width: 900px)" srcset="img/femeie.webp" /><img id="s0" class="on" src="img/hero-m.webp" alt="Sala Body Bliss, cu reformere cu turn" width="1080" height="1440" fetchpriority="high" /></picture></div>
+      <div class="slides" id="slides"><img id="s0" class="on" src="img/femeie.webp" alt="Exercițiu pe reformer, în sala Body Bliss" width="1920" height="1224" fetchpriority="high" /></div>
       <div class="txt">
         <h1><span class="lm"><span>Pilates pe Reformer,</span></span><span class="lm"><span>în Satu Mare.</span></span></h1>
         <p class="hl rv"><span class="lm" style="display:inline-block;vertical-align:top"><span style="display:inline-block">Ședințe&nbsp;</span></span><span class="cyc" id="cyc" aria-live="off"></span></p>
