@@ -20,7 +20,7 @@
   :root { --ink: #0b0b0b; --gold: #b19863; --gold-d: #9a8250; --sand: #ece7de; --mute: #6f6a62; --line: #e2ddd4; --pad: 20px; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { overflow-x: hidden; touch-action: pan-y pinch-zoom; -webkit-text-size-adjust: 100%; }
-  body { background: #fff; color: var(--ink); font: 400 17px/1.6 "Satoshi", system-ui, sans-serif; overflow-x: hidden; }
+  body { background: #fff; color: var(--ink); font: 400 17px/1.6 "Satoshi", system-ui, sans-serif; overflow-x: clip; }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
   section { overflow-x: clip; }
@@ -85,31 +85,8 @@
   .hero .acts { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .hero .acts .btn { min-height: 52px; padding: 0 12px; font-size: 14px; }
 
-  /* despre, cu eticheta verticală */
-  .about { padding: 64px 0 44px; }
-  .about .wrap { display: grid; gap: 24px; }
-  .side { display: flex; align-items: center; gap: 14px; font-weight: 900; font-size: 30px; letter-spacing: -0.03em; }
-  .side::after { content: ""; width: 60px; height: 2px; background: var(--ink); }
-  .blocks { display: grid; gap: 22px; }
-  .blocks > div { padding-top: 18px; border-top: 1px solid var(--line); }
-  .blocks h3 { font-weight: 900; font-size: 21px; letter-spacing: -0.02em; }
-  .blocks p { margin-top: 6px; color: #3d3a35; max-width: 56ch; }
 
-  /* aparatele */
-  .apps { padding: 40px 0 64px; text-align: center; }
-  .apps .sub { margin: 16px auto 0; max-width: 44ch; color: var(--mute); }
-  .fmt { list-style: none; margin: 30px auto 0; display: grid; gap: 0; text-align: left; max-width: 560px; }
-  .fmt li { font-size: 18px; line-height: 1.35; padding: 14px 0; border-top: 1px solid var(--line); }
-  .fmt li:last-child { border-bottom: 1px solid var(--line); }
-  .fmt b { font-weight: 900; letter-spacing: -0.01em; }
-  .fmt span { color: var(--gold-d); font-weight: 700; margin: 0 6px; }
 
-  /* poza mare cu eticheta */
-  .wide { position: relative; height: 58svh; min-height: 380px; overflow: hidden; background: var(--ink); }
-  .wide img { width: 100%; height: 118%; object-fit: cover; object-position: 50% 35%; }
-  .wide .lab { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: rgba(11,11,11,.72); color: #fff; padding: 16px 26px; text-align: center; }
-  .wide .lab b { display: block; font-weight: 900; font-size: 30px; letter-spacing: -0.02em; line-height: 1.1; }
-  .wide .lab small { font-weight: 500; font-size: 14px; color: var(--gold); }
 
   /* oferta: prima ședință */
   .offer { padding: 64px 0 56px; }
@@ -170,15 +147,6 @@
     .hero::after { background: linear-gradient(180deg, rgba(11,11,11,.55) 0%, rgba(11,11,11,0) 22%), linear-gradient(90deg, rgba(11,11,11,.82) 0%, rgba(11,11,11,.5) 38%, rgba(11,11,11,0) 62%); }
     .hl { font-size: 24px; margin-top: 18px; }
     .hero .acts { margin-top: 26px; }
-    .about { padding: 130px 0 90px; }
-    .about .wrap { grid-template-columns: 90px 1fr; gap: 50px; }
-    .side { writing-mode: vertical-rl; transform: rotate(180deg); align-self: start; flex-direction: row-reverse; font-size: 40px; }
-    .side::after { width: 2px; height: 90px; }
-    .blocks { grid-template-columns: repeat(3, 1fr); gap: 40px; }
-    .apps { padding: 50px 0 130px; }
-    .fmt li { font-size: 22px; }
-    .wide { height: 80svh; }
-    .wide .lab b { font-size: 38px; }
     .offer { padding: 130px 0 110px; }
     .offer .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; }
     .offer .card { min-height: 520px; }
@@ -188,7 +156,6 @@
     .offer .wrap > div:last-child { margin-top: 0; }
     .hero .acts { display: flex; gap: 12px; }
     .hero .acts .btn { padding: 0 26px; font-size: 15px; min-height: 54px; }
-    .blocks > div { border-top: 0; padding-top: 0; }
     .c { width: 100%; max-width: 300px; }
     .price { padding: 110px 0; }
     .contact { padding: 110px 0 70px; }
@@ -197,6 +164,55 @@
     .mbar { display: none; }
     footer { padding-bottom: 40px; }
   }
+
+  .pil { padding: 70px 0 60px; background: #fff; }
+  .lit { font-weight: 700; font-size: clamp(28px, 7.4vw, 60px); line-height: 1.12; letter-spacing: -0.03em; max-width: 22ch; }
+  .lit .w { color: rgba(11,11,11,.16); transition: color .25s; }
+  .lit .w.on { color: var(--ink); }
+  .stack { margin-top: 60px; }
+  .card { position: sticky; top: calc(84px + var(--i) * 14px); min-height: 50svh; margin-bottom: 14svh; padding: 30px 26px; background: var(--ink); color: #fff; display: flex; flex-direction: column; justify-content: flex-end; transform-origin: 50% 0; box-shadow: 0 -10px 40px rgba(0,0,0,.12); }
+  .card.g { background: var(--gold); color: var(--ink); }
+  .card.w { background: #fff; color: var(--ink); border: 2px solid var(--ink); }
+  .card .t { font-weight: 700; font-size: 15px; color: var(--gold); }
+  .card.g .t { color: var(--ink); opacity: .65; } .card.w .t { color: var(--gold-d); }
+  .card h3 { margin-top: 10px; font-weight: 900; font-size: clamp(32px, 8.6vw, 64px); line-height: 1; letter-spacing: -0.035em; max-width: 14ch; }
+  .card p { margin-top: 12px; font-size: 17px; opacity: .8; max-width: 40ch; }
+  .hist { margin-top: 30px; display: grid; gap: 6px; }
+  .hist b { font-weight: 900; font-size: clamp(110px, 34vw, 240px); line-height: .9; letter-spacing: -0.06em; color: var(--gold); font-variant-numeric: tabular-nums; }
+  .hist p { font-size: 18px; max-width: 40ch; color: #3d3a35; }
+  @media (min-width: 900px) { .pil { padding: 130px 0 100px; } .card { padding: 50px 56px; min-height: 56svh; } .hist { grid-template-columns: auto 1fr; align-items: end; gap: 30px; } .hist p { font-size: 20px; padding-bottom: 22px; } }
+  /* v2: tehnici apple.com (scene fixate la scroll, progres continuu amortizat), pe identitatea FemmeFit */
+  .heroScene { position: relative; height: 210svh; background: #fff; }
+  .heroPin { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  .heroScene .hero { position: absolute; inset: 0; height: auto; min-height: 0; will-change: transform; transform-origin: 50% 50%; }
+  .after { position: absolute; left: 0; right: 0; bottom: 9svh; text-align: center; padding: 0 var(--pad); font-weight: 900; font-size: clamp(28px, 7.4vw, 56px); line-height: 1.05; letter-spacing: -.035em; color: var(--ink); pointer-events: none; }
+  .after span { display: block; clip-path: inset(0 0 100% 0); }
+  .scene { position: relative; height: 380svh; background: var(--ink); color: #fff; }
+  .scene .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; grid-template-rows: 46svh 1fr; }
+  .scene .ph { position: relative; overflow: hidden; }
+  .scene .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; transform-origin: 50% 40%; }
+  .scene .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,11,11,0) 55%, var(--ink)); }
+  .scene .names { padding: 18px var(--pad) 0; }
+  .scene .k { color: #9b958a; }
+  .scene ol { list-style: none; margin-top: 8px; }
+  .scene li { padding: 7px 0; }
+  .scene li b { display: block; font-weight: 900; font-size: clamp(34px, 9.6vw, 74px); line-height: 1; letter-spacing: -.04em; color: #3a3631; transition: color .4s; }
+  .scene li p { max-height: 0; overflow: hidden; color: #c9c3b8; font-size: 16px; clip-path: inset(0 0 100% 0); transition: max-height .45s, clip-path .55s cubic-bezier(.2,.8,.2,1), margin .45s; }
+  .scene li.on b { color: #fff; }
+  .scene li.on p { max-height: 60px; margin-top: 6px; clip-path: inset(0); }
+  .scene .bar { margin-top: 18px; height: 2px; background: #2a2824; max-width: 360px; }
+  .scene .bar i { display: block; height: 100%; width: 100%; background: var(--gold); transform-origin: 0 50%; transform: scaleX(0); }
+  .c { animation: float 5.5s ease-in-out infinite alternate; }
+  .circles .c:nth-child(2) { animation-delay: -1.8s; } .circles .c:nth-child(3) { animation-delay: -3.4s; }
+  @keyframes float { from { translate: 0 -5px; } to { translate: 0 6px; } }
+  @media (min-width: 900px) {
+    .scene .pin { grid-template-rows: none; grid-template-columns: 1.05fr .95fr; }
+    .scene .ph::after { background: linear-gradient(90deg, rgba(11,11,11,0) 60%, var(--ink)); }
+    .scene .names { align-self: center; padding: 0 64px; }
+    .scene li { padding: 10px 0; }
+    .scene li p { font-size: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .lit .w { color: var(--ink); } .heroScene { height: auto; } .heroPin { position: relative; height: 100svh; } .after { display: none; } .scene { height: auto; } .scene .pin { position: relative; } .scene li p { max-height: none; clip-path: none; } .c { animation: none; } }
 </style>
 </head>
 <body>
@@ -213,7 +229,8 @@
   </div>
 
   <main id="sus">
-    <section class="hero">
+    <section class="heroScene" id="heroScene"><div class="heroPin">
+    <section class="hero" id="hero">
       <div class="slides" id="slides">
         <picture><source media="(min-width: 900px)" srcset="img/hero.webp" /><img id="s0" class="on" src="img/hero-s.webp" alt="Ședință de pilates pe reformer" width="1536" height="1024" fetchpriority="high" /></picture>
         <img id="s1" src="img/sala.webp" alt="Exercițiu pe reformer în studio" width="1196" height="1806" />
@@ -225,34 +242,37 @@
         <p class="free rv">Prima ședință e gratuită.</p>
       </div>
     </section>
+    <p class="after" id="after"><span>Pornim de la obiectivul tău.</span><span>Prima ședință e gratuită.</span></p>
+    </div></section>
 
-    <section class="about" id="despre">
+    <section class="pil" id="despre">
       <div class="wrap">
-        <div class="side rv">Despre</div>
-        <div class="blocks">
-          <div class="rv"><h3>Studioul.</h3><p>Pilates pe aparate, pe Bulevardul Vasile Lucaciu nr. 18, în Satu Mare.</p></div>
-          <div class="rv"><h3>Aparatele.</h3><p>Lucrăm pe Reformer, Cadillac, Wunda Chair și Barrel.</p></div>
-          <div class="rv"><h3>Programul tău.</h3><p>Pornim de la obiectivul tău și de la starea ta de sănătate. Pe lângă pilates, avem și programe de remodelare și nutriție.</p></div>
+        <p class="lit" id="lit">Pilatesul pe aparate lucrează cu arcuri, nu cu greutăți. Mișcări lente și controlate, fără sărituri și fără impact.</p>
+      </div>
+      <div class="wrap stack" id="stack">
+        <article class="card" style="--i:0"><span class="t">Postura</span><h3>Spatele drept, fără efort.</h3><p>Exercițiile întăresc mușchii care țin coloana.</p></article>
+        <article class="card g" style="--i:1"><span class="t">Centrul corpului</span><h3>Abdomenul și spatele, împreună.</h3><p>Aproape fiecare mișcare pornește de la centru.</p></article>
+        <article class="card w" style="--i:2"><span class="t">Mobilitatea</span><h3>Articulații care se mișcă liber.</h3><p>Arcurile te ajută și te țin, pe toată mișcarea.</p></article>
+        <article class="card" style="--i:3"><span class="t">Respirația</span><h3>Fiecare mișcare are ritmul ei.</h3><p>Înveți să respiri odată cu exercițiul.</p></article>
+        <article class="card g" style="--i:4"><span class="t">Pe lângă pilates</span><h3>Remodelare și nutriție.</h3><p>Programe gândite după obiectivul tău.</p></article>
+      </div>
+      <div class="wrap hist" id="hist"><b id="cnt">100</b><p>de ani au aproape aparatele de pilates. Primele le-a construit Joseph Pilates, în prima jumătate a secolului trecut.</p></div>
+    </section>
+
+    <section class="scene" id="aparate">
+      <div class="pin">
+        <div class="ph"><img id="scImg" src="img/sala.webp" alt="Exercițiu pe reformer în studio" width="1196" height="1806" loading="lazy" /></div>
+        <div class="names">
+          <span class="k">Aparatele</span>
+          <ol id="names">
+            <li><b>Reformer</b><p>Platforma care alunecă pe șine, cu arcuri.</p></li>
+            <li><b>Cadillac</b><p>Masa cu cadru și bare deasupra.</p></li>
+            <li><b>Wunda Chair</b><p>Scaunul cu pedală pe arcuri.</p></li>
+            <li><b>Barrel</b><p>Butoiul curbat, pentru spate și postură.</p></li>
+          </ol>
+          <div class="bar"><i id="bar"></i></div>
         </div>
       </div>
-    </section>
-
-    <section class="apps" id="aparate">
-      <div class="wrap">
-        <h2 class="rvl">Patru aparate.</h2>
-        <p class="sub rv">Fiecare lucrează altfel. La prima ședință vedem cu ce începi.</p>
-        <ul class="fmt">
-          <li class="rv"><b>Reformer</b><span>//</span>platforma pe șine, cu arcuri.</li>
-          <li class="rv"><b>Cadillac</b><span>//</span>masa cu cadru și bare.</li>
-          <li class="rv"><b>Wunda Chair</b><span>//</span>scaunul cu pedală pe arcuri.</li>
-          <li class="rv"><b>Barrel</b><span>//</span>butoiul curbat, pentru spate și postură.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="wide">
-      <img id="wideImg" src="img/sala.webp" alt="Exercițiu pe reformer" width="1196" height="1806" loading="lazy" />
-      <div class="lab rv"><b>Reformer</b><small>Pilates pe aparate</small></div>
     </section>
 
     <section class="offer" id="prima">
@@ -326,12 +346,47 @@ addEventListener("DOMContentLoaded", () => {
   // pozele din primul ecran se schimbă singure
   const slides = [...document.querySelectorAll("#slides img")];
   let si = 0;
-  setInterval(() => { slides[si].classList.remove("on"); si = (si + 1) % slides.length; slides[si].classList.add("on"); }, 5500);
+  setInterval(() => { if (scrollY > 40) { slides.forEach((im, j) => im.classList.toggle("on", j === 0)); si = 0; return; } slides[si].classList.remove("on"); si = (si + 1) % slides.length; slides[si].classList.add("on"); }, 5500);
 
   const cyc = document.getElementById("cyc");
   const phrases = ["Reformer", "Cadillac", "Wunda Chair", "Barrel"];
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!window.gsap || reduce) { return; }
+
+  // v2: motorul de scroll amortizat (doar citește scroll-ul, nu-l deturnează)
+  if (!reduce) {
+    const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+    const map = (v, a, b, c, d) => c + (d - c) * clamp((v - a) / (b - a));
+    const hs = document.getElementById("heroScene"), hero = document.getElementById("hero"), after = document.getElementById("after");
+    const aft = [...after.children], sc = document.getElementById("aparate"), img = document.getElementById("scImg"), bar = document.getElementById("bar");
+    const names = [...document.querySelectorAll("#names li")];
+    const pil = document.getElementById("despre"), lit = document.getElementById("lit"), hist = document.getElementById("hist"), cnt = document.getElementById("cnt");
+    lit.innerHTML = lit.textContent.trim().split(/\s+/).map((w) => `<span class="w">${w}</span>`).join(" ");
+    const lw = [...lit.querySelectorAll(".w")], cards = [...document.querySelectorAll("#stack .card")];
+    let sy = scrollY, cur = -1;
+    const prog = (el) => { const r = el.offsetTop, h = el.offsetHeight - innerHeight; return clamp((sy - r) / h); };
+    const tick = () => {
+      sy += (scrollY - sy) * 0.1;
+      // primul ecran: poza se strânge într-un cadru, apoi intră fraza
+      const p = prog(hs), q = map(p, 0, .55, 0, 1), m = innerWidth < 900 ? 1 : 1.6;
+      hero.style.transform = `translateY(${-q * (m > 1 ? 13 : 13)}%) scale(${1 - q * (m > 1 ? .28 : .24)})`; hero.style.clipPath = `inset(0 round ${q * 28}px)`;
+      hero.querySelector(".txt").style.opacity = 1 - map(p, .05, .3, 0, 1);
+      aft.forEach((s, i) => { const v = map(p, .42 + i * .16, .62 + i * .16, 100, 0); s.style.clipPath = `inset(0 0 ${v}% 0)`; });
+      // despre pilates: fraza se aprinde, cardurile se strâng unul peste altul, fondul se încălzește, contorul urcă
+      const pr = pil.getBoundingClientRect(), k = map(pr.top, innerHeight, innerHeight * .2, 0, 1);
+      pil.style.background = `rgb(${Math.round(255 - 19 * k)},${Math.round(255 - 24 * k)},${Math.round(255 - 33 * k)})`;
+      const lr = lit.getBoundingClientRect(), lp = map(lr.top, innerHeight * .85, innerHeight * .25, 0, 1), ln = Math.round(lp * lw.length);
+      lw.forEach((w, i) => w.classList.toggle("on", i < ln));
+      cards.forEach((c, i) => { const nx = cards[i + 1]; if (!nx) return; const d = map(nx.getBoundingClientRect().top, innerHeight, 84 + (i + 1) * 14, 0, 1); c.style.transform = `scale(${1 - d * .06})`; c.style.filter = `brightness(${1 - d * .12})`; });
+      const hr = hist.getBoundingClientRect(); cnt.textContent = Math.round(map(hr.top, innerHeight, innerHeight * .45, 0, 100));
+      // aparatele: poza se apropie încet, numele se aprind pe rând
+      const a = prog(sc); img.style.transform = `scale(${1.18 - a * .18})`; bar.style.transform = `scaleX(${a})`;
+      const n = Math.min(names.length - 1, Math.floor(a * names.length * .999));
+      if (n !== cur) { cur = n; names.forEach((li, i) => li.classList.toggle("on", i === n)); }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
   gsap.registerPlugin(ScrollTrigger);
 
   // rândul care se schimbă literă cu literă, din blur
@@ -355,7 +410,6 @@ addEventListener("DOMContentLoaded", () => {
   gsap.utils.toArray("main section:not(.hero) .rv").forEach((el) => gsap.from(el, { y: 22, opacity: 0, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
   gsap.utils.toArray(".rvi").forEach((el) => gsap.from(el, { y: 40, opacity: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
   gsap.utils.toArray(".rvc").forEach((el, i) => gsap.from(el, { scale: 0.8, opacity: 0, duration: 0.9, ease: "back.out(1.6)", delay: (i % 3) * 0.08, scrollTrigger: { trigger: el, start: "top 90%" } }));
-  gsap.fromTo("#wideImg", { yPercent: -8 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: ".wide", start: "top bottom", end: "bottom top", scrub: true } });
 });
 </script>
 <script>
