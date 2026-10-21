@@ -104,17 +104,7 @@
 
   /* cercurile: cum începi */
   .start { padding: 8px 0 72px; }
-  .circles { margin-top: 30px; display: grid; gap: 0; }
-  .circles .c:nth-child(1) { justify-self: start; }
-  .circles .c:nth-child(2) { justify-self: end; margin-top: -26px; }
-  .circles .c:nth-child(3) { justify-self: start; margin-top: -26px; margin-left: 18px; }
-  .c { width: min(58vw, 215px); aspect-ratio: 1; border-radius: 50%; background: var(--ink); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 26px; }
-  .c .n { font-weight: 700; font-size: 15px; color: var(--gold); }
-  .c b { margin-top: 4px; font-weight: 900; font-size: 22px; line-height: 1.08; letter-spacing: -0.02em; }
-  .c small { margin-top: 8px; font-size: 14px; line-height: 1.4; color: #c7c1b6; }
-  .c.g { background: var(--gold); color: var(--ink); }
-  .c.g .n { color: var(--ink); opacity: .7; }
-  .c.g small { color: #2b261c; }
+  .ben.steps2 { margin-top: 28px; padding: 0; }
 
   /* banda nisip: prețul */
   .price { background: var(--sand); padding: 60px 0; }
@@ -151,13 +141,10 @@
     .offer .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; }
     .offer .card { min-height: 520px; }
     .offer ul { margin-top: 0; }
-    .circles { grid-template-columns: repeat(3, 1fr); gap: 30px; }
-    .circles .c:nth-child(n) { justify-self: center; margin: 0; }
-    .offer .wrap > div:last-child { margin-top: 0; }
+        .offer .wrap > div:last-child { margin-top: 0; }
     .hero .acts { display: flex; gap: 12px; }
     .hero .acts .btn { padding: 0 1.5em 0 1.2em; font-size: 16px; min-height: 54px; }
-    .c { width: 100%; max-width: 300px; }
-    .price { padding: 110px 0; }
+      .price { padding: 110px 0; }
     .contact { padding: 110px 0 70px; }
     .contact .wrap { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 70px; align-items: center; }
     .map { height: 420px; }
@@ -202,9 +189,6 @@
   .scene .desc span.pre { transform: translateY(60%); opacity: 0; }
   .scene .bar { margin-top: 18px; height: 2px; background: #2a2824; max-width: 360px; }
   .scene .bar i { display: block; height: 100%; width: 100%; background: var(--gold); transform-origin: 0 50%; transform: scaleX(0); }
-  .c { animation: float 5.5s ease-in-out infinite alternate; }
-  .circles .c:nth-child(2) { animation-delay: -1.8s; } .circles .c:nth-child(3) { animation-delay: -3.4s; }
-  @keyframes float { from { translate: 0 -5px; } to { translate: 0 6px; } }
   @media (min-width: 900px) {
     .scene .pin { grid-template-rows: none; grid-template-columns: 1.05fr .95fr; }
     .scene .ph::after { background: linear-gradient(90deg, rgba(11,11,11,0) 60%, var(--ink)); }
@@ -221,7 +205,7 @@
     .scene li.on p { color: #e2ddd3; }
     .scene .desc, .scene .bar { display: none; }
   }
-  @media (prefers-reduced-motion: reduce) { .ben li::before { --ln: 1; } .heroScene { height: auto; } .heroPin { position: relative; height: 100svh; } .after { display: none; } .scene { height: auto; } .scene .pin { position: relative; } .scene li p { max-height: none; clip-path: none; } .c { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .ben li::before { --ln: 1; } .heroScene { height: auto; } .heroPin { position: relative; height: 100svh; } .after { display: none; } .scene { height: auto; } .scene .pin { position: relative; } .scene li p { max-height: none; clip-path: none; } }
 </style>
 </head>
 <body>
@@ -305,12 +289,12 @@
 
     <section class="start">
       <div class="wrap">
-        <h2 class="rvl" style="text-align:center">Cum începi.</h2>
-        <div class="circles">
-          <div class="c rvc"><span class="n">1</span><b>Ne suni</b><small>Stabilim ziua și ora.</small></div>
-          <div class="c g rvc"><span class="n">2</span><b>Prima ședință, gratuită</b><small>Vedem de unde pornim.</small></div>
-          <div class="c rvc"><span class="n">3</span><b>Alegem pachetul</b><small>După obiectivul tău.</small></div>
-        </div>
+        <h2 class="rvl">Cum începi.</h2>
+        <ul class="ben steps2">
+          <li><span class="rv">Întâi</span><div><h3 class="rvl">Ne suni.</h3><p class="rv">Stabilim ziua și ora.</p></div></li>
+          <li><span class="rv">Apoi</span><div><h3 class="rvl">Prima ședință, gratuită.</h3><p class="rv">Vedem de unde pornim.</p></div></li>
+          <li><span class="rv">La final</span><div><h3 class="rvl">Alegem pachetul.</h3><p class="rv">După obiectivul tău.</p></div></li>
+        </ul>
       </div>
     </section>
 
@@ -434,7 +418,6 @@ addEventListener("DOMContentLoaded", () => {
   gsap.utils.toArray("main section:not(.hero) .rv").filter((el) => !el.closest(".hero")).forEach((el) => gsap.from(el, { y: 22, opacity: 0, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
   document.querySelectorAll(".ben li").forEach((li) => ScrollTrigger.create({ trigger: li, start: "top 88%", once: true, onEnter: () => li.classList.add("in") }));
   gsap.utils.toArray(".rvi").forEach((el) => gsap.from(el, { y: 40, opacity: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
-  gsap.utils.toArray(".rvc").forEach((el, i) => gsap.from(el, { scale: 0.8, opacity: 0, duration: 0.9, ease: "back.out(1.6)", delay: (i % 3) * 0.08, scrollTrigger: { trigger: el, start: "top 90%" } }));
 });
 </script>
 <script>
