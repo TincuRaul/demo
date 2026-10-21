@@ -173,6 +173,7 @@
   @media (min-width: 900px) { .prices { padding: 120px 0 100px; } .prices .wrap { max-width: 900px; } .plist span { font-size: 20px; } .plist b { font-size: 28px; } .gal .grid { grid-template-columns: 1.2fr 1fr 1fr; gap: 16px; } .gal .g1 { grid-row: auto; aspect-ratio: 4 / 5; } .gal .g2, .gal .g3 { aspect-ratio: 4 / 5; } }
   /* ședințele, mesajele și pașii */
   .ses { background: var(--ink); color: #fff; padding: 64px 0 56px; }
+  .ses.ap { padding-top: 0; }
   .ses .sub, .rev .sub { margin-top: 10px; color: #a9a39a; max-width: 46ch; }
   .srows { list-style: none; margin-top: 26px; display: grid; gap: 12px; }
   .srows li { display: grid; grid-template-columns: 92px 1fr; gap: 16px; align-items: center; padding: 10px; border-radius: 18px; background: #2a2622; }
@@ -197,42 +198,11 @@
     .rev { padding: 120px 0 100px; } .rtrack { padding-left: max(var(--pad), calc((100vw - 1180px) / 2 + var(--pad))); } .rtrack blockquote { flex-basis: 380px; font-size: 20px; }
     .steps3 { padding: 110px 0; } .steps3 ol { grid-template-columns: repeat(3, 1fr); gap: 24px; } .steps3 li { border-top: 2px solid var(--ink); padding-top: 20px; }
   }
-  /* v2: tehnici apple.com (scene fixate la scroll, progres continuu amortizat), pe identitatea Body Bliss */
-  .scene { position: relative; height: 300svh; background: var(--ink); color: #fff; }
-  .scene .pin { position: sticky; top: 0; height: var(--vh, 100svh); overflow: hidden; display: grid; grid-template-rows: 46svh 1fr; }
-  .scene .ph { position: relative; overflow: hidden; }
-  .scene .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; transform-origin: 50% 40%; }
-  .scene .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,11,11,0) 55%, var(--ink)); }
-  .scene .names { padding: 18px var(--pad) 0; }
-  .scene .k { color: #9b958a; }
-  .scene ol { list-style: none; margin-top: 8px; }
-  .scene li { padding: 7px 0; }
-  .scene li b { display: block; font-weight: 900; font-size: clamp(34px, 9.6vw, 74px); line-height: 1; letter-spacing: -.04em; color: #3a3631; transition: color .4s; }
-  .scene li.on b { color: #fff; }
-  .scene li p { display: none; }
-  .scene .desc { position: relative; height: 2.9em; margin-top: 10px; overflow: hidden; color: #c9c3b8; font-size: 16px; line-height: 1.4; }
-  .scene .desc span { position: absolute; left: 0; right: 0; top: 0; transition: transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s; }
-  .scene .desc span.out { transform: translateY(-60%); opacity: 0; }
-  .scene .desc span.pre { transform: translateY(60%); opacity: 0; }
-  .scene .bar { margin-top: 18px; height: 2px; background: #2a2824; max-width: 360px; }
-  .scene .bar i { display: block; height: 100%; width: 100%; background: var(--gold); transform-origin: 0 50%; transform: scaleX(0); }
   @media (min-width: 900px) {
-    .scene .pin { grid-template-rows: none; grid-template-columns: 1.05fr .95fr; }
-    .scene .ph::after { background: linear-gradient(90deg, rgba(11,11,11,0) 60%, var(--ink)); }
-    .scene .names { align-self: center; padding: 0 64px; }
-    .scene li { padding: 10px 0; }
-    }
+            }
   @media (max-width: 899px) {
-    .scene { height: auto; padding-bottom: 40px; }
-    .scene .pin { position: relative; height: auto; display: block; overflow: visible; }
-    .scene .ph { height: 58vh; }
-    .scene .names { padding-top: 6px; }
-    .scene li { padding: 16px 0; border-top: 1px solid #2a2824; }
-    .scene li p { display: block; margin-top: 6px; color: #8d877d; font-size: 16px; transition: color .4s; }
-    .scene li.on p { color: #e2ddd3; }
-    .scene .desc, .scene .bar { display: none; }
-  }
-  @media (prefers-reduced-motion: reduce) { .scene { height: auto; } .scene .pin { position: relative; } .scene li p { max-height: none; clip-path: none; } }
+                  }
+  @media (prefers-reduced-motion: reduce) { }
   @media (max-width: 899px) {
     .hero { height: 100svh; min-height: 560px; padding-top: 0; }
     .hero .slides img { object-position: 50% 40%; }
@@ -243,10 +213,7 @@
     .hero .acts { margin-top: 20px; }
     /* mai puțin spațiu și mai puțin alb pe telefon */
     .ses { padding: 48px 0 40px; }
-    .scene .ph { height: 44vh; }
-    .scene li { padding: 11px 0; }
-    .scene { padding-bottom: 28px; }
-    .prices, .gal, .steps3 { background: var(--sand); }
+          .prices, .gal, .steps3 { background: var(--sand); }
     .prices { padding: 46px 0 36px; }
     .plist { margin-top: 20px; }
     .plist li { padding: 11px 0; }
@@ -328,19 +295,14 @@
       </div>
     </section>
 
-    <section class="scene" id="aparate">
-      <div class="pin">
-        <div class="ph"><img id="scImg" src="img/tower.webp" alt="Reformere cu turn în sala Body Bliss" width="1200" height="1600" loading="lazy" /></div>
-        <div class="names">
-          <span class="k">Aparatele</span>
-          <ol id="names">
-            <li><b>Reformer Tower</b><p>Reformerul cu turn: platforma pe arcuri, plus cadrul cu bare deasupra.</p></li>
-            <li><b>Combo Chair</b><p>Scaunul cu pedală pe arcuri, pentru echilibru și forță.</p></li>
-            <li><b>Bodyroll</b><p>Masaj activ cu infraroșu, pentru drenaj limfatic și relaxare musculară.</p></li>
-          </ol>
-          <p class="desc" id="desc"><span>Reformerul cu turn: platforma pe arcuri, plus cadrul cu bare deasupra.</span></p>
-          <div class="bar"><i id="bar"></i></div>
-        </div>
+    <section class="ses ap" id="aparate">
+      <div class="wrap">
+        <h2 class="rvl">Aparatele.</h2>
+        <ul class="srows">
+          <li class="rv"><img src="img/t-tower.webp" alt="Reformer Tower în sala Body Bliss" width="400" height="400" loading="lazy" /><div><span>Reformer Tower</span><h3>Reformerul cu turn</h3><p>Platforma pe arcuri, plus cadrul cu bare deasupra.</p></div></li>
+          <li class="rv"><img src="img/t-chair.webp" alt="Combo Chair în sala Body Bliss" width="400" height="400" loading="lazy" /><div><span>Combo Chair</span><h3>Scaunul cu pedală</h3><p>Pe arcuri, pentru echilibru și forță.</p></div></li>
+          <li class="rv"><img src="img/t-roll.webp" alt="Bodyroll cu infraroșu" width="400" height="400" loading="lazy" /><div><span>Bodyroll</span><h3>Masaj activ cu infraroșu</h3><p>Pentru drenaj limfatic și relaxare musculară.</p></div></li>
+        </ul>
       </div>
     </section>
 
@@ -441,33 +403,6 @@ addEventListener("DOMContentLoaded", () => {
   if (!window.gsap || reduce) { document.documentElement.classList.remove("anim"); cyc.textContent = phrases[0]; return; }
 
   // v2: motorul de scroll amortizat (doar citește scroll-ul, nu-l deturnează)
-  if (!reduce) {
-    const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
-    const map = (v, a, b, c, d) => c + (d - c) * clamp((v - a) / (b - a));
-    const sc = document.getElementById("aparate"), img = document.getElementById("scImg"), bar = document.getElementById("bar");
-    const names = [...document.querySelectorAll("#names li")];
-    const mob = matchMedia("(max-width: 899px)").matches;
-    // pe telefon se aprinde rândul care trece prin mijlocul ecranului
-    if (mob) names.forEach((li) => new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && names.forEach((x) => x.classList.toggle("on", x === li))), { rootMargin: "-45% 0px -45% 0px" }).observe(li));
-    let sy = scrollY, cur = -1; const desc = document.getElementById("desc");
-    // pe telefon înălțimea se schimbă când apare sau dispare bara Safari; o fixez, ca scena să nu tremure
-    let VH = innerHeight, VW = innerWidth; document.documentElement.style.setProperty("--vh", VH + "px"); addEventListener("resize", () => { if (innerWidth !== VW) { VW = innerWidth; VH = innerHeight; document.documentElement.style.setProperty("--vh", VH + "px"); } });
-    const prog = (el) => { const r = el.offsetTop, h = el.offsetHeight - VH; return clamp((sy - r) / h); };
-    const tick = () => {
-      sy += (scrollY - sy) * 0.1;
-      // aparatele: poza se apropie încet, numele se aprind pe rând
-      if (!mob) {
-      const a = prog(sc); img.style.transform = `scale(${1.1 - a * .1})`; bar.style.transform = `scaleX(${a})`;
-      const n = Math.min(names.length - 1, Math.floor(a * names.length * .999));
-      if (n !== cur) { const first = cur < 0; cur = n; names.forEach((li, i) => li.classList.toggle("on", i === n));
-        if (first) desc.firstElementChild.textContent = names[n].querySelector("p").textContent;
-        else { const old = desc.querySelector("span:not(.out)"), nw = document.createElement("span"); nw.className = "pre"; nw.textContent = names[n].querySelector("p").textContent; desc.appendChild(nw);
-          if (old) { old.classList.add("out"); setTimeout(() => old.remove(), 650); } requestAnimationFrame(() => requestAnimationFrame(() => nw.classList.remove("pre"))); } }
-      }
-      requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }
   gsap.registerPlugin(ScrollTrigger);
 
   // rândul care se schimbă literă cu literă, din blur
