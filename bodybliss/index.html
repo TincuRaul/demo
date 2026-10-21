@@ -9,7 +9,8 @@
 <meta name="description" content="Ședințe semi-private și private pe Reformer Tower și Combo Chair, plus Bodyroll, în Satu Mare. Bulevardul Cloșca 72B." />
 <link rel="icon" href="img/favicon.png" />
 <link rel="preload" href="fonts/Satoshi-Black.otf" as="font" type="font/otf" crossorigin />
-<link rel="preload" href="img/femeie.webp" as="image" />
+<link rel="preload" href="img/tower.webp" as="image" media="(max-width: 899px)" />
+<link rel="preload" href="img/femeie.webp" as="image" media="(min-width: 900px)" />
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js" defer></script>
 <style>
@@ -233,13 +234,13 @@
   }
   @media (prefers-reduced-motion: reduce) { .scene { height: auto; } .scene .pin { position: relative; } .scene li p { max-height: none; clip-path: none; } }
   @media (max-width: 899px) {
-    .hero { height: auto; min-height: 0; padding-top: 64px; }
-    .hero .slides { position: relative; height: 54svh; }
-    .hero .slides img { object-position: 22% 62%; }
-    .hero::after { display: none; }
-    .hero .txt { position: relative; padding: 24px var(--pad) 30px; }
-    .hero h1 { font-size: clamp(32px, 9vw, 44px); }
-    .hl { font-size: 18px; }
+    .hero { height: 100svh; min-height: 560px; padding-top: 0; }
+    .hero .slides img { object-position: 50% 40%; }
+    .hero::after { display: block; background: linear-gradient(180deg, rgba(30,27,22,.55) 0%, rgba(30,27,22,0) 22%, rgba(30,27,22,0) 45%, rgba(30,27,22,.92) 82%); }
+    .hero .txt { padding: 0 var(--pad) calc(34px + env(safe-area-inset-bottom)); }
+    .hero h1 { font-size: clamp(34px, 9.6vw, 46px); }
+    .hero .hl { display: none; }
+    .hero .acts { margin-top: 20px; }
     /* mai puțin spațiu și mai puțin alb pe telefon */
     .ses { padding: 48px 0 40px; }
     .scene .ph { height: 44vh; }
@@ -306,7 +307,7 @@
 
   <main id="sus">
     <section class="hero" id="hero">
-      <div class="slides" id="slides"><img id="s0" class="on" src="img/femeie.webp" alt="Exercițiu pe reformer, în sala Body Bliss" width="1920" height="1224" fetchpriority="high" /></div>
+      <div class="slides" id="slides"><picture><source media="(min-width: 900px)" srcset="img/femeie.webp" /><img id="s0" class="on" src="img/tower.webp" alt="Sala Body Bliss, cu reformere cu turn" width="1200" height="1600" fetchpriority="high" /></picture></div>
       <div class="txt">
         <h1><span class="lm"><span>Pilates pe Reformer,</span></span><span class="lm"><span>în Satu Mare.</span></span></h1>
         <p class="hl rv"><span class="lm" style="display:inline-block;vertical-align:top"><span style="display:inline-block">Ședințe&nbsp;</span></span><span class="cyc" id="cyc" aria-live="off"></span></p>
