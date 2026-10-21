@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("anim");</script>
+<meta name="robots" content="noindex, nofollow" />
+<title>Body Bliss Pilates Studio, Satu Mare</title>
+<meta name="description" content="Ședințe semi-private și private pe Reformer Tower și Combo Chair, plus Bodyroll, în Satu Mare. Bulevardul Cloșca 72B." />
+<link rel="icon" href="img/favicon.png" />
+<link rel="preload" href="fonts/Satoshi-Black.otf" as="font" type="font/otf" crossorigin />
+<link rel="preload" href="img/hero-m.webp" as="image" media="(max-width: 899px)" />
+<link rel="preload" href="img/hero-d.webp" as="image" media="(min-width: 900px)" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js" defer></script>
+<style>
+  @font-face { font-family: "Satoshi"; src: url(fonts/Satoshi-Regular.otf) format("opentype"); font-weight: 400; font-display: swap; }
+  @font-face { font-family: "Satoshi"; src: url(fonts/Satoshi-Medium.otf) format("opentype"); font-weight: 500; font-display: swap; }
+  @font-face { font-family: "Satoshi"; src: url(fonts/Satoshi-Bold.otf) format("opentype"); font-weight: 700; font-display: swap; }
+  @font-face { font-family: "Satoshi"; src: url(fonts/Satoshi-Black.otf) format("opentype"); font-weight: 900; font-display: swap; }
+  :root { --ink: #1e1b16; --gold: #e9a6c9; --gold-d: #b9668f; --sand: #eceae7; --mute: #6f6a62; --line: #e2ddd4; --pad: 20px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: hidden; touch-action: pan-y pinch-zoom; -webkit-text-size-adjust: 100%; }
+  body { background: #fff; color: var(--ink); font: 400 17px/1.6 "Satoshi", system-ui, sans-serif; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  section { overflow-x: clip; }
+  .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 var(--pad); }
+  .lm { display: block; overflow: hidden; padding-bottom: 0.2em; margin-bottom: -0.2em; }
+  .lm > span { display: block; }
+  h2 { font-weight: 900; font-size: clamp(38px, 10.5vw, 76px); line-height: 0.98; letter-spacing: -0.035em; }
+
+  /* butonul ales de Raul (Uiverse, adamgiebl): pastilă cu iconiță și umbră, în rozul Body Bliss (cel al cercurilor din sală) */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 54px; padding: 0 1.5em 0 1.2em; font: 500 16px "Satoshi"; letter-spacing: .02em; cursor: pointer;
+    color: var(--ink); background: linear-gradient(0deg, #df92bb 0%, #f2bdd8 100%); border: 0; border-radius: 20em; box-shadow: 0 .7em 1.5em -.5em rgba(185,87,140,.5); transition: box-shadow .3s, transform .3s; }
+  .btn svg { width: 20px; height: 20px; flex: none; }
+  .btn:hover { box-shadow: 0 .5em 1.5em -.5em rgba(185,87,140,.5); transform: translateY(-1px); }
+  .btn:active { box-shadow: 0 .3em 1em -.5em rgba(185,87,140,.5); transform: translateY(0); }
+
+  /* header: transparent peste poză, negru după scroll */
+  .top { position: fixed; inset: 0 0 auto; z-index: 50; height: 64px; display: flex; align-items: center; gap: 10px; padding: 0 var(--pad); padding-top: env(safe-area-inset-top); color: #fff; transition: background .35s, height .35s, box-shadow .35s; }
+  .top.solid, .menuOpen .top { background: var(--ink); box-shadow: 0 1px 0 #24221f; }
+  .logo { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+  .logo .sg { width: 42px; height: 42px; }
+  .logo .sg { filter: brightness(1.2); }
+  .top nav { display: none; gap: 28px; font-weight: 500; font-size: 15px; }
+  .top nav a { opacity: .85; transition: opacity .3s, color .3s; }
+  .top nav a:hover { opacity: 1; color: var(--gold); }
+  .tcall { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid rgba(255,255,255,.8); color: #fff; }
+  .tcall svg { width: 18px; height: 18px; }
+  .menuBtn { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 14px; background: var(--gold); color: var(--ink); border: 0; cursor: pointer; font: 700 14px/1 "Satoshi"; text-transform: uppercase; }
+  .menuBtn .bars { display: grid; gap: 4px; }
+  .menuBtn .bars i { display: block; width: 18px; height: 2px; background: currentColor; transition: transform .35s; }
+  .menuOpen .menuBtn .bars i:first-child { transform: translateY(3px) rotate(45deg); }
+  .menuOpen .menuBtn .bars i:last-child { transform: translateY(-3px) rotate(-45deg); }
+  /* butonul rotund de apel, în colțul din dreapta jos, apare după primul ecran */
+  .fab { position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 60; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; color: var(--ink);
+    background: linear-gradient(0deg, #df92bb 0%, #f2bdd8 100%); box-shadow: 0 .7em 1.5em -.5em rgba(0,0,0,.55); opacity: 0; transform: translateY(16px) scale(.9); pointer-events: none; transition: opacity .35s, transform .45s cubic-bezier(.2,.8,.2,1); }
+  .fab.show { opacity: 1; transform: none; pointer-events: auto; }
+  .fab svg { width: 24px; height: 24px; }
+  /* meniul și butonul de apel, în același stil cu butoanele */
+  .menuBtn { border-radius: 20em; padding: 0 16px; background: linear-gradient(0deg, #df92bb 0%, #f2bdd8 100%); box-shadow: 0 .7em 1.5em -.6em rgba(0,0,0,.6); font-weight: 500; text-transform: none; font-size: 15px; letter-spacing: .02em; }
+  .tcall { border-radius: 50%; border: 0; background: linear-gradient(0deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.2) 100%); box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
+  .tbtn { display: none; min-height: 46px; padding: 0 20px; font-size: 14px; }
+  .menu { position: fixed; z-index: 45; inset: 0; background: var(--ink); color: #fff; display: flex; flex-direction: column; justify-content: space-between; padding: calc(96px + env(safe-area-inset-top)) var(--pad) calc(28px + env(safe-area-inset-bottom)); opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s .25s; }
+  .menuOpen .menu { opacity: 1; visibility: visible; transition: opacity .25s; }
+  .menu nav { display: grid; }
+  .menu nav a { font: 900 clamp(36px, 10vw, 64px)/1.1 "Satoshi"; letter-spacing: -.035em; padding: 12px 0; border-bottom: 1px solid #2a2824; transition: color .3s; }
+  .menu nav a:hover { color: var(--gold); }
+  .menu .mfoot { display: grid; gap: 6px; margin-top: 28px; color: #9a948a; font-size: 15px; }
+  .menu .mfoot a { color: var(--gold); font-weight: 700; font-size: 24px; }
+  html.menuOpen { overflow: hidden; }
+
+  /* primul ecran */
+  .hero { position: relative; height: 100svh; min-height: 600px; background: var(--ink); color: #fff; overflow: hidden; }
+  .slides, .slides img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .slides img { object-fit: cover; opacity: 0; transition: opacity 1.4s ease; }
+  .slides img.on { opacity: 1; animation: kb 7s ease-out forwards; }
+  @keyframes kb { from { transform: scale(1.08); } to { transform: scale(1); } }
+  #s0 { object-position: 66% 50%; }
+  #s1 { object-position: 50% 30%; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,11,11,.7) 0%, rgba(11,11,11,0) 26%, rgba(11,11,11,.35) 55%, rgba(11,11,11,.85) 100%); }
+  .hero .txt { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 0 var(--pad) calc(34px + env(safe-area-inset-bottom)); }
+  h1 { font-weight: 700; font-size: clamp(38px, 10.6vw, 78px); line-height: 1; letter-spacing: -0.035em; }
+  .hl { margin-top: 14px; font-weight: 500; font-size: 20px; color: #e9e4da; }
+  .cyc { display: inline-block; font-weight: 700; color: var(--gold); }
+  .cyc .ch { display: inline-block; }
+  .hero .acts { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .hero .acts .btn { min-height: 52px; padding: 0 14px 0 12px; font-size: 15px; }
+
+
+
+
+  /* oferta: prima ședință */
+  .offer { padding: 64px 0 56px; }
+  .offer .wrap > div:last-child { margin-top: 36px; }
+  .offer .card { position: relative; overflow: hidden; background: var(--ink); color: #fff; min-height: 340px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; }
+  .offer .card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; opacity: .55; }
+  .offer .card h2 { position: relative; color: #fff; }
+  .offer ul { margin-top: 22px; padding-left: 20px; display: grid; gap: 8px; color: #3d3a35; max-width: 60ch; }
+  .offer .note { margin-top: 14px; font-size: 15px; color: var(--mute); }
+  .offer .btn { margin-top: 26px; }
+
+  /* cercurile: cum începi */
+  .start { padding: 8px 0 72px; }
+  .ben.steps2 { margin-top: 28px; padding: 0; }
+
+  /* banda nisip: prețul */
+  .price { background: var(--sand); padding: 60px 0; }
+  .price p { margin-top: 16px; max-width: 54ch; color: #3d3a35; font-size: 17px; }
+  .price .btn { margin-top: 28px; }
+
+  /* contact */
+  .contact { background: var(--ink); color: #fff; padding: 64px 0 44px; }
+  .contact .wrap { display: grid; gap: 32px; }
+  .contact .semn { width: 90px; height: auto; margin-bottom: 16px; }
+  .rows { margin-top: 30px; display: grid; gap: 20px; }
+  .rows span { display: block; font-size: 14px; color: #8f897e; }
+  .rows a, .rows p { font-weight: 500; font-size: 21px; }
+  .rows a { border-bottom: 2px solid var(--gold); }
+  .map { display: block; border: 0; width: 100%; min-width: 0; height: 300px; filter: grayscale(1) contrast(1.05); }
+  footer { background: var(--ink); color: #8f897e; text-align: center; font-size: 14px; padding: 8px var(--pad) calc(90px + env(safe-area-inset-bottom)); }
+  footer a { color: #fff; border-bottom: 1px solid currentColor; }
+
+
+  @media (min-width: 900px) {
+    :root { --pad: 48px; }
+    .top { height: 80px; }
+    .top.solid { height: 68px; }
+    .logo .sg { width: 46px; height: 46px; }
+    .top nav { display: flex; margin-right: 18px; }
+    .tcall, .menuBtn { display: none; }
+    .tbtn { display: inline-flex; }
+    .hero .txt { right: auto; width: min(800px, 62vw); padding: 0 0 80px var(--pad); }
+    .hero::after { background: linear-gradient(180deg, rgba(11,11,11,.55) 0%, rgba(11,11,11,0) 22%), linear-gradient(90deg, rgba(11,11,11,.82) 0%, rgba(11,11,11,.5) 38%, rgba(11,11,11,0) 62%); }
+    .hl { font-size: 24px; margin-top: 18px; }
+    .hero .acts { margin-top: 26px; }
+    .offer { padding: 130px 0 110px; }
+    .offer .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; }
+    .offer .card { min-height: 520px; }
+    .offer ul { margin-top: 0; }
+        .offer .wrap > div:last-child { margin-top: 0; }
+    .hero .acts { display: flex; gap: 12px; }
+    .hero .acts .btn { padding: 0 1.5em 0 1.2em; font-size: 16px; min-height: 54px; }
+      .price { padding: 110px 0; }
+    .contact { padding: 110px 0 70px; }
+    .contact .wrap { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 70px; align-items: center; }
+    .map { height: 420px; }
+      footer { padding-bottom: 40px; }
+  }
+
+  .pil { padding: 70px 0 60px; background: #fff; }
+  .lit { font-weight: 700; font-size: clamp(28px, 7.4vw, 60px); line-height: 1.12; letter-spacing: -0.03em; max-width: 22ch; }
+  .ben { list-style: none; margin-top: 54px; }
+  .ben li { position: relative; display: grid; gap: 6px; padding: 22px 0 24px; }
+  .ben li::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: rgba(11,11,11,.18); transform-origin: 0 50%; transform: scaleX(var(--ln, 0)); transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+  .ben li.in::before { --ln: 1; }
+  .ben li > span { font-weight: 700; font-size: 15px; color: var(--gold-d); }
+  .ben h3 { font-weight: 900; font-size: clamp(28px, 7.6vw, 52px); line-height: 1.05; letter-spacing: -0.035em; }
+  .ben p { margin-top: 6px; font-size: 17px; color: #4a4640; max-width: 44ch; }
+  @media (min-width: 900px) { .ben li { grid-template-columns: 260px 1fr; gap: 30px; padding: 34px 0 36px; } .ben li > span { padding-top: 14px; } .pil { padding: 130px 0 100px; } }
+  .anim .hero h1, .anim .hero .rv { opacity: 0; }
+  /* Body Bliss */
+  .logo .sg { border-radius: 50%; }
+  .wmt { font-weight: 700; font-size: 17px; letter-spacing: -.01em; color: #fff; }
+  .pil { background: var(--sand); }
+  .prices { padding: 70px 0 64px; background: #fff; }
+  .prices .sub { margin-top: 12px; color: var(--mute); max-width: 46ch; }
+  .plist { list-style: none; margin-top: 30px; }
+  .plist li { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 2px 16px; padding: 16px 0; border-top: 1px solid var(--line); }
+  .plist li:last-child { border-bottom: 1px solid var(--line); }
+  .plist span { font-weight: 500; font-size: 18px; }
+  .plist b { font-weight: 900; font-size: 24px; letter-spacing: -.02em; }
+  .plist i { grid-column: 1 / -1; font-style: normal; font-size: 14px; color: var(--gold-d); }
+  .plist .best { background: linear-gradient(90deg, rgba(233,166,201,.16), rgba(233,166,201,0)); margin: 0 calc(var(--pad) * -1); padding-left: var(--pad); padding-right: var(--pad); }
+  .plist .priv { margin-top: 18px; }
+  .info { margin-top: 28px; display: grid; gap: 12px; max-width: 62ch; color: #4a4640; }
+  .info b { color: var(--ink); }
+  .prices .btn { margin-top: 28px; }
+  .gal { padding: 0 0 70px; background: #fff; }
+  .gal .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .gal figure { position: relative; overflow: hidden; }
+  .gal img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gal .g1 { grid-row: span 2; aspect-ratio: 3 / 4.6; } .gal .g2, .gal .g3 { aspect-ratio: 1; }
+  .gal figcaption { position: absolute; left: 10px; bottom: 10px; padding: 4px 10px; border-radius: 20em; background: rgba(30,27,22,.7); color: #fff; font-size: 13px; }
+  @media (min-width: 900px) { .prices { padding: 120px 0 100px; } .prices .wrap { max-width: 900px; } .plist span { font-size: 20px; } .plist b { font-size: 28px; } .gal .grid { grid-template-columns: 1.2fr 1fr 1fr; gap: 16px; } .gal .g1 { grid-row: auto; aspect-ratio: 4 / 5; } .gal .g2, .gal .g3 { aspect-ratio: 4 / 5; } }
+  /* v2: tehnici apple.com (scene fixate la scroll, progres continuu amortizat), pe identitatea Body Bliss */
+  .scene { position: relative; height: 300svh; background: var(--ink); color: #fff; }
+  .scene .pin { position: sticky; top: 0; height: var(--vh, 100svh); overflow: hidden; display: grid; grid-template-rows: 46svh 1fr; }
+  .scene .ph { position: relative; overflow: hidden; }
+  .scene .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; transform-origin: 50% 40%; }
+  .scene .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,11,11,0) 55%, var(--ink)); }
+  .scene .names { padding: 18px var(--pad) 0; }
+  .scene .k { color: #9b958a; }
+  .scene ol { list-style: none; margin-top: 8px; }
+  .scene li { padding: 7px 0; }
+  .scene li b { display: block; font-weight: 900; font-size: clamp(34px, 9.6vw, 74px); line-height: 1; letter-spacing: -.04em; color: #3a3631; transition: color .4s; }
+  .scene li.on b { color: #fff; }
+  .scene li p { display: none; }
+  .scene .desc { position: relative; height: 2.9em; margin-top: 10px; overflow: hidden; color: #c9c3b8; font-size: 16px; line-height: 1.4; }
+  .scene .desc span { position: absolute; left: 0; right: 0; top: 0; transition: transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s; }
+  .scene .desc span.out { transform: translateY(-60%); opacity: 0; }
+  .scene .desc span.pre { transform: translateY(60%); opacity: 0; }
+  .scene .bar { margin-top: 18px; height: 2px; background: #2a2824; max-width: 360px; }
+  .scene .bar i { display: block; height: 100%; width: 100%; background: var(--gold); transform-origin: 0 50%; transform: scaleX(0); }
+  @media (min-width: 900px) {
+    .scene .pin { grid-template-rows: none; grid-template-columns: 1.05fr .95fr; }
+    .scene .ph::after { background: linear-gradient(90deg, rgba(11,11,11,0) 60%, var(--ink)); }
+    .scene .names { align-self: center; padding: 0 64px; }
+    .scene li { padding: 10px 0; }
+    }
+  @media (max-width: 899px) {
+    .scene { height: auto; padding-bottom: 40px; }
+    .scene .pin { position: relative; height: auto; display: block; overflow: visible; }
+    .scene .ph { height: 58vh; }
+    .scene .names { padding-top: 6px; }
+    .scene li { padding: 16px 0; border-top: 1px solid #2a2824; }
+    .scene li p { display: block; margin-top: 6px; color: #8d877d; font-size: 16px; transition: color .4s; }
+    .scene li.on p { color: #e2ddd3; }
+    .scene .desc, .scene .bar { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .ben li::before { --ln: 1; } .scene { height: auto; } .scene .pin { position: relative; } .scene li p { max-height: none; clip-path: none; } }
+</style>
+</head>
+<body>
+  <header class="top" id="top">
+    <a class="logo" href="#sus" aria-label="Body Bliss, prima pagină"><img class="sg" src="img/logo.webp" alt="" width="400" height="400" /><b class="wmt">Body Bliss</b></a>
+    <nav aria-label="Meniu"><a href="#despre">Ședințele</a><a href="#aparate">Aparatele</a><a href="#preturi">Prețuri</a><a href="#contact">Contact</a></nav>
+    <a class="btn full tbtn" href="tel:+40755342234">0755 342 234</a>
+    <a class="tcall" href="tel:+40755342234" aria-label="Sună la 0755 342 234"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" fill="currentColor"/></svg></a>
+    <button class="menuBtn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu"><span>Meniu</span><span class="bars"><i></i><i></i></span></button>
+  </header>
+  <div class="menu" id="menu" aria-hidden="true">
+    <nav aria-label="Meniu pe telefon"><a href="#despre">Ședințele</a><a href="#aparate">Aparatele</a><a href="#preturi">Prețuri</a><a href="#contact">Contact</a></nav>
+    <div class="mfoot"><a href="tel:+40755342234">0755 342 234</a><span>Bulevardul Cloșca nr. 72B, Satu Mare</span></div>
+  </div>
+
+  <main id="sus">
+    <section class="hero" id="hero">
+      <div class="slides" id="slides"><picture><source media="(min-width: 900px)" srcset="img/hero-d.webp" /><img id="s0" class="on" src="img/hero-m.webp" alt="Sala Body Bliss, cu reformere cu turn" width="1080" height="1440" fetchpriority="high" /></picture></div>
+      <div class="txt">
+        <h1><span class="lm"><span>Pilates pe Reformer,</span></span><span class="lm"><span>în Satu Mare.</span></span></h1>
+        <p class="hl rv"><span class="lm" style="display:inline-block;vertical-align:top"><span style="display:inline-block">Ședințe&nbsp;</span></span><span class="cyc" id="cyc" aria-live="off"></span></p>
+        <div class="acts rv"><a class="btn full" href="tel:+40755342234">Programează-te</a></div>
+      </div>
+    </section>
+
+    <section class="pil" id="despre">
+      <div class="wrap">
+        <p class="lit rvl" id="lit">Lucrăm în grupuri mici, pe Reformer Tower și Combo Chair. Instructorul te vede pe tine, nu o sală plină.</p>
+      </div>
+      <ul class="wrap ben">
+        <li><span class="rv">Semi-private</span><div><h3 class="rvl">Ședințe în grup mic.</h3><p class="rv">Prețul e pe persoană, de la 90 de lei ședința, cu abonament.</p></div></li>
+        <li><span class="rv">Privat</span><div><h3 class="rvl">Doar tu și instructorul.</h3><p class="rv">O ședință privată costă 250 de lei.</p></div></li>
+        <li><span class="rv">Bodyroll</span><div><h3 class="rvl">Masaj activ cu infraroșu.</h3><p class="rv">Pentru drenaj limfatic, relaxare musculară și tonifiere. A ajuns în studio la cererea clientelor.</p></div></li>
+        <li><span class="rv">Stretching</span><div><h3 class="rvl">Flexibilitate, pas cu pas.</h3><p class="rv">Pilates, stretching și flexibilitate, toate în aceeași sală.</p></div></li>
+      </ul>
+    </section>
+
+    <section class="scene" id="aparate">
+      <div class="pin">
+        <div class="ph"><img id="scImg" src="img/tower.webp" alt="Reformere cu turn în sala Body Bliss" width="1200" height="1600" loading="lazy" /></div>
+        <div class="names">
+          <span class="k">Aparatele</span>
+          <ol id="names">
+            <li><b>Reformer Tower</b><p>Reformerul cu turn: platforma pe arcuri, plus cadrul cu bare deasupra.</p></li>
+            <li><b>Combo Chair</b><p>Scaunul cu pedală pe arcuri, pentru echilibru și forță.</p></li>
+            <li><b>Bodyroll</b><p>Masaj activ cu infraroșu, pentru drenaj limfatic și relaxare musculară.</p></li>
+          </ol>
+          <p class="desc" id="desc"><span>Reformerul cu turn: platforma pe arcuri, plus cadrul cu bare deasupra.</span></p>
+          <div class="bar"><i id="bar"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="prices" id="preturi">
+      <div class="wrap">
+        <h2 class="rvl">Prețuri.</h2>
+        <p class="sub rv">Abonamente pe Reformer Tower și Combo Chair. Prețurile sunt pe persoană.</p>
+        <ul class="plist">
+          <li class="rv"><span>1 ședință semi-privată</span><b>110 lei</b></li>
+          <li class="rv"><span>4 ședințe semi-private</span><b>420 lei</b><i>105 lei ședința</i></li>
+          <li class="rv"><span>8 ședințe semi-private</span><b>800 lei</b><i>100 lei ședința</i></li>
+          <li class="rv"><span>10 ședințe semi-private</span><b>950 lei</b><i>95 lei ședința</i></li>
+          <li class="rv best"><span>12 ședințe semi-private</span><b>1.080 lei</b><i>90 lei ședința</i></li>
+          <li class="rv priv"><span>1 ședință privată</span><b>250 lei</b></li>
+        </ul>
+        <div class="info">
+          <p class="rv"><b>Valabilitate.</b> Abonamentele de 4–8 ședințe sunt valabile 5 săptămâni, iar cele de 10–12 ședințe, 8 săptămâni.</p>
+          <p class="rv"><b>Anulare.</b> O ședință se anulează sau se mută cu cel puțin 4 ore înainte. Altfel, se consideră efectuată.</p>
+        </div>
+        <a class="btn full rv" href="tel:+40755342234">Rezervă o ședință</a>
+      </div>
+    </section>
+
+    <section class="gal">
+      <div class="wrap grid">
+        <figure class="g1 rvi"><img src="img/hero-m.webp" alt="Sala Body Bliss" width="1080" height="1440" loading="lazy" /><figcaption>Sala</figcaption></figure>
+        <figure class="g2 rvi"><img src="img/studio.webp" alt="Intrarea în studio" width="1400" height="866" loading="lazy" /><figcaption>Studioul</figcaption></figure>
+        <figure class="g3 rvi"><img src="img/roll.webp" alt="Bodyroll cu infraroșu" width="1000" height="1333" loading="lazy" /><figcaption>Bodyroll</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="start">
+      <div class="wrap">
+        <h2 class="rvl">Cum începi.</h2>
+        <ul class="ben steps2">
+          <li><span class="rv">Întâi</span><div><h3 class="rvl">Ne suni.</h3><p class="rv">Stabilim ziua și ora.</p></div></li>
+          <li><span class="rv">Apoi</span><div><h3 class="rvl">Alegi abonamentul.</h3><p class="rv">Semi-privat sau privat, cât ți se potrivește.</p></div></li>
+          <li><span class="rv">Bine de știut</span><div><h3 class="rvl">Anunță cu 4 ore înainte.</h3><p class="rv">Dacă nu poți ajunge, muți ședința fără s-o pierzi.</p></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <div>
+          <img class="semn rv" src="img/logo.webp" alt="" width="400" height="400" loading="lazy" />
+          <h2 class="rvl">Te așteptăm.</h2>
+          <div class="rows">
+            <div class="rv"><span>Telefon și programări</span><a href="tel:+40755342234">0755 342 234</a></div>
+            <div class="rv"><span>Adresa</span><p>Bulevardul Cloșca nr. 72B, Satu Mare</p></div>
+            <div class="rv"><span>Cum ajungi</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Bulevardul+Clo%C8%99ca+72B+Satu+Mare">Deschide în Google Maps</a></div>
+          </div>
+        </div>
+        <iframe class="map" title="Harta" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Bulevardul+Clo%C8%99ca+72B,+Satu+Mare&amp;output=embed"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>Demo al site-ului realizat de <a href="https://rtweb.ro">RTWEB</a> pentru Body Bliss Pilates Studio</footer>
+  <a class="fab" id="fab" href="tel:+40755342234" aria-label="Sună la 0755 342 234"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></a>
+
+<script>
+addEventListener("DOMContentLoaded", () => {
+
+  // iconițele din buton: telefon pentru apel, săgeată pentru ancore
+  const ICON = { tel: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>',
+    jos: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 4h2v12.2l4.6-4.6 1.4 1.4-7 7-7-7 1.4-1.4 4.6 4.6z"/></svg>' };
+  document.querySelectorAll("a.btn").forEach((a) => a.insertAdjacentHTML("afterbegin", a.getAttribute("href").startsWith("tel:") ? ICON.tel : ICON.jos));
+  const fab = document.getElementById("fab");
+  const top = document.getElementById("top");
+  const onScroll = () => { fab.classList.toggle("show", scrollY > innerHeight * 0.7); top.classList.toggle("solid", scrollY > 40); };
+  const mb = document.getElementById("menuBtn"), menu = document.getElementById("menu");
+  const setMenu = (o) => { document.documentElement.classList.toggle("menuOpen", o); mb.setAttribute("aria-expanded", o); menu.setAttribute("aria-hidden", !o); mb.querySelector("span").textContent = o ? "Închide" : "Meniu"; };
+  mb.addEventListener("click", () => setMenu(!document.documentElement.classList.contains("menuOpen")));
+  menu.querySelectorAll("nav a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  // pozele din primul ecran se schimbă singure
+  const slides = [...document.querySelectorAll("#slides img")];
+  let si = 0;
+  setInterval(() => { if (scrollY > 40) { slides.forEach((im, j) => im.classList.toggle("on", j === 0)); si = 0; return; } slides[si].classList.remove("on"); si = (si + 1) % slides.length; slides[si].classList.add("on"); }, 5500);
+
+  const cyc = document.getElementById("cyc");
+  const phrases = ["semi-private", "private", "pe Reformer Tower", "pe Combo Chair"];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!window.gsap || reduce) { document.documentElement.classList.remove("anim"); cyc.textContent = phrases[0]; return; }
+
+  // v2: motorul de scroll amortizat (doar citește scroll-ul, nu-l deturnează)
+  if (!reduce) {
+    const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+    const map = (v, a, b, c, d) => c + (d - c) * clamp((v - a) / (b - a));
+    const sc = document.getElementById("aparate"), img = document.getElementById("scImg"), bar = document.getElementById("bar");
+    const names = [...document.querySelectorAll("#names li")];
+    const mob = matchMedia("(max-width: 899px)").matches;
+    // pe telefon se aprinde rândul care trece prin mijlocul ecranului
+    if (mob) names.forEach((li) => new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && names.forEach((x) => x.classList.toggle("on", x === li))), { rootMargin: "-45% 0px -45% 0px" }).observe(li));
+    let sy = scrollY, cur = -1; const desc = document.getElementById("desc");
+    // pe telefon înălțimea se schimbă când apare sau dispare bara Safari; o fixez, ca scena să nu tremure
+    let VH = innerHeight, VW = innerWidth; document.documentElement.style.setProperty("--vh", VH + "px"); addEventListener("resize", () => { if (innerWidth !== VW) { VW = innerWidth; VH = innerHeight; document.documentElement.style.setProperty("--vh", VH + "px"); } });
+    const prog = (el) => { const r = el.offsetTop, h = el.offsetHeight - VH; return clamp((sy - r) / h); };
+    const tick = () => {
+      sy += (scrollY - sy) * 0.1;
+      // aparatele: poza se apropie încet, numele se aprind pe rând
+      if (!mob) {
+      const a = prog(sc); img.style.transform = `scale(${1.1 - a * .1})`; bar.style.transform = `scaleX(${a})`;
+      const n = Math.min(names.length - 1, Math.floor(a * names.length * .999));
+      if (n !== cur) { const first = cur < 0; cur = n; names.forEach((li, i) => li.classList.toggle("on", i === n));
+        if (first) desc.firstElementChild.textContent = names[n].querySelector("p").textContent;
+        else { const old = desc.querySelector("span:not(.out)"), nw = document.createElement("span"); nw.className = "pre"; nw.textContent = names[n].querySelector("p").textContent; desc.appendChild(nw);
+          if (old) { old.classList.add("out"); setTimeout(() => old.remove(), 650); } requestAnimationFrame(() => requestAnimationFrame(() => nw.classList.remove("pre"))); } }
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+  gsap.registerPlugin(ScrollTrigger);
+
+  // rândul care se schimbă literă cu literă, din blur
+  let pi = 0;
+  const show = (i) => {
+    const ch = [...phrases[i]];
+    cyc.innerHTML = ch.map((c) => `<span class="ch">${c === " " ? "&nbsp;" : c}</span>`).join("");
+    const els = cyc.querySelectorAll(".ch");
+    gsap.fromTo(els, { opacity: 0, filter: "blur(6px)", y: 4 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 1.1, ease: "power2.out", stagger: els.length > 1 ? 0.6 / (els.length - 1) : 0 });
+  };
+  setInterval(() => { pi = (pi + 1) % phrases.length; gsap.to(cyc.querySelectorAll(".ch"), { opacity: 0, filter: "blur(6px)", y: -4, duration: 0.45, ease: "power2.in", stagger: 0.02, onComplete: () => show(pi) }); }, 3600);
+
+  // intrarea primului ecran, pe rând: titlul, rândul cu aparatul, butoanele, nota
+  const hl = document.querySelector(".hero .hl"), acts = document.querySelectorAll(".hero .acts .btn");
+  const intro = gsap.timeline({ delay: 0.15, defaults: { ease: "expo.out" } });
+  intro.set(".hero h1", { opacity: 1 }, 0).fromTo(".hero h1 .lm > span", { yPercent: 112 }, { yPercent: 0, duration: 1.3, stagger: 0.12 }, 0)
+    .set([hl, ".hero .acts"], { opacity: 1 }, 0.55)
+    .fromTo(hl.querySelector(".lm > span"), { yPercent: 112 }, { yPercent: 0, duration: 1.1 }, 0.55)
+    .call(() => show(0), null, 0.8)
+    .fromTo(acts, { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: 0.12 }, 0.95);
+
+  document.querySelectorAll("main .rvl").forEach((el) => {
+    el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="lm" style="display:inline-block;vertical-align:top"><span style="display:inline-block">${w}&nbsp;</span></span>`).join("");
+    gsap.from(el.querySelectorAll(".lm > span"), { yPercent: 112, duration: 1, ease: "expo.out", stagger: 0.05, scrollTrigger: { trigger: el, start: "top 88%" } });
+  });
+  gsap.utils.toArray("main section:not(.hero) .rv").filter((el) => !el.closest(".hero")).forEach((el) => gsap.from(el, { y: 22, opacity: 0, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
+  document.querySelectorAll(".ben li").forEach((li) => ScrollTrigger.create({ trigger: li, start: "top 88%", once: true, onEnter: () => li.classList.add("in") }));
+  gsap.utils.toArray(".rvi").forEach((el) => gsap.from(el, { y: 40, opacity: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
+});
+</script>
+<script>
+// linkurile din pagină derulează lin, fără să lase #ancora în adresă
+document.addEventListener("click", (e) => {
+  const a = e.target.closest('a[href^="#"]'); if (!a) return;
+  const id = a.getAttribute("href").slice(1), el = id && id !== "sus" ? document.getElementById(id) : null;
+  e.preventDefault();
+  const top = el ? el.getBoundingClientRect().top + scrollY - (document.querySelector(".top")?.offsetHeight || 0) : 0;
+  scrollTo({ top, behavior: "smooth" });
+  history.replaceState(null, "", location.pathname + location.search);
+});
+</script>
+</body>
+</html>
