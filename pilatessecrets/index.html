@@ -187,10 +187,6 @@
   /* cursul */
   .kick { font-weight: 600; font-size: 15px; color: var(--mag); margin-bottom: 8px; }
 
-  /* ce simți după o lună: bara care se umple */
-
-  /* galerie care se mișcă la scroll */
-
   /* galeria, ca „Explore the GALLERY” de la Vero: poze mici, răsfirate pe alb, care se adună spre centru când derulezi */
   .gal { padding: 70px var(--pad) 90px; overflow: hidden; }
   .gg { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px 22px; align-items: center; justify-items: center; }
@@ -460,17 +456,19 @@ document.addEventListener("click", (e) => { const a = e.target.closest('a[href^=
   const CAPS = ["Exercițiile se fac pe aparatul cu arcuri și cărucior.", "Reformerele din sală au cadru cu bare și arcuri deasupra.", "Ședințe zilnice, cu rezervare din aplicația GMA.", "Vara, unele antrenamente se mută afară."];
   let i = 0, busy = false, timer;
   const go = (n) => {
-    if (busy) return; busy = true; n = (n + imgs.length) % imgs.length;
+    if (busy) return; busy = true; setTimeout(() => (busy = false), 1600); n = (n + imgs.length) % imgs.length;
     const set = () => { imgs.forEach((im, k) => im.classList.toggle("on", k === n)); words.forEach((w, k) => w.classList.toggle("on", k === n)); dots.forEach((d, k) => d.classList.toggle("on", k === n)); cap.textContent = CAPS[n]; i = n; };
     if (reduce || !window.gsap) { set(); busy = false; return; }
     gsap.timeline({ onComplete: () => (busy = false) })
       .set(cur, { xPercent: -101 }).to(cur, { xPercent: 0, duration: .55, ease: "expo.inOut" })
-      };
-  const auto = () => { clearInterval(timer); timer = setInterval(() => go(i + 1), 4200); };
+      .call(set).to(cur, { xPercent: 101, duration: .65, ease: "expo.inOut" });
+  };
+  const auto = () => { clearInterval(timer); timer = setInterval(() => { if (vis && !document.hidden) go(i + 1); }, 4200); };
   stage.addEventListener("click", () => { go(i + 1); auto(); });
   words.forEach((w, k) => w.addEventListener("click", () => { go(k); auto(); }));
-  // pornește doar când secțiunea e pe ecran
-  new IntersectionObserver(([e]) => { if (e.isIntersecting) auto(); else clearInterval(timer); }, { threshold: .35 }).observe(stage);
+  // merge cât secțiunea e măcar puțin pe ecran; se oprește doar când iese complet
+  let vis = false; auto();
+  new IntersectionObserver(([e]) => { vis = e.isIntersecting; }, { threshold: 0 }).observe(document.getElementById("ways"));
 })();
 /* ---------- calendarul ---------- */
 const S = [2, 4, 9, 11, 16, 18, 23, 25];
