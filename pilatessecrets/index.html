@@ -90,10 +90,6 @@
   }
   .hero > .hint { position: absolute; z-index: 2; bottom: calc(18px + env(safe-area-inset-bottom)); white-space: nowrap; transition: opacity .5s; left: 50%; transform: translateX(-50%); font-size: 13px; color: rgba(246,228,239,.7); }
 
-  /* banda cu motto-ul, care curge */
-  .band { background: var(--neon); color: var(--plum); overflow: hidden; padding: 12px 0; }
-  .band .tr { display: flex; gap: 46px; width: max-content; animation: run 22s linear infinite; font-family: "Sacramento", cursive; font-size: 44px; line-height: 1; white-space: nowrap; }
-  @keyframes run { to { transform: translateX(-50%); } }
 
 
 
@@ -252,7 +248,7 @@
     .contact .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
     .map { margin-top: 0; height: 420px; }
   }
-  @media (prefers-reduced-motion: reduce) { .band .tr, .btn.neon, .reel .rt { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .btn.neon, .reel .rt { animation: none; } }
 </style>
 </head>
 <body>
@@ -273,8 +269,6 @@
       <a class="news" href="#program"><i aria-hidden="true"></i><span><b>Ședințe în fiecare zi</b>, prin aplicația GMA.</span></a>
       <div class="reel" aria-hidden="true"><div class="rt"><img src="img/studio.webp" alt="" loading="eager" /><img src="img/terasa.webp" alt="" loading="eager" /><img src="img/neon.webp" alt="" loading="eager" /><img src="img/studio.webp" alt="" loading="eager" /><img src="img/terasa.webp" alt="" loading="eager" /><img src="img/neon.webp" alt="" loading="eager" /><img src="img/studio.webp" alt="" loading="eager" /><img src="img/terasa.webp" alt="" loading="eager" /><img src="img/neon.webp" alt="" loading="eager" /><img src="img/studio.webp" alt="" loading="eager" /><img src="img/terasa.webp" alt="" loading="eager" /><img src="img/neon.webp" alt="" loading="eager" /></div></div>
     </section>
-
-    <div class="band" aria-hidden="true"><div class="tr"><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span></div></div>
 
 
     <section class="vs" id="ways" aria-label="Ce faci la noi">
