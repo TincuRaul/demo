@@ -101,25 +101,42 @@
   .room .cap b { display: block; font-weight: 600; font-size: clamp(26px, 6.6vw, 42px); line-height: 1.1; letter-spacing: -.02em; max-width: 16ch; text-shadow: 0 2px 20px rgba(0,0,0,.4); }
   .room .cap > span { display: block; margin-top: 8px; font-size: 16px; color: #f3dcea; }
 
-  /* ce faci la studio */
-  .ways { padding: 66px 0 30px; }
-  .wl { list-style: none; margin-top: 28px; }
-  .wl li { display: grid; grid-template-columns: 54px 1fr; gap: 4px 16px; padding: 18px 0; border-top: 1px solid var(--line); }
-  .wl li:last-child { border-bottom: 1px solid var(--line); }
-  .wl svg { grid-row: span 2; width: 54px; height: 54px; }
-  .wl b { font-weight: 600; font-size: 21px; letter-spacing: -.015em; }
-  .wl span { color: var(--mute); }
-  .wl .draw { fill: none; stroke: var(--mag); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
+  /* „ce faci la noi”, după slider-ul de la Vero: cortina de culoare dezvăluie poza următoare, iar cuvântul curent se aprinde */
+  .vs { background: var(--plum); color: #fff; padding: 0 0 54px; overflow: hidden; }
+  .stage { position: relative; height: 78svh; min-height: 440px; overflow: hidden; cursor: pointer; }
+  .stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: transform 6s ease-out; }
+  .stage img.on { opacity: 1; transform: scale(1); }
+  .stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(29,15,34,.75)); pointer-events: none; }
+  .curtain { position: absolute; z-index: 2; top: 0; bottom: 0; left: 0; width: 100%; background: linear-gradient(90deg, var(--mag), var(--neon)); transform: translateX(-101%); }
+  .dots { position: absolute; z-index: 3; left: 18px; top: 50%; transform: translateY(-50%); list-style: none; display: grid; gap: 10px; }
+  .dots li { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.4); transition: background .4s, transform .4s; }
+  .dots li.on { background: #fff; transform: scale(1.5); }
+  .phrase { position: relative; z-index: 3; margin: -2.1em auto 0; padding: 0 var(--pad); max-width: 1180px; text-align: center; font-weight: 600; font-size: clamp(30px, 8vw, 76px); line-height: 1.05; letter-spacing: -.035em; }
+  .phrase span { color: rgba(255,255,255,.28); transition: color .6s; }
+  .phrase span.on { color: #fff; text-shadow: 0 0 30px rgba(255,138,208,.5); }
+  .vs .cap { margin: 18px auto 0; padding: 0 var(--pad); max-width: 46ch; text-align: center; color: #e2cfdc; min-height: 3.2em; transition: opacity .35s; }
+
+  /* „vii când îți convine”, după „so THAT YOU BECOME ART”: titlu mare centrat, poze mici decalate dedesubt */
+  .become { padding: 80px 0 70px; text-align: center; }
+  .become .big { margin: 0 auto; max-width: 14ch; font-size: clamp(42px, 11.5vw, 128px); line-height: .98; letter-spacing: -.045em; }
+  .become .lead { margin: 18px auto 0; }
+  .trio { margin-top: 44px; display: grid; gap: 34px; text-align: left; }
+  .trio figure { display: grid; gap: 14px; }
+  .trio img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; }
+  @media (min-width: 900px) { .trio img { aspect-ratio: 4 / 5; } }
+  .trio figcaption { color: var(--mute); font-size: 16px; }
+  .trio figcaption b { display: block; color: var(--ink); font-weight: 600; font-size: 20px; letter-spacing: -.015em; margin-bottom: 2px; }
+  .trio a { color: var(--ink); border-bottom: 1px solid currentColor; white-space: nowrap; }
+  .become .btn { margin-top: 40px; }
+  @media (min-width: 900px) {
+    .stage { height: 88vh; }
+    .dots { left: 34px; }
+    .become { padding: 150px 0 130px; }
+    .trio { grid-template-columns: 1fr 1fr 1fr; gap: 28px; align-items: start; margin-top: 70px; }
+    .trio .t1 { margin-top: 90px; } .trio .t3 { margin-top: 180px; }
+  }
   /* cursul */
-  .prog { padding: 66px 0 50px; background: var(--blush); }
-  .howto { list-style: none; counter-reset: k; margin-top: 26px; max-width: 620px; }
-  .howto li { counter-increment: k; display: grid; grid-template-columns: 40px 1fr; gap: 2px 14px; padding: 16px 0; border-top: 1px solid rgba(43,34,48,.12); }
-  .howto li:last-child { border-bottom: 1px solid rgba(43,34,48,.12); }
-  .howto li::before { content: counter(k) "."; grid-row: span 2; font-weight: 600; font-size: 20px; color: var(--mag); }
-  .howto b { font-weight: 600; font-size: 20px; }
-  .howto span { color: var(--mute); }
-  .prog .btn { margin-top: 26px; }
   .kick { font-weight: 600; font-size: 15px; color: var(--mag); margin-bottom: 8px; }
   .curs { padding: 60px 0 60px; }
   .facts { margin-top: 22px; display: grid; gap: 4px; max-width: 46ch; }
@@ -187,10 +204,7 @@
     .nv { display: flex; margin-right: 10px; }
     .tc span { display: inline; } .tc { padding: 0 18px; }
     .mb { display: none; }
-    .ways { padding: 120px 0 50px; }
-    .wl { display: grid; grid-template-columns: 1fr 1fr; column-gap: 50px; }
-    .wl li:nth-last-child(2) { border-bottom: 1px solid var(--line); }
-    .curs { padding: 100px 0; }
+          .curs { padding: 100px 0; }
     .curs .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
     .cal { margin-top: 6px; }
     .why { padding-bottom: 110px; }
@@ -206,11 +220,11 @@
 <body>
   <header class="top" id="top">
     <a class="lg" href="#hero" aria-label="Pilates Secrets, sus">Pilates Secrets</a>
-    <nav class="nv" aria-label="Meniu"><a href="#program">Programări</a><a href="#curs">Cursul</a><a href="#room">Studioul</a><a href="#faq">Întrebări</a><a href="#contact">Contact</a></nav>
+    <nav class="nv" aria-label="Meniu"><a href="#program">Programări</a><a href="#curs">Cursul</a><a href="#ways">Studioul</a><a href="#faq">Întrebări</a><a href="#contact">Contact</a></nav>
     <a class="tc" href="tel:+40749024172"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span>0749 024 172</span></a>
     <button class="mb" id="mb" type="button" aria-expanded="false" aria-controls="mn" aria-label="Deschide meniul"><i></i><i></i></button>
   </header>
-  <div class="mn" id="mn" aria-hidden="true"><nav aria-label="Meniu pe telefon"><a href="#program">Programări</a><a href="#curs">Cursul</a><a href="#room">Studioul</a><a href="#faq">Întrebări</a><a href="#contact">Contact</a></nav><p>Str. Botizului 49 M, Satu Mare</p></div>
+  <div class="mn" id="mn" aria-hidden="true"><nav aria-label="Meniu pe telefon"><a href="#program">Programări</a><a href="#curs">Cursul</a><a href="#ways">Studioul</a><a href="#faq">Întrebări</a><a href="#contact">Contact</a></nav><p>Str. Botizului 49 M, Satu Mare</p></div>
 
   <main>
     <section class="hero" id="hero">
@@ -229,27 +243,28 @@
       <figcaption class="cap"><b class="rvl">Sala, seara, cu reformerele pregătite.</b><span class="rv">Reformere din lemn, cu turn, pe Botizului 49 M.</span></figcaption>
     </figure>
 
-    <section class="ways">
-      <div class="wrap">
-        <h2 class="rvl">Ce faci la noi.</h2>
-        <ul class="wl">
-          <li class="rv"><svg viewBox="0 0 54 54" aria-hidden="true"><path class="draw" d="M5 38h44M9 38v8M45 38v8M14 30h18l4 8M38 24v14M34 24h8"/></svg><b>Pilates pe reformer</b><span>Exercițiile se fac pe aparatul cu arcuri și cărucior.</span></li>
-          <li class="rv"><svg viewBox="0 0 54 54" aria-hidden="true"><path class="draw" d="M10 48V8h34v40M10 8l34 0M18 16v10M36 16v10M5 48h44"/></svg><b>Pe turn</b><span>Reformerele din sală au cadru cu bare și arcuri deasupra.</span></li>
-          <li class="rv"><svg viewBox="0 0 54 54" aria-hidden="true"><path class="draw" d="M8 42c8-14 30-14 38 0M14 30a5 5 0 1 0 0-.1M40 30a5 5 0 1 0 0-.1M27 22a5 5 0 1 0 0-.1"/></svg><b>În fiecare zi</b><span>Ședințe zilnice, cu rezervare din aplicația GMA.</span></li>
-          <li class="rv"><svg viewBox="0 0 54 54" aria-hidden="true"><path class="draw" d="M27 6v6M27 42v6M6 27h6M42 27h6M12 12l4 4M38 38l4 4M42 12l-4 4M16 38l-4 4M27 19a8 8 0 1 0 0 16a8 8 0 1 0 0-16"/></svg><b>Și pe terasă</b><span>Vara, unele antrenamente se mută afară.</span></li>
-        </ul>
+    <section class="vs" id="ways" aria-label="Ce faci la noi">
+      <div class="stage" id="stage">
+        <img class="on" src="img/reformer.webp" alt="Reformer din lemn, în sala Pilates Secrets" width="1200" height="781" loading="lazy" />
+        <img src="img/turn.webp" alt="Reformerele cu turn, lângă geam" width="900" height="1100" loading="lazy" />
+        <img src="img/neon.webp" alt="Clientele în studio, sub neon" width="1000" height="1347" loading="lazy" />
+        <img src="img/terasa.webp" alt="Antrenament pe terasă" width="898" height="504" loading="lazy" />
+        <div class="curtain" id="curtain" aria-hidden="true"></div>
+        <ol class="dots" id="dots" aria-hidden="true"><li class="on"></li><li></li><li></li><li></li></ol>
       </div>
+      <p class="phrase" id="phrase"><span class="on">Pe reformer,</span> <span>pe turn,</span> <span>în fiecare zi,</span> <span>și pe terasă.</span></p>
+      <p class="cap" id="vcap">Exercițiile se fac pe aparatul cu arcuri și cărucior.</p>
     </section>
 
-    <section class="prog" id="program">
+    <section class="become" id="program">
       <div class="wrap">
-        <h2 class="rvl">Vii când îți convine.</h2>
-        <p class="lead rv">Ședințele de pilates pe reformer se țin în fiecare zi. Îți alegi ziua și ora și îți rezervi locul.</p>
-        <ol class="howto">
-          <li class="rv"><b>Alegi ora</b><span>Din aplicația GMA vezi ședințele din săptămâna asta și locurile libere.</span></li>
-          <li class="rv"><b>Îți rezervi locul</b><span>Direct din aplicație, sau suni la <a href="tel:+40749024172" style="white-space:nowrap;border-bottom:1px solid currentColor">0749 024 172</a>.</span></li>
-          <li class="rv"><b>Vii la studio</b><span>Pe Str. Botizului 49 M, la ora aleasă.</span></li>
-        </ol>
+        <h2 class="big rvl">Vii când îți convine.</h2>
+        <p class="lead rv">Ședințele se țin în fiecare zi. Îți alegi ora și îți rezervi locul.</p>
+        <div class="trio">
+          <figure class="t1 rvi"><img src="img/turn.webp" alt="" width="900" height="1100" loading="lazy" /><figcaption><b>Alegi ora</b>Din aplicația GMA vezi ședințele și locurile libere.</figcaption></figure>
+          <figure class="t2 rvi"><img src="img/neon.webp" alt="" width="1000" height="1347" loading="lazy" /><figcaption><b>Îți rezervi locul</b>Din aplicație sau la <a href="tel:+40749024172">0749 024 172</a>.</figcaption></figure>
+          <figure class="t3 rvi"><img src="img/reformer.webp" alt="" width="1200" height="781" loading="lazy" /><figcaption><b>Vii la studio</b>Pe Str. Botizului 49 M, la ora aleasă.</figcaption></figure>
+        </div>
         <a class="btn neon rv" href="tel:+40749024172">Rezervă o ședință</a>
       </div>
     </section>
@@ -395,6 +410,27 @@ document.addEventListener("click", (e) => { const a = e.target.closest('a[href^=
   requestAnimationFrame(frame);
 })();
 
+
+/* ---------- slider-ul de la „ce faci la noi”: cortină, poză nouă, cuvântul se aprinde ---------- */
+(() => {
+  const stage = document.getElementById("stage"), imgs = [...stage.querySelectorAll("img")], cur = document.getElementById("curtain"),
+    words = [...document.querySelectorAll("#phrase span")], dots = [...document.querySelectorAll("#dots li")], cap = document.getElementById("vcap");
+  const CAPS = ["Exercițiile se fac pe aparatul cu arcuri și cărucior.", "Reformerele din sală au cadru cu bare și arcuri deasupra.", "Ședințe zilnice, cu rezervare din aplicația GMA.", "Vara, unele antrenamente se mută afară."];
+  let i = 0, busy = false, timer;
+  const go = (n) => {
+    if (busy) return; busy = true; n = (n + imgs.length) % imgs.length;
+    const set = () => { imgs.forEach((im, k) => im.classList.toggle("on", k === n)); words.forEach((w, k) => w.classList.toggle("on", k === n)); dots.forEach((d, k) => d.classList.toggle("on", k === n)); cap.textContent = CAPS[n]; i = n; };
+    if (reduce || !window.gsap) { set(); busy = false; return; }
+    gsap.timeline({ onComplete: () => (busy = false) })
+      .set(cur, { xPercent: -101 }).to(cur, { xPercent: 0, duration: .55, ease: "expo.inOut" })
+      .call(set).to(cur, { xPercent: 101, duration: .65, ease: "expo.inOut" });
+  };
+  const auto = () => { clearInterval(timer); timer = setInterval(() => go(i + 1), 4200); };
+  stage.addEventListener("click", () => { go(i + 1); auto(); });
+  words.forEach((w, k) => w.addEventListener("click", () => { go(k); auto(); }));
+  // pornește doar când secțiunea e pe ecran
+  new IntersectionObserver(([e]) => { if (e.isIntersecting) auto(); else clearInterval(timer); }, { threshold: .35 }).observe(stage);
+})();
 /* ---------- calendarul ---------- */
 const S = [2, 4, 9, 11, 16, 18, 23, 25];
 const days = document.getElementById("days");
@@ -419,8 +455,6 @@ addEventListener("DOMContentLoaded", () => {
     gsap.from(el.querySelectorAll(".lm > span"), { yPercent: 115, duration: 1.05, ease: "expo.out", stagger: .05, scrollTrigger: { trigger: el, start: "top 88%" } });
   });
   gsap.utils.toArray("main .rv").forEach((el) => gsap.from(el, { y: 22, opacity: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
-  // iconițele se desenează linie cu linie
-  document.querySelectorAll(".wl .draw").forEach((p) => { const L = p.getTotalLength(); gsap.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 1.4, ease: "power2.out", scrollTrigger: { trigger: p, start: "top 88%" } }); });
   // sala: poza se apropie la scroll
   gsap.fromTo("#roomImg", { yPercent: -9, scale: 1.12 }, { yPercent: 0, scale: 1, ease: "none", scrollTrigger: { trigger: "#room", start: "top bottom", end: "bottom top", scrub: true } });
   // calendarul se aprinde zi cu zi
