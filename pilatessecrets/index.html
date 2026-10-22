@@ -95,11 +95,6 @@
   .band .tr { display: flex; gap: 46px; width: max-content; animation: run 22s linear infinite; font-family: "Sacramento", cursive; font-size: 44px; line-height: 1; white-space: nowrap; }
   @keyframes run { to { transform: translateX(-50%); } }
 
-  .room { position: relative; height: 80svh; min-height: 460px; overflow: hidden; background: var(--plum-2); }
-  .room img { width: 100%; height: 118%; object-fit: cover; object-position: 50% 62%; }
-  .room .cap { position: absolute; left: var(--pad); right: var(--pad); bottom: 26px; color: #fff; }
-  .room .cap b { display: block; font-weight: 600; font-size: clamp(26px, 6.6vw, 42px); line-height: 1.1; letter-spacing: -.02em; max-width: 16ch; text-shadow: 0 2px 20px rgba(0,0,0,.4); }
-  .room .cap > span { display: block; margin-top: 8px; font-size: 16px; color: #f3dcea; }
 
 
   /* cursul, centrat; arcurile reformerului se întind și se strâng pe laterale */
@@ -161,6 +156,7 @@
   .dots li { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.4); transition: background .4s, transform .4s; }
   .dots li.on { background: #fff; transform: scale(1.5); }
   .phrase { position: relative; z-index: 3; margin: -2.1em auto 0; padding: 0 var(--pad); max-width: 1180px; text-align: center; font-weight: 600; font-size: clamp(30px, 8vw, 76px); line-height: 1.05; letter-spacing: -.035em; }
+  .phrase { -webkit-user-select: none; user-select: none; }
   .phrase span { color: rgba(255,255,255,.28); transition: color .6s; }
   .phrase span.on { color: #fff; text-shadow: 0 0 30px rgba(255,138,208,.5); }
   .vs .cap { margin: 18px auto 0; padding: 0 var(--pad); max-width: 46ch; text-align: center; color: #e2cfdc; min-height: 3.2em; transition: opacity .35s; }
@@ -261,10 +257,6 @@
 
     <div class="band" aria-hidden="true"><div class="tr"><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span></div></div>
 
-    <figure class="room" id="room">
-      <img id="roomImg" src="img/studio.webp" alt="Sala Pilates Secrets seara, cu reformerele din lemn și lumină mov" width="1200" height="1297" loading="lazy" />
-      <figcaption class="cap"><b class="rvl">Sala, seara, cu reformerele pregătite.</b><span class="rv">Reformere din lemn, cu turn, pe Botizului 49 M.</span></figcaption>
-    </figure>
 
     <section class="vs" id="ways" aria-label="Ce faci la noi">
       <div class="stage" id="stage">
@@ -479,8 +471,6 @@ addEventListener("DOMContentLoaded", () => {
     gsap.from(el.querySelectorAll(".lm > span"), { yPercent: 115, duration: 1.05, ease: "expo.out", stagger: .05, scrollTrigger: { trigger: el, start: "top 88%" } });
   });
   gsap.utils.toArray("main .rv").forEach((el) => gsap.from(el, { y: 22, opacity: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
-  // sala: poza se apropie la scroll
-  gsap.fromTo("#roomImg", { yPercent: -9, scale: 1.12 }, { yPercent: 0, scale: 1, ease: "none", scrollTrigger: { trigger: "#room", start: "top bottom", end: "bottom top", scrub: true } });
   // calendarul se aprinde zi cu zi
   ScrollTrigger.create({ trigger: "#days", start: "top 80%", once: true, onEnter: lightCal });
   // cuvintele de la „ce simți” se aprind pe rând
