@@ -65,7 +65,17 @@
   .news b { display: block; font-weight: 600; color: #fff; font-size: 16px; }
   .news i { flex: none; width: 9px; height: 9px; margin-top: 7px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 10px var(--neon); animation: blink 1.6s ease-in-out infinite; }
   @keyframes blink { 50% { opacity: .35; } }
-  @media (max-width: 899px) { .hero > .hint { display: none; } }
+  @media (max-width: 899px) {
+    .hero > .hint { display: none; }
+    /* pe telefon: neonul mai mic, numele din header apare abia după primul ecran, fără inelul care pulsează */
+    .hero { padding-top: 64px; justify-content: center; gap: 0; }
+    .sign { font-size: clamp(76px, 21vw, 110px); }
+    .hero p { margin-top: 22px; font-size: 19px; }
+    .btn.neon { animation: none; box-shadow: 0 0 22px rgba(255,138,208,.45); }
+    .news { margin-top: 26px; }
+    .lg { opacity: 0; transition: opacity .35s; }
+    .top.solid .lg, .open .lg { opacity: 1; }
+  }
   .hero > .hint { position: absolute; z-index: 2; bottom: calc(18px + env(safe-area-inset-bottom)); white-space: nowrap; transition: opacity .5s; left: 50%; transform: translateX(-50%); font-size: 13px; color: rgba(246,228,239,.7); }
 
   /* banda cu motto-ul, care curge */
