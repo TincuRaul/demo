@@ -194,13 +194,25 @@
   /* ce simți după o lună: bara care se umple */
 
   /* galerie care se mișcă la scroll */
-  .pics { overflow: hidden; padding: 0 0 70px; }
-  .strip { display: flex; gap: 10px; width: max-content; padding: 0 var(--pad); }
-  .strip figure { position: relative; flex: 0 0 auto; width: 78vw; max-width: 560px; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 6px; }
-  .strip figure.w { aspect-ratio: 16 / 11; width: 88vw; max-width: 760px; align-self: center; }
-  .strip img { width: 100%; height: 100%; object-fit: cover; }
-  .strip figcaption { position: absolute; left: 14px; right: 14px; bottom: 12px; color: #fff; font-size: 15px; font-weight: 500; text-shadow: 0 1px 10px rgba(0,0,0,.6); }
 
+  /* galeria, ca „Explore the GALLERY” de la Vero: poze mici, răsfirate pe alb, care se adună spre centru când derulezi */
+  .gal { padding: 70px var(--pad) 90px; overflow: hidden; }
+  .gg { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px 22px; align-items: center; justify-items: center; }
+  .gi { width: 100%; height: auto; max-width: 120px; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 3px; will-change: transform; }
+  .gx { display: none; }
+  .gg .gi:last-child { display: none; }
+  .gc { grid-column: 1 / -1; order: -1; text-align: center; margin-bottom: 10px; }
+  .gc p { font-weight: 600; font-size: clamp(28px, 7.4vw, 44px); letter-spacing: -.03em; line-height: 1.05; }
+  .gc a { display: inline-block; margin-top: 14px; padding: 9px 16px; border-radius: 99px; font-size: 14px; font-weight: 600; background: #fff; box-shadow: 0 6px 24px -10px rgba(46,26,51,.35), 0 0 0 1px var(--line); }
+  @media (min-width: 900px) {
+    .gal { padding: 140px var(--pad) 150px; }
+    .gg { grid-template-columns: repeat(5, 1fr); gap: 70px 40px; }
+    .gi { max-width: 130px; }
+    .gx { display: block; }
+    .gg .gi:last-child { display: block; }
+    .gc { grid-column: auto; order: 0; margin: 0; }
+    .gc p { font-size: 22px; }
+  }
   /* întrebări */
   .faq { padding: 0 0 70px; }
   .faq details { border-top: 1px solid var(--line); }
@@ -235,8 +247,7 @@
     .nv { display: flex; margin-right: 10px; }
     .tc span { display: inline; } .tc { padding: 0 18px; }
     .mb { display: none; }
-                  .strip figure { width: 34vw; } .strip figure.w { width: 52vw; }
-    .faq { padding-bottom: 110px; }
+                    .faq { padding-bottom: 110px; }
     .contact { padding: 120px 0 60px; }
     .contact .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
     .map { margin-top: 0; height: 420px; }
@@ -323,11 +334,23 @@
       </div>
     </section>
 
-    <section class="pics" id="pics" aria-label="Poze din studio">
-      <div class="strip" id="strip">
-        <figure class="w"><img src="img/terasa.webp" alt="Antrenament de grup pe terasă, cu benzi elastice" width="898" height="504" loading="lazy" /><figcaption>Vara, pe terasă.</figcaption></figure>
-        <figure><img src="img/neon.webp" alt="Clientele în studio, sub neonul Pilates Secrets" width="1000" height="1347" loading="lazy" /><figcaption>După ședință, sub neon.</figcaption></figure>
-        <figure><img src="img/studio.webp" alt="Reformerele din sală" width="1200" height="1297" loading="lazy" /><figcaption>Reformerele din sală.</figcaption></figure>
+    <section class="gal" id="pics" aria-label="Poze din studio">
+      <div class="gg" id="gg">
+        <img class="gi" src="img/g0.webp" alt="Sala, cu reformerele și turnul" width="360" height="468" loading="lazy" />
+        <img class="gi" src="img/g4.webp" alt="Neonul Pilates Secrets" width="360" height="468" loading="lazy" />
+        <img class="gi" src="img/g7.webp" alt="Antrenament pe terasă" width="360" height="468" loading="lazy" />
+        <img class="gi" src="img/g1.webp" alt="Reformerele seara" width="360" height="468" loading="lazy" />
+        <img class="gi" src="img/g10.webp" alt="Mișcare în aer liber" width="360" height="468" loading="lazy" />
+        <img class="gi" src="img/g5.webp" alt="Clientele după ședință" width="360" height="468" loading="lazy" />
+        <img class="gi" src="img/g2.webp" alt="Reformer din lemn" width="360" height="468" loading="lazy" />
+        <div class="gc"><p>Studioul, în poze.</p><a href="#contact">Vino să-l vezi</a></div>
+        <i class="gx" aria-hidden="true"></i>
+        <img class="gi" src="img/g8.webp" alt="Exerciții cu benzi elastice" width="360" height="468" loading="lazy" />
+        <img class="gi" src="img/g3.webp" alt="Detaliu de reformer" width="360" height="468" loading="lazy" />
+        <img class="gi" src="img/g6.webp" alt="Sub neon, la ceai" width="360" height="468" loading="lazy" />
+        <img class="gi" src="img/g11.webp" alt="Exercițiu cu genunchii îndoiți" width="360" height="468" loading="lazy" />
+        <img class="gi" src="img/g9.webp" alt="Pe terasă, la apus" width="360" height="468" loading="lazy" />
+        <img class="gi" src="img/g12.webp" alt="Logo-ul Pilates Secrets" width="360" height="468" loading="lazy" />
       </div>
     </section>
 
@@ -483,8 +506,14 @@ addEventListener("DOMContentLoaded", () => {
   ScrollTrigger.create({ trigger: "#days", start: "top 80%", once: true, onEnter: lightCal });
   // cuvintele de la „ce simți” se aprind pe rând
   document.querySelectorAll(".feel li").forEach((li, i) => ScrollTrigger.create({ trigger: li, start: "top 78%", once: true, onEnter: () => setTimeout(() => li.classList.add("on"), i % 2 * 150) }));
-  // galeria alunecă în lateral cât derulezi în jos (fără să fixeze pagina)
-  gsap.fromTo("#strip", { x: () => innerWidth * .08 }, { x: () => -(document.getElementById("strip").scrollWidth - innerWidth) - innerWidth * .04, ease: "none", scrollTrigger: { trigger: "#pics", start: "top bottom", end: "bottom top", scrub: true, invalidateOnRefresh: true } });
+  // galeria: pozele pornesc răsfirate spre margini și se adună spre centru cât derulezi
+  (() => { const g = document.getElementById("gg"), items = [...g.querySelectorAll(".gi")];
+    const mob = innerWidth < 900;
+    items.forEach((im) => { const r = im.getBoundingClientRect(), gr = g.getBoundingClientRect();
+      const dx = (r.left + r.width / 2) - (gr.left + gr.width / 2), dy = (r.top + r.height / 2) - (gr.top + gr.height / 2);
+      gsap.fromTo(im, mob ? { x: dx * .3, y: 60 + Math.abs(dy) * .25, scale: .9, opacity: 0 } : { x: dx * .6, y: dy * .7, scale: .85, opacity: .25 }, { x: 0, y: 0, scale: 1, opacity: 1, ease: "none",
+        scrollTrigger: { trigger: g, start: "top 95%", end: mob ? "center 60%" : "center 55%", scrub: .6 } }); });
+  })();
 });
 </script>
 </body>
