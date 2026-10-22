@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Pilates Secrets, Satu Mare</title>
-<meta name="description" content="Pilates pe reformer în Satu Mare, pe Str. Botizului 49 M. Cursul Pilates Reformer Fundamental: 8 ședințe în noiembrie, luni și miercuri." />
+<meta name="description" content="Pilates pe reformer în Satu Mare, pe Str. Botizului 49 M. Ședințe în fiecare zi, cu rezervare din aplicația GMA sau la telefon." />
 <link rel="icon" href="img/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -100,6 +100,15 @@
   .wl .draw { fill: none; stroke: var(--mag); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
   /* cursul */
+  .prog { padding: 66px 0 50px; background: var(--blush); }
+  .howto { list-style: none; counter-reset: k; margin-top: 26px; max-width: 620px; }
+  .howto li { counter-increment: k; display: grid; grid-template-columns: 40px 1fr; gap: 2px 14px; padding: 16px 0; border-top: 1px solid rgba(43,34,48,.12); }
+  .howto li:last-child { border-bottom: 1px solid rgba(43,34,48,.12); }
+  .howto li::before { content: counter(k) "."; grid-row: span 2; font-weight: 600; font-size: 20px; color: var(--mag); }
+  .howto b { font-weight: 600; font-size: 20px; }
+  .howto span { color: var(--mute); }
+  .prog .btn { margin-top: 26px; }
+  .kick { font-weight: 600; font-size: 15px; color: var(--mag); margin-bottom: 8px; }
   .curs { padding: 60px 0 60px; }
   .facts { margin-top: 22px; display: grid; gap: 4px; max-width: 46ch; }
   .facts b { font-weight: 600; }
@@ -138,6 +147,8 @@
   .faq details:last-of-type { border-bottom: 1px solid var(--line); }
   .faq summary { list-style: none; cursor: pointer; padding: 18px 34px 18px 0; position: relative; font-weight: 600; font-size: 19px; }
   .faq summary::-webkit-details-marker { display: none; }
+  .faq summary:focus { outline: none; }
+  .faq summary:focus-visible { outline: none; color: var(--mag); }
   .faq summary::after { content: ""; position: absolute; right: 6px; top: 50%; width: 12px; height: 12px; margin-top: -8px; border-right: 2px solid var(--mag); border-bottom: 2px solid var(--mag); transform: rotate(45deg); transition: transform .3s; }
   .faq details[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
   .faq details p { padding: 0 0 18px; color: var(--mute); max-width: 56ch; }
@@ -183,7 +194,7 @@
 <body>
   <header class="top" id="top">
     <a class="lg" href="#hero" aria-label="Pilates Secrets, sus">Pilates Secrets</a>
-    <nav class="nv" aria-label="Meniu"><a href="#curs">Cursul</a><a href="#room">Studioul</a><a href="#faq">Întrebări</a><a href="#contact">Contact</a></nav>
+    <nav class="nv" aria-label="Meniu"><a href="#program">Programări</a><a href="#program">Programări</a><a href="#curs">Cursul</a><a href="#room">Studioul</a><a href="#faq">Întrebări</a><a href="#contact">Contact</a></nav>
     <a class="tc" href="tel:+40749024172"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span>0749 024 172</span></a>
     <button class="mb" id="mb" type="button" aria-expanded="false" aria-controls="mn" aria-label="Deschide meniul"><i></i><i></i></button>
   </header>
@@ -195,7 +206,7 @@
       <h1 class="sign">Pilates <br class="br" />Secrets</h1>
       <p>Pilates pe reformer, în Satu Mare.</p>
       <a class="btn neon" href="tel:+40749024172"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>Programează-te</a>
-      <a class="news" href="#curs"><i aria-hidden="true"></i><span><b>Curs nou: Reformer Fundamental</b>De luni, 2 noiembrie, luni și miercuri la 18:00. Locurile sunt limitate.</span></a>
+      <a class="news" href="#program"><i aria-hidden="true"></i><span><b>Ședințe în fiecare zi</b>Îți rezervi locul din aplicația GMA sau la telefon. Nou: cursul Reformer Fundamental, din 2 noiembrie.</span></a>
       <span class="hint" id="hint">Mișcă degetul pe ecran</span>
     </section>
 
@@ -212,17 +223,31 @@
         <ul class="wl">
           <li class="rv"><svg viewBox="0 0 54 54" aria-hidden="true"><path class="draw" d="M5 38h44M9 38v8M45 38v8M14 30h18l4 8M38 24v14M34 24h8"/></svg><b>Pilates pe reformer</b><span>Exercițiile se fac pe aparatul cu arcuri și cărucior.</span></li>
           <li class="rv"><svg viewBox="0 0 54 54" aria-hidden="true"><path class="draw" d="M10 48V8h34v40M10 8l34 0M18 16v10M36 16v10M5 48h44"/></svg><b>Pe turn</b><span>Reformerele din sală au cadru cu bare și arcuri deasupra.</span></li>
-          <li class="rv"><svg viewBox="0 0 54 54" aria-hidden="true"><path class="draw" d="M8 42c8-14 30-14 38 0M14 30a5 5 0 1 0 0-.1M40 30a5 5 0 1 0 0-.1M27 22a5 5 0 1 0 0-.1"/></svg><b>În grup</b><span>Cursul Fundamental are un program fix, de două ori pe săptămână.</span></li>
+          <li class="rv"><svg viewBox="0 0 54 54" aria-hidden="true"><path class="draw" d="M8 42c8-14 30-14 38 0M14 30a5 5 0 1 0 0-.1M40 30a5 5 0 1 0 0-.1M27 22a5 5 0 1 0 0-.1"/></svg><b>În fiecare zi</b><span>Ședințe zilnice, cu rezervare din aplicația GMA.</span></li>
           <li class="rv"><svg viewBox="0 0 54 54" aria-hidden="true"><path class="draw" d="M27 6v6M27 42v6M6 27h6M42 27h6M12 12l4 4M38 38l4 4M42 12l-4 4M16 38l-4 4M27 19a8 8 0 1 0 0 16a8 8 0 1 0 0-16"/></svg><b>Și pe terasă</b><span>Vara, unele antrenamente se mută afară.</span></li>
         </ul>
+      </div>
+    </section>
+
+    <section class="prog" id="program">
+      <div class="wrap">
+        <h2 class="rvl">Vii când îți convine.</h2>
+        <p class="lead rv">Ședințele de pilates pe reformer se țin în fiecare zi. Îți alegi ziua și ora și îți rezervi locul.</p>
+        <ol class="howto">
+          <li class="rv"><b>Alegi ora</b><span>Din aplicația GMA vezi ședințele din săptămâna asta și locurile libere.</span></li>
+          <li class="rv"><b>Îți rezervi locul</b><span>Direct din aplicație, sau suni la <a href="tel:+40749024172" style="white-space:nowrap;border-bottom:1px solid currentColor">0749 024 172</a>.</span></li>
+          <li class="rv"><b>Vii la studio</b><span>Pe Str. Botizului 49 M, la ora aleasă.</span></li>
+        </ol>
+        <a class="btn neon rv" href="tel:+40749024172">Rezervă o ședință</a>
       </div>
     </section>
 
     <section class="curs" id="curs">
       <div class="wrap">
         <div>
-          <h2 class="rvl">Reformer Fundamental, de pe 2 noiembrie.</h2>
-          <p class="lead rv">Opt ședințe pentru cele care vor să descopere pilatesul sau să își consolideze tehnica, ca să lucreze corect de la început.</p>
+          <p class="kick rv">Nou din noiembrie</p>
+          <h2 class="rvl">Cursul Reformer Fundamental.</h2>
+          <p class="lead rv">Pe lângă ședințele obișnuite, un curs de 8 ședințe pentru cele care vor să descopere pilatesul sau să își consolideze tehnica, ca să lucreze corect de la început.</p>
           <div class="facts rv">
             <p><b>Luni și miercuri</b>, de la 18:00 la 19:00.</p>
             <p><b>Înscrierea</b> se face din aplicația GMA sau la telefon.</p>
@@ -258,10 +283,10 @@
       <div class="wrap">
         <h2 class="rvl">Înainte să vii.</h2>
         <div class="list">
+          <details class="rv"><summary>Cum îmi rezerv o ședință?</summary><p>Din aplicația GMA, unde vezi ședințele din fiecare zi și locurile libere, sau la telefon, la 0749 024 172.</p></details>
           <details class="rv"><summary>Pot veni dacă n-am mai făcut pilates?</summary><p>Da. Cursul Reformer Fundamental e făcut exact pentru cele care vor să descopere pilatesul și să învețe tehnica corectă de la început.</p></details>
-          <details class="rv"><summary>Când sunt ședințele?</summary><p>Lunea și miercurea, de la 18:00 la 19:00. Prima ședință e luni, 2 noiembrie, iar cursul ține o lună, 8 ședințe.</p></details>
-          <details class="rv"><summary>Cum mă înscriu?</summary><p>Din aplicația GMA sau la telefon, la 0749 024 172. Locurile sunt limitate.</p></details>
-          <details class="rv"><summary>Unde e studioul?</summary><p>Pe Str. Botizului 49 M, în Satu Mare. Ne găsești și pe Instagram și Facebook, la pilates_secrets.</p></details>
+          <details class="rv"><summary>Când e cursul Reformer Fundamental?</summary><p>Lunea și miercurea, de la 18:00 la 19:00. Prima ședință e luni, 2 noiembrie, iar cursul ține o lună, 8 ședințe.</p></details>
+                    <details class="rv"><summary>Unde e studioul?</summary><p>Pe Str. Botizului 49 M, în Satu Mare. Ne găsești și pe Instagram și Facebook, la pilates_secrets.</p></details>
         </div>
       </div>
     </section>
