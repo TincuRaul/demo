@@ -5,205 +5,171 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Pilates Secrets, Satu Mare</title>
-<meta name="description" content="Pilates pe reformer în Satu Mare, pe Str. Botizului 49 M. Cursul Pilates Reformer Fundamental: 8 ședințe, luni și miercuri." />
+<meta name="description" content="Pilates pe reformer în Satu Mare, pe Str. Botizului 49 M. Cursul Pilates Reformer Fundamental: 8 ședințe în noiembrie, luni și miercuri." />
 <link rel="icon" href="img/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Sacramento&amp;display=swap" rel="stylesheet" />
-<link rel="preload" href="img/studio.webp" as="image" />
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js" defer></script>
-<script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("anim");</script>
+<link href="https://fonts.googleapis.com/css2?family=Sacramento&amp;family=Hanken+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet" />
 <style>
-  @font-face { font-family: "Satoshi"; src: url(fonts/Satoshi-Regular.otf) format("opentype"); font-weight: 400; font-display: swap; }
-  @font-face { font-family: "Satoshi"; src: url(fonts/Satoshi-Medium.otf) format("opentype"); font-weight: 500; font-display: swap; }
-  @font-face { font-family: "Satoshi"; src: url(fonts/Satoshi-Bold.otf) format("opentype"); font-weight: 700; font-display: swap; }
-  :root { --rose: #db99a7; --rose-d: #b86a7d; --rose-l: #f6e7ea; --ink: #2a2226; --mute: #7d7176; --line: #ead9dd; --pad: 20px; }
+  :root { --wall: #cbbfc8; --wall-d: #b6a9b3; --plum: #2e1a33; --neon: #ff8ad0; --ink: #2b2230; --mute: #6c5f69; --line: #e7dfe5; --pad: 22px; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { overflow-x: hidden; touch-action: pan-y pinch-zoom; -webkit-text-size-adjust: 100%; }
-  body { background: #fff; color: var(--ink); font: 400 17px/1.6 "Satoshi", system-ui, sans-serif; overflow-x: clip; }
+  html { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+  body { background: #fff; color: var(--ink); font: 400 17px/1.6 "Hanken Grotesk", system-ui, sans-serif; overflow-x: clip; }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
-  .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 var(--pad); }
-  .neon { font-family: "Sacramento", cursive; font-weight: 400; letter-spacing: 0; line-height: 1; }
-  h2 { font-weight: 700; font-size: clamp(30px, 8vw, 52px); line-height: 1.08; letter-spacing: -.03em; }
-  .lm { display: block; overflow: hidden; padding-bottom: .2em; margin-bottom: -.2em; }
-  .lm > span { display: block; }
-  .k { font-weight: 700; font-size: 14px; color: var(--rose-d); }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 22px; border-radius: 12px; background: var(--rose); color: #fff; font: 700 16px "Satoshi"; }
-  .btn svg { width: 19px; height: 19px; }
-  .btn.o { background: none; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+  :focus-visible { outline: 2px solid var(--plum); outline-offset: 3px; }
+  .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 var(--pad); }
+  h2 { font-weight: 600; font-size: clamp(30px, 7.6vw, 48px); line-height: 1.1; letter-spacing: -.025em; max-width: 18ch; }
+  .lead { margin-top: 14px; max-width: 46ch; color: var(--mute); }
+  .btn { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: 26px; background: var(--plum); color: #fff; font-weight: 600; font-size: 16px; }
+  .btn svg { width: 18px; height: 18px; }
 
-  /* header */
-  .top { position: fixed; inset: 0 0 auto; z-index: 50; height: 62px; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--pad); color: #fff; transition: background .35s, color .35s; }
-  .top.solid { background: #fff; color: var(--ink); box-shadow: 0 1px 0 var(--line); }
-  .top .neon { font-size: 34px; }
-  .top .call { font-weight: 700; font-size: 15px; }
+  .top { position: absolute; inset: 0 0 auto; z-index: 5; display: flex; justify-content: space-between; align-items: center; padding: 18px var(--pad); font-weight: 600; font-size: 15px; }
 
-  /* primul ecran: sala lor cu lumina mov, numele scris ca neonul de pe perete */
-  .hero { position: relative; height: 100svh; min-height: 560px; color: #fff; overflow: hidden; background: #3a1f3d; }
-  .hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
-  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(42,20,44,.55) 0%, rgba(42,20,44,0) 25%, rgba(42,20,44,0) 42%, rgba(42,20,44,.9) 85%); }
-  .hero .txt { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 0 var(--pad) calc(34px + env(safe-area-inset-bottom)); }
-  .hero h1 .neon { display: block; font-size: clamp(76px, 22vw, 150px); color: #fff; text-shadow: 0 0 6px #ffd6ef, 0 0 18px #ff8fd4, 0 0 42px #d45bb4; margin-bottom: 6px; }
-  .hero h1 .sub { display: block; font-weight: 500; font-size: clamp(19px, 5vw, 26px); letter-spacing: -.01em; }
-  .hero .acts { margin-top: 22px; }
-  .hero .btn { background: #fff; color: var(--ink); }
+  /* peretele cu neonul: singurul moment cu mișcare din pagină */
+  .wall { position: relative; min-height: 100svh; background: radial-gradient(ellipse 75% 45% at 50% 30%, #ddd2db 0%, var(--wall) 55%, var(--wall-d) 100%);
+    display: flex; flex-direction: column; align-items: center; text-align: center; padding: 22svh var(--pad) 46px; overflow: hidden; }
+  .sign { position: relative; z-index: 1; font-family: "Sacramento", cursive; font-weight: 400; font-size: clamp(88px, 27vw, 190px); line-height: .9; color: #d9cfd7;
+    text-shadow: 0 1px 0 rgba(255,255,255,.55), 0 -1px 0 rgba(0,0,0,.08); }
+  .wall.on .sign { color: #fff4fb; text-shadow: 0 0 2px #fff, 0 0 8px #ffc6e8, 0 0 22px var(--neon), 0 0 48px #ff5fbf, 0 0 90px rgba(255,95,191,.55); }
+  .glow { position: absolute; left: 50%; top: 10svh; width: 130vw; max-width: 1400px; height: 55svh; transform: translateX(-50%); background: radial-gradient(ellipse at center, rgba(255,138,208,.42), transparent 62%); opacity: 0; pointer-events: none; }
+  .wall.on .glow { opacity: 1; }
+  .wire { width: 2px; flex: 1 1 auto; min-height: 56px; max-height: 24svh; margin-top: 4px; background: linear-gradient(#8f8590, #a89da7); }
+  .wall p { margin-top: 18px; font-weight: 500; font-size: clamp(19px, 5vw, 24px); letter-spacing: -.01em; }
+  .wall .btn { margin-top: 20px; }
 
-  /* cursul nou */
-  .curs { padding: 54px 0 46px; background: var(--rose-l); }
-  .curs h2 { margin-top: 6px; }
-  .curs .lead { margin-top: 14px; max-width: 52ch; color: #4b4045; }
-  .facts { list-style: none; margin-top: 24px; }
-  .facts li { display: grid; grid-template-columns: 120px 1fr; gap: 12px; padding: 13px 0; border-top: 1px solid rgba(42,34,38,.14); }
-  .facts li:last-child { border-bottom: 1px solid rgba(42,34,38,.14); }
-  .facts span { font-size: 15px; color: var(--mute); }
-  .facts b { font-weight: 700; }
-  .ben { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
-  .ben span { padding: 7px 13px; border-radius: 99px; background: #fff; font-weight: 500; font-size: 15px; }
-  .curs .acts { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px; }
-  .curs .note { margin-top: 12px; font-size: 15px; color: var(--mute); }
+  .room { position: relative; height: 78svh; min-height: 440px; overflow: hidden; background: var(--plum); }
+  .room img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
+  .room figcaption { position: absolute; left: var(--pad); right: var(--pad); bottom: 22px; color: #fff; font-weight: 500; max-width: 32ch; text-shadow: 0 1px 12px rgba(0,0,0,.55); }
 
-  /* galeria */
-  .gal { padding: 50px 0 40px; }
-  .grid { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .grid figure { position: relative; overflow: hidden; }
-  .grid img { width: 100%; height: 100%; object-fit: cover; }
-  .grid figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 28px 12px 10px; color: #fff; font-size: 14px; font-weight: 500; background: linear-gradient(transparent, rgba(0,0,0,.55)); }
-  .g1 { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
-  .g2, .g3 { aspect-ratio: 3 / 4; }
+  /* cursul: calendarul cu cele 8 ședințe */
+  .curs { padding: 64px 0 58px; }
+  .facts { margin-top: 24px; display: grid; gap: 4px; max-width: 46ch; }
+  .facts b { font-weight: 600; }
+  .curs .note { margin-top: 16px; color: var(--mute); font-size: 15px; }
+  .curs .btn { margin-top: 20px; }
+  .cal { margin-top: 34px; max-width: 440px; }
+  .cal .mo { display: flex; justify-content: space-between; align-items: baseline; font-weight: 600; }
+  .cal .mo small { font-weight: 400; font-size: 15px; color: var(--mute); }
+  .cal .dn, .cal .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+  .cal .dn { margin-top: 12px; font-size: 13px; color: var(--mute); }
+  .cal .days { margin-top: 6px; }
+  .cal .days i { font-style: normal; aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; font-size: 15px; color: #a69ba4; }
+  .cal .days i.s { background: var(--plum); color: #fff; font-weight: 600; }
+  .cal .days i.first { background: var(--neon); color: var(--plum); }
 
-  /* motto */
-  .motto { padding: 40px 0 46px; text-align: center; }
-  .motto .neon { font-size: clamp(54px, 15vw, 96px); color: var(--rose-d); }
-  .motto p { margin-top: 8px; color: var(--mute); }
+  .why { padding: 0 0 60px; }
+  .why ul { list-style: none; margin-top: 22px; max-width: 560px; }
+  .why li { padding: 14px 0; border-top: 1px solid var(--line); font-size: 19px; font-weight: 500; }
+  .why li:last-child { border-bottom: 1px solid var(--line); }
 
-  /* contact */
-  .contact { background: var(--ink); color: #fff; padding: 52px 0 34px; }
-  .contact .logo { border-radius: 10px; width: 190px; height: auto; margin-bottom: 18px; }
-  .rows { margin-top: 20px; display: grid; gap: 14px; }
-  .rows span { display: block; font-size: 14px; color: #b9aab0; }
-  .rows a, .rows p { font-weight: 500; font-size: 19px; }
-  .rows a { border-bottom: 1.5px solid var(--rose); }
-  .map { display: block; margin-top: 26px; border: 0; width: 100%; height: 240px; filter: grayscale(1) contrast(1.05); }
-  footer { background: var(--ink); color: #9c8f95; text-align: center; font-size: 14px; padding: 6px var(--pad) calc(86px + env(safe-area-inset-bottom)); }
+  .pics { display: grid; gap: 6px; }
+  .pics figure { position: relative; overflow: hidden; }
+  .pics img { width: 100%; height: 100%; object-fit: cover; }
+  .pics .a { aspect-ratio: 16 / 10; } .pics .b { aspect-ratio: 4 / 5; }
+  .pics figcaption { position: absolute; left: 16px; right: 16px; bottom: 14px; color: #fff; font-size: 15px; font-weight: 500; text-shadow: 0 1px 10px rgba(0,0,0,.6); }
+
+  .contact { background: var(--plum); color: #fff; padding: 60px 0 40px; }
+  .contact .lead { color: #c9b8c8; }
+  .rows { margin-top: 26px; display: grid; gap: 16px; }
+  .rows span { display: block; font-size: 14px; color: #b29fb1; }
+  .rows a, .rows p { font-weight: 500; font-size: 20px; }
+  .rows a { border-bottom: 1.5px solid var(--neon); }
+  .contact .btn { margin-top: 28px; background: var(--neon); color: var(--plum); }
+  .map { display: block; margin-top: 30px; border: 0; width: 100%; height: 240px; filter: grayscale(1) contrast(1.05); }
+  footer { background: var(--plum); color: #9a8799; font-size: 14px; text-align: center; padding: 4px var(--pad) 36px; }
   footer a { color: #fff; border-bottom: 1px solid currentColor; }
-  .fab { position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 60; width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; background: var(--rose); color: #fff;
-    box-shadow: 0 6px 18px -8px rgba(0,0,0,.5); opacity: 0; transform: translateY(14px); pointer-events: none; transition: opacity .35s, transform .4s; }
-  .fab.show { opacity: 1; transform: none; pointer-events: auto; }
-  .fab svg { width: 24px; height: 24px; }
-
-  .anim .hero h1 .lm > span, .anim .hero .acts { opacity: 0; }
 
   @media (min-width: 900px) {
     :root { --pad: 48px; }
-    .top { height: 74px; }
-    .hero .txt { max-width: 1120px; margin: 0 auto; padding-bottom: 70px; }
-    .curs { padding: 110px 0 100px; }
-    .curs .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: start; }
-    .curs .facts { margin-top: 0; }
-    .gal { padding: 100px 0 70px; }
-    .grid { grid-template-columns: 1.4fr 1fr 1fr; gap: 14px; }
-    .g1 { grid-column: auto; aspect-ratio: auto; }
-    .motto { padding: 70px 0 90px; }
-    .contact { padding: 100px 0 60px; }
+    .sign .br { display: none; }
+    .curs { padding: 120px 0 100px; }
+    .curs .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .cal { margin-top: 6px; }
+    .why { padding-bottom: 110px; }
+    .pics { grid-template-columns: 1.5fr 1fr; }
+    .pics .a, .pics .b { aspect-ratio: auto; height: 70vh; }
+    .contact { padding: 110px 0 60px; }
     .contact .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-    .map { margin-top: 0; height: 380px; }
-    footer { padding-bottom: 40px; }
+    .map { margin-top: 0; height: 400px; }
   }
 </style>
 </head>
 <body>
-  <header class="top" id="top">
-    <a class="neon" href="#sus" aria-label="Pilates Secrets, prima pagină">Pilates Secrets</a>
-    <a class="call" href="tel:+40749024172">0749 024 172</a>
-  </header>
+  <header class="top"><span>Str. Botizului 49 M</span><a href="tel:+40749024172">0749 024 172</a></header>
 
-  <main id="sus">
-    <section class="hero">
-      <img src="img/studio.webp" alt="Sala Pilates Secrets, cu reformere și lumină mov" width="1200" height="1297" fetchpriority="high" />
-      <div class="txt">
-        <h1><span class="lm"><span class="neon">Pilates Secrets</span></span><span class="lm"><span class="sub">Pilates pe reformer, în Satu Mare.</span></span></h1>
-        <div class="acts"><a class="btn" href="tel:+40749024172">Programează-te</a></div>
-      </div>
+  <main>
+    <section class="wall" id="wall">
+      <div class="glow" aria-hidden="true"></div>
+      <h1 class="sign">Pilates <br class="br" />Secrets</h1>
+      <div class="wire" aria-hidden="true"></div>
+      <p>Pilates pe reformer, în Satu Mare.</p>
+      <a class="btn" href="tel:+40749024172"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>Programează-te</a>
     </section>
+
+    <figure class="room">
+      <img src="img/studio.webp" alt="Sala Pilates Secrets seara, cu reformerele din lemn și lumină mov" width="1200" height="1297" loading="lazy" />
+      <figcaption>Reformere din lemn, cu turn, și lumina de seară a sălii.</figcaption>
+    </figure>
 
     <section class="curs" id="curs">
       <div class="wrap">
         <div>
-          <span class="k rv">Curs nou</span>
-          <h2 class="rvl">Pilates Reformer Fundamental.</h2>
-          <p class="lead rv">O serie de 8 ședințe pentru cele care vor să descopere pilatesul sau să își consolideze cunoștințele: tehnica corectă, de la început.</p>
-          <div class="ben rv"><span>Postură corectă</span><span>Corp mai puternic</span><span>Mai puține dureri</span><span>Mai multă energie</span></div>
+          <h2>Reformer Fundamental, de pe 2 noiembrie.</h2>
+          <p class="lead">Opt ședințe pentru cele care vor să descopere pilatesul sau să își consolideze tehnica, ca să lucreze corect de la început.</p>
+          <div class="facts">
+            <p><b>Luni și miercuri</b>, de la 18:00 la 19:00.</p>
+            <p><b>Înscrierea</b> se face din aplicația GMA sau la telefon.</p>
+          </div>
+          <p class="note">Locurile sunt limitate.</p>
+          <a class="btn" href="tel:+40749024172">Înscrie-te la curs</a>
         </div>
-        <div>
-          <ul class="facts">
-            <li class="rv"><span>Începem</span><b>Luni, 2 noiembrie, la 18:00</b></li>
-            <li class="rv"><span>Program</span><b>Luni și miercuri, 18:00–19:00</b></li>
-            <li class="rv"><span>Durată</span><b>8 ședințe, o lună</b></li>
-            <li class="rv"><span>Înscriere</span><b>Prin aplicația GMA sau telefonic</b></li>
-          </ul>
-          <div class="acts rv"><a class="btn" href="tel:+40749024172">Înscrie-te</a></div>
-          <p class="note rv">Locurile sunt limitate.</p>
+        <div class="cal" aria-label="Calendarul cursului, noiembrie 2026: lunile și miercurile de pe 2 până pe 25">
+          <div class="mo">Noiembrie 2026 <small>8 ședințe</small></div>
+          <div class="dn" aria-hidden="true"><span>L</span><span>Ma</span><span>Mi</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+          <div class="days" id="days" aria-hidden="true"></div>
         </div>
       </div>
     </section>
 
-    <section class="gal">
+    <section class="why">
       <div class="wrap">
-        <h2 class="rvl">Studioul.</h2>
-        <div class="grid">
-          <figure class="g1 rvi"><img src="img/terasa.webp" alt="Antrenament de grup pe terasă" width="898" height="504" loading="lazy" /><figcaption>Antrenamente și pe terasă</figcaption></figure>
-          <figure class="g2 rvi"><img src="img/neon.webp" alt="Clientele în studio, sub neonul Pilates Secrets" width="1000" height="1347" loading="lazy" /><figcaption>După ședință</figcaption></figure>
-          <figure class="g3 rvi"><img src="img/squat.webp" alt="Exercițiu în aer liber" width="898" height="1197" loading="lazy" /><figcaption>Mișcare</figcaption></figure>
-        </div>
+        <h2>Ce simți după o lună.</h2>
+        <ul><li>O postură mai dreaptă.</li><li>Un corp mai puternic.</li><li>Mai puține dureri.</li><li>Mai multă energie.</li></ul>
       </div>
     </section>
 
-    <section class="motto">
-      <div class="wrap"><p class="neon rv">Move. Feel. Be you.</p><p class="rv">Mișcare, echilibru, o viață mai bună.</p></div>
+    <section class="pics">
+      <figure class="a"><img src="img/terasa.webp" alt="Antrenament de grup pe terasă, cu benzi elastice" width="898" height="504" loading="lazy" /><figcaption>Vara, antrenamentele se mută pe terasă.</figcaption></figure>
+      <figure class="b"><img src="img/neon.webp" alt="Clientele în studio, sub neonul Pilates Secrets" width="1000" height="1347" loading="lazy" /><figcaption>Neonul adevărat, din sală.</figcaption></figure>
     </section>
 
     <section class="contact" id="contact">
       <div class="wrap">
         <div>
-          <img class="logo rv" src="img/logo.webp" alt="Pilates Secrets" width="560" height="316" loading="lazy" />
-          <h2 class="rvl">Te așteptăm.</h2>
+          <h2>Te așteptăm pe Botizului.</h2>
+          <p class="lead">Move. Feel. Be you.</p>
           <div class="rows">
-            <div class="rv"><span>Telefon și programări</span><a href="tel:+40749024172">0749 024 172</a></div>
-            <div class="rv"><span>Adresa</span><p>Str. Botizului 49 M, Satu Mare</p></div>
-            <div class="rv"><span>Instagram și Facebook</span><p>pilates_secrets</p></div>
+            <div><span>Telefon și programări</span><a href="tel:+40749024172">0749 024 172</a></div>
+            <div><span>Adresa</span><p>Str. Botizului 49 M, Satu Mare</p></div>
+            <div><span>Instagram și Facebook</span><p>pilates_secrets</p></div>
           </div>
+          <a class="btn" href="tel:+40749024172">Sună acum</a>
         </div>
-        <iframe class="map" title="Harta" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Strada+Botizului+49M,+Satu+Mare&amp;output=embed"></iframe>
+        <iframe class="map" title="Harta până la Pilates Secrets" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Strada+Botizului+49M,+Satu+Mare&amp;output=embed"></iframe>
       </div>
     </section>
   </main>
-
   <footer>Demo al site-ului realizat de <a href="https://rtweb.ro">RTWEB</a> pentru Pilates Secrets</footer>
-  <a class="fab" id="fab" href="tel:+40749024172" aria-label="Sună la 0749 024 172"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></a>
 
 <script>
-addEventListener("DOMContentLoaded", () => {
-  const top = document.getElementById("top"), fab = document.getElementById("fab");
-  const onScroll = () => { top.classList.toggle("solid", scrollY > innerHeight * .8); fab.classList.toggle("show", scrollY > innerHeight * .7); };
-  addEventListener("scroll", onScroll, { passive: true }); onScroll();
-  document.addEventListener("click", (e) => { const a = e.target.closest('a[href^="#"]'); if (!a) return; e.preventDefault(); const el = document.getElementById(a.getAttribute("href").slice(1));
-    scrollTo({ top: el && el.id !== "sus" ? el.getBoundingClientRect().top + scrollY - 70 : 0, behavior: "smooth" }); history.replaceState(null, "", location.pathname); });
-
-  if (!window.gsap || matchMedia("(prefers-reduced-motion: reduce)").matches) { document.documentElement.classList.remove("anim"); return; }
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.timeline({ delay: .15, defaults: { ease: "expo.out" } })
-    .set(".hero h1 .lm > span, .hero .acts", { opacity: 1 }, 0)
-    .fromTo(".hero h1 .lm > span", { yPercent: 112 }, { yPercent: 0, duration: 1.3, stagger: .14 }, 0)
-    .fromTo(".hero .acts", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, .6);
-  document.querySelectorAll("main .rvl").forEach((el) => {
-    el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="lm" style="display:inline-block;vertical-align:top"><span style="display:inline-block">${w}&nbsp;</span></span>`).join("");
-    gsap.from(el.querySelectorAll(".lm > span"), { yPercent: 112, duration: 1, ease: "expo.out", stagger: .05, scrollTrigger: { trigger: el, start: "top 88%" } });
-  });
-  gsap.utils.toArray("main .rv").forEach((el) => gsap.from(el, { y: 20, opacity: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
-  gsap.utils.toArray(".rvi").forEach((el) => gsap.from(el, { y: 34, opacity: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
-});
+// noiembrie 2026 începe duminică; ședințele sunt lunile și miercurile de pe 2 până pe 25
+const S = [2, 4, 9, 11, 16, 18, 23, 25];
+document.getElementById("days").innerHTML = "<i></i>".repeat(6) + Array.from({ length: 30 }, (_, i) => { const d = i + 1; return `<i class="${S.includes(d) ? "s" : ""}${d === 2 ? " first" : ""}">${d}</i>`; }).join("");
+// neonul se aprinde ca unul adevărat: câteva pâlpâiri, apoi rămâne aprins
+const wall = document.getElementById("wall");
+if (matchMedia("(prefers-reduced-motion: reduce)").matches) wall.classList.add("on");
+else [[350, 1], [430, 0], [530, 1], [590, 0], [920, 1]].forEach(([t, on]) => setTimeout(() => wall.classList.toggle("on", !!on), t));
 </script>
 </body>
 </html>
