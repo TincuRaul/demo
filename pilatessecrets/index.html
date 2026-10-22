@@ -142,20 +142,25 @@
   }
   @media (prefers-reduced-motion: reduce) { .spr, .orb { animation: none; } .feel .w { color: var(--ink); } .feel small { opacity: 1; transform: none; } }
   /* „ce faci la noi”, după slider-ul de la Vero: cortina de culoare dezvăluie poza următoare, iar cuvântul curent se aprinde */
-  .vs { background: var(--plum); color: #fff; padding: 0 0 54px; overflow: hidden; }
-  .stage { position: relative; height: 78svh; min-height: 440px; overflow: hidden; cursor: pointer; }
-  .stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: transform 6s ease-out; }
-  .stage img.on { opacity: 1; transform: scale(1); }
-  .stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(29,15,34,.75)); pointer-events: none; }
-  .curtain { position: absolute; z-index: 2; top: 0; bottom: 0; left: 0; width: 100%; background: linear-gradient(90deg, var(--mag), var(--neon)); transform: translateX(-101%); }
-  .dots { position: absolute; z-index: 3; left: 18px; top: 50%; transform: translateY(-50%); list-style: none; display: grid; gap: 10px; }
+  .vs { background: var(--plum); color: #fff; padding: 0 0 56px; overflow: hidden; }
+  .stage { position: relative; height: 70svh; min-height: 420px; overflow: hidden; cursor: pointer; background: #140a17; }
+  .stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; clip-path: inset(0 0 0 100%); z-index: 1; }
+  .stage img.cur { clip-path: inset(0); z-index: 2; }
+  .stage img.nx { z-index: 3; filter: brightness(.55) saturate(.8); }
+  .stage::after { content: ""; position: absolute; inset: 0; z-index: 4; background: linear-gradient(180deg, transparent 60%, rgba(20,10,23,.7)); pointer-events: none; }
+  .dots { position: absolute; z-index: 5; left: 18px; top: 50%; transform: translateY(-50%); list-style: none; display: grid; gap: 10px; }
   .dots li { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.4); transition: background .4s, transform .4s; }
   .dots li.on { background: #fff; transform: scale(1.5); }
-  .phrase { position: relative; z-index: 3; margin: -2.1em auto 0; padding: 0 var(--pad); max-width: 1180px; text-align: center; font-weight: 600; font-size: clamp(30px, 8vw, 76px); line-height: 1.05; letter-spacing: -.035em; }
-  .phrase { -webkit-user-select: none; user-select: none; }
-  .phrase span { color: rgba(255,255,255,.28); transition: color .6s; }
-  .phrase span.on { color: #fff; text-shadow: 0 0 30px rgba(255,138,208,.5); }
-  .vs .cap { margin: 18px auto 0; padding: 0 var(--pad); max-width: 46ch; text-align: center; color: #e2cfdc; min-height: 3.2em; transition: opacity .35s; }
+  .phrase { margin: 26px auto 0; padding: 0 var(--pad); max-width: 1180px; text-align: center; font-weight: 600; font-size: clamp(26px, 6.6vw, 52px); line-height: 1.1; letter-spacing: -.03em; -webkit-user-select: none; user-select: none; }
+  .phrase span { color: rgba(255,255,255,.26); cursor: pointer; transition: color .7s; }
+  .phrase span.on { color: #fff; }
+  .vs .cap { margin: 12px auto 0; padding: 0 var(--pad); max-width: 46ch; text-align: center; color: #d9c5d3; min-height: 3.2em; }
+  @media (min-width: 900px) {
+    .stage { height: 82vh; }
+    .stage img.nx { cursor: e-resize; }
+    .dots { left: 34px; }
+    .phrase { margin-top: 34px; }
+  }
 
   /* „vii când îți convine”, după „so THAT YOU BECOME ART”: titlu mare centrat, poze mici decalate dedesubt */
   .become { padding: 80px 0 70px; text-align: center; }
@@ -180,8 +185,6 @@
     .trio .t2 { margin-top: 48px; } .trio .t3 { margin-top: 96px; }
   }
   @media (min-width: 900px) {
-    .stage { height: 88vh; }
-    .dots { left: 34px; }
     .become { padding: 150px 0 130px; }
       }
   /* cursul */
@@ -273,7 +276,6 @@
         <img src="img/turn.webp" alt="Reformerele cu turn, lângă geam" width="900" height="1100" loading="lazy" />
         <img src="img/neon.webp" alt="Clientele în studio, sub neon" width="1000" height="1347" loading="lazy" />
         <img src="img/terasa.webp" alt="Antrenament pe terasă" width="898" height="504" loading="lazy" />
-        <div class="curtain" id="curtain" aria-hidden="true"></div>
         <ol class="dots" id="dots" aria-hidden="true"><li class="on"></li><li></li><li></li><li></li></ol>
       </div>
       <p class="phrase" id="phrase"><span class="on">Pe reformer,</span> <span>pe turn,</span> <span>în fiecare zi,</span> <span>și pe terasă.</span></p>
@@ -449,26 +451,36 @@ document.addEventListener("click", (e) => { const a = e.target.closest('a[href^=
 })();
 
 
-/* ---------- slider-ul de la „ce faci la noi”: cortină, poză nouă, cuvântul se aprinde ---------- */
+/* ---------- slider-ul de la „ce faci la noi”, ca la Vero: poza următoare stă pe margine, apoi se deschide peste cea curentă ---------- */
 (() => {
-  const stage = document.getElementById("stage"), imgs = [...stage.querySelectorAll("img")], cur = document.getElementById("curtain"),
+  const stage = document.getElementById("stage"), imgs = [...stage.querySelectorAll("img")],
     words = [...document.querySelectorAll("#phrase span")], dots = [...document.querySelectorAll("#dots li")], cap = document.getElementById("vcap");
   const CAPS = ["Exercițiile se fac pe aparatul cu arcuri și cărucior.", "Reformerele din sală au cadru cu bare și arcuri deasupra.", "Ședințe zilnice, cu rezervare din aplicația GMA.", "Vara, unele antrenamente se mută afară."];
-  let i = 0, busy = false, timer;
-  const go = (n) => {
-    if (busy) return; busy = true; setTimeout(() => (busy = false), 1600); n = (n + imgs.length) % imgs.length;
-    const set = () => { imgs.forEach((im, k) => im.classList.toggle("on", k === n)); words.forEach((w, k) => w.classList.toggle("on", k === n)); dots.forEach((d, k) => d.classList.toggle("on", k === n)); cap.textContent = CAPS[n]; i = n; };
-    if (reduce || !window.gsap) { set(); busy = false; return; }
-    gsap.timeline({ onComplete: () => (busy = false) })
-      .set(cur, { xPercent: -101 }).to(cur, { xPercent: 0, duration: .55, ease: "expo.inOut" })
-      .call(set).to(cur, { xPercent: 101, duration: .65, ease: "expo.inOut" });
+  const peek = () => (innerWidth >= 900 ? "inset(0 0 0 78%)" : "inset(0 0 0 100%)");
+  let i = 0, busy = false, timer, vis = false;
+  const paint = () => {
+    imgs.forEach((im, k) => { im.classList.toggle("cur", k === i); im.classList.toggle("nx", k === (i + 1) % imgs.length); im.style.clipPath = k === i ? "inset(0)" : k === (i + 1) % imgs.length ? peek() : "inset(0 0 0 100%)"; im.style.transform = ""; });
+    words.forEach((w, k) => w.classList.toggle("on", k === i)); dots.forEach((d, k) => d.classList.toggle("on", k === i)); cap.textContent = CAPS[i];
   };
-  const auto = () => { clearInterval(timer); timer = setInterval(() => { if (vis && !document.hidden) go(i + 1); }, 4200); };
+  paint(); addEventListener("resize", paint);
+  const go = (n) => {
+    n = (n + imgs.length) % imgs.length; if (busy || n === i) return;
+    const inc = imgs[n], out = imgs[i];
+    if (reduce || !window.gsap) { i = n; paint(); return; }
+    busy = true;
+    if (!inc.classList.contains("nx")) inc.style.clipPath = "inset(0 0 0 100%)";
+    inc.style.zIndex = 3; inc.style.filter = "brightness(.55) saturate(.8)";
+    gsap.timeline({ onComplete: () => { i = n; inc.style.zIndex = ""; inc.style.filter = ""; paint(); busy = false; } })
+      .to(inc, { clipPath: "inset(0 0 0 0%)", filter: "brightness(1) saturate(1)", duration: 1.15, ease: "expo.inOut" }, 0)
+      .to(out, { scale: 1.06, xPercent: -6, duration: 1.15, ease: "expo.inOut" }, 0)
+      .call(() => { words.forEach((w, k) => w.classList.toggle("on", k === n)); dots.forEach((d, k) => d.classList.toggle("on", k === n)); cap.textContent = CAPS[n]; }, null, .35)
+      .set(out, { scale: 1, xPercent: 0 });
+  };
+  const auto = () => { clearInterval(timer); timer = setInterval(() => { if (vis && !document.hidden) go(i + 1); }, 4500); };
   stage.addEventListener("click", () => { go(i + 1); auto(); });
   words.forEach((w, k) => w.addEventListener("click", () => { go(k); auto(); }));
-  // merge cât secțiunea e măcar puțin pe ecran; se oprește doar când iese complet
-  let vis = false; auto();
-  new IntersectionObserver(([e]) => { vis = e.isIntersecting; }, { threshold: 0 }).observe(document.getElementById("ways"));
+  new IntersectionObserver(([e]) => { vis = e.isIntersecting; }, { threshold: .2 }).observe(stage);
+  auto();
 })();
 /* ---------- calendarul ---------- */
 const S = [2, 4, 9, 11, 16, 18, 23, 25];
