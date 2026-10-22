@@ -102,6 +102,54 @@
   .room .cap > span { display: block; margin-top: 8px; font-size: 16px; color: #f3dcea; }
 
 
+  /* cursul, centrat; arcurile reformerului se întind și se strâng pe laterale */
+  .curs { position: relative; padding: 80px 0 70px; text-align: center; overflow: hidden; }
+  .curs .wrap { position: relative; z-index: 1; }
+  .curs h2 { margin: 0 auto; max-width: 14ch; font-size: clamp(36px, 9.5vw, 88px); line-height: 1; letter-spacing: -.04em; }
+  .curs .lead { margin: 18px auto 0; }
+  .cal { margin: 40px auto 0; max-width: 460px; padding: 22px 20px 18px; border-radius: 22px; background: #fff; box-shadow: 0 30px 80px -40px rgba(46,26,51,.45), 0 0 0 1px var(--line); text-align: left; }
+  .cal .mo { display: flex; justify-content: space-between; align-items: baseline; font-weight: 600; }
+  .cal .mo small { font-weight: 400; font-size: 15px; color: var(--mute); }
+  .cal .dn, .cal .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+  .cal .dn { margin-top: 12px; font-size: 13px; color: var(--mute); }
+  .cal .days { margin-top: 6px; }
+  .cal .days i { font-style: normal; aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; font-size: 15px; color: #a69ba4; transition: background .4s, color .4s, box-shadow .4s, transform .4s; }
+  .cal .days i.lit { background: var(--plum-2); color: #fff; font-weight: 600; }
+  .cal .days i.lit.first { background: var(--neon); color: var(--plum); box-shadow: 0 0 18px rgba(255,138,208,.8); }
+  .cal .left { margin-top: 12px; font-size: 15px; color: var(--mute); text-align: center; }
+  .cal .left b { color: var(--ink); }
+  .curs .facts { margin: 26px auto 0; max-width: 44ch; color: var(--mute); }
+  .curs .facts b { color: var(--ink); font-weight: 600; }
+  .curs .btn { margin-top: 22px; }
+  .side { position: absolute; top: 0; bottom: 0; width: 22vw; max-width: 300px; display: none; justify-content: space-around; pointer-events: none; }
+  .side.l { left: 0; } .side.r { right: 0; }
+  .spr { width: 46px; height: 70%; align-self: center; overflow: visible; }
+  .spr path { fill: none; stroke: var(--neon); stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; opacity: .55; }
+  .spr circle { fill: var(--mag); opacity: .7; }
+  .spr { animation: stretch 3.4s cubic-bezier(.45,0,.55,1) infinite alternate; transform-origin: 50% 0; }
+  .side .spr:nth-child(2) { animation-delay: -1.7s; height: 55%; }
+  .side.r .spr:nth-child(1) { animation-delay: -.8s; } .side.r .spr:nth-child(2) { animation-delay: -2.5s; }
+  @keyframes stretch { from { transform: scaleY(.62); } to { transform: scaleY(1); } }
+
+  /* ce simți după o lună: cuvinte mari, centrate, care se aprind pe rând; o lumină care respiră în spate */
+  .why { position: relative; padding: 20px 0 90px; text-align: center; overflow: hidden; }
+  .why .wrap { position: relative; z-index: 1; }
+  .why h2 { margin: 0 auto; }
+  .orb { position: absolute; left: 50%; top: 55%; width: 70vw; max-width: 760px; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(255,138,208,.35), rgba(212,63,176,.12) 45%, transparent 70%); animation: breathe 5s ease-in-out infinite alternate; }
+  @keyframes breathe { from { transform: translate(-50%, -50%) scale(.85); opacity: .6; } to { transform: translate(-50%, -50%) scale(1.1); opacity: 1; } }
+  .feel { list-style: none; margin: 34px auto 0; display: grid; gap: 6px; }
+  .feel li { display: flex; flex-direction: column; align-items: center; }
+  .feel .w { font-weight: 600; font-size: clamp(46px, 13vw, 120px); line-height: .98; letter-spacing: -.045em; color: rgba(43,34,48,.12); transition: color .8s; }
+  .feel li.on .w { color: var(--ink); }
+  .feel small { font-size: 17px; color: var(--mag); font-weight: 600; opacity: 0; transform: translateY(8px); transition: opacity .6s .2s, transform .6s .2s; }
+  .feel li.on small { opacity: 1; transform: none; }
+  @media (min-width: 900px) {
+    .curs { padding: 140px 0 120px; }
+    .side { display: flex; }
+    .why { padding: 40px 0 140px; }
+    .feel { grid-template-columns: 1fr 1fr; gap: 30px 10px; max-width: 980px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .spr, .orb { animation: none; } .feel .w { color: var(--ink); } .feel small { opacity: 1; transform: none; } }
   /* „ce faci la noi”, după slider-ul de la Vero: cortina de culoare dezvăluie poza următoare, iar cuvântul curent se aprinde */
   .vs { background: var(--plum); color: #fff; padding: 0 0 54px; overflow: hidden; }
   .stage { position: relative; height: 78svh; min-height: 440px; overflow: hidden; cursor: pointer; }
@@ -138,29 +186,8 @@
   }
   /* cursul */
   .kick { font-weight: 600; font-size: 15px; color: var(--mag); margin-bottom: 8px; }
-  .curs { padding: 60px 0 60px; }
-  .facts { margin-top: 22px; display: grid; gap: 4px; max-width: 46ch; }
-  .facts b { font-weight: 600; }
-  .curs .note { margin-top: 14px; color: var(--mute); font-size: 15px; }
-  .curs .btn { margin-top: 20px; }
-  .cal { margin-top: 34px; max-width: 440px; }
-  .cal .mo { display: flex; justify-content: space-between; align-items: baseline; font-weight: 600; }
-  .cal .mo small { font-weight: 400; font-size: 15px; color: var(--mute); }
-  .cal .dn, .cal .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
-  .cal .dn { margin-top: 12px; font-size: 13px; color: var(--mute); }
-  .cal .days { margin-top: 6px; }
-  .cal .days i { font-style: normal; aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; font-size: 15px; color: #a69ba4; transition: background .4s, color .4s, box-shadow .4s; }
-  .cal .days i.lit { background: var(--plum-2); color: #fff; font-weight: 600; }
-  .cal .days i.lit.first { background: var(--neon); color: var(--plum); box-shadow: 0 0 18px rgba(255,138,208,.8); }
-  .cal .left { margin-top: 14px; font-size: 15px; color: var(--mute); }
-  .cal .left b { color: var(--ink); }
 
   /* ce simți după o lună: bara care se umple */
-  .why { padding: 10px 0 70px; }
-  .why ul { list-style: none; margin-top: 24px; max-width: 600px; }
-  .why li { position: relative; padding: 16px 0 18px; font-size: 20px; font-weight: 500; }
-  .why li::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: linear-gradient(90deg, var(--neon), var(--amber)); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
-  .why li::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--line); }
 
   /* galerie care se mișcă la scroll */
   .pics { overflow: hidden; padding: 0 0 70px; }
@@ -204,11 +231,7 @@
     .nv { display: flex; margin-right: 10px; }
     .tc span { display: inline; } .tc { padding: 0 18px; }
     .mb { display: none; }
-          .curs { padding: 100px 0; }
-    .curs .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .cal { margin-top: 6px; }
-    .why { padding-bottom: 110px; }
-    .strip figure { width: 34vw; } .strip figure.w { width: 52vw; }
+                  .strip figure { width: 34vw; } .strip figure.w { width: 52vw; }
     .faq { padding-bottom: 110px; }
     .contact { padding: 120px 0 60px; }
     .contact .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
@@ -270,31 +293,33 @@
     </section>
 
     <section class="curs" id="curs">
+      <div class="side l" aria-hidden="true"><svg class="spr" viewBox="0 0 60 400" aria-hidden="true"><path d="M30 0v40 l-20 10 40 20 -40 20 40 20 -40 20 40 20 -40 20 40 20 -40 20 40 20 -40 20 40 20 -20 10 v40"/><circle cx="30" cy="392" r="7"/></svg><svg class="spr" viewBox="0 0 60 400" aria-hidden="true"><path d="M30 0v40 l-20 10 40 20 -40 20 40 20 -40 20 40 20 -40 20 40 20 -40 20 40 20 -40 20 40 20 -20 10 v40"/><circle cx="30" cy="392" r="7"/></svg></div>
+      <div class="side r" aria-hidden="true"><svg class="spr" viewBox="0 0 60 400" aria-hidden="true"><path d="M30 0v40 l-20 10 40 20 -40 20 40 20 -40 20 40 20 -40 20 40 20 -40 20 40 20 -40 20 40 20 -20 10 v40"/><circle cx="30" cy="392" r="7"/></svg><svg class="spr" viewBox="0 0 60 400" aria-hidden="true"><path d="M30 0v40 l-20 10 40 20 -40 20 40 20 -40 20 40 20 -40 20 40 20 -40 20 40 20 -40 20 40 20 -20 10 v40"/><circle cx="30" cy="392" r="7"/></svg></div>
       <div class="wrap">
-        <div>
-          <p class="kick rv">Nou din noiembrie</p>
-          <h2 class="rvl">Cursul Reformer Fundamental.</h2>
-          <p class="lead rv">Pe lângă ședințele obișnuite, un curs de 8 ședințe pentru cele care vor să descopere pilatesul sau să își consolideze tehnica, ca să lucreze corect de la început.</p>
-          <div class="facts rv">
-            <p><b>Luni și miercuri</b>, de la 18:00 la 19:00.</p>
-            <p><b>Înscrierea</b> se face din aplicația GMA sau la telefon.</p>
-          </div>
-          <p class="note rv">Locurile sunt limitate.</p>
-          <a class="btn rv" href="tel:+40749024172">Înscrie-te la curs</a>
-        </div>
+        <p class="kick rv">Nou din noiembrie</p>
+        <h2 class="rvl">Cursul Reformer Fundamental.</h2>
+        <p class="lead rv">Pe lângă ședințele obișnuite, un curs de 8 ședințe pentru cele care vor să descopere pilatesul sau să își consolideze tehnica, ca să lucreze corect de la început.</p>
         <div class="cal" aria-label="Calendarul cursului, noiembrie 2026: lunile și miercurile de pe 2 până pe 25">
           <div class="mo">Noiembrie 2026 <small>8 ședințe</small></div>
           <div class="dn" aria-hidden="true"><span>L</span><span>Ma</span><span>Mi</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
           <div class="days" id="days" aria-hidden="true"></div>
           <p class="left" id="left"></p>
         </div>
+        <p class="facts rv"><b>Luni și miercuri</b>, de la 18:00 la 19:00. Înscrierea, din aplicația GMA sau la telefon. Locurile sunt limitate.</p>
+        <a class="btn rv" href="tel:+40749024172">Înscrie-te la curs</a>
       </div>
     </section>
 
     <section class="why" id="why">
+      <div class="orb" aria-hidden="true"></div>
       <div class="wrap">
         <h2 class="rvl">Ce simți după o lună.</h2>
-        <ul><li>O postură mai dreaptă.</li><li>Un corp mai puternic.</li><li>Mai puține dureri.</li><li>Mai multă energie.</li></ul>
+        <ul class="feel">
+          <li><span class="w">Postura</span><small>mai dreaptă</small></li>
+          <li><span class="w">Corpul</span><small>mai puternic</small></li>
+          <li><span class="w">Durerile</span><small>mai puține</small></li>
+          <li><span class="w">Energia</span><small>mai multă</small></li>
+        </ul>
       </div>
     </section>
 
@@ -423,8 +448,7 @@ document.addEventListener("click", (e) => { const a = e.target.closest('a[href^=
     if (reduce || !window.gsap) { set(); busy = false; return; }
     gsap.timeline({ onComplete: () => (busy = false) })
       .set(cur, { xPercent: -101 }).to(cur, { xPercent: 0, duration: .55, ease: "expo.inOut" })
-      .call(set).to(cur, { xPercent: 101, duration: .65, ease: "expo.inOut" });
-  };
+      };
   const auto = () => { clearInterval(timer); timer = setInterval(() => go(i + 1), 4200); };
   stage.addEventListener("click", () => { go(i + 1); auto(); });
   words.forEach((w, k) => w.addEventListener("click", () => { go(k); auto(); }));
@@ -441,7 +465,7 @@ const lightCal = () => S.forEach((d, i) => setTimeout(() => days.querySelector(`
 
 addEventListener("DOMContentLoaded", () => {
   const go = () => { /* neonul pâlpâie și se aprinde */ [[300, 1], [380, 0], [470, 1], [530, 0], [820, 1]].forEach(([t, on]) => setTimeout(() => hero.classList.toggle("on", !!on), reduce ? 0 : t)); };
-  if (!window.gsap || reduce) { document.documentElement.classList.remove("anim"); hero.classList.add("on"); lightCal(); document.querySelectorAll(".why li").forEach((li) => li.style.setProperty("--p", 1)); return; }
+  if (!window.gsap || reduce) { document.documentElement.classList.remove("anim"); hero.classList.add("on"); lightCal(); document.querySelectorAll(".feel li").forEach((li) => li.classList.add("on")); return; }
   gsap.registerPlugin(ScrollTrigger);
   gsap.timeline({ delay: .1 })
     .set(".sign", { opacity: 1 }).call(go)
@@ -459,8 +483,8 @@ addEventListener("DOMContentLoaded", () => {
   gsap.fromTo("#roomImg", { yPercent: -9, scale: 1.12 }, { yPercent: 0, scale: 1, ease: "none", scrollTrigger: { trigger: "#room", start: "top bottom", end: "bottom top", scrub: true } });
   // calendarul se aprinde zi cu zi
   ScrollTrigger.create({ trigger: "#days", start: "top 80%", once: true, onEnter: lightCal });
-  // barele de sub beneficii se umplu pe rând
-  document.querySelectorAll(".why li").forEach((li, i) => gsap.to(li, { "--p": 1, duration: 1.1, ease: "power2.out", delay: i * .12, scrollTrigger: { trigger: "#why ul", start: "top 80%" } }));
+  // cuvintele de la „ce simți” se aprind pe rând
+  document.querySelectorAll(".feel li").forEach((li, i) => ScrollTrigger.create({ trigger: li, start: "top 78%", once: true, onEnter: () => setTimeout(() => li.classList.add("on"), i % 2 * 150) }));
   // galeria alunecă în lateral cât derulezi în jos (fără să fixeze pagina)
   gsap.fromTo("#strip", { x: () => innerWidth * .08 }, { x: () => -(document.getElementById("strip").scrollWidth - innerWidth) - innerWidth * .04, ease: "none", scrollTrigger: { trigger: "#pics", start: "top bottom", end: "bottom top", scrub: true, invalidateOnRefresh: true } });
 });
