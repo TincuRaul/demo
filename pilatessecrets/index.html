@@ -17,7 +17,9 @@
   :root { --plum: #1d0f22; --plum-2: #2e1a33; --neon: #ff8ad0; --mag: #d43fb0; --amber: #ffb35c; --ink: #2b2230; --mute: #6c5f69; --blush: #f7ecf3; --line: #eadde6; --pad: 22px; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
-  body { background: #fff; color: var(--ink); font: 400 17px/1.6 "Hanken Grotesk", system-ui, sans-serif; overflow-x: clip; }
+  html, body { background: var(--plum); }
+  main { background: #fff; }
+  body { color: var(--ink); font: 400 17px/1.6 "Hanken Grotesk", system-ui, sans-serif; overflow-x: clip; }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
   :focus-visible { outline: 2px solid var(--neon); outline-offset: 3px; }
@@ -55,7 +57,7 @@
   #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 90% 70% at 50% 45%, transparent 40%, rgba(15,6,18,.55) 100%); }
   .hero > *:not(#gl) { position: relative; z-index: 2; }
-  .sign { font-family: "Sacramento", cursive; font-weight: 400; font-size: clamp(92px, 27vw, 210px); line-height: .9; color: #5a3b58; text-shadow: none; transition: color .05s; }
+  .sign { font-family: "Sacramento", cursive; font-weight: 400; font-size: clamp(92px, 27vw, 176px); line-height: .9; color: #5a3b58; text-shadow: none; transition: color .05s; }
   .hero.on .sign { color: #fff5fb; text-shadow: 0 0 2px #fff, 0 0 9px #ffc6e8, 0 0 24px var(--neon), 0 0 52px #ff4fb8, 0 0 100px rgba(255,79,184,.6); }
   .sign .br { display: inline; }
   .sign .city { display: block; margin-top: .08em; font-size: .46em; line-height: 1; }
@@ -66,10 +68,19 @@
   .news b { display: block; font-weight: 600; color: #fff; font-size: 16px; }
   .news i { flex: none; width: 9px; height: 9px; margin-top: 7px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 10px var(--neon); animation: blink 1.6s ease-in-out infinite; }
   @keyframes blink { 50% { opacity: .35; } }
+  /* jos în primul ecran: pozele lor reale care curg încet, ca o peliculă */
+  .hero { justify-content: flex-start; padding-top: 13svh; padding-bottom: 0; }
+  .hero > .reel { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 21svh; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+  .reel .rt { display: flex; gap: 14px; height: 100%; width: max-content; padding-top: 2svh; animation: reel 46s linear infinite; }
+  .reel img { height: 100%; width: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px 14px 0 0; opacity: .82; box-shadow: 0 -10px 40px rgba(255,79,184,.25); }
+  .reel img:nth-child(odd) { transform: translateY(14px); }
+  @keyframes reel { to { transform: translateX(-50%); } }
+  .hero > .hint { bottom: calc(24svh + 14px); }
   @media (max-width: 899px) {
     .hero > .hint { display: none; }
     /* pe telefon: neonul mai mic, numele din header apare abia după primul ecran, fără inelul care pulsează */
-    .hero { padding-top: 64px; justify-content: center; gap: 0; }
+    .hero { padding-top: 13svh; }
+    .hero > .reel { height: 19svh; }
     .sign { font-size: clamp(76px, 21vw, 110px); }
     .hero p { margin-top: 22px; font-size: 19px; }
     .btn.neon { animation: none; box-shadow: 0 0 22px rgba(255,138,208,.45); }
@@ -189,7 +200,7 @@
     .contact .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
     .map { margin-top: 0; height: 420px; }
   }
-  @media (prefers-reduced-motion: reduce) { .band .tr, .btn.neon { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .band .tr, .btn.neon, .reel .rt { animation: none; } }
 </style>
 </head>
 <body>
@@ -208,7 +219,7 @@
       <p>Pilates pe reformer, în fiecare zi.</p>
       <a class="btn neon" href="tel:+40749024172"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>Programează-te</a>
       <a class="news" href="#program"><i aria-hidden="true"></i><span><b>Ședințe în fiecare zi</b>Îți rezervi locul din aplicația GMA sau la telefon. Nou: cursul Reformer Fundamental, din 2 noiembrie.</span></a>
-      <span class="hint" id="hint">Mișcă degetul pe ecran</span>
+      <div class="reel" aria-hidden="true"><div class="rt"><img src="img/studio.webp" alt="" loading="eager" /><img src="img/terasa.webp" alt="" loading="eager" /><img src="img/neon.webp" alt="" loading="eager" /><img src="img/studio.webp" alt="" loading="eager" /><img src="img/terasa.webp" alt="" loading="eager" /><img src="img/neon.webp" alt="" loading="eager" /><img src="img/studio.webp" alt="" loading="eager" /><img src="img/terasa.webp" alt="" loading="eager" /><img src="img/neon.webp" alt="" loading="eager" /><img src="img/studio.webp" alt="" loading="eager" /><img src="img/terasa.webp" alt="" loading="eager" /><img src="img/neon.webp" alt="" loading="eager" /></div></div>
     </section>
 
     <div class="band" aria-hidden="true"><div class="tr"><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span><span>Move. Feel. Be you.</span></div></div>
@@ -365,7 +376,7 @@ document.addEventListener("click", (e) => { const a = e.target.closest('a[href^=
   const size = () => { const w = Math.round(hero.clientWidth * scale), h = Math.round(hero.clientHeight * scale); if (w === W && h === H) return; W = cv.width = w; H = cv.height = h; gl.viewport(0, 0, W, H); };
   size(); addEventListener("resize", size);
   let mx = 0, my = 0, tx = 0, ty = 0, mp = 0, tmp = 0, onv = 0, vis = true, t0 = performance.now();
-  const point = (x, y) => { const r = hero.getBoundingClientRect(), s = Math.min(r.width, r.height); tx = (x - r.left - r.width / 2) / s; ty = -(y - r.top - r.height / 2) / s; tmp = 1; document.getElementById("hint").style.opacity = 0; };
+  const point = (x, y) => { const r = hero.getBoundingClientRect(), s = Math.min(r.width, r.height); tx = (x - r.left - r.width / 2) / s; ty = -(y - r.top - r.height / 2) / s; tmp = 1; };
   hero.addEventListener("pointermove", (e) => point(e.clientX, e.clientY));
   hero.addEventListener("touchmove", (e) => { const t = e.touches[0]; point(t.clientX, t.clientY); }, { passive: true });
   hero.addEventListener("pointerleave", () => (tmp = 0)); hero.addEventListener("touchend", () => (tmp = 0));
