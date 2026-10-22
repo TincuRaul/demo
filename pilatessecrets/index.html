@@ -158,8 +158,6 @@
   .cnt { margin-top: 14px; color: var(--neon); font-weight: 600; font-size: clamp(22px, 5vw, 30px); text-shadow: 0 0 18px rgba(255,138,208,.7); }
   .hint2 { margin-top: 4px; font-size: 14px; color: #b9a1b7; }
   .phrase { margin: 30px auto 0; padding: 0 var(--pad); max-width: 1180px; font-weight: 600; font-size: clamp(24px, 6vw, 48px); line-height: 1.12; letter-spacing: -.03em; user-select: none; -webkit-user-select: none; }
-  .phrase span { color: rgba(255,255,255,.24); transition: color .8s, text-shadow .8s; }
-  .phrase span.on { color: #fff; text-shadow: 0 0 24px rgba(255,138,208,.6); }
   @media (min-width: 900px) { .vs { padding: 130px 0 110px; } .rig { margin-top: 40px; } }
   @media (prefers-reduced-motion: reduce) { .neonl { animation: none; } }
 
@@ -294,7 +292,7 @@
         <p class="cnt" id="cnt">Inspiră</p>
         <p class="hint2">Trage de cărucior</p>
       </div>
-      <p class="phrase" id="phrase"><span class="on">Pe reformer,</span> <span>pe turn,</span> <span>în fiecare zi,</span> <span>și pe terasă.</span></p>
+      <p class="phrase rvl" id="phrase">Pe reformer, pe turn, în fiecare zi, și pe terasă.</p>
     </section>
 
     <section class="become" id="program">
@@ -469,7 +467,7 @@ document.addEventListener("click", (e) => { const a = e.target.closest('a[href^=
 /* ---------- reformerul de neon: respirație, arcuri și tras cu degetul ---------- */
 (() => {
   const svg = document.getElementById("ref"), cart = document.getElementById("cart"), springs = document.getElementById("springs"), rope = document.getElementById("rope"),
-    cnt = document.getElementById("cnt"), words = [...document.querySelectorAll("#phrase span")], lead = document.getElementById("breath");
+    cnt = document.getElementById("cnt"), lead = document.getElementById("breath");
   const X0 = 230, MAX = 380;              // poziția de repaus a căruciorului și cât de departe merge
   const ANCH = [[200, 262], [200, 272], [200, 282]];
   let x = 0, v = 0, drag = false, gx = 0, start = performance.now(), vis = false, last = -1, word = 0;
@@ -494,7 +492,7 @@ document.addEventListener("click", (e) => { const a = e.target.closest('a[href^=
       const t = ((now - start) / 1000) % 6, target = reduce ? MAX * .5 : MAX * .82 * (0.5 - 0.5 * Math.cos(t / 6 * Math.PI * 2));
       v += (target - x) * .045; v *= .78; x += v;
       const ph = t < 3 ? 0 : 1;
-      if (ph !== last) { last = ph; cnt.textContent = ph ? "Expiră" : "Inspiră"; if (ph === 0) { word = (word + 1) % words.length; words.forEach((w, k) => w.classList.toggle("on", k === word)); } }
+      if (ph !== last) { last = ph; cnt.textContent = ph ? "Expiră" : "Inspiră"; }
     } else { cnt.textContent = x > MAX * .7 ? "Ține" : "Trage"; }
     draw();
   };
