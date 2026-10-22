@@ -142,25 +142,26 @@
   }
   @media (prefers-reduced-motion: reduce) { .spr, .orb { animation: none; } .feel .w { color: var(--ink); } .feel small { opacity: 1; transform: none; } }
   /* „ce faci la noi”, după slider-ul de la Vero: cortina de culoare dezvăluie poza următoare, iar cuvântul curent se aprinde */
-  .vs { background: var(--plum); color: #fff; padding: 0 0 56px; overflow: hidden; }
-  .stage { position: relative; height: 70svh; min-height: 420px; overflow: hidden; cursor: pointer; background: #140a17; }
-  .stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; clip-path: inset(0 0 0 100%); z-index: 1; }
-  .stage img.cur { clip-path: inset(0); z-index: 2; }
-  .stage img.nx { z-index: 3; filter: brightness(.55) saturate(.8); }
-  .stage::after { content: ""; position: absolute; inset: 0; z-index: 4; background: linear-gradient(180deg, transparent 60%, rgba(20,10,23,.7)); pointer-events: none; }
-  .dots { position: absolute; z-index: 5; left: 18px; top: 50%; transform: translateY(-50%); list-style: none; display: grid; gap: 10px; }
-  .dots li { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.4); transition: background .4s, transform .4s; }
-  .dots li.on { background: #fff; transform: scale(1.5); }
-  .phrase { margin: 26px auto 0; padding: 0 var(--pad); max-width: 1180px; text-align: center; font-weight: 600; font-size: clamp(26px, 6.6vw, 52px); line-height: 1.1; letter-spacing: -.03em; -webkit-user-select: none; user-select: none; }
-  .phrase span { color: rgba(255,255,255,.26); cursor: pointer; transition: color .7s; }
-  .phrase span.on { color: #fff; }
-  .vs .cap { margin: 12px auto 0; padding: 0 var(--pad); max-width: 46ch; text-align: center; color: #d9c5d3; min-height: 3.2em; }
-  @media (min-width: 900px) {
-    .stage { height: 82vh; }
-    .stage img.nx { cursor: e-resize; }
-    .dots { left: 34px; }
-    .phrase { margin-top: 34px; }
-  }
+  /* reformerul de neon: căruciorul alunecă pe respirație, arcurile se întind, iar tu îl poți trage cu degetul sau cu mouse-ul */
+  .vs { position: relative; background: radial-gradient(ellipse 70% 60% at 50% 55%, #3a1440 0%, var(--plum) 70%); color: #fff; padding: 70px 0 60px; overflow: hidden; text-align: center; }
+  .vsh h2 { margin: 0 auto; font-size: clamp(38px, 10vw, 96px); line-height: 1; letter-spacing: -.04em; }
+  .vsh .lead { margin: 14px auto 0; color: #e2cfdc; min-height: 3.2em; transition: opacity .4s; }
+  .rig { position: relative; margin: 26px auto 0; max-width: 1100px; padding: 0 6px; }
+  @media (max-width: 899px) { .rig { padding: 0 2px; } }
+  #ref { width: 100%; height: auto; display: block; overflow: visible; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+  #ref:active { cursor: grabbing; }
+  .neonl path, .neonl rect, .neonl circle { fill: none; stroke: #ffd3ee; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  .neonl { animation: flick 7s infinite; }
+  @keyframes flick { 0%, 92%, 96%, 100% { opacity: 1; } 93% { opacity: .55; } 95% { opacity: .85; } }
+  #springs path { stroke: var(--neon); stroke-width: 3; }
+  #rope { stroke: #c9a7d6; stroke-width: 2; }
+  .cnt { margin-top: 14px; color: var(--neon); font-weight: 600; font-size: clamp(22px, 5vw, 30px); text-shadow: 0 0 18px rgba(255,138,208,.7); }
+  .hint2 { margin-top: 4px; font-size: 14px; color: #b9a1b7; }
+  .phrase { margin: 30px auto 0; padding: 0 var(--pad); max-width: 1180px; font-weight: 600; font-size: clamp(24px, 6vw, 48px); line-height: 1.12; letter-spacing: -.03em; user-select: none; -webkit-user-select: none; }
+  .phrase span { color: rgba(255,255,255,.24); transition: color .8s, text-shadow .8s; }
+  .phrase span.on { color: #fff; text-shadow: 0 0 24px rgba(255,138,208,.6); }
+  @media (min-width: 900px) { .vs { padding: 130px 0 110px; } .rig { margin-top: 40px; } }
+  @media (prefers-reduced-motion: reduce) { .neonl { animation: none; } }
 
   /* „vii când îți convine”, după „so THAT YOU BECOME ART”: titlu mare centrat, poze mici decalate dedesubt */
   .become { padding: 80px 0 70px; text-align: center; }
@@ -270,16 +271,30 @@
     </section>
 
 
-    <section class="vs" id="ways" aria-label="Ce faci la noi">
-      <div class="stage" id="stage">
-        <img class="on" src="img/reformer.webp" alt="Reformer din lemn, în sala Pilates Secrets" width="1200" height="781" loading="lazy" />
-        <img src="img/turn.webp" alt="Reformerele cu turn, lângă geam" width="900" height="1100" loading="lazy" />
-        <img src="img/neon.webp" alt="Clientele în studio, sub neon" width="1000" height="1347" loading="lazy" />
-        <img src="img/terasa.webp" alt="Antrenament pe terasă" width="898" height="504" loading="lazy" />
-        <ol class="dots" id="dots" aria-hidden="true"><li class="on"></li><li></li><li></li><li></li></ol>
+    <section class="vs" id="ways" aria-label="Pilates pe reformer">
+      <div class="wrap vsh">
+        <h2 class="rvl">Simte arcurile.</h2>
+        <p class="lead rv" id="breath">Trage de cărucior. Arcurile te țin și te aduc înapoi.</p>
+      </div>
+      <div class="rig" id="rig">
+        <svg viewBox="50 100 900 285" id="ref" role="img" aria-label="Un reformer desenat cu neon, care se mișcă">
+          <defs>
+            <filter id="glow" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="5" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+          </defs>
+          <g class="neonl" filter="url(#glow)">
+            <path d="M60 300 H940 M60 322 H940" />
+            <path d="M90 322 v50 M910 322 v50 M500 322 v50" />
+            <path d="M118 300 V196 M200 300 V196 M108 196 H210" />
+            <path d="M860 300 V120 M860 120 h40" />
+            <g id="springs"></g>
+            <g id="cart"><rect x="0" y="252" width="250" height="40" rx="8" /><path d="M14 252 v-26 h34 v26 M232 252 v-40 M218 252 v-40 M214 212 h22" /><circle cx="40" cy="300" r="7" /><circle cx="210" cy="300" r="7" /></g>
+            <path id="rope" d="" />
+          </g>
+        </svg>
+        <p class="cnt" id="cnt">Inspiră</p>
+        <p class="hint2">Trage de cărucior</p>
       </div>
       <p class="phrase" id="phrase"><span class="on">Pe reformer,</span> <span>pe turn,</span> <span>în fiecare zi,</span> <span>și pe terasă.</span></p>
-      <p class="cap" id="vcap">Exercițiile se fac pe aparatul cu arcuri și cărucior.</p>
     </section>
 
     <section class="become" id="program">
@@ -451,36 +466,39 @@ document.addEventListener("click", (e) => { const a = e.target.closest('a[href^=
 })();
 
 
-/* ---------- slider-ul de la „ce faci la noi”, ca la Vero: poza următoare stă pe margine, apoi se deschide peste cea curentă ---------- */
+/* ---------- reformerul de neon: respirație, arcuri și tras cu degetul ---------- */
 (() => {
-  const stage = document.getElementById("stage"), imgs = [...stage.querySelectorAll("img")],
-    words = [...document.querySelectorAll("#phrase span")], dots = [...document.querySelectorAll("#dots li")], cap = document.getElementById("vcap");
-  const CAPS = ["Exercițiile se fac pe aparatul cu arcuri și cărucior.", "Reformerele din sală au cadru cu bare și arcuri deasupra.", "Ședințe zilnice, cu rezervare din aplicația GMA.", "Vara, unele antrenamente se mută afară."];
-  const peek = () => (innerWidth >= 900 ? "inset(0 0 0 78%)" : "inset(0 0 0 100%)");
-  let i = 0, busy = false, timer, vis = false;
-  const paint = () => {
-    imgs.forEach((im, k) => { im.classList.toggle("cur", k === i); im.classList.toggle("nx", k === (i + 1) % imgs.length); im.style.clipPath = k === i ? "inset(0)" : k === (i + 1) % imgs.length ? peek() : "inset(0 0 0 100%)"; im.style.transform = ""; });
-    words.forEach((w, k) => w.classList.toggle("on", k === i)); dots.forEach((d, k) => d.classList.toggle("on", k === i)); cap.textContent = CAPS[i];
+  const svg = document.getElementById("ref"), cart = document.getElementById("cart"), springs = document.getElementById("springs"), rope = document.getElementById("rope"),
+    cnt = document.getElementById("cnt"), words = [...document.querySelectorAll("#phrase span")], lead = document.getElementById("breath");
+  const X0 = 230, MAX = 380;              // poziția de repaus a căruciorului și cât de departe merge
+  const ANCH = [[200, 262], [200, 272], [200, 282]];
+  let x = 0, v = 0, drag = false, gx = 0, start = performance.now(), vis = false, last = -1, word = 0;
+  const zig = (x1, y, x2, n = 14, a = 9) => { let d = `M${x1} ${y}`; const L = x2 - x1; for (let k = 1; k < n; k++) d += ` L${x1 + L * k / n} ${y + (k % 2 ? -a : a)}`; return d + ` L${x2} ${y}`; };
+  const draw = () => {
+    const cx = X0 + x;
+    cart.setAttribute("transform", `translate(${cx} 0)`);
+    springs.innerHTML = ANCH.map(([ax, ay], k) => `<path d="${zig(ax, ay, cx + 4, 12 + Math.round(x / 40), 7 - Math.min(4, x / 120))}" />`).join("");
+    rope.setAttribute("d", `M900 120 Q ${(cx + 900) / 2} ${170 + x / 6} ${cx + 225} 214`);
   };
-  paint(); addEventListener("resize", paint);
-  const go = (n) => {
-    n = (n + imgs.length) % imgs.length; if (busy || n === i) return;
-    const inc = imgs[n], out = imgs[i];
-    if (reduce || !window.gsap) { i = n; paint(); return; }
-    busy = true;
-    if (!inc.classList.contains("nx")) inc.style.clipPath = "inset(0 0 0 100%)";
-    inc.style.zIndex = 3; inc.style.filter = "brightness(.55) saturate(.8)";
-    gsap.timeline({ onComplete: () => { i = n; inc.style.zIndex = ""; inc.style.filter = ""; paint(); busy = false; } })
-      .to(inc, { clipPath: "inset(0 0 0 0%)", filter: "brightness(1) saturate(1)", duration: 1.15, ease: "expo.inOut" }, 0)
-      .to(out, { scale: 1.06, xPercent: -6, duration: 1.15, ease: "expo.inOut" }, 0)
-      .call(() => { words.forEach((w, k) => w.classList.toggle("on", k === n)); dots.forEach((d, k) => d.classList.toggle("on", k === n)); cap.textContent = CAPS[n]; }, null, .35)
-      .set(out, { scale: 1, xPercent: 0 });
+  const toLocal = (e) => { const r = svg.getBoundingClientRect(); return (e.clientX - r.left) / r.width * 1000; };
+  svg.addEventListener("pointerdown", (e) => { drag = true; gx = toLocal(e) - x; svg.setPointerCapture(e.pointerId); });
+  svg.addEventListener("pointermove", (e) => { if (drag) x = Math.max(0, Math.min(MAX, toLocal(e) - gx)); });
+  const up = () => { if (!drag) return; drag = false; start = performance.now(); };
+  svg.addEventListener("pointerup", up); svg.addEventListener("pointercancel", up);
+  new IntersectionObserver(([e]) => (vis = e.isIntersecting)).observe(svg);
+  const frame = (now) => {
+    requestAnimationFrame(frame);
+    if (!vis) return;
+    if (!drag) {
+      // respirația: 3 secunde inspiră (căruciorul pleacă), 3 secunde expiră (se întoarce)
+      const t = ((now - start) / 1000) % 6, target = reduce ? MAX * .5 : MAX * .82 * (0.5 - 0.5 * Math.cos(t / 6 * Math.PI * 2));
+      v += (target - x) * .045; v *= .78; x += v;
+      const ph = t < 3 ? 0 : 1;
+      if (ph !== last) { last = ph; cnt.textContent = ph ? "Expiră" : "Inspiră"; if (ph === 0) { word = (word + 1) % words.length; words.forEach((w, k) => w.classList.toggle("on", k === word)); } }
+    } else { cnt.textContent = x > MAX * .7 ? "Ține" : "Trage"; }
+    draw();
   };
-  const auto = () => { clearInterval(timer); timer = setInterval(() => { if (vis && !document.hidden) go(i + 1); }, 4500); };
-  stage.addEventListener("click", () => { go(i + 1); auto(); });
-  words.forEach((w, k) => w.addEventListener("click", () => { go(k); auto(); }));
-  new IntersectionObserver(([e]) => { vis = e.isIntersecting; }, { threshold: .2 }).observe(stage);
-  auto();
+  draw(); requestAnimationFrame(frame);
 })();
 /* ---------- calendarul ---------- */
 const S = [2, 4, 9, 11, 16, 18, 23, 25];
