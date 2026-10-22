@@ -32,7 +32,22 @@
   .btn.neon { background: var(--neon); color: var(--plum); box-shadow: 0 0 0 0 rgba(255,138,208,.6); animation: pulse 2.8s ease-out infinite; }
   @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255,138,208,.55); } 70%, 100% { box-shadow: 0 0 0 18px rgba(255,138,208,0); } }
 
-  .top { position: absolute; inset: 0 0 auto; z-index: 5; display: flex; justify-content: space-between; align-items: center; padding: 18px var(--pad); font-weight: 600; font-size: 15px; color: #f3dcea; }
+  .top { position: fixed; inset: 0 0 auto; z-index: 50; height: 64px; display: flex; align-items: center; gap: 10px; padding: 0 var(--pad); color: #fff; transition: background .35s, box-shadow .35s; }
+  .top.solid, .open .top { background: rgba(29,15,34,.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 0 rgba(255,138,208,.18); }
+  .lg { margin-right: auto; font-family: "Sacramento", cursive; font-size: 36px; line-height: 1; color: #fff5fb; text-shadow: 0 0 8px rgba(255,138,208,.9); }
+  .nv { display: none; gap: 26px; font-weight: 500; font-size: 15px; }
+  .nv a { opacity: .85; transition: opacity .25s, color .25s; } .nv a:hover { opacity: 1; color: var(--neon); }
+  .tc { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 42px; min-width: 42px; padding: 0 12px; border-radius: 21px; background: var(--neon); color: var(--plum); font-weight: 600; font-size: 15px; }
+  .tc svg { width: 17px; height: 17px; } .tc span { display: none; }
+  .mb { width: 42px; height: 42px; border: 0; border-radius: 21px; background: rgba(255,255,255,.14); display: grid; place-content: center; gap: 5px; cursor: pointer; }
+  .mb i { display: block; width: 18px; height: 2px; background: #fff; transition: transform .3s; }
+  .open .mb i:first-child { transform: translateY(3.5px) rotate(45deg); } .open .mb i:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+  .mn { position: fixed; inset: 0; z-index: 45; background: var(--plum); color: #fff; padding: 110px var(--pad) 40px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s .25s; }
+  .open .mn { opacity: 1; visibility: visible; transition: opacity .25s; }
+  .mn nav { display: grid; }
+  .mn nav a { font-weight: 600; font-size: 38px; letter-spacing: -.03em; padding: 10px 0; border-bottom: 1px solid rgba(255,138,208,.2); }
+  .mn p { color: #b29fb1; }
+  html.open { overflow: hidden; }
 
   /* primul ecran: lumina sălii lor, în WebGL, și neonul care se aprinde */
   .hero { position: relative; height: 100svh; min-height: 600px; overflow: hidden; background: radial-gradient(ellipse at 30% 30%, #6b1f62, var(--plum) 70%); color: #fff;
@@ -46,6 +61,11 @@
   .hero { padding-bottom: 40px; }
   .hero p { margin-top: 26px; font-weight: 500; font-size: clamp(19px, 5vw, 24px); color: #f6e4ef; }
   .hero .btn { margin-top: 22px; }
+  .news { margin-top: 34px; display: flex; gap: 12px; align-items: flex-start; max-width: 380px; padding: 14px 18px; border-radius: 16px; text-align: left; background: rgba(29,15,34,.42); box-shadow: inset 0 0 0 1px rgba(255,138,208,.35); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); font-size: 15px; line-height: 1.45; color: #f3dcea; }
+  .news b { display: block; font-weight: 600; color: #fff; font-size: 16px; }
+  .news i { flex: none; width: 9px; height: 9px; margin-top: 7px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 10px var(--neon); animation: blink 1.6s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: .35; } }
+  @media (max-width: 899px) { .hero > .hint { display: none; } }
   .hero > .hint { position: absolute; z-index: 2; bottom: calc(18px + env(safe-area-inset-bottom)); white-space: nowrap; transition: opacity .5s; left: 50%; transform: translateX(-50%); font-size: 13px; color: rgba(246,228,239,.7); }
 
   /* banda cu motto-ul, care curge */
@@ -125,11 +145,15 @@
   footer { background: var(--plum); color: #9a8799; font-size: 14px; text-align: center; padding: 4px var(--pad) 36px; }
   footer a { color: #fff; border-bottom: 1px solid currentColor; }
 
-  .anim .sign, .anim .hero p, .anim .hero .btn { opacity: 0; }
+  .anim .sign, .anim .hero p, .anim .hero .btn, .anim .hero .news { opacity: 0; }
 
   @media (min-width: 900px) {
     :root { --pad: 48px; }
     .sign .br { display: none; }
+    .top { height: 76px; }
+    .nv { display: flex; margin-right: 10px; }
+    .tc span { display: inline; } .tc { padding: 0 18px; }
+    .mb { display: none; }
     .ways { padding: 120px 0 50px; }
     .wl { display: grid; grid-template-columns: 1fr 1fr; column-gap: 50px; }
     .wl li:nth-last-child(2) { border-bottom: 1px solid var(--line); }
@@ -147,7 +171,13 @@
 </style>
 </head>
 <body>
-  <header class="top"><span>Str. Botizului 49 M</span><a href="tel:+40749024172">0749 024 172</a></header>
+  <header class="top" id="top">
+    <a class="lg" href="#hero" aria-label="Pilates Secrets, sus">Pilates Secrets</a>
+    <nav class="nv" aria-label="Meniu"><a href="#curs">Cursul</a><a href="#room">Studioul</a><a href="#faq">Întrebări</a><a href="#contact">Contact</a></nav>
+    <a class="tc" href="tel:+40749024172"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span>0749 024 172</span></a>
+    <button class="mb" id="mb" type="button" aria-expanded="false" aria-controls="mn" aria-label="Deschide meniul"><i></i><i></i></button>
+  </header>
+  <div class="mn" id="mn" aria-hidden="true"><nav aria-label="Meniu pe telefon"><a href="#curs">Cursul</a><a href="#room">Studioul</a><a href="#faq">Întrebări</a><a href="#contact">Contact</a></nav><p>Str. Botizului 49 M, Satu Mare</p></div>
 
   <main>
     <section class="hero" id="hero">
@@ -155,6 +185,7 @@
       <h1 class="sign">Pilates <br class="br" />Secrets</h1>
       <p>Pilates pe reformer, în Satu Mare.</p>
       <a class="btn neon" href="tel:+40749024172"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>Programează-te</a>
+      <a class="news" href="#curs"><i aria-hidden="true"></i><span><b>Curs nou: Reformer Fundamental</b>De luni, 2 noiembrie, luni și miercuri la 18:00. Locurile sunt limitate.</span></a>
       <span class="hint" id="hint">Mișcă degetul pe ecran</span>
     </section>
 
@@ -213,7 +244,7 @@
       </div>
     </section>
 
-    <section class="faq">
+    <section class="faq" id="faq">
       <div class="wrap">
         <h2 class="rvl">Înainte să vii.</h2>
         <div class="list">
@@ -246,6 +277,13 @@
 <script>
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const hero = document.getElementById("hero");
+// header: devine prun după primul ecran; meniul de pe telefon
+const hdr = document.getElementById("top"), mb = document.getElementById("mb"), mn = document.getElementById("mn");
+const setTop = () => hdr.classList.toggle("solid", scrollY > innerHeight * .7); addEventListener("scroll", setTop, { passive: true }); setTop();
+const setMenu = (o) => { document.documentElement.classList.toggle("open", o); mb.setAttribute("aria-expanded", o); mn.setAttribute("aria-hidden", !o); };
+mb.addEventListener("click", () => setMenu(!document.documentElement.classList.contains("open")));
+document.addEventListener("click", (e) => { const a = e.target.closest('a[href^="#"]'); if (!a) return; e.preventDefault(); setMenu(false);
+  const el = document.getElementById(a.getAttribute("href").slice(1)); scrollTo({ top: el ? el.getBoundingClientRect().top + scrollY - (el.id === "hero" ? 0 : 70) : 0, behavior: "smooth" }); });
 
 /* ---------- WebGL: lumina mov și roz a sălii, ca o mătase care curge; degetul sau mouse-ul o împinge ---------- */
 (() => {
@@ -325,7 +363,8 @@ addEventListener("DOMContentLoaded", () => {
   gsap.timeline({ delay: .1 })
     .set(".sign", { opacity: 1 }).call(go)
     .fromTo(".hero p", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, 1.0)
-    .fromTo(".hero .btn", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, 1.15);
+    .fromTo(".hero .btn", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, 1.15)
+    .fromTo(".hero .news", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, 1.35);
 
   // titlurile urcă din mască, cuvânt cu cuvânt
   document.querySelectorAll("main .rvl").forEach((el) => {
