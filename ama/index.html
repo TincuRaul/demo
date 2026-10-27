@@ -114,8 +114,42 @@
   .facts div + div { padding-left: 20px; border-left: 1px solid rgba(22,24,26,.25); }
   .facts dt { font-size: 14px; font-weight: 500; color: #5b5d60; }
   .facts dd { margin-top: 6px; font-size: 21px; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; }
-  .foot { background: var(--ink); }
-  .foot .note { padding: 40px 28px; }
+  /* contact: datele și harta în stânga, formularul în dreapta */
+  .contact { background: var(--ink); color: var(--paper); padding: 40px max(32px, calc((100% - 1280px) / 2)) 110px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+  .contact h2 { font-weight: 700; font-size: clamp(40px, 5vw, 80px); line-height: .94; letter-spacing: -.045em; }
+  .c-lead { margin-top: 20px; font-size: 20px; font-weight: 500; line-height: 1.3; letter-spacing: -.015em; color: #c9c7c2; max-width: 34ch; }
+  .c-list { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(238,236,232,.25); }
+  .c-list div { padding: 16px 16px 16px 0; border-bottom: 1px solid rgba(238,236,232,.25); }
+  .c-list div:nth-child(even) { padding-left: 16px; border-left: 1px solid rgba(238,236,232,.25); }
+  .c-list dt { font-size: 14px; color: #9a9894; }
+  .c-list dd { margin-top: 4px; font-size: 19px; font-weight: 700; letter-spacing: -.02em; overflow-wrap: anywhere; }
+  .c-list a:hover { color: var(--yellow); }
+  .map { margin-top: 28px; aspect-ratio: 16 / 9; background: #24272a; }
+  .map iframe { width: 100%; height: 100%; border: 0; display: block; filter: grayscale(1) contrast(1.05) brightness(.9); }
+  .c-form { display: grid; gap: 18px; align-content: start; background: var(--paper); color: var(--ink); padding: 32px; }
+  .c-form > label, .c-form legend { display: grid; gap: 8px; font-size: 15px; font-weight: 600; }
+  .c-form input:not([type=radio]), .c-form textarea { font: 500 17px "Uncut Sans", system-ui, sans-serif; color: var(--ink); background: #fff; border: 1px solid rgba(22,24,26,.3); border-radius: 0; padding: 13px 14px; width: 100%; }
+  .c-form input:focus, .c-form textarea:focus { outline: 2px solid var(--yellow); outline-offset: 0; border-color: var(--ink); }
+  .c-form fieldset { border: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .chips label { cursor: pointer; }
+  .chips input { position: absolute; opacity: 0; pointer-events: none; }
+  .chips span { display: inline-block; padding: 10px 14px; border: 1px solid rgba(22,24,26,.3); font-size: 15px; font-weight: 500; background: #fff; transition: background .2s, border-color .2s; }
+  .chips input:checked + span { background: var(--yellow); border-color: var(--ink); font-weight: 600; }
+  .chips input:focus-visible + span { outline: 2px solid var(--ink); }
+  .c-form .call { justify-self: start; border: 0; cursor: pointer; font-family: inherit; }
+  .ok { display: none; font-size: 15px; line-height: 1.45; background: var(--ink); color: var(--paper); padding: 14px 16px; }
+  .ok.on { display: block; }
+  /* footer ca la Thermostar: logo și o frază, apoi adresa, telefonul, emailul; dedesubt linia de demo */
+  .foot { background: var(--ink); color: #c9c7c2; padding: 56px max(32px, calc((100% - 1280px) / 2)) 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; font-size: 16px; line-height: 1.5; border-top: 1px solid rgba(238,236,232,.14); }
+  .f-logo { display: inline-flex; align-items: center; gap: 12px; color: var(--paper); font-size: 22px; font-weight: 700; letter-spacing: -.03em; }
+  .f-logo i { width: 18px; height: 18px; background: var(--yellow); transform: rotate(45deg); border: 2px solid var(--ink); box-shadow: 0 0 0 2px var(--yellow); margin: 0 4px; }
+  .f-brand p { margin-top: 14px; max-width: 34ch; }
+  .foot h4 { color: var(--paper); font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+  .foot .sp { margin-top: 8px; }
+  .foot a:hover { color: var(--yellow); }
+  .foot .demo { grid-column: 1 / -1; border-top: 1px solid rgba(238,236,232,.18); padding-top: 22px; font-size: 14px; color: #8c8a86; }
+  .foot .demo a { color: var(--paper); }
 
   @media (max-width: 899px) {
     :root { --hh: 60px; }
@@ -147,6 +181,12 @@
     .menu a { display: block; font-size: 44px; font-weight: 700; letter-spacing: -.045em; padding: 10px 0; border-bottom: 1px solid rgba(22,24,26,.18); }
     .menu .call { display: inline-block; margin-top: 28px; font-size: 16px; letter-spacing: 0; border: 0; padding: 13px 22px; }
     .pix { height: 130px; }
+    .contact { grid-template-columns: 1fr; gap: 32px; padding: 28px 16px 56px; }
+    .c-lead { font-size: 17px; }
+    .c-list { grid-template-columns: 1fr; }
+    .c-list div:nth-child(even) { padding-left: 0; border-left: 0; }
+    .c-form { padding: 22px 16px; }
+    .foot { grid-template-columns: 1fr; gap: 24px; padding: 40px 16px 40px; }
     .about { grid-template-columns: 1fr; gap: 32px; padding: 28px 16px 64px; }
     .about-text > p:not(.about-lead) { font-size: 16px; }
     .about-pic { min-height: 0; }
@@ -194,7 +234,7 @@
   <a class="brand" href="#" aria-label="AMA Under Construction">AMA</a>
   <div class="right">
     <nav><a href="#servicii">Servicii</a><a href="#lucrari">Lucrări</a><a href="#servicii">Utilaje</a><a href="#despre">Despre noi</a></nav>
-    <a class="call" href="tel:0754505732">Contact</a>
+    <a class="call" href="#contact">Contact</a>
     <button class="burger" type="button" aria-label="Meniu"><i></i><i></i></button>
   </div>
 </header>
@@ -207,7 +247,7 @@
     <div class="copy">
       <h1><span class="lm"><span>Pornim de la fundație.</span></span><span class="lm"><span>Predăm la cheie.</span></span></h1>
       <p>Construcții civile și industriale, pavaje și lucrări cu utilajele noastre, în Satu Mare și Cluj.</p>
-      <a class="call" href="tel:0754505732">Cere o ofertă</a>
+      <a class="call" href="#contact">Cere o ofertă</a>
     </div>
   </div>
 </section>
@@ -278,7 +318,45 @@
 
 <canvas class="pix" data-from="#eeece8" data-to="#16181a"></canvas>
 
-<footer class="foot"><p class="note">Demo realizat de RTWEB</p></footer>
+<section class="contact" id="contact">
+  <div class="c-info">
+    <h2>Cere o ofertă</h2>
+    <p class="c-lead">Spuneți-ne ce aveți de construit și unde. Vă sunăm înapoi cu pașii următori.</p>
+    <dl class="c-list">
+      <div><dt>Telefon</dt><dd><a href="tel:+40754505732">0754 505 732</a></dd></div>
+      <div><dt>Email</dt><dd><a href="mailto:office@amastructures.ro">office@amastructures.ro</a></dd></div>
+      <div><dt>Adresa</dt><dd>B-dul 25 Octombrie nr. 25, Carei</dd></div>
+      <div><dt>Program</dt><dd>Luni–vineri, 08–16</dd></div>
+    </dl>
+    <div class="map"><iframe title="Harta: AMA Under Construction, Carei" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Bulevardul%2025%20Octombrie%2025%2C%20Carei&z=16&output=embed"></iframe></div>
+  </div>
+  <form class="c-form" id="f">
+    <label>Numele<input name="nume" autocomplete="name" required></label>
+    <label>Telefon<input name="tel" type="tel" autocomplete="tel" required></label>
+    <label>Localitatea<input name="loc" placeholder="de exemplu Carei"></label>
+    <fieldset><legend>Ce aveți de construit?</legend>
+      <div class="chips">
+        <label><input type="radio" name="tip" value="casa" checked><span>Casă la cheie</span></label>
+        <label><input type="radio" name="tip" value="industrial"><span>Construcție industrială</span></label>
+        <label><input type="radio" name="tip" value="fundatie"><span>Fundație</span></label>
+        <label><input type="radio" name="tip" value="exterior"><span>Pavaj, alei, garduri</span></label>
+        <label><input type="radio" name="tip" value="utilaje"><span>Lucrări cu utilaje</span></label>
+        <label><input type="radio" name="tip" value="altceva"><span>Altceva</span></label>
+      </div>
+    </fieldset>
+    <label>Câteva detalii<textarea name="detalii" rows="4" placeholder="Suprafața, terenul, când ați vrea să începeți"></textarea></label>
+    <button class="call" type="submit">Trimite cererea</button>
+    <p class="ok" id="ok" role="status">Mulțumim! Fiind un demo, cererea nu pleacă nicăieri. Pe site-ul real ajunge direct la AMA.</p>
+  </form>
+</section>
+
+<footer class="foot">
+  <div class="f-brand"><a class="f-logo" href="#hero"><i aria-hidden="true"></i>AMA Under Construction</a><p>Construcții civile și industriale, fundații, pavaje și lucrări cu utilaje. Din Carei, din 2015.</p></div>
+  <div><h4>Adresa</h4><p>AMA Under Construction SRL<br>B-dul 25 Octombrie nr. 25<br>Carei, jud. Satu Mare</p><p class="sp"><a href="https://www.google.com/maps/search/?api=1&amp;query=Bulevardul+25+Octombrie+25+Carei">Deschide în Google Maps</a></p></div>
+  <div><h4>Telefon</h4><p><a href="tel:+40754505732">0754 505 732</a></p><p class="sp">Luni–vineri, 08–16</p></div>
+  <div><h4>Email</h4><p><a href="mailto:office@amastructures.ro">office@amastructures.ro</a></p><p class="sp"><a href="https://www.facebook.com/amastructures/">Facebook</a></p></div>
+  <p class="demo">Demo al site-ului realizat de <a href="https://rtweb.ro">RTWEB</a> pentru AMA Under Construction</p>
+</footer>
 
 <script>
 const canvas = document.getElementById("gl");
@@ -503,6 +581,9 @@ function howScroll() {
   st4.forEach((li, k) => li.classList.toggle("on", p >= k / 3 - .001 && p > 0));
 }
 addEventListener("scroll", howScroll, { passive: true }); howScroll();
+
+// formularul de demo: nu trimite nimic, doar arată mesajul
+document.getElementById("f").addEventListener("submit", (e) => { e.preventDefault(); document.getElementById("ok").classList.add("on"); });
 </script>
 </body>
 </html>
