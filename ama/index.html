@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>AMA Under Construction | Construcții în Carei</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #16181a; --paper: #eeece8; --beton: #9a9a96; --yellow: #f2b705; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: hidden; }
+  body { background: var(--ink); color: #fff; font-family: "Archivo", system-ui, sans-serif; font-stretch: 100%; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+
+  /* header */
+  .top { position: fixed; inset: 0 0 auto 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; }
+  .brand { font-weight: 800; font-stretch: 75%; font-size: 22px; letter-spacing: -.01em; line-height: 1; }
+  .brand small { display: block; font-weight: 500; font-stretch: 100%; font-size: 12px; opacity: .75; margin-top: 3px; }
+  .top nav { display: flex; gap: 28px; font-size: 15px; font-weight: 500; }
+  .call { border: 1.5px solid #fff; border-radius: 10px; padding: 10px 16px; font-weight: 600; font-size: 15px; }
+
+  .roll { display: inline-block; white-space: nowrap; }
+  .roll .l { display: inline-block; overflow: hidden; vertical-align: top; line-height: 1.12; padding-bottom: .06em; margin-bottom: -.06em; }
+  .roll .l > span { display: inline-block; text-shadow: 0 1.18em 0 var(--yellow); transition: transform .75s cubic-bezier(.76,0,.24,1); transition-delay: calc(var(--d) * 1ms); }
+  .roll .sp { display: inline-block; width: .28em; }
+  @media (hover: hover) { a:hover .roll .l > span { transform: translateY(-1.18em); } }
+
+  /* hero: pe desktop, scena stă pe loc cât derulezi */
+  .hero { position: relative; height: 340vh; }
+  .stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+  #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(22,24,26,.55) 0%, rgba(22,24,26,0) 22%, rgba(22,24,26,0) 55%, rgba(22,24,26,.78) 100%); pointer-events: none; }
+  .copy { position: absolute; left: 28px; bottom: 36px; max-width: 760px; }
+  .copy h1 { font-weight: 800; font-stretch: 72%; font-size: clamp(44px, 6.4vw, 104px); line-height: .95; letter-spacing: -.015em; }
+  .copy p { margin-top: 18px; font-size: 18px; line-height: 1.5; max-width: 44ch; opacity: .9; }
+  .lm { display: block; overflow: hidden; padding-bottom: .08em; }
+  .lm > span { display: block; }
+
+  /* etapele șantierului */
+  .steps { position: absolute; right: 28px; bottom: 40px; list-style: none; width: 260px; }
+  .steps li { display: grid; grid-template-columns: 26px 1fr; align-items: baseline; padding: 11px 0; border-top: 1px solid rgba(255,255,255,.22); font-size: 17px; font-weight: 500; opacity: .4; transition: opacity .4s; }
+  .steps li:last-child { border-bottom: 1px solid rgba(255,255,255,.22); }
+  .steps li b { font-weight: 500; font-size: 13px; opacity: .8; }
+  .steps li.on { opacity: 1; }
+  .steps li .bar { grid-column: 1 / -1; height: 2px; background: rgba(255,255,255,.15); margin-top: 9px; overflow: hidden; }
+  .steps li .bar i { display: block; height: 100%; width: 100%; background: var(--yellow); transform-origin: left; transform: scaleX(0); }
+  .replay { display: none; }
+
+  /* ce urmează după hero */
+  .after { background: var(--paper); color: var(--ink); padding: 120px 28px; }
+  .after h2 { font-weight: 800; font-stretch: 72%; font-size: clamp(36px, 4.6vw, 72px); line-height: 1; letter-spacing: -.01em; max-width: 16ch; }
+  .after ul { list-style: none; margin-top: 56px; max-width: 980px; }
+  .after li { display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px; padding: 26px 0; border-top: 1px solid rgba(22,24,26,.18); }
+  .after li strong { font-weight: 700; font-size: 24px; }
+  .after li span { font-size: 17px; line-height: 1.55; color: #3c3e40; }
+  .note { margin-top: 64px; font-size: 13px; color: #6a6c6e; max-width: 70ch; }
+
+  @media (max-width: 899px) {
+    .top { padding: 14px 16px; }
+    .top nav { display: none; }
+    .brand { font-size: 19px; }
+    .call { padding: 9px 13px; font-size: 14px; }
+    /* pe telefon fără scenă fixată: animația pornește singură */
+    .hero { height: auto; }
+    .stage { position: relative; height: 100svh; min-height: 560px; }
+    /* pe telefon poza e pătrată, sus, ca să se vadă toată clădirea */
+    #gl { top: 64px; height: 75vw; }
+    .shade { top: 64px; height: 75vw; background: linear-gradient(180deg, rgba(22,24,26,0) 78%, var(--ink) 100%); }
+    .copy { left: 16px; right: 16px; top: calc(64px + 75vw + 28px); bottom: auto; }
+    .copy h1 { font-size: 10.4vw; }
+    .copy p { font-size: 16px; margin-top: 12px; }
+    .steps { left: 16px; right: 16px; bottom: 22px; width: auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .steps li { display: block; border: 0 !important; padding: 0; font-size: 13px; }
+    .steps li b { display: none; }
+    .replay { display: inline-block; position: absolute; right: 16px; bottom: 64px; font: 500 13px "Archivo"; color: #fff; background: none; border: 0; opacity: 0; transition: opacity .4s; text-decoration: underline; text-underline-offset: 3px; }
+    .replay.on { opacity: .85; }
+    .after { padding: 64px 16px; }
+    .after ul { margin-top: 32px; }
+    .after li { grid-template-columns: 1fr; gap: 6px; padding: 18px 0; }
+    .after li strong { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="#">AMA Under Construction<small>Construcții din Carei, din 2015</small></a>
+  <nav><a href="#servicii">Servicii</a><a href="#servicii">Lucrări</a><a href="#servicii">Utilaje</a></nav>
+  <a class="call" href="tel:0754505732">0754 505 732</a>
+</header>
+
+<section class="hero" id="hero">
+  <div class="stage">
+    <canvas id="gl"></canvas>
+    <div class="shade"></div>
+    <div class="copy">
+      <h1><span class="lm"><span>Pornim de la fundație.</span></span><span class="lm"><span>Predăm la cheie.</span></span></h1>
+      <p>Construcții civile și industriale, pavaje și lucrări cu utilajele noastre, în Satu Mare și Cluj.</p>
+    </div>
+    <button class="replay" type="button">Vezi din nou</button>
+    <ol class="steps">
+      <li><b>1.</b>Fundație<div class="bar"><i></i></div></li>
+      <li><b>2.</b>Structură<div class="bar"><i></i></div></li>
+      <li><b>3.</b>Fațadă<div class="bar"><i></i></div></li>
+      <li><b>4.</b>La cheie<div class="bar"><i></i></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="after" id="servicii">
+  <h2>Ce construim, de la primul țăruș</h2>
+  <ul>
+    <li><strong>Case la cheie</strong><span>Proiect, fundație, structură, compartimentări, finisaje, tâmplărie, izolații și acoperiș.</span></li>
+    <li><strong>Construcții industriale</strong><span>Hale și clădiri pentru firme.</span></li>
+    <li><strong>Fundații speciale</strong><span>Fundații continue, radier general, fundații pentru structuri ușoare.</span></li>
+    <li><strong>Amenajări exterioare</strong><span>Pavaje, trotuare, alei, împrejmuiri și garduri.</span></li>
+    <li><strong>Lucrări cu utilaje</strong><span>Excavatoare, cilindri compactori și încărcătoare frontale proprii. Nivelări de teren.</span></li>
+  </ul>
+  <p class="note">Demo făcut de RTWEB. Poza de pe șantier e o lucrare reală AMA; clădirea terminată din animație e o vizualizare generată, de înlocuit cu poza reală.</p>
+</section>
+
+<script>
+const canvas = document.getElementById("gl");
+const gl = canvas.getContext("webgl", { antialias: false, premultipliedAlpha: false });
+const mobile = matchMedia("(max-width: 899px)").matches;
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const lis = [...document.querySelectorAll(".steps li")];
+const bars = lis.map((li) => li.querySelector(".bar i"));
+let prog = 0, shown = 0, mx = 0, my = 0, visible = true;
+
+// etapa curentă și barele de sub etape
+function ui(p) {
+  lis.forEach((li, i) => {
+    const f = Math.min(1, Math.max(0, p * 4 - i));
+    bars[i].style.transform = `scaleX(${f})`;
+    li.classList.toggle("on", p * 4 >= i);
+  });
+}
+
+const vs = `attribute vec2 p; varying vec2 v; void main(){ v = p * .5 + .5; gl_Position = vec4(p, 0., 1.); }`;
+const fs = `precision mediump float;
+varying vec2 v;
+uniform sampler2D A, B; uniform float P, T, HASB; uniform vec2 R, I, M;
+float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
+  return mix(mix(h(i), h(i+vec2(1,0)), f.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y); }
+float fbm(vec2 p){ float s = 0., a = .5; for(int i=0;i<4;i++){ s += a*n(p); p *= 2.03; a *= .5; } return s; }
+vec2 cover(vec2 uv){ float r = R.x/R.y, ir = I.x/I.y; vec2 s = r > ir ? vec2(1., ir/r) : vec2(r/ir, 1.);
+  return (uv - .5) * s + .5; }
+float luma(vec3 c){ return dot(c, vec3(.299,.587,.114)); }
+void main(){
+  // un zoom lent și puțină paralaxă după mouse
+  float z = mix(1.07, 1.0, smoothstep(0., 1., P));
+  vec2 uv = (v - .5) / z + .5 + M * .008;
+  vec2 tu = cover(uv); tu.y = 1. - tu.y;
+  vec3 a = texture2D(A, tu).rgb;
+  vec3 b = HASB > .5 ? texture2D(B, tu).rgb : a;
+  // fața de turnare urcă etaj cu etaj: 4 trepte, cu oprire scurtă la fiecare placă
+  float f = P * 4.;
+  float st = (floor(f) + smoothstep(.15, .9, fract(f))) / 4.;
+  float front = mix(-.08, 1.12, st);
+  float edge = (fbm(vec2(uv.x * 7., T * .25)) - .5) * .07 + (fbm(uv * vec2(22., 4.) + T * .1) - .5) * .025;
+  float y = uv.y + edge;
+  float done = 1. - smoothstep(front - .006, front + .006, y);
+  // zona de deasupra fronturii: planșa de proiect peste șantier
+  float zone = smoothstep(front + .16, front + .01, y) * (1. - done);
+  vec2 px = 1. / R * 1.5;
+  float gx = luma(texture2D(A, tu + vec2(px.x, 0.)).rgb) - luma(texture2D(A, tu - vec2(px.x, 0.)).rgb);
+  float gy = luma(texture2D(A, tu + vec2(0., px.y)).rgb) - luma(texture2D(A, tu - vec2(0., px.y)).rgb);
+  float lines = smoothstep(.12, .3, length(vec2(gx, gy)));
+  vec2 g = fract(uv * vec2(R.x / R.y, 1.) * 18.);
+  float grid = (step(.97, g.x) + step(.97, g.y)) * .35;
+  vec3 plan = mix(vec3(.08, .1, .12), vec3(.14, .17, .2), luma(a)) + vec3(.95, .74, .2) * lines * .55 + vec3(1.) * grid * .18;
+  vec3 col = mix(a, plan, zone * .92);
+  col = mix(col, b, done);
+  // linia aurie a fronturii
+  float glow = exp(-abs(y - front) * 220.) * step(.001, P) * step(P, .999);
+  col += vec3(1., .8, .3) * glow * .9;
+  gl_FragColor = vec4(col, 1.);
+}`;
+
+function sh(t, s) { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(o)); return o; }
+const pr = gl.createProgram();
+gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr); gl.useProgram(pr);
+gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+const loc = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+const U = (k) => gl.getUniformLocation(pr, k);
+
+function tex(unit, img) {
+  const t = gl.createTexture(); gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, t);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, img);
+  [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach((k) => gl.texParameteri(gl.TEXTURE_2D, k, gl.CLAMP_TO_EDGE));
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+}
+const load = (src) => new Promise((ok) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = src; });
+
+function size() {
+  const s = Math.min(devicePixelRatio, 2) * (mobile ? .5 : .7);
+  canvas.width = Math.round(canvas.clientWidth * s); canvas.height = Math.round(canvas.clientHeight * s);
+  gl.viewport(0, 0, canvas.width, canvas.height); gl.uniform2f(U("R"), canvas.width, canvas.height);
+}
+
+(async () => {
+  const sfx = mobile ? "-m" : "";
+  const [a, b] = await Promise.all([load(`img/santier${sfx}.webp`), load(`img/final${sfx}.webp`)]);
+  tex(0, a); gl.uniform1i(U("A"), 0);
+  if (b) { tex(1, b); gl.uniform1i(U("B"), 1); gl.uniform1f(U("HASB"), 1); }
+  gl.uniform2f(U("I"), a.naturalWidth, a.naturalHeight);
+  size(); addEventListener("resize", size);
+  new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(canvas);
+  if (reduce) prog = shown = 1;
+  else if (mobile) autoplay(); else addEventListener("scroll", fromScroll, { passive: true });
+  requestAnimationFrame(frame);
+})();
+
+// desktop: progresul vine din cât ai derulat prin hero
+const hero = document.querySelector(".hero");
+function fromScroll() {
+  const r = hero.getBoundingClientRect();
+  prog = Math.min(1, Math.max(0, -r.top / (hero.offsetHeight - innerHeight)));
+}
+addEventListener("pointermove", (e) => { mx = e.clientX / innerWidth - .5; my = .5 - e.clientY / innerHeight; });
+
+// telefon: clădirea se construiește singură, o dată, în ~5 s
+const replay = document.querySelector(".replay");
+function autoplay() {
+  replay.classList.remove("on"); prog = shown = 0;
+  const t0 = performance.now() + 900, d = 5200;
+  (function step(now) {
+    const k = Math.min(1, Math.max(0, (now - t0) / d));
+    prog = k; if (k < 1) requestAnimationFrame(step); else replay.classList.add("on");
+  })(performance.now());
+}
+replay.addEventListener("click", autoplay);
+
+function frame(t) {
+  requestAnimationFrame(frame);
+  if (!visible) return;
+  shown += (prog - shown) * (mobile ? 1 : .09);
+  ui(shown);
+  gl.uniform1f(U("P"), shown); gl.uniform1f(U("T"), t / 1000); gl.uniform2f(U("M"), mx, my);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+}
+
+// întorsătura literelor din meniu
+document.querySelectorAll(".top nav a").forEach((a) => {
+  const ch = [...a.textContent], mid = (ch.length - 1) / 2;
+  a.setAttribute("aria-label", a.textContent);
+  a.innerHTML = `<span class="roll" aria-hidden="true">${ch.map((c, i) => c === " " ? '<span class="sp"></span>' : `<span class="l"><span style="--d:${Math.round(Math.abs(i - mid) * 26)}">${c}</span></span>`).join("")}</span>`;
+});
+
+// titlul intră din mască
+document.querySelectorAll(".lm > span").forEach((s, i) => s.animate([{ transform: "translateY(110%)" }, { transform: "none" }], { duration: 1200, delay: 250 + i * 110, easing: "cubic-bezier(.16,1,.3,1)", fill: "backwards" }));
+</script>
+</body>
+</html>
