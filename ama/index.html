@@ -13,7 +13,7 @@
   :root { --ink: #16181a; --paper: #eeece8; --beton: #9a9a96; --yellow: #f2b705; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { overflow-x: hidden; }
-  body { background: var(--ink); color: #fff; font-family: "Uncut Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { background: var(--paper); color: #fff; font-family: "Uncut Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
 
   /* header pe hârtie, ca la RUX: logo în stânga, o linie verticală, meniul și butonul închis în dreapta */
@@ -34,10 +34,7 @@
   .hero { position: relative; height: 340vh; margin-top: var(--hh); }
   .stage { position: sticky; top: var(--hh); height: calc(100vh - var(--hh)); overflow: hidden; }
   #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  /* textul stă închis pe hârtie, ca la RUX: hârtia vine din stânga peste poză, iar jos poza se închide spre bandă */
-  .shade { position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(180deg, rgba(22,24,26,0) 82%, #16181a 100%),
-                linear-gradient(90deg, rgba(238,236,232,.97) 0%, rgba(238,236,232,.9) 30%, rgba(238,236,232,0) 58%); }
+  .shade { display: none; }
   .copy { position: absolute; left: 32px; top: 50%; transform: translateY(-50%); max-width: 640px; color: var(--ink); }
   .copy h1 { font-weight: 700; font-size: clamp(48px, 5.8vw, 96px); line-height: .94; letter-spacing: -.045em; }
   .copy p { margin-top: 22px; font-size: 21px; font-weight: 500; line-height: 1.22; letter-spacing: -.02em; max-width: 30ch; }
@@ -51,13 +48,13 @@
   /* ce urmează după hero */
   /* trecerea dintre secțiuni: pătrățele care cad la scroll */
   .pix { display: block; width: 100%; height: 200px; margin: -1px 0; }
-  .after { background: var(--paper); color: var(--ink); padding: 120px 28px; }
+  .after { background: var(--ink); color: var(--paper); padding: 120px 28px; }
   .after h2 { font-weight: 700; font-size: clamp(36px, 4.6vw, 72px); line-height: 1; letter-spacing: -.01em; max-width: 16ch; }
   .after ul { list-style: none; margin-top: 56px; max-width: 980px; }
-  .after li { display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px; padding: 26px 0; border-top: 1px solid rgba(22,24,26,.18); }
+  .after li { display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px; padding: 26px 0; border-top: 1px solid rgba(238,236,232,.2); }
   .after li strong { font-weight: 700; font-size: 24px; }
-  .after li span { font-size: 17px; line-height: 1.55; color: #3c3e40; }
-  .note { margin-top: 64px; font-size: 13px; color: #6a6c6e; max-width: 70ch; }
+  .after li span { font-size: 17px; line-height: 1.55; color: #c9c7c2; }
+  .note { margin-top: 64px; font-size: 13px; color: #8c8a86; max-width: 70ch; }
 
   @media (max-width: 899px) {
     :root { --hh: 60px; }
@@ -70,9 +67,6 @@
        și nu se mișcă nimic cu transform, doar se redesenează canvas-ul, ca să nu tremure pe iPhone */
     .hero { height: 260svh; }
     .stage { height: calc(100svh - var(--hh)); }
-    /* poza pe tot ecranul, textul sus pe hârtie */
-    .shade { background: linear-gradient(180deg, rgba(22,24,26,0) 84%, #16181a 100%),
-                         linear-gradient(180deg, rgba(238,236,232,.96) 0%, rgba(238,236,232,.88) 40%, rgba(238,236,232,0) 64%); }
     .copy { left: 16px; right: 16px; top: 26px; transform: none; }
     .copy h1 { font-size: 9.4vw; line-height: .95; }
     .copy p { font-size: 17px; margin-top: 14px; }
@@ -119,7 +113,7 @@
   </div>
 </section>
 
-<canvas class="pix" data-from="#16181a" data-to="#eeece8"></canvas>
+<canvas class="pix" data-from="#eeece8" data-to="#16181a"></canvas>
 
 <section class="after" id="servicii">
   <h2>Ce construim, de la primul țăruș</h2>
@@ -143,7 +137,11 @@ let prog = 0, shown = 0, mx = 0, my = 0, visible = true;
 const vs = `attribute vec2 p; varying vec2 v; void main(){ v = p * .5 + .5; gl_Position = vec4(p, 0., 1.); }`;
 const fs = `precision mediump float;
 varying vec2 v;
-uniform sampler2D A, B; uniform float P, T, HASB; uniform vec2 R, I, M;
+uniform sampler2D A, B; uniform float P, T, HASB; uniform vec2 R, I, M; uniform float MOB;
+// două culori, ca la tipar: hârtia și o singură cerneală. Cerneala e provizorie, până alege Raul culoarea AMA
+const vec3 PAPER = vec3(.933, .925, .910), INK = vec3(.17, .29, .84);
+float bayer2(vec2 a){ a = floor(a); return fract(dot(a, vec2(.5, a.y * .75))); }
+float bayer4(vec2 a){ return bayer2(.5 * a) * .25 + bayer2(a); }
 float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
   return mix(mix(h(i), h(i+vec2(1,0)), f.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y); }
@@ -152,9 +150,12 @@ vec2 cover(vec2 uv){ float r = R.x/R.y, ir = I.x/I.y; vec2 s = r > ir ? vec2(1.,
   return (uv - .5) * s + .5; }
 float luma(vec3 c){ return dot(c, vec3(.299,.587,.114)); }
 void main(){
+  // poza e redusă la pătrățele de 2 px de canvas, apoi tipărită în puncte
+  vec2 fc = floor(gl_FragCoord.xy / 2.);
+  vec2 cv = (fc * 2. + 1.) / R;
   // un zoom lent și puțină paralaxă după mouse
   float z = mix(1.07, 1.0, smoothstep(0., 1., P));
-  vec2 uv = (v - .5) / z + .5 + M * .008;
+  vec2 uv = (cv - .5) / z + .5 + M * .008;
   vec2 tu = cover(uv); tu.y = 1. - tu.y;
   vec3 a = texture2D(A, tu).rgb;
   vec3 b = HASB > .5 ? texture2D(B, tu).rgb : a;
@@ -178,8 +179,15 @@ void main(){
   col = mix(col, b, done);
   // linia aurie a fronturii
   float glow = exp(-abs(y - front) * 220.) * step(.001, P) * step(P, .999);
-  col += vec3(1., .8, .3) * glow * .9;
-  gl_FragColor = vec4(col, 1.);
+  // tonurile deschise rămân hârtie, cele închise devin cerneală, iar între ele punctele se răresc
+  // poza se tipărește mai deschis, ca cerneala să rămână doar pe părțile închise;
+  // unde stă textul (stânga pe desktop, sus pe telefon) aproape totul rămâne hârtie
+  float side = MOB > .5 ? smoothstep(.5, .78, cv.y) : 1. - smoothstep(.24, .5, cv.x);
+  float t = smoothstep(.06, .5, luma(col)) + side * .75;
+  vec3 outc = t > bayer4(fc) ? PAPER : INK;
+  // linia de turnare rămâne plină, în cerneală
+  outc = mix(outc, INK, smoothstep(.35, .8, glow));
+  gl_FragColor = vec4(outc, 1.);
 }`;
 
 function sh(t, s) { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(o)); return o; }
@@ -230,7 +238,7 @@ function frame(t) {
   requestAnimationFrame(frame);
   if (!visible) return;
   shown += (prog - shown) * (mobile ? .12 : .09);
-  gl.uniform1f(U("P"), shown); gl.uniform1f(U("T"), t / 1000); gl.uniform2f(U("M"), mx, my);
+  gl.uniform1f(U("MOB"), mobile ? 1 : 0); gl.uniform1f(U("P"), shown); gl.uniform1f(U("T"), t / 1000); gl.uniform2f(U("M"), mx, my);
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 }
 
