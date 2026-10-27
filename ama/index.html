@@ -60,9 +60,10 @@
     .right { border: 0; margin: 0; padding: 0 16px; }
     .top nav { display: none; }
     .call { padding: 10px 15px; font-size: 14px; }
-    /* pe telefon fără scenă fixată: titlul sus, poza dedesubt, iar clădirea se termină cât derulezi pagina */
-    .hero { height: auto; }
-    .stage { position: relative; top: 0; height: auto; display: flex; flex-direction: column; }
+    /* și pe telefon pagina stă pe loc până se termină clădirea. Scena are înălțime fixă în svh
+       și nu se mișcă nimic cu transform, doar se redesenează canvas-ul, ca să nu tremure pe iPhone */
+    .hero { height: 260svh; }
+    .stage { height: calc(100svh - var(--hh)); display: flex; flex-direction: column; justify-content: center; }
     .copy { position: relative; order: 0; left: auto; bottom: auto; padding: 30px 16px 26px; }
     #gl { position: relative; order: 1; inset: auto; height: 82vw; }
     .shade { display: none; }
@@ -188,7 +189,7 @@ function size() {
   tex(0, a); gl.uniform1i(U("A"), 0);
   if (b) { tex(1, b); gl.uniform1i(U("B"), 1); gl.uniform1f(U("HASB"), 1); }
   gl.uniform2f(U("I"), a.naturalWidth, a.naturalHeight);
-  size(); addEventListener("resize", size);
+  size(); let lw0 = innerWidth; addEventListener("resize", () => { if (innerWidth !== lw0) { lw0 = innerWidth; size(); } });
   new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(canvas);
   if (reduce) prog = shown = 1;
   else { addEventListener("scroll", fromScroll, { passive: true }); fromScroll(); }
@@ -198,12 +199,6 @@ function size() {
 // desktop: progresul vine din cât ai derulat prin hero
 const hero = document.querySelector(".hero");
 function fromScroll() {
-  if (mobile) {
-    // telefon: de la începutul paginii până când poza ajunge sus, sub header
-    const end = canvas.offsetTop + canvas.offsetHeight * .35;
-    prog = Math.min(1, Math.max(0, scrollY / end));
-    return;
-  }
   const r = hero.getBoundingClientRect();
   prog = Math.min(1, Math.max(0, -r.top / (hero.offsetHeight - innerHeight)));
 }
