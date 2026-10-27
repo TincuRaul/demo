@@ -22,7 +22,7 @@
   .brand { align-self: center; padding-left: 32px; font-weight: 700; font-size: 40px; letter-spacing: -.05em; line-height: 1; }
   .right { display: flex; align-items: center; justify-content: flex-end; gap: 30px; padding: 0 32px; border-left: 1px solid var(--ink); margin: 10px 0; }
   .top nav { display: flex; gap: 30px; font-size: 17px; font-weight: 500; letter-spacing: -.01em; }
-  .call { background: var(--ink); color: var(--paper); padding: 13px 22px; font-weight: 600; font-size: 16px; clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px), 0 5px); }
+  .call { background: var(--yellow); color: var(--ink); transition: background .3s, color .3s; padding: 13px 22px; font-weight: 600; font-size: 16px; clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px), 0 5px); }
 
   .roll { display: inline-block; white-space: nowrap; }
   .roll .l { display: inline-block; overflow: hidden; vertical-align: top; line-height: 1.12; padding-bottom: .06em; margin-bottom: -.06em; }
@@ -44,6 +44,7 @@
   .copy h1 { font-weight: 700; font-size: clamp(44px, 4.6vw, 80px); line-height: .94; letter-spacing: -.045em; }
   .copy p { margin-top: 22px; font-size: 21px; font-weight: 500; line-height: 1.22; letter-spacing: -.02em; max-width: 30ch; }
   .copy .call { display: inline-block; margin-top: 28px; }
+  @media (hover: hover) { .call:hover { background: var(--ink); color: var(--yellow); } }
   .burger { display: none; }
   .menu { display: none; }
   .lm { display: block; overflow: hidden; padding-bottom: .08em; }
@@ -80,6 +81,23 @@
   .ask span { font-size: 19px; font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
   .ask b { font-size: clamp(26px, 2.3vw, 36px); font-weight: 700; letter-spacing: -.03em; }
   .grid figcaption { position: absolute; left: 0; bottom: 0; background: var(--paper); color: var(--ink); padding: 9px 14px 10px; font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+  /* cum lucrăm: 4 romburi galbene, ca semnul din logo, legate de o linie care se umple la scroll */
+  .how { background: var(--ink); color: var(--paper); padding: 40px 32px 120px; }
+  .how h2 { max-width: 1280px; margin: 0 auto; font-weight: 700; font-size: clamp(40px, 5vw, 80px); line-height: .94; letter-spacing: -.045em; }
+  .how-lead { max-width: 1280px; margin: 18px auto 0; font-size: 19px; font-weight: 500; line-height: 1.3; letter-spacing: -.015em; color: #c9c7c2; }
+  .how-lead { padding-right: calc(100% - 34ch); }
+  .track { position: relative; max-width: 1280px; height: 2px; margin: 84px auto 0; background: rgba(238,236,232,.16); }
+  .track i { position: absolute; inset: 0; background: var(--yellow); transform-origin: left; transform: scaleX(0); }
+  .steps4 { list-style: none; max-width: 1280px; margin: -29px auto 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .dia { display: grid; place-items: center; width: 56px; height: 56px; }
+  .dia::before { content: ""; position: absolute; width: 40px; height: 40px; transform: rotate(45deg); border: 2px solid rgba(238,236,232,.35); background: var(--ink); border-radius: 3px; transition: background .5s, border-color .5s; }
+  .dia { position: relative; }
+  .dia b { position: relative; font-size: 18px; font-weight: 700; transition: color .5s; }
+  .steps4 li.on .dia::before { background: var(--yellow); border-color: #16181a; box-shadow: 0 0 0 2px var(--yellow); }
+  .steps4 li.on .dia b { color: var(--ink); }
+  .steps4 h3 { margin-top: 26px; font-size: clamp(26px, 2.4vw, 36px); font-weight: 700; letter-spacing: -.035em; line-height: 1; opacity: .35; transition: opacity .5s; }
+  .steps4 p { margin-top: 12px; font-size: 17px; line-height: 1.5; color: #c9c7c2; max-width: 30ch; opacity: .35; transition: opacity .5s; }
+  .steps4 li.on h3, .steps4 li.on p { opacity: 1; }
   .foot { background: var(--ink); }
   .foot .note { padding: 40px 28px; }
 
@@ -113,6 +131,18 @@
     .menu a { display: block; font-size: 44px; font-weight: 700; letter-spacing: -.045em; padding: 10px 0; border-bottom: 1px solid rgba(22,24,26,.18); }
     .menu .call { display: inline-block; margin-top: 28px; font-size: 16px; letter-spacing: 0; border: 0; padding: 13px 22px; }
     .pix { height: 130px; }
+    .how { padding: 28px 16px 64px; }
+    .how-lead { padding-right: 0; font-size: 17px; }
+    /* pe telefon pașii sunt unul sub altul, iar linia e verticală, în stânga */
+    .track { display: none; }
+    .steps4 { margin-top: 40px; grid-template-columns: 1fr; gap: 0; position: relative; }
+    .steps4::before { content: ""; position: absolute; left: 27px; top: 28px; bottom: 28px; width: 2px; background: rgba(238,236,232,.16); }
+    .steps4 li { display: grid; grid-template-columns: 56px 1fr; column-gap: 18px; padding-bottom: 34px; position: relative; }
+    .steps4 li::after { content: ""; position: absolute; left: 27px; top: 28px; width: 2px; height: 0; background: var(--yellow); transition: height .6s; }
+    .steps4 li.on:not(:last-child)::after { height: 100%; }
+    .steps4 .dia { grid-row: span 2; }
+    .steps4 h3 { margin-top: 12px; font-size: 26px; }
+    .steps4 p { margin-top: 8px; font-size: 16px; }
     .work { padding: 28px 16px 64px; }
     .work-head { grid-template-columns: 1fr; gap: 14px; }
     .work-head p { font-size: 17px; }
@@ -190,6 +220,20 @@
   </div>
 </section>
 
+<canvas class="pix" data-from="#eeece8" data-to="#16181a"></canvas>
+
+<section class="how" id="cum">
+  <h2>Cum lucrăm</h2>
+  <p class="how-lead">Patru etape, de la hârtie până la cheie.</p>
+  <div class="track"><i></i></div>
+  <ol class="steps4">
+    <li><span class="dia"><b>1</b></span><h3>Proiectul</h3><p>Pornim de la proiectul tehnic: ce se construiește, cum și din ce materiale.</p></li>
+    <li><span class="dia"><b>2</b></span><h3>Fundația</h3><p>Săpăm, armăm și turnăm fundația potrivită: continuă și hidroizolată, radier general sau pentru structuri ușoare.</p></li>
+    <li><span class="dia"><b>3</b></span><h3>Structura</h3><p>Ridicăm structura din beton armat, cu cofraje și armătură, etaj cu etaj.</p></li>
+    <li><span class="dia"><b>4</b></span><h3>La cheie</h3><p>Închidem clădirea: compartimentări, izolații, tâmplărie, finisaje și acoperiș, cu garanțiile cerute de lege.</p></li>
+  </ol>
+</section>
+
 <footer class="foot"><p class="note">Demo realizat de RTWEB</p></footer>
 
 <script>
@@ -252,7 +296,7 @@ void main(){
   // tonurile deschise rămân hârtie, cele închise devin cerneală, iar între ele punctele se răresc
   // poza se tipărește mai deschis, ca cerneala să rămână doar pe părțile închise;
   // unde stă textul (stânga pe desktop, sus pe telefon) aproape totul rămâne hârtie
-  vec3 outc = col + vec3(1., .8, .3) * glow * .9;
+  vec3 outc = mix(col, vec3(.95, .72, .02), clamp(glow * 1.3, 0., 1.));
   // în afara pozei canvas-ul e transparent și se vede hârtia milimetrică de dedesubt
   float al = 1. - clamp(out_, 0., 1.);
   gl_FragColor = vec4(outc * al, al);
@@ -401,6 +445,20 @@ document.querySelectorAll(".grid figure").forEach((fig) => {
     img.complete ? go() : img.addEventListener("load", go, { once: true }); }, { threshold: .35 }).observe(fig);
   if (matchMedia("(hover: hover)").matches) fig.addEventListener("mouseenter", () => run([14, 9, 6, 3], 70));
 });
+
+// cum lucrăm: pe desktop linia se umple cât derulezi, iar fiecare romb se aprinde când linia ajunge la el
+const how = document.querySelector(".how"), bar = document.querySelector(".track i"), st4 = [...document.querySelectorAll(".steps4 li")];
+function howScroll() {
+  if (mobile) {
+    st4.forEach((li) => li.classList.toggle("on", li.getBoundingClientRect().top < innerHeight * .62));
+    return;
+  }
+  const r = how.getBoundingClientRect();
+  const p = Math.min(1, Math.max(0, (innerHeight * .8 - r.top) / (r.height * .7)));
+  bar.style.transform = `scaleX(${p})`;
+  st4.forEach((li, k) => li.classList.toggle("on", p >= k / 3 - .001 && p > 0));
+}
+addEventListener("scroll", howScroll, { passive: true }); howScroll();
 </script>
 </body>
 </html>
