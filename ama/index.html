@@ -33,10 +33,10 @@
   /* hero: pe desktop, scena stă pe loc cât derulezi */
   .hero { position: relative; height: 340vh; margin-top: var(--hh); }
   .stage { position: sticky; top: var(--hh); height: calc(100vh - var(--hh)); overflow: hidden; }
-  #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  #gl { position: absolute; top: 0; right: 0; bottom: 0; left: 40%; width: 60%; height: 100%; display: block; }
   .shade { display: none; }
-  .copy { position: absolute; left: 32px; top: 50%; transform: translateY(-50%); max-width: 640px; color: var(--ink); }
-  .copy h1 { font-weight: 700; font-size: clamp(48px, 5.8vw, 96px); line-height: .94; letter-spacing: -.045em; }
+  .copy { position: absolute; left: 32px; top: 50%; transform: translateY(-50%); width: calc(40% - 64px); color: var(--ink); }
+  .copy h1 { font-weight: 700; font-size: clamp(44px, 4.6vw, 80px); line-height: .94; letter-spacing: -.045em; }
   .copy p { margin-top: 22px; font-size: 21px; font-weight: 500; line-height: 1.22; letter-spacing: -.02em; max-width: 30ch; }
   .copy .call { display: inline-block; margin-top: 28px; }
   .burger { display: none; }
@@ -67,6 +67,8 @@
        și nu se mișcă nimic cu transform, doar se redesenează canvas-ul, ca să nu tremure pe iPhone */
     .hero { height: 260svh; }
     .stage { height: calc(100svh - var(--hh)); }
+    #gl { left: 0; width: 100%; }
+    .copy { width: auto; }
     .copy { left: 16px; right: 16px; top: 26px; transform: none; }
     .copy h1 { font-size: 9.4vw; line-height: .95; }
     .copy p { font-size: 17px; margin-top: 14px; }
@@ -138,10 +140,7 @@ const vs = `attribute vec2 p; varying vec2 v; void main(){ v = p * .5 + .5; gl_P
 const fs = `precision mediump float;
 varying vec2 v;
 uniform sampler2D A, B; uniform float P, T, HASB; uniform vec2 R, I, M; uniform float MOB;
-// două culori, ca la tipar: hârtia și o singură cerneală. Cerneala e provizorie, până alege Raul culoarea AMA
-const vec3 PAPER = vec3(.933, .925, .910), INK = vec3(.17, .29, .84);
-float bayer2(vec2 a){ a = floor(a); return fract(dot(a, vec2(.5, a.y * .75))); }
-float bayer4(vec2 a){ return bayer2(.5 * a) * .25 + bayer2(a); }
+const vec3 PAPER = vec3(.933, .925, .910);
 float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
   return mix(mix(h(i), h(i+vec2(1,0)), f.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y); }
@@ -150,19 +149,18 @@ vec2 cover(vec2 uv){ float r = R.x/R.y, ir = I.x/I.y; vec2 s = r > ir ? vec2(1.,
   return (uv - .5) * s + .5; }
 float luma(vec3 c){ return dot(c, vec3(.299,.587,.114)); }
 void main(){
-  // poza e redusă la pătrățele de 2 px de canvas, apoi tipărită în puncte
-  vec2 fc = floor(gl_FragCoord.xy / 2.);
-  vec2 cv = (fc * 2. + 1.) / R;
+  vec2 cv = v;
   // un zoom lent și puțină paralaxă după mouse
   float z = mix(1.07, 1.0, smoothstep(0., 1., P));
   vec2 uv = (cv - .5) / z + .5 + M * .008;
   vec2 tu = cover(uv);
   float out_ = 0.;
-  if (MOB > .5) {
-    // pe telefon clădirea încape toată pe lățime (puțin mărită), jos în ecran; în rest e hârtie,
-    // iar hârtia e aceeași culoare cu pagina, deci poza nu are margini
-    float k = 1.36, r = R.x / R.y, ir = I.x / I.y;
-    tu = vec2((uv.x - .5) / k + .5, (uv.y - .07) / (r / ir * k));
+  {
+    // clădirea încape toată pe lățime (puțin mărită); în rest e hârtia paginii, deci poza nu are margini.
+    // Pe telefon stă jos, sub text; pe desktop, la mijloc, în dreapta textului
+    float k = MOB > .5 ? 1.36 : 1.06, r = R.x / R.y, ir = I.x / I.y, hh = r / ir * k;
+    float y0 = MOB > .5 ? .07 : (1. - hh) * .5;
+    tu = vec2((uv.x - .5) / k + .5, (uv.y - y0) / hh);
     out_ = step(tu.y, 0.) + step(1., tu.y);
   }
   float iy = tu.y; tu.y = 1. - tu.y;
@@ -191,12 +189,9 @@ void main(){
   // tonurile deschise rămân hârtie, cele închise devin cerneală, iar între ele punctele se răresc
   // poza se tipărește mai deschis, ca cerneala să rămână doar pe părțile închise;
   // unde stă textul (stânga pe desktop, sus pe telefon) aproape totul rămâne hârtie
-  float side = MOB > .5 ? 0. : 1. - smoothstep(.24, .5, cv.x);
-  float t = smoothstep(.06, .5, luma(col)) + side * .75;
-  t += out_ * 2.;
-  vec3 outc = t > bayer4(fc) ? PAPER : INK;
-  // linia de turnare rămâne plină, în cerneală
-  outc = mix(outc, INK, smoothstep(.35, .8, glow));
+  vec3 outc = col + vec3(1., .8, .3) * glow * .9;
+  // pe telefon, în afara pozei e hârtia paginii
+  outc = mix(outc, PAPER, clamp(out_, 0., 1.));
   gl_FragColor = vec4(outc, 1.);
 }`;
 
