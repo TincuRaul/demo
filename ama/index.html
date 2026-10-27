@@ -72,10 +72,12 @@
     /* și pe telefon pagina stă pe loc până se termină clădirea. Scena are înălțime fixă în svh
        și nu se mișcă nimic cu transform, doar se redesenează canvas-ul, ca să nu tremure pe iPhone */
     .hero { height: 260svh; }
-    .stage { height: calc(100svh - var(--hh)); }
-    #gl { left: 0; width: 100%; }
-    .copy { width: auto; }
-    .copy { left: 16px; right: 16px; top: 26px; transform: none; }
+    /* textul sus, iar poza ocupă exact ce rămâne sub el, ca să nu urce niciodată peste text */
+    .stage { height: calc(100svh - var(--hh)); display: flex; flex-direction: column; }
+    #gl { position: relative; inset: auto; left: 0; width: 100%; height: auto; flex: 1; min-height: 0; }
+    .copy { position: relative; width: auto; flex: none; order: 0; }
+    #gl { order: 1; }
+    .copy { left: auto; right: auto; top: auto; transform: none; padding: 24px 16px 20px; }
     .copy h1 { font-size: 9.4vw; line-height: .95; }
     .copy p { font-size: 17px; margin-top: 14px; }
     .copy .call { margin-top: 18px; }
@@ -165,8 +167,8 @@ void main(){
   {
     // clădirea încape toată pe lățime (puțin mărită); în rest e hârtia paginii, deci poza nu are margini.
     // Pe telefon stă jos, sub text; pe desktop, la mijloc, în dreapta textului
-    float k = MOB > .5 ? 1.36 : 1.06, r = R.x / R.y, ir = I.x / I.y, hh = r / ir * k;
-    float y0 = MOB > .5 ? .07 : (1. - hh) * .5;
+    float k = MOB > .5 ? 1.2 : 1.06, r = R.x / R.y, ir = I.x / I.y, hh = r / ir * k;
+    float y0 = MOB > .5 ? 1. - hh : (1. - hh) * .5;
     tu = vec2((uv.x - .5) / k + .5, (uv.y - y0) / hh);
     out_ = step(tu.y, 0.) + step(1., tu.y);
   }
