@@ -86,27 +86,18 @@
   .how h2 { max-width: 1280px; margin: 0 auto; font-weight: 700; font-size: clamp(40px, 5vw, 80px); line-height: .94; letter-spacing: -.045em; }
   .how-lead { max-width: 1280px; margin: 18px auto 0; font-size: 19px; font-weight: 500; line-height: 1.3; letter-spacing: -.015em; color: #c9c7c2; }
   .how-lead { padding-right: calc(100% - 34ch); }
-  /* pașii curg în jos în zigzag: 1 în stânga, 2 în dreapta... pe o linie galbenă din mijloc care se umple la scroll */
-  .steps4 { list-style: none; position: relative; max-width: 1100px; margin: 72px auto 0; }
-  .vline { position: absolute; left: 50%; top: 28px; bottom: 28px; width: 2px; margin-left: -1px; background: rgba(238,236,232,.16); }
-  .vline i { position: absolute; inset: 0; background: var(--yellow); transform-origin: top; transform: scaleY(0); }
-  .steps4 li { position: relative; width: calc(50% - 56px); padding-bottom: 130px; }
-  .steps4 li:nth-child(odd of li) { text-align: right; }
-  .steps4 li:nth-child(even of li) { margin-left: calc(50% + 56px); }
-  .steps4 li + li { margin-top: -50px; }
-  .dia { position: absolute; top: 0; width: 56px; height: 56px; display: grid; place-items: center; }
-  .steps4 li:nth-child(odd of li) .dia { right: -84px; }
-  .steps4 li:nth-child(even of li) .dia { left: -84px; }
-  .dia::before { content: ""; position: absolute; width: 40px; height: 40px; transform: rotate(45deg); border: 2px solid rgba(238,236,232,.35); background: var(--ink); border-radius: 3px; transition: background .5s, border-color .5s, box-shadow .5s; }
+  .track { position: relative; max-width: 1280px; height: 2px; margin: 84px auto 0; background: rgba(238,236,232,.16); }
+  .track i { position: absolute; inset: 0; background: var(--yellow); transform-origin: left; transform: scaleX(0); }
+  .steps4 { list-style: none; max-width: 1280px; margin: -29px auto 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .dia { display: grid; place-items: center; width: 56px; height: 56px; }
+  .dia::before { content: ""; position: absolute; width: 40px; height: 40px; transform: rotate(45deg); border: 2px solid rgba(238,236,232,.35); background: var(--ink); border-radius: 3px; transition: background .5s, border-color .5s; }
+  .dia { position: relative; }
   .dia b { position: relative; font-size: 18px; font-weight: 700; transition: color .5s; }
   .steps4 li.on .dia::before { background: var(--yellow); border-color: #16181a; box-shadow: 0 0 0 2px var(--yellow); }
   .steps4 li.on .dia b { color: var(--ink); }
-  .steps4 .txt { opacity: 0; transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
-  .steps4 li:nth-child(odd of li) .txt { transform: translateX(-48px); }
-  .steps4 li:nth-child(even of li) .txt { transform: translateX(48px); }
-  .steps4 li.on .txt { opacity: 1; transform: none; }
-  .steps4 h3 { margin-top: 8px; font-size: clamp(28px, 2.6vw, 40px); font-weight: 700; letter-spacing: -.035em; line-height: 1; }
-  .steps4 p { margin-top: 12px; font-size: 17px; line-height: 1.5; color: #c9c7c2; max-width: 32ch; display: inline-block; }
+  .steps4 h3 { margin-top: 26px; font-size: clamp(26px, 2.4vw, 36px); font-weight: 700; letter-spacing: -.035em; line-height: 1; opacity: .35; transition: opacity .5s; }
+  .steps4 p { margin-top: 12px; font-size: 17px; line-height: 1.5; color: #c9c7c2; max-width: 30ch; opacity: .35; transition: opacity .5s; }
+  .steps4 li.on h3, .steps4 li.on p { opacity: 1; }
   .foot { background: var(--ink); }
   .foot .note { padding: 40px 28px; }
 
@@ -142,13 +133,14 @@
     .pix { height: 130px; }
     .how { padding: 28px 16px 64px; }
     .how-lead { padding-right: 0; font-size: 17px; }
-    /* pe telefon pașii sunt unul sub altul, linia e în stânga și textul doar apare (fără intrare din lateral) */
-    .steps4 { margin-top: 40px; }
-    .vline { left: 28px; }
-    .steps4 li, .steps4 li:nth-child(odd of li), .steps4 li:nth-child(even of li) { width: auto; text-align: left; margin: 0; padding: 0 0 36px 74px; }
-    .steps4 li:nth-child(odd of li) .dia, .steps4 li:nth-child(even of li) .dia { left: 0; right: auto; }
-    .steps4 li:nth-child(odd of li) .txt, .steps4 li:nth-child(even of li) .txt { transform: translateY(16px); }
-    .steps4 li.on .txt { transform: none; }
+    /* pe telefon pașii sunt unul sub altul, iar linia e verticală, în stânga */
+    .track { display: none; }
+    .steps4 { margin-top: 40px; grid-template-columns: 1fr; gap: 0; position: relative; }
+    .steps4::before { content: ""; position: absolute; left: 27px; top: 28px; bottom: 28px; width: 2px; background: rgba(238,236,232,.16); }
+    .steps4 li { display: grid; grid-template-columns: 56px 1fr; column-gap: 18px; padding-bottom: 34px; position: relative; }
+    .steps4 li::after { content: ""; position: absolute; left: 27px; top: 28px; width: 2px; height: 0; background: var(--yellow); transition: height .6s; }
+    .steps4 li.on:not(:last-child)::after { height: 100%; }
+    .steps4 .dia { grid-row: span 2; }
     .steps4 h3 { margin-top: 12px; font-size: 26px; }
     .steps4 p { margin-top: 8px; font-size: 16px; }
     .work { padding: 28px 16px 64px; }
@@ -233,12 +225,12 @@
 <section class="how" id="cum">
   <h2>Cum lucrăm</h2>
   <p class="how-lead">Patru etape, de la hârtie până la cheie.</p>
+  <div class="track"><i></i></div>
   <ol class="steps4">
-    <div class="vline" aria-hidden="true"><i></i></div>
-    <li><span class="dia"><b>1</b></span><div class="txt"><h3>Proiectul</h3><p>Pornim de la proiectul tehnic: ce se construiește, cum și din ce materiale.</p></div></li>
-    <li><span class="dia"><b>2</b></span><div class="txt"><h3>Fundația</h3><p>Săpăm, armăm și turnăm fundația potrivită: continuă și hidroizolată, radier general sau pentru structuri ușoare.</p></div></li>
-    <li><span class="dia"><b>3</b></span><div class="txt"><h3>Structura</h3><p>Ridicăm structura din beton armat, cu cofraje și armătură, etaj cu etaj.</p></div></li>
-    <li><span class="dia"><b>4</b></span><div class="txt"><h3>La cheie</h3><p>Închidem clădirea: compartimentări, izolații, tâmplărie, finisaje și acoperiș, cu garanțiile cerute de lege.</p></div></li>
+    <li><span class="dia"><b>1</b></span><h3>Proiectul</h3><p>Pornim de la proiectul tehnic: ce se construiește, cum și din ce materiale.</p></li>
+    <li><span class="dia"><b>2</b></span><h3>Fundația</h3><p>Săpăm, armăm și turnăm fundația potrivită: continuă și hidroizolată, radier general sau pentru structuri ușoare.</p></li>
+    <li><span class="dia"><b>3</b></span><h3>Structura</h3><p>Ridicăm structura din beton armat, cu cofraje și armătură, etaj cu etaj.</p></li>
+    <li><span class="dia"><b>4</b></span><h3>La cheie</h3><p>Închidem clădirea: compartimentări, izolații, tâmplărie, finisaje și acoperiș, cu garanțiile cerute de lege.</p></li>
   </ol>
 </section>
 
@@ -454,13 +446,17 @@ document.querySelectorAll(".grid figure").forEach((fig) => {
   if (matchMedia("(hover: hover)").matches) fig.addEventListener("mouseenter", () => run([14, 9, 6, 3], 70));
 });
 
-// cum lucrăm: linia galbenă coboară cât derulezi, iar fiecare pas se aprinde când linia ajunge la rombul lui
-const vl = document.querySelector(".vline"), vfill = document.querySelector(".vline i"), st4 = [...document.querySelectorAll(".steps4 li")];
+// cum lucrăm: pe desktop linia se umple cât derulezi, iar fiecare romb se aprinde când linia ajunge la el
+const how = document.querySelector(".how"), bar = document.querySelector(".track i"), st4 = [...document.querySelectorAll(".steps4 li")];
 function howScroll() {
-  const r = vl.getBoundingClientRect(), end = innerHeight * .62;
-  const p = Math.min(1, Math.max(0, (end - r.top) / r.height));
-  vfill.style.transform = `scaleY(${p})`;
-  st4.forEach((li) => li.classList.toggle("on", li.querySelector(".dia").getBoundingClientRect().top + 28 <= Math.max(r.top, end) && p > 0));
+  if (mobile) {
+    st4.forEach((li) => li.classList.toggle("on", li.getBoundingClientRect().top < innerHeight * .62));
+    return;
+  }
+  const r = how.getBoundingClientRect();
+  const p = Math.min(1, Math.max(0, (innerHeight * .8 - r.top) / (r.height * .7)));
+  bar.style.transform = `scaleX(${p})`;
+  st4.forEach((li, k) => li.classList.toggle("on", p >= k / 3 - .001 && p > 0));
 }
 addEventListener("scroll", howScroll, { passive: true }); howScroll();
 </script>
