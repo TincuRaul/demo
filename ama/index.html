@@ -140,7 +140,7 @@
 
 <script>
 const canvas = document.getElementById("gl");
-const gl = canvas.getContext("webgl", { antialias: false, premultipliedAlpha: false });
+const gl = canvas.getContext("webgl", { antialias: false, premultipliedAlpha: true });
 const mobile = matchMedia("(max-width: 899px)").matches;
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let prog = 0, shown = 0, mx = 0, my = 0, visible = true;
@@ -200,7 +200,8 @@ void main(){
   // unde stă textul (stânga pe desktop, sus pe telefon) aproape totul rămâne hârtie
   vec3 outc = col + vec3(1., .8, .3) * glow * .9;
   // în afara pozei canvas-ul e transparent și se vede hârtia milimetrică de dedesubt
-  gl_FragColor = vec4(outc, 1. - clamp(out_, 0., 1.));
+  float al = 1. - clamp(out_, 0., 1.);
+  gl_FragColor = vec4(outc * al, al);
 }`;
 
 function sh(t, s) { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(o)); return o; }
