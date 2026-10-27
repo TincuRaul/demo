@@ -156,7 +156,16 @@ void main(){
   // un zoom lent și puțină paralaxă după mouse
   float z = mix(1.07, 1.0, smoothstep(0., 1., P));
   vec2 uv = (cv - .5) / z + .5 + M * .008;
-  vec2 tu = cover(uv); tu.y = 1. - tu.y;
+  vec2 tu = cover(uv);
+  float out_ = 0.;
+  if (MOB > .5) {
+    // pe telefon clădirea încape toată pe lățime (puțin mărită), jos în ecran; în rest e hârtie,
+    // iar hârtia e aceeași culoare cu pagina, deci poza nu are margini
+    float k = 1.36, r = R.x / R.y, ir = I.x / I.y;
+    tu = vec2((uv.x - .5) / k + .5, (uv.y - .07) / (r / ir * k));
+    out_ = step(tu.y, 0.) + step(1., tu.y);
+  }
+  float iy = tu.y; tu.y = 1. - tu.y;
   vec3 a = texture2D(A, tu).rgb;
   vec3 b = HASB > .5 ? texture2D(B, tu).rgb : a;
   // fața de turnare urcă etaj cu etaj: 4 trepte, cu oprire scurtă la fiecare placă
@@ -164,7 +173,7 @@ void main(){
   float st = (floor(f) + smoothstep(.15, .9, fract(f))) / 4.;
   float front = mix(-.08, 1.12, st);
   float edge = (fbm(vec2(uv.x * 7., T * .25)) - .5) * .07 + (fbm(uv * vec2(22., 4.) + T * .1) - .5) * .025;
-  float y = uv.y + edge;
+  float y = iy + edge;
   float done = 1. - smoothstep(front - .006, front + .006, y);
   // zona de deasupra fronturii: planșa de proiect peste șantier
   float zone = smoothstep(front + .16, front + .01, y) * (1. - done);
@@ -178,12 +187,13 @@ void main(){
   vec3 col = mix(a, plan, zone * .92);
   col = mix(col, b, done);
   // linia aurie a fronturii
-  float glow = exp(-abs(y - front) * 220.) * step(.001, P) * step(P, .999);
+  float glow = exp(-abs(y - front) * 220.) * step(.001, P) * step(front, 1.) * (1. - out_);
   // tonurile deschise rămân hârtie, cele închise devin cerneală, iar între ele punctele se răresc
   // poza se tipărește mai deschis, ca cerneala să rămână doar pe părțile închise;
   // unde stă textul (stânga pe desktop, sus pe telefon) aproape totul rămâne hârtie
-  float side = MOB > .5 ? smoothstep(.5, .78, cv.y) : 1. - smoothstep(.24, .5, cv.x);
+  float side = MOB > .5 ? 0. : 1. - smoothstep(.24, .5, cv.x);
   float t = smoothstep(.06, .5, luma(col)) + side * .75;
+  t += out_ * 2.;
   vec3 outc = t > bayer4(fc) ? PAPER : INK;
   // linia de turnare rămâne plină, în cerneală
   outc = mix(outc, INK, smoothstep(.35, .8, glow));
@@ -207,7 +217,7 @@ function tex(unit, img) {
 const load = (src) => new Promise((ok) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = src; });
 
 function size() {
-  const s = Math.min(devicePixelRatio, 2) * (mobile ? .5 : .7);
+  const s = Math.min(devicePixelRatio, 2) * (mobile ? .8 : .7);
   canvas.width = Math.round(canvas.clientWidth * s); canvas.height = Math.round(canvas.clientHeight * s);
   gl.viewport(0, 0, canvas.width, canvas.height); gl.uniform2f(U("R"), canvas.width, canvas.height);
 }
