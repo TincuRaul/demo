@@ -53,15 +53,14 @@
   /* ce urmează după hero */
   /* trecerea dintre secțiuni: pătrățele care cad la scroll */
   .pix { display: block; width: 100%; height: 200px; margin: -1px 0; }
-  .after { background: var(--ink); color: var(--paper); padding: 120px 0 0; text-align: center; }
-  .after h2 { font-weight: 700; font-size: clamp(36px, 4.6vw, 72px); line-height: 1; letter-spacing: -.035em; max-width: 16ch; margin: 0 auto; padding: 0 28px; }
-  .after ul { list-style: none; margin-top: 64px; }
-  /* serviciile pe benzi late, în două tonuri de negru care alternează */
-  .after li { padding: 44px 28px; }
-  .after li:nth-child(even) { background: #24272a; }
-  .after li strong { display: block; font-weight: 700; font-size: clamp(26px, 2.6vw, 38px); letter-spacing: -.03em; }
-  .after li span { display: block; max-width: 46ch; margin: 12px auto 0; font-size: 18px; line-height: 1.5; color: #c9c7c2; }
-  .note { margin: 0 auto; padding: 56px 28px 64px; font-size: 13px; color: #8c8a86; max-width: 70ch; }
+  .after { background: var(--ink); color: var(--paper); padding: 120px 28px 0; }
+  .after h2 { font-weight: 700; font-size: clamp(36px, 4.6vw, 72px); line-height: 1; letter-spacing: -.035em; max-width: 16ch; margin: 0 auto; text-align: center; }
+  /* tabel pe două coloane, în două culori: numele serviciului pe hârtie, descrierea pe gri-beton */
+  .after ul { list-style: none; margin: 64px auto 0; max-width: 1120px; display: grid; gap: 8px; }
+  .after li { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); gap: 8px; }
+  .after li strong { background: var(--paper); color: var(--ink); padding: 34px 32px; font-weight: 700; font-size: clamp(24px, 2.2vw, 34px); line-height: 1.05; letter-spacing: -.03em; }
+  .after li span { background: #2a2d31; color: #dcdad5; padding: 34px 32px; font-size: 18px; line-height: 1.55; }
+  .note { margin: 0 auto; padding: 56px 0 64px; text-align: center; font-size: 13px; color: #8c8a86; max-width: 70ch; }
 
   @media (max-width: 899px) {
     :root { --hh: 60px; }
@@ -91,11 +90,11 @@
     .menu a { display: block; font-size: 44px; font-weight: 700; letter-spacing: -.045em; padding: 10px 0; border-bottom: 1px solid rgba(22,24,26,.18); }
     .menu .call { display: inline-block; margin-top: 28px; font-size: 16px; letter-spacing: 0; border: 0; padding: 13px 22px; }
     .pix { height: 130px; }
-    .after { padding: 64px 0 0; }
-    .after h2 { padding: 0 16px; }
-    .after ul { margin-top: 36px; }
-    .after li { padding: 30px 16px; }
-    .after li span { font-size: 16px; margin-top: 8px; }
+    .after { padding: 64px 16px 0; }
+    .after ul { margin-top: 36px; gap: 12px; }
+    .after li { grid-template-columns: 1fr; gap: 0; }
+    .after li strong { padding: 20px 18px; font-size: 24px; }
+    .after li span { padding: 18px 18px 22px; font-size: 16px; }
   }
 </style>
 </head>
@@ -128,11 +127,11 @@
 <section class="after" id="servicii">
   <h2>Ce construim, de la primul țăruș</h2>
   <ul>
-    <li><strong>Case la cheie</strong><span>Proiect, fundație, structură, compartimentări, finisaje, tâmplărie, izolații și acoperiș.</span></li>
-    <li><strong>Construcții industriale</strong><span>Hale și clădiri pentru firme.</span></li>
-    <li><strong>Fundații speciale</strong><span>Fundații continue, radier general, fundații pentru structuri ușoare.</span></li>
-    <li><strong>Amenajări exterioare</strong><span>Pavaje, trotuare, alei, împrejmuiri și garduri.</span></li>
-    <li><strong>Lucrări cu utilaje</strong><span>Excavatoare, cilindri compactori și încărcătoare frontale proprii. Nivelări de teren.</span></li>
+    <li><strong>Case la cheie</strong><span>Ne ocupăm de tot drumul, de la proiectul tehnic până la acoperiș: fundația, structura din beton armat, compartimentările, izolațiile, tâmplăria și finisajele. Lucrările vin cu garanțiile cerute de lege.</span></li>
+    <li><strong>Construcții civile și industriale</strong><span>Clădiri de locuit, clădiri industriale și anexe, ridicate de echipe specializate, cu soluții eficiente și făcute să țină.</span></li>
+    <li><strong>Fundații speciale</strong><span>Fundații continue și hidroizolate, radier general și fundații pentru structuri ușoare. E partea care nu se mai vede după, dar de care depinde stabilitatea întregii clădiri.</span></li>
+    <li><strong>Amenajări exterioare</strong><span>Pavaje din pavele vibropresate, dale prefabricate sau piatră naturală, plus trotuare, alei, împrejmuiri și garduri. Pentru curți, terase, parcări, accese auto și platforme în zone industriale.</span></li>
+    <li><strong>Lucrări cu utilaje</strong><span>Lucrăm cu utilajele noastre: excavatoare, cilindri compactori, încărcătoare frontale și dube. Facem nivelări de teren, iar utilajele se pot și închiria.</span></li>
   </ul>
   <p class="note">Demo făcut de RTWEB. Poza de pe șantier e o lucrare reală AMA; clădirea terminată din animație e o vizualizare generată, de înlocuit cu poza reală.</p>
 </section>
