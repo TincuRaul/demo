@@ -214,7 +214,9 @@
     .steps4 li { display: grid; grid-template-columns: 56px 1fr; column-gap: 18px; padding-bottom: 34px; position: relative; }
     .steps4 li::after { content: ""; position: absolute; left: 27px; top: 28px; width: 2px; height: 0; background: var(--yellow); transition: height .6s; }
     .steps4 li.on:not(:last-child)::after { height: 100%; }
-    .steps4 .dia { grid-row: span 2; }
+    /* rombul stă deasupra liniei, ca linia galbenă să nu treacă peste număr */
+    .steps4 .dia { grid-row: span 2; z-index: 2; }
+    .steps4 li::after, .steps4::before { z-index: 0; }
     .steps4 h3 { margin-top: 12px; font-size: 26px; }
     .steps4 p { margin-top: 8px; font-size: 16px; }
     .work { padding: 28px 16px 64px; }
