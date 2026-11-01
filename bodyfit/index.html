@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Body Fit, ElectroFitness în Satu Mare</title>
+<meta name="description" content="ElectroFitness cu costum EMS, Body Roll și capsula Vacutherm cu vid și infraroșu, pe Aurel Popp 16, în Satu Mare." />
+<link rel="icon" href="img/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js" defer></script>
+<script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("anim");</script>
+<style>
+  /* culorile lor: negrul și albul din logo, rozul ganterei; verdele și movul din postările despre EMS și Body Roll, roșul și albastrul luminilor capsulei */
+  :root { --ink: #0f0d10; --char: #19161b; --char2: #241f26; --pink: #f07fb7; --pink2: #e2559a; --ems: #3fe0a5; --roll: #9a7cf4; --red: #ff5a5a; --blue: #5b7cff;
+    --paper: #fbf8f6; --text: #231d24; --mute: #6e6570; --line: #ece4e8; --pad: 22px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+  html, body { background: var(--ink); }
+  body { color: var(--text); font: 400 17px/1.62 "Hanken Grotesk", system-ui, sans-serif; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+  main > section { overflow-x: clip; }
+  .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 var(--pad); }
+  h2 { font-weight: 600; font-size: clamp(34px, 8.4vw, 60px); line-height: 1.06; letter-spacing: -.035em; max-width: 17ch; }
+  .lead { margin-top: 16px; max-width: 52ch; color: var(--mute); font-size: 18px; }
+  .lm { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .2em; margin-bottom: -.2em; }
+  .lm > span { display: inline-block; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; min-height: 54px; padding: 0 26px; border-radius: 12px; background: var(--ink); color: #fff; font-weight: 600; font-size: 16px; transition: transform .25s, background .25s; }
+  .btn:active { transform: scale(.97); }
+  .btn svg { width: 18px; height: 18px; }
+  .btn.pk { background: var(--pink); color: var(--ink); }
+  .btn.pk:hover { background: #ff93c6; }
+
+  /* header */
+  .top { position: fixed; inset: 0 0 auto; z-index: 50; height: 66px; display: flex; align-items: center; gap: 12px; padding: 0 var(--pad); color: #fff; transition: background .35s, box-shadow .35s; }
+  .top.solid, .open .top { background: rgba(15,13,16,.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 0 rgba(240,127,183,.16); }
+  .lg { margin-right: auto; display: block; height: 46px; }
+  .lg img { height: 100%; width: auto; }
+  .nv { display: none; gap: 26px; font-weight: 500; font-size: 15px; }
+  .nv a { opacity: .88; }
+  .tc { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 42px; min-width: 42px; padding: 0 12px; border-radius: 10px; background: var(--pink); color: var(--ink); font-weight: 600; font-size: 15px; }
+  .tc svg { width: 17px; height: 17px; } .tc span { display: none; }
+  .mb { width: 42px; height: 42px; border: 0; border-radius: 10px; background: rgba(255,255,255,.12); display: grid; place-content: center; gap: 5px; cursor: pointer; }
+  .mb i { display: block; width: 18px; height: 2px; background: #fff; transition: transform .3s; }
+  .open .mb i:first-child { transform: translateY(3.5px) rotate(45deg); } .open .mb i:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+  .mn { position: fixed; inset: 0; z-index: 45; background: var(--ink); color: #fff; padding: 110px var(--pad) 40px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s .25s; }
+  .open .mn { opacity: 1; visibility: visible; transition: opacity .25s; }
+  .mn nav { display: grid; }
+  .mn nav a { font-weight: 600; font-size: 38px; letter-spacing: -.03em; padding: 10px 0; border-bottom: 1px solid rgba(240,127,183,.2); }
+  .mn p { color: #a99fab; }
+  html.open { overflow: hidden; }
+  /* literele din meniu se rostogolesc, din mijlocul cuvântului spre capete; copia vine în roz */
+  .roll { display: inline-block; white-space: nowrap; }
+  .roll .l { display: inline-block; overflow: hidden; vertical-align: top; line-height: 1.15; padding-bottom: .06em; margin-bottom: -.06em; }
+  .roll .l > span { display: inline-block; text-shadow: 0 1.18em 0 var(--pink); transition: transform .75s cubic-bezier(.76,0,.24,1); transition-delay: calc(var(--d) * 1ms); }
+  .roll .sp { display: inline-block; width: .28em; }
+  @media (hover: hover) { .nv a:hover .roll .l > span { transform: translateY(-1.18em); } }
+  .roll.go .l > span { transform: translateY(-1.18em); }
+
+  /* primul ecran: impulsurile EMS în WebGL, pe ritmul real: 4 secunde impuls, 4 secunde pauză */
+  .hero { position: relative; height: 100svh; min-height: 640px; overflow: hidden; background: var(--ink); color: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; padding: 15svh var(--pad) 0; }
+  #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 85% 70% at 50% 40%, transparent 35%, rgba(8,6,9,.7) 100%); }
+  .hero > :not(canvas):not(.reel) { position: relative; z-index: 2; }
+  .sign { width: min(68vw, 380px); filter: drop-shadow(0 0 18px rgba(240,127,183,.35)); }
+  .sign img { width: 100%; height: auto; }
+  .hero h1 { margin-top: 14px; font-weight: 600; font-size: clamp(22px, 5.8vw, 34px); line-height: 1.15; letter-spacing: -.025em; max-width: 22ch; }
+  .hero .btn { margin-top: 24px; }
+  .pulse { margin-top: 22px; display: inline-flex; gap: 12px; align-items: center; font-size: 15px; color: #e9e1e7; }
+  .pulse .bar { position: relative; width: 74px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.14); overflow: hidden; }
+  .pulse .bar i { position: absolute; inset: 0; background: var(--ems); transform-origin: left; transform: scaleX(0); }
+  .pulse b { font-weight: 600; color: #fff; min-width: 3.6em; text-align: left; }
+  .hero > .reel { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 21svh; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+  .reel .rt { display: flex; gap: 14px; height: 100%; width: max-content; padding-top: 2svh; animation: reel 50s linear infinite; }
+  .reel img { height: 100%; width: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px 12px 0 0; opacity: .8; }
+  .reel img:nth-child(odd) { transform: translateY(14px); }
+  @keyframes reel { to { transform: translateX(-50%); } }
+
+  /* trecerea dintre secțiuni: pătrățele care cad și se așază cât derulezi */
+  .pix { display: block; width: 100%; height: 160px; margin: -1px 0; }
+
+  /* cele trei aparate: poza se dezvăluie sub o cortină în culoarea aparatului */
+  .three { background: var(--paper); padding: 70px 0 40px; }
+  .three .head h2 { margin: 0 auto; text-align: center; }
+  .three .head .lead { margin: 16px auto 0; text-align: center; }
+  .dev { display: grid; gap: 26px; padding: 56px 0; border-bottom: 1px solid var(--line); }
+  .dev:last-child { border-bottom: 0; }
+  .dev .ph { position: relative; overflow: hidden; border-radius: 6px; aspect-ratio: 4 / 3; background: var(--char); }
+  .dev .ph img { width: 100%; height: 100%; object-fit: cover; }
+  .dev .ph .cur { position: absolute; inset: 0; background: var(--c); transform-origin: right; }
+  .dev .tag { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; color: var(--text); }
+  .dev .tag i { width: 12px; height: 12px; border-radius: 3px; background: var(--c); }
+  .dev h3 { margin-top: 10px; font-weight: 600; font-size: clamp(30px, 6.6vw, 46px); line-height: 1.05; letter-spacing: -.03em; }
+  .dev p { margin-top: 14px; color: var(--mute); max-width: 54ch; }
+  .dev ul { list-style: none; margin-top: 18px; display: grid; gap: 10px; }
+  .dev li { position: relative; padding-left: 22px; }
+  .dev li::before { content: ""; position: absolute; left: 0; top: .62em; width: 10px; height: 2px; background: var(--c); }
+  .dev .src { margin-top: 14px; font-size: 14px; color: var(--mute); }
+
+  /* EMS pe înțeles: corpul în linie roz, cu zonele costumului care se aprind pe ritmul impulsului */
+  .ems { position: relative; background: var(--ink); color: #fff; padding: 70px 0 70px; }
+  .ems h2 { margin: 0 auto; text-align: center; }
+  .ems .lead { margin: 16px auto 0; text-align: center; color: #c9bfc6; }
+  .rig { display: grid; gap: 30px; margin-top: 40px; align-items: center; }
+  .fig { position: relative; width: min(70vw, 300px); margin: 0 auto; }
+  .fig svg { width: 100%; height: auto; overflow: visible; }
+  .fig .body { fill: none; stroke: rgba(240,127,183,.75); stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
+  .fig .pad { fill: var(--ems); opacity: .12; transition: opacity .25s; }
+  .fig.on .pad { opacity: .9; filter: drop-shadow(0 0 8px rgba(63,224,165,.9)); }
+  .fig .lab { position: absolute; left: 0; right: 0; bottom: -6px; text-align: center; font-weight: 600; font-size: 15px; color: #e9e1e7; }
+  .fig .lab b { color: var(--ems); }
+  .steps { list-style: none; display: grid; gap: 0; counter-reset: s; }
+  .steps li { padding: 18px 0; border-top: 1px solid rgba(255,255,255,.12); display: grid; grid-template-columns: 40px 1fr; gap: 6px 14px; }
+  .steps li:last-child { border-bottom: 1px solid rgba(255,255,255,.12); }
+  .steps li::before { counter-increment: s; content: counter(s) "."; font-weight: 600; font-size: 22px; color: var(--pink); grid-row: span 2; line-height: 1.2; }
+  .steps b { font-weight: 600; font-size: 19px; }
+  .steps span { color: #c9bfc6; font-size: 16px; }
+
+  /* ce spun studiile: fiecare beneficiu, cu cât de sigur e */
+  .proof { background: var(--paper); padding: 70px 0 60px; }
+  .proof h2 { margin: 0 auto; text-align: center; }
+  .proof .lead { margin: 16px auto 0; text-align: center; }
+  .bens { margin-top: 40px; display: grid; gap: 0; }
+  .ben { padding: 22px 0; border-top: 1px solid var(--line); display: grid; gap: 8px; }
+  .ben:last-child { border-bottom: 1px solid var(--line); }
+  .ben h3 { font-weight: 600; font-size: 22px; letter-spacing: -.02em; }
+  .ben p { color: var(--mute); max-width: 60ch; }
+  .lvl { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--text); }
+  .lvl .dots { display: inline-flex; gap: 4px; }
+  .lvl .dots i { width: 22px; height: 6px; border-radius: 3px; background: var(--line); }
+  .lvl .dots i.f { background: var(--pink2); }
+  .myth { margin-top: 34px; padding: 22px 22px; border-radius: 10px; background: #fff; box-shadow: 0 0 0 1px var(--line); }
+  .myth h3 { font-weight: 600; font-size: 20px; }
+  .myth p { margin-top: 8px; color: var(--mute); }
+
+  .safe { background: var(--paper); padding: 0 0 70px; }
+  .cols { display: grid; gap: 30px; }
+  .card2 { padding: 24px 22px; border-radius: 10px; background: #fff; box-shadow: 0 0 0 1px var(--line); }
+  .card2 h3 { font-weight: 600; font-size: 22px; letter-spacing: -.02em; }
+  .card2 ul { list-style: none; margin-top: 12px; display: grid; gap: 8px; }
+  .card2 li { position: relative; padding-left: 20px; color: var(--mute); }
+  .card2 li::before { content: ""; position: absolute; left: 0; top: .62em; width: 9px; height: 2px; background: var(--pink2); }
+  .card2.no li::before { background: var(--red); }
+  .card2 .note { margin-top: 14px; font-size: 14px; color: var(--mute); }
+
+  /* prețuri, pe file */
+  .prices { background: var(--ink); color: #fff; padding: 70px 0 70px; }
+  .prices h2 { margin: 0 auto; text-align: center; }
+  .prices .lead { margin: 16px auto 0; text-align: center; color: #c9bfc6; }
+  .tabs { margin: 34px auto 0; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .tabs button { font: inherit; font-weight: 600; font-size: 15px; padding: 10px 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,.18); background: none; color: #e9e1e7; cursor: pointer; }
+  .tabs button[aria-selected="true"] { background: var(--pink); border-color: var(--pink); color: var(--ink); }
+  .plist { list-style: none; margin: 26px auto 0; max-width: 640px; }
+  .plist li { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+  .plist li span { color: #e9e1e7; }
+  .plist li small { display: block; color: #a99fab; font-size: 14px; }
+  .plist li b { font-weight: 600; font-size: 22px; white-space: nowrap; }
+  .pnote { margin: 18px auto 0; max-width: 640px; font-size: 14px; color: #a99fab; text-align: center; }
+  .prices .btn { display: flex; width: max-content; margin: 28px auto 0; }
+
+  /* galeria, ca la Vero: poze mici răsfirate care se adună spre centru */
+  .gal { background: var(--paper); padding: 70px var(--pad) 90px; overflow: hidden; }
+  .gg { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px 22px; align-items: center; justify-items: center; }
+  .gi { width: 100%; height: auto; max-width: 120px; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 3px; will-change: transform; }
+  .gc { grid-column: 1 / -1; order: -1; text-align: center; margin-bottom: 10px; }
+  .gc p { font-weight: 600; font-size: clamp(28px, 7.4vw, 44px); letter-spacing: -.03em; line-height: 1.05; }
+  .gc a { display: inline-block; margin-top: 14px; padding: 9px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; background: #fff; box-shadow: 0 0 0 1px var(--line); }
+
+  .faq { background: var(--paper); padding: 0 0 80px; }
+  .faq details { border-top: 1px solid var(--line); }
+  .faq details:last-of-type { border-bottom: 1px solid var(--line); }
+  .faq summary { list-style: none; cursor: pointer; padding: 18px 34px 18px 0; position: relative; font-weight: 600; font-size: 19px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: ""; position: absolute; right: 6px; top: 50%; width: 12px; height: 12px; margin-top: -8px; border-right: 2px solid var(--pink2); border-bottom: 2px solid var(--pink2); transform: rotate(45deg); transition: transform .3s; }
+  .faq details[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
+  .faq details p { padding: 0 0 18px; color: var(--mute); max-width: 60ch; }
+  .faq .list { margin-top: 26px; max-width: 720px; }
+
+  .contact { background: var(--ink); color: #fff; padding: 70px 0 44px; }
+  .contact .sig { width: min(56vw, 300px); filter: drop-shadow(0 0 16px rgba(240,127,183,.3)); }
+  .contact h2 { margin-top: 18px; }
+  .rows { margin-top: 26px; display: grid; gap: 16px; }
+  .rows span { display: block; font-size: 14px; color: #a99fab; }
+  .rows a, .rows p { font-weight: 500; font-size: 20px; }
+  .rows a { border-bottom: 1.5px solid var(--pink); }
+  .contact .btn { margin-top: 28px; }
+  .map { display: block; margin-top: 30px; border: 0; width: 100%; height: 240px; filter: grayscale(1) contrast(1.05) invert(.9) hue-rotate(180deg); border-radius: 6px; }
+  footer { background: var(--ink); color: #8f8592; font-size: 14px; text-align: center; padding: 4px var(--pad) 36px; }
+  footer a { color: #fff; border-bottom: 1px solid currentColor; }
+
+  .anim .sign, .anim .hero h1, .anim .hero .btn, .anim .hero .pulse { opacity: 0; }
+
+  @media (min-width: 900px) {
+    :root { --pad: 48px; }
+    .top { height: 78px; }
+    .lg { height: 54px; }
+    .nv { display: flex; margin-right: 12px; }
+    .tc span { display: inline; } .tc { padding: 0 18px; }
+    .mb { display: none; }
+    .pix { height: 210px; }
+    .three { padding: 130px 0 60px; }
+    .dev { grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: center; padding: 80px 0; }
+    .dev:nth-child(even) .ph { order: 2; }
+    .ems, .prices { padding: 130px 0; }
+    .rig { grid-template-columns: 1fr 1.1fr; gap: 70px; margin-top: 60px; }
+    .fig { width: 340px; }
+    .proof { padding: 130px 0 90px; }
+    .bens { grid-template-columns: 1fr 1fr; gap: 0 56px; }
+    .ben:nth-last-child(2) { border-bottom: 1px solid var(--line); }
+    .safe { padding-bottom: 130px; }
+    .cols { grid-template-columns: 1fr 1fr; }
+    .gal { padding: 140px var(--pad) 150px; }
+    .gg { grid-template-columns: repeat(5, 1fr); gap: 70px 40px; }
+    .gi { max-width: 130px; }
+    .gc { grid-column: auto; order: 0; margin: 0; }
+    .gc p { font-size: 22px; }
+    .faq { padding-bottom: 120px; }
+    .contact { padding: 120px 0 60px; }
+    .contact .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .map { margin-top: 0; height: 440px; }
+  }
+  /* telefon: spații strânse, fără intrări din lateral */
+  @media (max-width: 899px) {
+    .hero { padding-top: 14svh; }
+    .hero > .reel { height: 19svh; }
+    .lg { opacity: 0; transition: opacity .35s; }
+    .top.solid .lg, .open .lg { opacity: 1; }
+    .three, .ems, .proof, .prices, .gal { padding-top: 46px; padding-bottom: 46px; }
+    .safe, .faq { padding-bottom: 46px; }
+    .dev { padding: 36px 0; gap: 20px; }
+    .lead { font-size: 17px; }
+    .pulse { font-size: 14px; gap: 10px; }
+    .pulse .bar { width: 54px; }
+    .contact .sig { width: 190px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .reel .rt { animation: none; } }
+</style>
+</head>
+<body>
+  <header class="top" id="top">
+    <a class="lg" href="#hero" aria-label="Body Fit, sus"><img src="img/logo-s.png" alt="Body Fit" width="480" height="373" /></a>
+    <nav class="nv" aria-label="Meniu"><a href="#aparate">Aparate</a><a href="#ems">EMS</a><a href="#preturi">Prețuri</a><a href="#faq">Întrebări</a><a href="#contact">Contact</a></nav>
+    <a class="tc" href="tel:+40758407533"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span>0758 407 533</span></a>
+    <button class="mb" id="mb" type="button" aria-expanded="false" aria-controls="mn" aria-label="Deschide meniul"><i></i><i></i></button>
+  </header>
+  <div class="mn" id="mn" aria-hidden="true"><nav aria-label="Meniu pe telefon"><a href="#aparate">Aparate</a><a href="#ems">EMS</a><a href="#preturi">Prețuri</a><a href="#faq">Întrebări</a><a href="#contact">Contact</a></nav><p>Str. Aurel Popp 16, Satu Mare</p></div>
+
+  <main>
+    <section class="hero" id="hero">
+      <canvas id="gl" aria-hidden="true"></canvas>
+      <div class="sign"><img src="img/logo-s.png" alt="Body Fit" width="480" height="373" /></div>
+      <h1>ElectroFitness, Body Roll și capsula cu vid și infraroșu, în Satu Mare.</h1>
+      <a class="btn pk" href="tel:+40758407533"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>Programează o ședință</a>
+      <p class="pulse" aria-hidden="true"><span class="bar"><i id="pbar"></i></span><b id="ptxt">Impuls</b><span>ritmul unui antrenament EMS</span></p>
+      <div class="reel" aria-hidden="true"><div class="rt"><img src="img/seara.webp" alt="" /><img src="img/sala.webp" alt="" /><img src="img/capsula.webp" alt="" /><img src="img/sala-zi.webp" alt="" /><img src="img/seara.webp" alt="" /><img src="img/sala.webp" alt="" /><img src="img/capsula.webp" alt="" /><img src="img/sala-zi.webp" alt="" /><img src="img/seara.webp" alt="" /><img src="img/sala.webp" alt="" /><img src="img/capsula.webp" alt="" /><img src="img/sala-zi.webp" alt="" /></div></div>
+    </section>
+
+    <canvas class="pix" data-from="#0f0d10" data-to="#fbf8f6" aria-hidden="true"></canvas>
+
+    <section class="three" id="aparate">
+      <div class="wrap">
+        <div class="head"><h2 class="rvl">Trei aparate, o singură sală.</h2><p class="lead rv">Pe Aurel Popp 16 găsești costumele de ElectroFitness, două aparate Body Roll și capsulele Vacutherm, plus o zonă cu aparate pentru antrenamentul clasic.</p></div>
+        <article class="dev" style="--c: var(--ems)">
+          <div class="ph"><img src="img/sala.webp" alt="Sala Body Fit: costumele EMS pe perete, aparatele și capsulele" loading="lazy" /><i class="cur" aria-hidden="true"></i></div>
+          <div>
+            <p class="tag"><i aria-hidden="true"></i>ElectroFitness</p>
+            <h3>Antrenament cu costum EMS.</h3>
+            <p>Îmbraci un costum cu electrozi pe brațe, piept, abdomen, spate, fesieri și coapse. În timp ce faci exerciții simple, ghidat de antrenor, costumul trimite impulsuri care contractă mușchii odată cu mișcarea ta. O ședință durează în jur de 20 de minute.</p>
+            <ul><li>Antrenament complet într-un timp mai scurt</li><li>Forță și rezistență</li><li>Fără greutăți, deci fără încărcare pe articulații</li><li>Postură mai bună</li></ul>
+          </div>
+        </article>
+        <article class="dev" style="--c: var(--roll)">
+          <div class="ph"><img src="img/seara.webp" alt="Cele două aparate Body Roll și capsula, seara" loading="lazy" /><i class="cur" aria-hidden="true"></i></div>
+          <div>
+            <p class="tag"><i aria-hidden="true"></i>Body Roll</p>
+            <h3>Masaj cu role, cât stai relaxat.</h3>
+            <p>Un cilindru cu role care se rotesc lucrează pe zona pe care o sprijini: coapse, fesieri, abdomen sau spate. Stai așezat sau în genunchi, iar aparatul face restul. E bun după un antrenament sau după o zi lungă.</p>
+            <ul><li>Relaxare musculară</li><li>Mai puțin stres</li><li>Ameliorarea durerii musculare</li><li>Flexibilitate mai bună</li></ul>
+          </div>
+        </article>
+        <article class="dev" style="--c: var(--red)">
+          <div class="ph"><img src="img/capsula.webp" alt="Capsula Vacutherm, cu ecranul de control" loading="lazy" /><i class="cur" aria-hidden="true"></i></div>
+          <div>
+            <p class="tag"><i aria-hidden="true"></i>Capsula Vacutherm</p>
+            <h3>Mers pe bandă, cu vid și infraroșu.</h3>
+            <p>Intri în capsulă până la talie și mergi pe banda de alergare dinăuntru. În jurul picioarelor și al abdomenului se creează vid, iar lămpile cu infraroșu încălzesc zona. Te uiți la ecran, în timp ce mergi în ritmul tău.</p>
+            <ul><li>Cardio ușor, în ritmul tău</li><li>Căldură plăcută de la infraroșu</li><li>Poți să te uiți la ecran cât mergi</li></ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <canvas class="pix" data-from="#fbf8f6" data-to="#0f0d10" aria-hidden="true"></canvas>
+
+    <section class="ems" id="ems">
+      <div class="wrap">
+        <h2 class="rvl">Ce face, de fapt, EMS-ul.</h2>
+        <p class="lead rv" id="emslead">Electrozii trimit impulsuri ușoare către mușchi, iar mușchiul se contractă, la fel ca atunci când îl folosești singur. Diferența e că, deodată, lucrează aproape toate grupele mari de mușchi.</p>
+        <div class="rig">
+          <div class="fig" id="fig" aria-hidden="true">
+            <svg viewBox="0 0 200 400">
+              <circle class="body" cx="100" cy="42" r="20"/><path class="body" d="M92 61 L92 68 M108 61 L108 68 M70 74q30 -10 60 0 l22 10 q8 4 8 14 l6 70 q1 10 -6 12 l-4 0 q-6 -2 -6 -10 l-6 -56 M70 74 l-22 10 q-8 4 -8 14 l-6 70 q-1 10 6 12 l4 0 q6 -2 6 -10 l6 -56 M70 74 q-6 70 4 108 q-2 30 -2 50 l4 126 q0 8 8 8 l8 0 q6 0 6 -8 l2 -120 q0 -6 4 -6 q4 0 4 6 l2 120 q0 8 6 8 l8 0 q8 0 8 -8 l4 -126 q0 -20 -2 -50 q10 -38 4 -108"/>
+              <rect class="pad" x="40" y="92" width="14" height="44" rx="7"/><rect class="pad" x="146" y="92" width="14" height="44" rx="7"/>
+              <rect class="pad" x="76" y="86" width="20" height="26" rx="8"/><rect class="pad" x="104" y="86" width="20" height="26" rx="8"/>
+              <rect class="pad" x="80" y="124" width="40" height="44" rx="10"/>
+              <rect class="pad" x="76" y="190" width="20" height="18" rx="7"/><rect class="pad" x="104" y="190" width="20" height="18" rx="7"/>
+              <rect class="pad" x="78" y="220" width="18" height="60" rx="9"/><rect class="pad" x="104" y="220" width="18" height="60" rx="9"/>
+            </svg>
+            <p class="lab"><b id="figtxt">Pauză</b>, 4 secunde</p>
+          </div>
+          <ol class="steps">
+            <li class="rv"><b>Te echipezi</b><span>Primești un costum de antrenament și vesta cu electrozi, umeziți ca să conducă impulsul.</span></li>
+            <li class="rv"><b>Antrenorul reglează intensitatea</b><span>Pe fiecare grupă de mușchi în parte, de la ușor în sus. Prima ședință e mai blândă, ca să te obișnuiești.</span></li>
+            <li class="rv"><b>Faci exerciții simple, 20 de minute</b><span>Genuflexiuni, fandări, mișcări de brațe. Impulsul vine câteva secunde, apoi urmează o pauză, iar tu lucrezi în ritmul lui. Antrenorul e lângă tine tot timpul.</span></li>
+            <li class="rv"><b>Te odihnești câteva zile</b><span>Mușchii au nevoie de cel puțin 4 zile de pauză. La început, o ședință pe săptămână e de ajuns.</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <canvas class="pix" data-from="#0f0d10" data-to="#fbf8f6" aria-hidden="true"></canvas>
+
+    <section class="proof" id="studii">
+      <div class="wrap">
+        <h2 class="rvl">Ce spun studiile despre EMS.</h2>
+        <p class="lead rv">Pe scurt, cu cât de sigure sunt rezultatele. Ce e dovedit bine, ce e promițător și ce e doar reclamă.</p>
+        <div class="bens" id="bens"></div>
+        <div class="myth rv" id="myth"></div>
+      </div>
+    </section>
+
+    <section class="safe" id="siguranta">
+      <div class="wrap cols">
+        <div class="card2 rv" id="cando"></div>
+        <div class="card2 no rv" id="cannot"></div>
+      </div>
+    </section>
+
+    <canvas class="pix" data-from="#fbf8f6" data-to="#0f0d10" aria-hidden="true"></canvas>
+
+    <section class="prices" id="preturi">
+      <div class="wrap">
+        <h2 class="rvl">Prețuri și pachete.</h2>
+        <p class="lead rv">Ședințe la bucată sau pachete, cu valabilitate de la 30 la 90 de zile.</p>
+        <div class="tabs" role="tablist">
+          <button role="tab" aria-selected="true" data-t="0">ElectroFitness</button><button role="tab" aria-selected="false" data-t="1">Capsula</button><button role="tab" aria-selected="false" data-t="2">Pachete combinate</button>
+        </div>
+        <ul class="plist" id="plist"></ul>
+        <p class="pnote">Prețurile sunt cele publicate de Body Fit. Pot fi actualizate, confirmă-le la telefon.</p>
+        <a class="btn pk" href="tel:+40758407533">Sună pentru programare</a>
+      </div>
+    </section>
+
+    <canvas class="pix" data-from="#0f0d10" data-to="#fbf8f6" aria-hidden="true"></canvas>
+
+    <section class="gal" id="pics" aria-label="Poze din sală">
+      <div class="gg" id="gg">
+        <img class="gi" src="img/g0.webp" alt="Body Roll, seara" loading="lazy" />
+        <img class="gi" src="img/g5.webp" alt="Capsula cu lumină albastră" loading="lazy" />
+        <img class="gi" src="img/g3.webp" alt="Antrenament în capsula Vacutherm" loading="lazy" />
+        <img class="gi" src="img/g7.webp" alt="Zona de aparate" loading="lazy" />
+        <img class="gi" src="img/g1.webp" alt="Capsula, în lumina de seară" loading="lazy" />
+        <img class="gi" src="img/g11.webp" alt="Capsula cu lumină roșie" loading="lazy" />
+        <img class="gi" src="img/g9.webp" alt="Pe banda din capsulă" loading="lazy" />
+        <div class="gc"><p>Sala, în poze.</p><a href="#contact">Vino să o vezi</a></div>
+        <img class="gi" src="img/g4.webp" alt="Body Roll" loading="lazy" />
+        <img class="gi" src="img/g6.webp" alt="Intrarea în sală" loading="lazy" />
+        <img class="gi" src="img/g2.webp" alt="Rolele Body Roll" loading="lazy" />
+        <img class="gi" src="img/g8.webp" alt="Aparat cu ecran" loading="lazy" />
+        <img class="gi" src="img/g10.webp" alt="Ecranul capsulei" loading="lazy" />
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="wrap">
+        <h2 class="rvl">Înainte să vii.</h2>
+        <div class="list" id="faqlist"></div>
+      </div>
+    </section>
+
+    <canvas class="pix" data-from="#fbf8f6" data-to="#0f0d10" aria-hidden="true"></canvas>
+
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <div>
+          <div class="sig"><img src="img/logo-s.png" alt="" width="480" height="373" /></div>
+          <h2 class="rvl">Te așteptăm pe Aurel Popp.</h2>
+          <div class="rows">
+            <div class="rv"><span>Telefon și programări</span><a href="tel:+40758407533">0758 407 533</a></div>
+            <div class="rv"><span>Adresa</span><p>Str. Aurel Popp 16, Satu Mare, lângă Direcția de Impozite și Taxe Locale</p></div>
+            <div class="rv"><span>Facebook</span><p>Body Fit Satu Mare</p></div>
+          </div>
+          <a class="btn pk" href="tel:+40758407533">Sună acum</a>
+        </div>
+        <iframe class="map" title="Harta până la Body Fit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Strada+Aurel+Popp+16,+Satu+Mare&amp;output=embed"></iframe>
+      </div>
+    </section>
+  </main>
+  <footer>Demo al site-ului realizat de <a href="https://rtweb.ro">RTWEB</a> pentru Body Fit</footer>
+
+<script src="content.js"></script>
+<script>
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (s) => document.querySelector(s), $$ = (s) => document.querySelectorAll(s);
+const hero = $("#hero");
+const hdr = $("#top"), mb = $("#mb"), mn = $("#mn");
+const setTop = () => hdr.classList.toggle("solid", scrollY > innerHeight * .7); addEventListener("scroll", setTop, { passive: true }); setTop();
+const setMenu = (o) => { document.documentElement.classList.toggle("open", o); mb.setAttribute("aria-expanded", o); mn.setAttribute("aria-hidden", !o);
+  if (o && !reduce) $$("#mn .roll").forEach((r, k) => { r.classList.remove("go"); setTimeout(() => r.classList.add("go"), 300 + k * 90); setTimeout(() => r.classList.remove("go"), 1100 + k * 90); }); };
+mb.addEventListener("click", () => setMenu(!document.documentElement.classList.contains("open")));
+document.addEventListener("click", (e) => { const a = e.target.closest('a[href^="#"]'); if (!a) return; e.preventDefault(); setMenu(false);
+  const el = document.getElementById(a.getAttribute("href").slice(1)); scrollTo({ top: el ? el.getBoundingClientRect().top + scrollY - (el.id === "hero" ? 0 : 70) : 0, behavior: "smooth" }); });
+// literele din meniu, pentru rostogolire
+$$(".nv a, .mn nav a").forEach((a) => { const t = a.textContent.trim(), ch = [...t], mid = (ch.length - 1) / 2; a.setAttribute("aria-label", t);
+  a.innerHTML = `<span class="roll" aria-hidden="true">${ch.map((c, i) => c === " " ? '<span class="sp"></span>' : `<span class="l"><span style="--d:${Math.round(Math.abs(i - mid) * 26)}">${c}</span></span>`).join("")}</span>`; });
+
+// conținutul de studii, siguranță, prețuri și întrebări vine din content.js
+const C = window.BF;
+$("#bens").innerHTML = C.bens.map((b) => `<article class="ben rv"><span class="lvl"><span class="dots">${[1,2,3].map((i) => `<i class="${i <= b.lvl ? "f" : ""}"></i>`).join("")}</span>${["", "Dovezi slabe", "Dovezi moderate", "Dovezi solide"][b.lvl]}</span><h3>${b.h}</h3><p>${b.p}</p></article>`).join("");
+$("#myth").innerHTML = `<h3>${C.myth.h}</h3><p>${C.myth.p}</p>`;
+$("#cando").innerHTML = `<h3>${C.cando.h}</h3><ul>${C.cando.li.map((x) => `<li>${x}</li>`).join("")}</ul>`;
+$("#cannot").innerHTML = `<h3>${C.cannot.h}</h3><ul>${C.cannot.li.map((x) => `<li>${x}</li>`).join("")}</ul><p class="note">${C.cannot.note}</p>`;
+$("#faqlist").innerHTML = C.faq.map(([q, a]) => `<details class="rv"><summary>${q}</summary><p>${a}</p></details>`).join("");
+const showPrices = (k) => { $("#plist").innerHTML = C.prices[k].map(([n, s, p]) => `<li><span>${n}${s ? `<small>${s}</small>` : ""}</span><b>${p}</b></li>`).join("");
+  $$(".tabs button").forEach((b) => b.setAttribute("aria-selected", b.dataset.t == k)); };
+$$(".tabs button").forEach((b) => b.addEventListener("click", () => showPrices(+b.dataset.t))); showPrices(0);
+
+/* ritmul EMS: 4 secunde impuls, 4 secunde pauză; îl urmează bara din primul ecran, corpul desenat și lumina din WebGL */
+let pulse = 0;
+const P = 8;
+const rhythm = (now) => { const t = (now / 1000) % P, on = t < 4; pulse = on ? Math.sin(Math.min(1, t / .35) * Math.PI / 2) * (t > 3.6 ? (4 - t) / .4 : 1) : 0;
+  $("#pbar").style.transform = `scaleX(${on ? t / 4 : 1 - (t - 4) / 4})`; $("#pbar").style.background = on ? "var(--ems)" : "rgba(255,255,255,.45)";
+  $("#ptxt").textContent = on ? "Impuls" : "Pauză"; $("#figtxt").textContent = on ? "Impuls" : "Pauză"; $("#fig").classList.toggle("on", on);
+  requestAnimationFrame(rhythm); };
+if (!reduce) requestAnimationFrame(rhythm); else { $(".pulse").style.display = "none"; }
+
+/* ---------- WebGL: fire de curent roz care curg prin sală și se aprind pe impuls ---------- */
+(() => {
+  const cv = $("#gl"), gl = cv.getContext("webgl", { antialias: false, premultipliedAlpha: false });
+  if (!gl) return;
+  const vs = `attribute vec2 p; void main(){ gl_Position = vec4(p,0.,1.); }`;
+  const fs = `precision mediump float;
+  uniform vec2 r; uniform float t; uniform vec2 m; uniform float mp; uniform float pu;
+  float h(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }
+  float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
+    return mix(mix(h(i), h(i+vec2(1,0)), f.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y); }
+  float fbm(vec2 p){ float v = 0., a = .5; mat2 R = mat2(.8,.6,-.6,.8); for (int i = 0; i < 5; i++){ v += a*n(p); p = R*p*2.03 + 1.7; a *= .5; } return v; }
+  void main(){
+    vec2 p = (gl_FragCoord.xy - .5*r) / min(r.x, r.y);
+    vec2 d = p - m; float pull = mp * exp(-dot(d,d) * 6.);
+    p += normalize(d + 1e-4) * pull * .25;
+    float tt = t * .07;
+    vec2 q = vec2(fbm(p*1.3 + tt), fbm(p*1.3 - tt + 5.1));
+    float f = fbm(p*1.6 + 2.4*q + vec2(tt*1.4, -tt));
+    // fire subțiri: unde valoarea zgomotului trece prin aceleași praguri
+    float lines = 0.;
+    for (int k = 0; k < 3; k++) { float lv = .38 + float(k) * .09; lines += smoothstep(.012, .0, abs(f - lv)); }
+    vec3 ink = vec3(.06,.05,.065), pink = vec3(.94,.50,.72), mint = vec3(.25,.88,.65);
+    vec3 col = ink + vec3(.08,.04,.065) * smoothstep(.3, .9, f);
+    col += pink * lines * (.13 + .55 * pu) * mix(.35, 1., smoothstep(.15, .75, length(p * vec2(1.2, .9))));
+    // pe impuls, o undă pornește din centru
+    float ring = smoothstep(.04, .0, abs(length(p) - (.25 + fract(t / 8.) * 1.4))) * pu;
+    col += mint * ring * .35;
+    col += pink * pull * .3;
+    float vig = smoothstep(1.3, .2, length(p * vec2(.9, 1.1)));
+    col *= mix(.5, 1., vig);
+    col += (h(gl_FragCoord.xy + t) - .5) * .03;
+    gl_FragColor = vec4(col, 1.);
+  }`;
+  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+  const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr);
+  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+  gl.useProgram(pr);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const U = (k) => gl.getUniformLocation(pr, k), ur = U("r"), ut = U("t"), um = U("m"), ump = U("mp"), upu = U("pu");
+  const scale = innerWidth < 900 ? .5 : .7;
+  let W = 0, H = 0;
+  const size = () => { const w = Math.round(hero.clientWidth * scale), h = Math.round(hero.clientHeight * scale); if (w === W && h === H) return; W = cv.width = w; H = cv.height = h; gl.viewport(0, 0, W, H); };
+  size(); let lw = innerWidth; addEventListener("resize", () => { if (innerWidth !== lw) { lw = innerWidth; size(); } });
+  let mx = 0, my = 0, tx = 0, ty = 0, mp = 0, tmp = 0, vis = true, pv = 0;
+  const point = (x, y) => { const r = hero.getBoundingClientRect(), s = Math.min(r.width, r.height); tx = (x - r.left - r.width / 2) / s; ty = -(y - r.top - r.height / 2) / s; tmp = 1; };
+  hero.addEventListener("pointermove", (e) => point(e.clientX, e.clientY));
+  hero.addEventListener("pointerleave", () => (tmp = 0));
+  new IntersectionObserver(([e]) => (vis = e.isIntersecting)).observe(hero);
+  const frame = (now) => {
+    requestAnimationFrame(frame);
+    if (!vis) return;
+    const t = now / 1000;
+    if (tmp === 0) { tx = Math.sin(t * .3) * .3; ty = Math.cos(t * .23) * .18; }
+    mx += (tx - mx) * .06; my += (ty - my) * .06; mp += ((tmp || .3) - mp) * .05; pv += (pulse - pv) * .2;
+    gl.uniform2f(ur, W, H); gl.uniform1f(ut, reduce ? 4 : t); gl.uniform2f(um, mx, my); gl.uniform1f(ump, mp); gl.uniform1f(upu, reduce ? .4 : pv);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  };
+  requestAnimationFrame(frame);
+})();
+
+/* ---------- trecerile cu pătrățele ---------- */
+$$(".pix").forEach((cv) => {
+  const ctx = cv.getContext("2d"), from = cv.dataset.from, to = cv.dataset.to;
+  let cells = [], W = 0, H = 0, cell = 6, cur = 0, goal = 0, drawn = -1, on = false;
+  const rnd = (i) => { const x = Math.sin(i * 12.9898) * 43758.5453; return x - Math.floor(x); };
+  const build = () => { const d = Math.min(devicePixelRatio, 2); W = cv.clientWidth; H = cv.clientHeight; cell = W < 900 ? 5 : 6;
+    cv.width = Math.round(W * d); cv.height = Math.round(H * d); ctx.setTransform(d, 0, 0, d, 0, 0);
+    const cols = Math.ceil(W / cell), rows = Math.ceil(H / cell); cells = [];
+    for (let r = 0; r < rows; r++) { const dd = Math.pow(1 - r / rows, 1.6); for (let c = 0; c < cols; c++) { const i = r * cols + c; if (rnd(i) < dd) cells.push({ x: c * cell, y: r * cell, delay: rnd(i + 7.31) * .55 + (r / rows) * .25 }); } }
+    drawn = -1; };
+  const draw = (p) => { ctx.fillStyle = to; ctx.fillRect(0, 0, W, H); ctx.fillStyle = from; ctx.fillRect(0, 0, W, cell); ctx.beginPath();
+    for (const k of cells) { const t = Math.min(1, Math.max(0, (p - k.delay) / .2)); if (t <= 0) continue; const e = 1 - Math.pow(1 - t, 3); ctx.rect(k.x, k.y * e, cell, cell); } ctx.fill(); };
+  const measure = () => { const r = cv.getBoundingClientRect(); goal = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .75))); };
+  const tick = () => { if (!on) return; cur += (goal - cur) * .14; if (Math.abs(goal - cur) < .001) cur = goal; if (Math.abs(cur - drawn) > .0005) { draw(cur); drawn = cur; } requestAnimationFrame(tick); };
+  build(); if (reduce) { draw(1); return; } draw(0);
+  new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on) { measure(); tick(); } }, { rootMargin: "100px 0px" }).observe(cv);
+  addEventListener("scroll", measure, { passive: true });
+  let lw = innerWidth; addEventListener("resize", () => { if (innerWidth !== lw) { lw = innerWidth; build(); draw(cur); } });
+});
+
+addEventListener("DOMContentLoaded", () => {
+  if (!window.gsap || reduce) { document.documentElement.classList.remove("anim"); return; }
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.timeline({ delay: .15 })
+    .fromTo(".sign", { opacity: 0, scale: .92, filter: "drop-shadow(0 0 0 rgba(240,127,183,0)) brightness(.4)" }, { opacity: 1, scale: 1, filter: "drop-shadow(0 0 18px rgba(240,127,183,.35)) brightness(1)", duration: 1.2, ease: "expo.out" })
+    .fromTo(".hero h1", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, .5)
+    .fromTo(".hero .btn", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, .7)
+    .fromTo(".hero .pulse", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, .9);
+  // titlurile urcă din mască, cuvânt cu cuvânt
+  $$("main .rvl").forEach((el) => {
+    el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="lm"><span>${w}&nbsp;</span></span>`).join("");
+    gsap.from(el.querySelectorAll(".lm > span"), { yPercent: 115, duration: 1.05, ease: "expo.out", stagger: .05, scrollTrigger: { trigger: el, start: "top 88%" } });
+  });
+  gsap.utils.toArray("main .rv").forEach((el) => gsap.from(el, { y: 22, opacity: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 92%" } }));
+  // cortina în culoarea aparatului se retrage și dezvăluie poza; textul aparatului urcă
+  $$(".dev").forEach((d) => {
+    const tl = gsap.timeline({ scrollTrigger: { trigger: d, start: "top 78%" } });
+    tl.fromTo(d.querySelector(".cur"), { scaleX: 1 }, { scaleX: 0, duration: 1.1, ease: "expo.inOut" })
+      .from(d.querySelector(".ph img"), { scale: 1.18, duration: 1.6, ease: "expo.out" }, .25)
+      .from(d.querySelectorAll(".tag, h3, p, li"), { y: 24, opacity: 0, duration: .8, ease: "power3.out", stagger: .06 }, .2);
+  });
+  // galeria se adună spre centru
+  (() => { const g = $("#gg"), items = [...g.querySelectorAll(".gi")], mob = innerWidth < 900;
+    items.forEach((im) => { const r = im.getBoundingClientRect(), gr = g.getBoundingClientRect();
+      const dx = (r.left + r.width / 2) - (gr.left + gr.width / 2), dy = (r.top + r.height / 2) - (gr.top + gr.height / 2);
+      gsap.fromTo(im, mob ? { y: 60 + Math.abs(dy) * .25, scale: .9, opacity: 0 } : { x: dx * .6, y: dy * .7, scale: .85, opacity: .25 }, { x: 0, y: 0, scale: 1, opacity: 1, ease: "none",
+        scrollTrigger: { trigger: g, start: "top 95%", end: mob ? "center 60%" : "center 55%", scrub: .6 } }); });
+  })();
+});
+</script>
+</body>
+</html>
