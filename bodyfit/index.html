@@ -268,6 +268,13 @@
   }
   /* telefon: spații strânse, fără intrări din lateral */
   @media (max-width: 899px) {
+    .top { top: 8px; width: calc(100% - 24px); height: 50px; padding: 0 5px 0 14px; gap: 6px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1), 0 6px 18px rgba(0,0,0,.25); }
+    .lg { height: 30px; }
+    .tc, .mb { height: 40px; min-width: 40px; width: 40px; padding: 0; }
+    .tc svg { width: 16px; height: 16px; }
+    .mb { gap: 4px; } .mb i { width: 16px; }
+    .open .mb i:first-child { transform: translateY(3px) rotate(45deg); } .open .mb i:last-child { transform: translateY(-3px) rotate(-45deg); }
+    .mn { padding-top: 90px; }
     .hero { padding-top: 14svh; }
     .hero > .reel { height: 19svh; }
     .three, .ems, .proof, .prices, .gal { padding-top: 46px; padding-bottom: 46px; }
@@ -458,7 +465,7 @@ const setMenu = (o) => { document.documentElement.classList.toggle("open", o); m
   if (o && !reduce) $$("#mn .roll").forEach((r, k) => { r.classList.remove("go"); setTimeout(() => r.classList.add("go"), 300 + k * 90); setTimeout(() => r.classList.remove("go"), 1100 + k * 90); }); };
 mb.addEventListener("click", () => setMenu(!document.documentElement.classList.contains("open")));
 document.addEventListener("click", (e) => { const a = e.target.closest('a[href^="#"]'); if (!a) return; e.preventDefault(); setMenu(false);
-  const el = document.getElementById(a.getAttribute("href").slice(1)); scrollTo({ top: el ? el.getBoundingClientRect().top + scrollY - (el.id === "hero" ? 0 : 84) : 0, behavior: "smooth" }); });
+  const el = document.getElementById(a.getAttribute("href").slice(1)); scrollTo({ top: el ? el.getBoundingClientRect().top + scrollY - (el.id === "hero" ? 0 : (innerWidth < 900 ? 66 : 84)) : 0, behavior: "smooth" }); });
 // pastila din header urmărește secțiunea în care ești
 { const hl = $(".nv .hl"), links = [...$$(".nv a")], secs = links.map((a) => document.getElementById(a.getAttribute("href").slice(1)));
   let last = -2; const spy = () => { let k = -1; secs.forEach((el, i) => { if (el && el.getBoundingClientRect().top < innerHeight * .4) k = i; });
