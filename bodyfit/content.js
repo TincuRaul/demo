@@ -25,10 +25,11 @@ window.BF = {
     "Boli acute, febră sau infecții",
     "Tulburări de coagulare, hernii"
   ], note: "Dacă ai diabet, cancer, boli de inimă sau de rinichi, hernie de disc ori dureri de spate nediagnosticate, întreabă-ți întâi medicul. Lista completă o primești la prima ședință." },
+  // fiecare pachet: ședințele desenate ca blocuri de impuls, în culoarea aparatului (e = EMS, c = capsulă, r = Body Roll, g = gratuită)
   prices: [
-    [["O ședință", "", "60 lei"], ["4 ședințe", "valabile 30 de zile", "200 lei"], ["8 ședințe", "valabile 60 de zile", "420 lei"], ["10 ședințe + 1 gratuită", "valabile 90 de zile", "480 lei"]],
-    [["O ședință", "", "60 lei"], ["5 ședințe + 2 de Body Roll", "valabile 30 de zile", "200 lei"], ["10 ședințe + 5 de Body Roll", "valabile 60 de zile", "500 lei"]],
-    [["4 + 4 + 4", "EMS, capsulă și Body Roll", "400 lei"], ["8 + 4 + 4", "EMS, capsulă și Body Roll", "600 lei"], ["10 + 8 + 8", "EMS, capsulă și Body Roll", "750 lei"]]
+    [["O ședință", "", 60, [["e",1]]], ["4 ședințe", "valabile 30 de zile", 200, [["e",4]]], ["8 ședințe", "valabile 60 de zile", 420, [["e",8]]], ["10 ședințe + 1 gratuită", "valabile 90 de zile", 480, [["e",10],["g",1]]]],
+    [["O ședință", "", 60, [["c",1]]], ["5 ședințe + 2 de Body Roll", "valabile 30 de zile", 200, [["c",5],["r",2]]], ["10 ședințe + 5 de Body Roll", "valabile 60 de zile", 500, [["c",10],["r",5]]]],
+    [["4 + 4 + 4", "EMS, capsulă și Body Roll", 400, [["e",4],["c",4],["r",4]]], ["8 + 4 + 4", "EMS, capsulă și Body Roll", 600, [["e",8],["c",4],["r",4]]], ["10 + 8 + 8", "EMS, capsulă și Body Roll", 750, [["e",10],["c",8],["r",8]]]]
   ],
   faq: [
     ["Cât durează o ședință de EMS?", "În jur de 20 de minute de antrenament efectiv, plus câteva minute ca să te echipezi."],
