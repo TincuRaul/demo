@@ -59,7 +59,8 @@
   .tc svg { width: 17px; height: 17px; } .tc span { display: none; }
   .mb { width: 46px; height: 46px; border: 0; border-radius: 50%; background: rgba(255,255,255,.12); display: grid; place-content: center; gap: 5px; cursor: pointer; }
   .mb i { display: block; width: 18px; height: 2px; background: #fff; transition: transform .3s; }
-  .open .mb i:first-child { transform: translateY(3.5px) rotate(45deg); } .open .mb i:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+  .mb i:nth-child(2) { transition: opacity .2s; }
+  .open .mb i:first-child { transform: translateY(7px) rotate(45deg); } .open .mb i:nth-child(2) { opacity: 0; } .open .mb i:last-child { transform: translateY(-7px) rotate(-45deg); }
   .mn { position: fixed; inset: 0; z-index: 45; background: var(--ink); color: #fff; padding: 110px var(--pad) 40px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s .25s; }
   .open .mn { opacity: 1; visibility: visible; transition: opacity .25s; }
   .mn nav { display: grid; }
@@ -308,7 +309,7 @@
     .tc svg { width: 14px; height: 14px; }
     .mb { gap: 4px; } .mb i { width: 14px; height: 1.5px; }
     .top.hid { transform: translate(-50%, -70px); }
-    .open .mb i:first-child { transform: translateY(3px) rotate(45deg); } .open .mb i:last-child { transform: translateY(-3px) rotate(-45deg); }
+    .open .mb i:first-child { transform: translateY(5.5px) rotate(45deg); } .open .mb i:last-child { transform: translateY(-5.5px) rotate(-45deg); }
     .mn { padding-top: 80px; }
     .hero { padding-top: 14svh; }
     .hero > .reel { height: 19svh; }
@@ -328,7 +329,7 @@
     <a class="lg" href="#hero" aria-label="Body Fit, sus"><img src="img/logo-s.png" alt="Body Fit" width="480" height="373" /></a>
     <nav class="nv" aria-label="Meniu"><i class="hl" aria-hidden="true"></i><a href="#aparate">Aparate</a><a href="#ems">EMS</a><a href="#preturi">Prețuri</a><a href="#faq">Întrebări</a><a href="#contact">Contact</a></nav>
     <a class="tc" href="tel:+40758407533"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span>0758 407 533</span></a>
-    <button class="mb" id="mb" type="button" aria-expanded="false" aria-controls="mn" aria-label="Deschide meniul"><i></i><i></i></button>
+    <button class="mb" id="mb" type="button" aria-expanded="false" aria-controls="mn" aria-label="Deschide meniul"><i></i><i></i><i></i></button>
   </header>
   <div class="mn" id="mn" aria-hidden="true"><nav aria-label="Meniu pe telefon"><a href="#aparate">Aparate</a><a href="#ems">EMS</a><a href="#preturi">Prețuri</a><a href="#faq">Întrebări</a><a href="#contact">Contact</a></nav><p>Str. Aurel Popp 16, Satu Mare</p></div>
 
