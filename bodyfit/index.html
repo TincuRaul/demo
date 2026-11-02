@@ -221,15 +221,23 @@
   .faq .list { margin: 34px auto 0; max-width: 760px; }
   .faq summary { text-align: left; }
 
-  .contact { background: var(--ink); color: #fff; padding: 70px 0 44px; }
-  .contact .sig { width: min(56vw, 300px); filter: drop-shadow(0 0 16px rgba(240,127,183,.3)); }
-  .contact h2 { margin-top: 18px; }
-  .rows { margin-top: 26px; display: grid; gap: 16px; }
-  .rows > div > span { display: block; font-size: 14px; color: #a99fab; }
-  .rows a, .rows p { font-weight: 500; font-size: 20px; }
-  .rows a { border-bottom: 1.5px solid var(--pink); }
-  .contact .btn { margin-top: 28px; }
-  .map { display: block; margin-top: 30px; border: 0; width: 100%; height: 240px; filter: grayscale(1) contrast(1.05) invert(.9) hue-rotate(180deg); border-radius: 6px; }
+  /* contact: rânduri despărțite de linii în stânga, harta cu un card cu sala în dreapta */
+  .contact { background: var(--ink); color: #fff; padding: 64px 0 56px; }
+  .cgrid { margin-top: 30px; display: grid; gap: 30px; }
+  .rows { display: grid; }
+  .rows > div { display: grid; gap: 4px; padding: 18px 0; border-top: 1px solid rgba(255,255,255,.12); }
+  .rows > div:last-child { border-bottom: 1px solid rgba(255,255,255,.12); }
+  .rows dt { font-size: 14px; color: #a99fab; }
+  .rows dd { font-weight: 500; font-size: 21px; line-height: 1.35; }
+  .rows dd a { border-bottom: 1.5px solid var(--pink); }
+  .rows small { display: block; margin-top: 4px; font-weight: 400; font-size: 15px; color: #a99fab; }
+  .contact .btn { margin-top: 26px; }
+  .cmap { position: relative; border-radius: 14px; overflow: hidden; min-height: 320px; background: var(--char); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+  .map { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(1) contrast(1.05) invert(.9) hue-rotate(180deg); }
+  .mcard { position: absolute; left: 12px; bottom: 12px; display: flex; gap: 12px; align-items: center; padding: 8px 16px 8px 8px; border-radius: 12px; background: rgba(15,13,16,.86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); font-size: 14px; color: #c9c0cb; }
+  .mcard img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; }
+  .mcard b { display: block; color: #fff; font-size: 16px; }
+  .mcard em { display: block; font-style: normal; color: var(--pink); margin-top: 2px; }
   /* footer: logo și o frază, apoi adresa, telefonul și scurtăturile; dedesubt linia de demo */
   .foot { background: var(--ink); color: #b9afbb; padding: 56px var(--pad) 36px; display: grid; gap: 28px; font-size: 16px; line-height: 1.55; border-top: 1px solid rgba(240,127,183,.16); }
   .f-logo img { display: block; height: 64px; width: auto; }
@@ -280,9 +288,12 @@
     .gc p { font-size: 22px; }
     .faq { padding-bottom: 120px; }
     .foot { grid-template-columns: 1.4fr 1fr 1fr .8fr; gap: 32px; padding: 72px max(48px, calc((100% - 1180px) / 2)) 40px; }
-    .contact { padding: 120px 0 60px; }
-    .contact .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-    .map { margin-top: 0; height: 440px; }
+    .contact { padding: 120px 0 90px; }
+    .contact .wrap { max-width: 1320px; }
+    .cgrid { margin-top: 44px; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: stretch; }
+    .rows dd { font-size: 24px; }
+    .cmap { min-height: 480px; }
+    .mcard { left: 18px; bottom: 18px; }
   }
   /* telefon: spații strânse, fără intrări din lateral */
   @media (max-width: 899px) {
@@ -305,7 +316,6 @@
     .hero h1 { max-width: 30ch; font-size: 19px; }
     .pulse { font-size: 14px; gap: 10px; }
     .pulse .bar { width: 54px; }
-    .contact .sig { width: 190px; }
   }
   @media (prefers-reduced-motion: reduce) { .reel .rt { animation: none; } }
 </style>
@@ -459,17 +469,21 @@
 
     <section class="contact" id="contact">
       <div class="wrap">
-        <div>
-          <div class="sig"><img src="img/logo-s.png" alt="" width="480" height="373" /></div>
-          <h2 class="rvl">Te așteptăm pe Aurel Popp.</h2>
-          <div class="rows">
-            <div class="rv"><span>Telefon și programări</span><a href="tel:+40758407533">0758 407 533</a></div>
-            <div class="rv"><span>Adresa</span><p>Str. Aurel Popp 16, Satu Mare, lângă Direcția de Impozite și Taxe Locale</p></div>
-            <div class="rv"><span>Facebook</span><p>Body Fit Satu Mare</p></div>
+        <h2 class="rvl">Te așteptăm pe Aurel Popp.</h2>
+        <div class="cgrid">
+          <div class="cinfo">
+            <dl class="rows">
+              <div class="rv"><dt>Telefon</dt><dd><a href="tel:+40758407533">0758 407 533</a><small>Programările se fac la telefon.</small></dd></div>
+              <div class="rv"><dt>Adresa</dt><dd>Str. Aurel Popp 16, Satu Mare<small>Lângă Direcția de Impozite și Taxe Locale.</small></dd></div>
+              <div class="rv"><dt>Facebook</dt><dd>Body Fit Satu Mare</dd></div>
+            </dl>
+            <a class="btn gb" href="tel:+40758407533"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></span><span>Sună acum</span></a>
           </div>
-          <a class="btn gb" href="tel:+40758407533"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></span><span>Sună acum</span></a>
+          <div class="cmap">
+            <iframe class="map" title="Harta până la Body Fit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Strada+Aurel+Popp+16,+Satu+Mare&amp;output=embed"></iframe>
+            <a class="mcard" href="https://www.google.com/maps/search/?api=1&amp;query=Strada+Aurel+Popp+16+Satu+Mare"><img src="img/seara.webp" alt="Sala Body Fit, seara" loading="lazy" /><span><b>Body Fit</b>Str. Aurel Popp 16<em>Deschide în Google Maps</em></span></a>
+          </div>
         </div>
-        <iframe class="map" title="Harta până la Body Fit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Strada+Aurel+Popp+16,+Satu+Mare&amp;output=embed"></iframe>
       </div>
     </section>
   </main>
@@ -648,7 +662,7 @@ addEventListener("DOMContentLoaded", () => {
         c.textContent.split(/(\s+)/).forEach((w) => { if (!w) return; if (/^\s+$/.test(w)) { f.append(" "); return; } const o = document.createElement("span"); o.className = "lm"; o.innerHTML = "<span></span>"; o.firstChild.textContent = w; f.append(o); });
         c.replaceWith(f); }
       else if (c.nodeType === 1 && !c.matches("svg, .dots, i")) walk(c); }); }; walk(el); return el.querySelectorAll(".lm > span"); };
-  const txt = "main .lead, .hero h1 ~ x, .dev h3, .dev p:not(.tag), .dev li, .steps b, .steps span, .ben h3, .ben p, .myth h3, .myth p, .card2 h3, .card2 li, .card2 .note, .pnote, .gc p, .faq summary, .rows span, .rows p, .rows a";
+  const txt = "main .lead, .hero h1 ~ x, .dev h3, .dev p:not(.tag), .dev li, .steps b, .steps span, .ben h3, .ben p, .myth h3, .myth p, .card2 h3, .card2 li, .card2 .note, .pnote, .gc p, .faq summary, .rows dt, .rows dd";
   $$(txt).forEach((el) => { const ws = words(el); if (!ws.length) return;
     gsap.from(ws, { yPercent: 110, duration: .9, ease: "expo.out", stagger: Math.min(.03, .6 / ws.length), scrollTrigger: { trigger: el, start: "top 92%" } }); });
   gsap.utils.toArray("main .rv").forEach((el) => gsap.from(el, { y: 18, opacity: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 94%" } }));
