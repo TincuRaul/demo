@@ -254,7 +254,15 @@
     .mb { display: none; }
     .imp { height: 150px; }
     .three { padding: 130px 0 60px; }
-    .dev { grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: center; padding: 80px 0; }
+    .three .wrap { max-width: 1440px; }
+    .dev { grid-template-columns: 1.45fr 1fr; gap: 72px; align-items: center; padding: 90px 0; }
+    .dev:nth-child(even) { grid-template-columns: 1fr 1.45fr; }
+    .dev .ph { aspect-ratio: 5 / 4; border-radius: 8px; }
+    .dev .tag { font-size: 17px; }
+    .dev h3 { font-size: clamp(44px, 4vw, 60px); margin-top: 14px; }
+    .dev p { font-size: 21px; line-height: 1.6; margin-top: 20px; }
+    .dev ul { margin-top: 26px; gap: 14px; }
+    .dev li { font-size: 20px; padding-left: 26px; }
     .dev:nth-child(even) .ph { order: 2; }
     .ems, .prices { padding: 130px 0; }
     .rig { grid-template-columns: 1fr 1.1fr; gap: 70px; margin-top: 60px; }
@@ -640,7 +648,7 @@ addEventListener("DOMContentLoaded", () => {
         c.textContent.split(/(\s+)/).forEach((w) => { if (!w) return; if (/^\s+$/.test(w)) { f.append(" "); return; } const o = document.createElement("span"); o.className = "lm"; o.innerHTML = "<span></span>"; o.firstChild.textContent = w; f.append(o); });
         c.replaceWith(f); }
       else if (c.nodeType === 1 && !c.matches("svg, .dots, i")) walk(c); }); }; walk(el); return el.querySelectorAll(".lm > span"); };
-  const txt = "main .lead, .hero h1 ~ x, .dev h3, .dev p, .dev li, .steps b, .steps span, .ben h3, .ben p, .myth h3, .myth p, .card2 h3, .card2 li, .card2 .note, .pnote, .gc p, .faq summary, .rows span, .rows p, .rows a";
+  const txt = "main .lead, .hero h1 ~ x, .dev h3, .dev p:not(.tag), .dev li, .steps b, .steps span, .ben h3, .ben p, .myth h3, .myth p, .card2 h3, .card2 li, .card2 .note, .pnote, .gc p, .faq summary, .rows span, .rows p, .rows a";
   $$(txt).forEach((el) => { const ws = words(el); if (!ws.length) return;
     gsap.from(ws, { yPercent: 110, duration: .9, ease: "expo.out", stagger: Math.min(.03, .6 / ws.length), scrollTrigger: { trigger: el, start: "top 92%" } }); });
   gsap.utils.toArray("main .rv").forEach((el) => gsap.from(el, { y: 18, opacity: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 94%" } }));
