@@ -105,27 +105,6 @@
   .crow h3 { font-size: 24px; }
   .crow p { color: #55534f; font-size: 16px; margin-top: 6px; line-height: 1.55; }
 
-  /* cum lucrăm, ca slider-ul de la Vero: o frază în patru pași, cuvântul curent se aprinde; o cortină roșie (ușa din logo) trece peste poză și o schimbă */
-  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  .steps { background: var(--graph); color: #fff; }
-  .stage { padding: var(--sec) 0; }
-  .sgrid2 { display: grid; gap: 32px; }
-  .sent { font-weight: 300; font-size: clamp(34px, 9vw, 76px); line-height: 1.08; letter-spacing: -.02em; }
-  .sw { color: rgba(255,255,255,.22); transition: color .6s; }
-  .sw.on { color: #fff; }
-  .caps { position: relative; margin-top: 28px; min-height: 150px; }
-  .sc { position: absolute; inset: 0 auto auto 0; max-width: 42ch; opacity: 0; transform: translateY(12px); transition: opacity .5s, transform .6s cubic-bezier(.2,.8,.2,1); }
-  .sc.on { opacity: 1; transform: none; }
-  .sc .k { display: block; font-size: 15px; color: var(--red); }
-  .sc p { margin-top: 6px; color: #c9c7c2; font-size: 18px; line-height: 1.6; }
-  .plus { margin-top: 20px; color: #9d9b96; font-size: 15px; line-height: 1.6; max-width: 46ch; }
-  .sph2 { position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: #1f2022; }
-  .stp { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity 0s .45s, transform 1.4s cubic-bezier(.2,.8,.2,1); }
-  .stp.on { opacity: 1; transform: none; transition: opacity 0s .45s, transform 1.6s cubic-bezier(.2,.8,.2,1) .45s; }
-  .curt { position: absolute; inset: 0; z-index: 2; background: var(--red); transform: translateX(-101%); }
-  .curt.go { animation: curt .95s cubic-bezier(.76,0,.24,1); }
-  @keyframes curt { 0% { transform: translateX(-101%); } 48% { transform: translateX(0); } 52% { transform: translateX(0); } 100% { transform: translateX(101%); } }
-
   /* magazinele: poza mare din magazin, iar alături adresele ca rânduri despărțite de linii */
   .shops { padding: var(--sec) 0; }
   .sgrid { margin-top: var(--gap); display: grid; gap: var(--gap); }
@@ -139,6 +118,7 @@
   .loc a.say { display: inline-block; margin-top: 12px; font-weight: 500; border-bottom: 1.5px solid var(--red); }
   .loc p a { border-bottom: 1px solid currentColor; }
 
+  .perks { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); color: #55534f; font-size: 15px; line-height: 1.6; max-width: 44ch; }
   /* cerere de ofertă (demo, nu trimite nimic) */
   .offer { background: var(--white); padding: var(--sec) 0; }
   .ogrid { display: grid; gap: var(--gap); }
@@ -215,10 +195,6 @@
     .crow { grid-template-columns: 1fr; gap: 14px; padding: 0; border-bottom: 0; align-items: start; }
     .crow .ph { width: 100%; height: auto; aspect-ratio: 3 / 4; }
     .crow h3 { font-size: 24px; }
-    .stage { height: 340vh; padding: 0; }
-    .pin { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; }
-    .sgrid2 { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .sph2 { aspect-ratio: auto; height: 76vh; }
     .sgrid { grid-template-columns: 1.15fr 1fr; gap: 80px; align-items: center; }
     .sph { aspect-ratio: 5 / 4; }
     .ogrid { grid-template-columns: 1fr 1fr; gap: 80px; }
@@ -241,11 +217,11 @@
 <body>
   <header class="top" id="top">
     <a class="lg" href="#hero" aria-label="Mobila Domar, sus"><img src="img/semn.png" alt="" width="300" height="208" /><img class="nm" src="img/nume.png" alt="Mobila Domar" width="800" height="118" /></a>
-    <nav class="nv" aria-label="Meniu"><a href="#lucrari">Lucrări</a><a href="#ce-facem">Ce facem</a><a href="#cum-lucram">Cum lucrăm</a><a href="#magazine">Magazine</a><a href="#oferta">Cere ofertă</a></nav>
+    <nav class="nv" aria-label="Meniu"><a href="#lucrari">Lucrări</a><a href="#ce-facem">Ce facem</a><a href="#magazine">Magazine</a><a href="#oferta">Cere ofertă</a></nav>
     <a class="tc" href="tel:+40722348478" aria-label="Sună la 0722 348 478"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span>0722 348 478</span></a>
     <button class="mb" id="mb" type="button" aria-expanded="false" aria-controls="mn" aria-label="Deschide meniul"><i></i><i></i><i></i></button>
   </header>
-  <div class="mn" id="mn" aria-hidden="true"><nav aria-label="Meniu pe telefon"><a href="#lucrari">Lucrări</a><a href="#ce-facem">Ce facem</a><a href="#cum-lucram">Cum lucrăm</a><a href="#magazine">Magazine</a><a href="#oferta">Cere ofertă</a></nav><p>Str. Careiului C12-14 și Str. Dinu Lipatti 25/A, Satu Mare</p></div>
+  <div class="mn" id="mn" aria-hidden="true"><nav aria-label="Meniu pe telefon"><a href="#lucrari">Lucrări</a><a href="#ce-facem">Ce facem</a><a href="#magazine">Magazine</a><a href="#oferta">Cere ofertă</a></nav><p>Str. Careiului C12-14 și Str. Dinu Lipatti 25/A, Satu Mare</p></div>
 
   <main>
     <section class="hero" id="hero">
@@ -292,21 +268,6 @@
       </div>
     </section>
 
-    <section class="steps" id="cum-lucram">
-      <div class="stage" id="stage">
-        <div class="pin">
-          <div class="wrap sgrid2">
-            <div class="stx">
-              <h2 class="sr-only">Cum lucrăm</h2>
-              <p class="sent"><span class="sw" data-i="0">Din magazin,</span> <span class="sw" data-i="1">la proiect,</span> <span class="sw" data-i="2">în atelier,</span> <span class="sw" data-i="3">la tine acasă.</span> </p>
-              <div class="caps"><div class="sc on" data-i="0"><span class="k">Magazinul de pe Careiului</span><p>Vii în magazin sau ne suni și ne spui ce ai în minte. Consultanța e gratuită.</p></div><div class="sc" data-i="1"><span class="k">Proiectare personalizată</span><p>Facem proiectul pe dimensiunile camerei tale și alegem împreună culorile.</p></div><div class="sc" data-i="2"><span class="k">Execuție în atelier</span><p>Mobila se face la noi, în atelierul din Satu Mare.</p></div><div class="sc" data-i="3"><span class="k">Livrare și montaj</span><p>O aducem și o montăm noi. Transportul e gratuit în Satu Mare.</p></div></div>
-              <p class="plus">Plata se poate face și în rate, prin TBI Credit. Garanție 2 ani, cu factură și bon.</p>
-            </div>
-            <div class="sph2"><img class="stp on" data-i="0" src="img/showroom.webp" alt="Magazinul de pe Careiului" decoding="async" /><img class="stp" data-i="1" src="img/bucatarie-albastra.webp" alt="Proiectare personalizată" decoding="async" /><img class="stp" data-i="2" src="img/dulap-colt.webp" alt="Execuție în atelier" decoding="async" /><img class="stp" data-i="3" src="img/bucatarie-verde.webp" alt="Livrare și montaj" decoding="async" /><i class="curt" aria-hidden="true"></i></div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <section class="shops" id="magazine">
       <div class="wrap">
@@ -328,6 +289,7 @@
           <h2 class="rvl">Cere o ofertă.</h2>
           <p class="lead rv">Spune-ne ce vrei și cam ce dimensiuni are camera. Te sunăm noi, iar consultanța e gratuită.</p>
           <div class="phones rv"><a href="tel:+40722348478">0722 348 478</a><a href="tel:+40727289168">0727 289 168</a><small>sau scrie-ne la sdomarsatumare@yahoo.com</small></div>
+          <p class="perks rv">Transport gratuit în Satu Mare. Plata se poate face și în rate, prin TBI Credit. Garanție 2 ani, cu factură și bon.</p>
         </div>
         <form id="f" novalidate>
           <fieldset class="pick"><legend>Ce vrei să faci?</legend>
@@ -359,7 +321,7 @@
         <div class="fcols">
           <div><h4>Magazine</h4><p>Str. Careiului C12-14<br>Str. Dinu Lipatti 25/A<br>Satu Mare</p></div>
           <div><h4>Telefon</h4><p><a href="tel:+40722348478">0722 348 478</a><br><a href="tel:+40727289168">0727 289 168</a><br><a href="mailto:sdomarsatumare@yahoo.com">sdomarsatumare@yahoo.com</a></p></div>
-          <div><h4>Pe site</h4><p class="f-nav"><a href="#lucrari">Lucrări</a><a href="#ce-facem">Ce facem</a><a href="#cum-lucram">Cum lucrăm</a><a href="#magazine">Magazine</a></p></div>
+          <div><h4>Pe site</h4><p class="f-nav"><a href="#lucrari">Lucrări</a><a href="#ce-facem">Ce facem</a><a href="#magazine">Magazine</a></p></div>
         </div>
       </div>
     </div>
@@ -400,7 +362,7 @@ const io = new IntersectionObserver((es) => es.forEach((en) => { if (!en.isInter
   en.target.querySelectorAll(".slide").forEach((el, i) => { el.style.transitionDelay = `${i * 90}ms`; el.classList.add("in"); }); io.unobserve(en.target); }), { threshold: .12 });
 $$(".mz, .sgrid").forEach((el) => io.observe(el));
 
-if (reduce || !window.gsap) { $$(".slide").forEach((el) => el.classList.add("in")); $$(".sw").forEach((w) => w.classList.add("on")); }
+if (reduce || !window.gsap) { $$(".slide").forEach((el) => el.classList.add("in")); }
 else {
   gsap.registerPlugin(ScrollTrigger);
   // la încărcare: ușa gri și ușa roșie din logo se deschid spre margini și lasă bucătăria la vedere
@@ -425,14 +387,6 @@ else {
     gsap.fromTo(".fd.g", { xPercent: 55 }, { xPercent: 0, ease: "none", scrollTrigger: { trigger: ".foot", start: "top bottom", end: "bottom bottom", scrub: .6 } });
   } else gsap.from(".fd", { y: 60, duration: 1, ease: "expo.out", stagger: .12, scrollTrigger: { trigger: ".foot", start: "top 90%" } });
   gsap.from(".fd.r h2, .fd.r p, .fd.r .cta, .fd.g .f-brand, .fcols > div", { y: 20, opacity: 0, duration: .9, ease: "power3.out", stagger: .07, scrollTrigger: { trigger: ".foot", start: "top 60%" } });
-  // pașii: pe desktop scena stă fixă și pasul vine din cât derulezi; pe telefon (fără scene fixe, tremură pe iPhone) pasul se schimbă singur la 3 secunde cât secțiunea e pe ecran
-  { const ws = $$(".sw"), ps = $$(".stp"), cs = $$(".sc"), cur = $(".curt"); let now = 0;
-    const go = (i) => { if (i === now) return; now = i; cur.classList.remove("go"); void cur.offsetWidth; cur.classList.add("go");
-      ws.forEach((w, k) => w.classList.toggle("on", k <= i)); ps.forEach((p, k) => p.classList.toggle("on", k === i)); cs.forEach((c, k) => c.classList.toggle("on", k === i)); };
-    ws[0].classList.add("on");
-    if (innerWidth >= 900) ScrollTrigger.create({ trigger: "#stage", start: "top top", end: "bottom bottom", onUpdate: (st) => go(Math.min(3, Math.floor(st.progress * 4))) });
-    else { let t = null; ScrollTrigger.create({ trigger: "#stage", start: "top 60%", end: "bottom 40%",
-      onToggle: (st) => { clearInterval(t); if (st.isActive) t = setInterval(() => go((now + 1) % 4), 3000); } }); } }
   // în panouri, poza se mișcă puțin mai încet decât pagina
   $$(".panel img").forEach((im) => gsap.fromTo(im, { yPercent: -8 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: im.parentNode, start: "top bottom", end: "bottom top", scrub: true } }));
 }
