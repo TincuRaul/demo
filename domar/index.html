@@ -105,16 +105,26 @@
   .crow h3 { font-size: 24px; }
   .crow p { color: #55534f; font-size: 16px; margin-top: 6px; line-height: 1.55; }
 
-  /* cum lucrăm: patru fraze mari, subțiri, gri; se aprinde fraza la care ai ajuns, ca la Naam */
-  .steps { background: var(--graph); color: #fff; padding: var(--sec) 0; }
-  .steps .lead { color: #c9c7c2; }
-  .lines { list-style: none; margin-top: var(--gap); border-top: 1px solid rgba(255,255,255,.14); }
-  .lines li { padding: 26px 0; border-bottom: 1px solid rgba(255,255,255,.14); display: grid; gap: 10px; }
-  .lines .w { font-weight: 300; font-size: clamp(24px, 6.2vw, 46px); line-height: 1.2; letter-spacing: -.015em; color: rgba(255,255,255,.28); max-width: 26ch; transition: color .5s; }
-  .lines .s { font-size: 15px; color: rgba(255,255,255,.3); transition: color .5s; }
-  .lines li.on .w { color: #fff; }
-  .lines li.on .s { color: var(--red); }
-  .plus { margin-top: calc(var(--gap) * .9); max-width: 60ch; color: #c9c7c2; font-size: 17px; line-height: 1.7; }
+  /* cum lucrăm, ca slider-ul de la Vero: o frază în patru pași, cuvântul curent se aprinde; o cortină roșie (ușa din logo) trece peste poză și o schimbă */
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .steps { background: var(--graph); color: #fff; }
+  .stage { padding: var(--sec) 0; }
+  .sgrid2 { display: grid; gap: 32px; }
+  .sent { font-weight: 300; font-size: clamp(34px, 9vw, 76px); line-height: 1.08; letter-spacing: -.02em; }
+  .sw { color: rgba(255,255,255,.22); transition: color .6s; }
+  .sw.on { color: #fff; }
+  .caps { position: relative; margin-top: 28px; min-height: 150px; }
+  .sc { position: absolute; inset: 0 auto auto 0; max-width: 42ch; opacity: 0; transform: translateY(12px); transition: opacity .5s, transform .6s cubic-bezier(.2,.8,.2,1); }
+  .sc.on { opacity: 1; transform: none; }
+  .sc .k { display: block; font-size: 15px; color: var(--red); }
+  .sc p { margin-top: 6px; color: #c9c7c2; font-size: 18px; line-height: 1.6; }
+  .plus { margin-top: 20px; color: #9d9b96; font-size: 15px; line-height: 1.6; max-width: 46ch; }
+  .sph2 { position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: #1f2022; }
+  .stp { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity 0s .45s, transform 1.4s cubic-bezier(.2,.8,.2,1); }
+  .stp.on { opacity: 1; transform: none; transition: opacity 0s .45s, transform 1.6s cubic-bezier(.2,.8,.2,1) .45s; }
+  .curt { position: absolute; inset: 0; z-index: 2; background: var(--red); transform: translateX(-101%); }
+  .curt.go { animation: curt .95s cubic-bezier(.76,0,.24,1); }
+  @keyframes curt { 0% { transform: translateX(-101%); } 48% { transform: translateX(0); } 52% { transform: translateX(0); } 100% { transform: translateX(101%); } }
 
   /* magazinele: poza mare din magazin, iar alături adresele ca rânduri despărțite de linii */
   .shops { padding: var(--sec) 0; }
@@ -205,8 +215,10 @@
     .crow { grid-template-columns: 1fr; gap: 14px; padding: 0; border-bottom: 0; align-items: start; }
     .crow .ph { width: 100%; height: auto; aspect-ratio: 3 / 4; }
     .crow h3 { font-size: 24px; }
-    .lines li { grid-template-columns: 1fr 240px; align-items: baseline; padding: 34px 0; }
-    .lines .s { text-align: right; }
+    .stage { height: 340vh; padding: 0; }
+    .pin { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; }
+    .sgrid2 { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .sph2 { aspect-ratio: auto; height: 76vh; }
     .sgrid { grid-template-columns: 1.15fr 1fr; gap: 80px; align-items: center; }
     .sph { aspect-ratio: 5 / 4; }
     .ogrid { grid-template-columns: 1fr 1fr; gap: 80px; }
@@ -281,16 +293,18 @@
     </section>
 
     <section class="steps" id="cum-lucram">
-      <div class="wrap">
-        <h2>Cum lucrăm.</h2>
-        <p class="lead">De la prima discuție până când mobila e montată la tine acasă, în patru pași.</p>
-        <ol class="lines" id="lines">
-          <li><span class="w">Vii în magazin sau ne suni și ne spui ce ai în minte.</span><span class="s">Consultanța e gratuită.</span></li>
-          <li><span class="w">Facem proiectul pe dimensiunile camerei tale și alegem împreună culorile.</span><span class="s">Proiectare personalizată.</span></li>
-          <li><span class="w">Mobila se face la noi, în atelierul din Satu Mare.</span><span class="s">Execuție în atelier.</span></li>
-          <li><span class="w">Apoi o aducem și o montăm noi, la tine acasă.</span><span class="s">Livrare și montaj.</span></li>
-        </ol>
-        <p class="plus">Transportul la domiciliu e gratuit în Satu Mare, poți plăti în rate prin TBI Credit, iar mobila are garanție 2 ani, cu factură și bon.</p>
+      <div class="stage" id="stage">
+        <div class="pin">
+          <div class="wrap sgrid2">
+            <div class="stx">
+              <h2 class="sr-only">Cum lucrăm</h2>
+              <p class="sent"><span class="sw" data-i="0">Din magazin,</span> <span class="sw" data-i="1">la proiect,</span> <span class="sw" data-i="2">în atelier,</span> <span class="sw" data-i="3">la tine acasă.</span> </p>
+              <div class="caps"><div class="sc on" data-i="0"><span class="k">Magazinul de pe Careiului</span><p>Vii în magazin sau ne suni și ne spui ce ai în minte. Consultanța e gratuită.</p></div><div class="sc" data-i="1"><span class="k">Proiectare personalizată</span><p>Facem proiectul pe dimensiunile camerei tale și alegem împreună culorile.</p></div><div class="sc" data-i="2"><span class="k">Execuție în atelier</span><p>Mobila se face la noi, în atelierul din Satu Mare.</p></div><div class="sc" data-i="3"><span class="k">Livrare și montaj</span><p>O aducem și o montăm noi. Transportul e gratuit în Satu Mare.</p></div></div>
+              <p class="plus">Plata se poate face și în rate, prin TBI Credit. Garanție 2 ani, cu factură și bon.</p>
+            </div>
+            <div class="sph2"><img class="stp on" data-i="0" src="img/showroom.webp" alt="Magazinul de pe Careiului" decoding="async" /><img class="stp" data-i="1" src="img/bucatarie-albastra.webp" alt="Proiectare personalizată" decoding="async" /><img class="stp" data-i="2" src="img/dulap-colt.webp" alt="Execuție în atelier" decoding="async" /><img class="stp" data-i="3" src="img/bucatarie-verde.webp" alt="Livrare și montaj" decoding="async" /><i class="curt" aria-hidden="true"></i></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -386,7 +400,7 @@ const io = new IntersectionObserver((es) => es.forEach((en) => { if (!en.isInter
   en.target.querySelectorAll(".slide").forEach((el, i) => { el.style.transitionDelay = `${i * 90}ms`; el.classList.add("in"); }); io.unobserve(en.target); }), { threshold: .12 });
 $$(".mz, .sgrid").forEach((el) => io.observe(el));
 
-if (reduce || !window.gsap) { $$(".slide").forEach((el) => el.classList.add("in")); $$("#lines li").forEach((li) => li.classList.add("on")); }
+if (reduce || !window.gsap) { $$(".slide").forEach((el) => el.classList.add("in")); $$(".sw").forEach((w) => w.classList.add("on")); }
 else {
   gsap.registerPlugin(ScrollTrigger);
   // la încărcare: ușa gri și ușa roșie din logo se deschid spre margini și lasă bucătăria la vedere
@@ -402,7 +416,7 @@ else {
         c.textContent.split(/(\s+)/).forEach((w) => { if (!w) return; if (/^\s+$/.test(w)) { f.append(" "); return; } const o = document.createElement("span"); o.className = "lm"; o.innerHTML = "<span></span>"; o.firstChild.textContent = w; f.append(o); });
         c.replaceWith(f); }
       else if (c.nodeType === 1 && !c.matches("svg, i, img, .roll")) walk(c); }); }; walk(el); return el.querySelectorAll(".lm > span"); };
-  $$("main h2, main .lead, .panel p, .crow h3, .crow p, .plus, .loc h3, .loc p, .work .more h3, .work .more p").forEach((el) => { const ws = words(el); if (!ws.length) return;
+  $$("main h2, main .lead, .panel p, .crow h3, .crow p, .loc h3, .loc p, .work .more h3, .work .more p").forEach((el) => { const ws = words(el); if (!ws.length) return;
     gsap.from(ws, { yPercent: 110, duration: .9, ease: "expo.out", stagger: Math.min(.03, .6 / ws.length), scrollTrigger: { trigger: el, start: "top 92%" } }); });
   gsap.utils.toArray(".crow, .phones, form, .loc .say, .work .more .btn").forEach((el) => gsap.from(el, { y: 18, opacity: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 94%" } }));
   // la final, ușile se închid: pe desktop vin din margini spre mijloc, cât derulezi; pe telefon urcă una după alta
@@ -411,8 +425,14 @@ else {
     gsap.fromTo(".fd.g", { xPercent: 55 }, { xPercent: 0, ease: "none", scrollTrigger: { trigger: ".foot", start: "top bottom", end: "bottom bottom", scrub: .6 } });
   } else gsap.from(".fd", { y: 60, duration: 1, ease: "expo.out", stagger: .12, scrollTrigger: { trigger: ".foot", start: "top 90%" } });
   gsap.from(".fd.r h2, .fd.r p, .fd.r .cta, .fd.g .f-brand, .fcols > div", { y: 20, opacity: 0, duration: .9, ease: "power3.out", stagger: .07, scrollTrigger: { trigger: ".foot", start: "top 60%" } });
-  // se aprinde fraza care trece prin mijlocul ecranului
-  $$("#lines li").forEach((li) => ScrollTrigger.create({ trigger: li, start: "top 62%", end: "bottom 62%", toggleClass: "on" }));
+  // pașii: pe desktop scena stă fixă și pasul vine din cât derulezi; pe telefon (fără scene fixe, tremură pe iPhone) pasul se schimbă singur la 3 secunde cât secțiunea e pe ecran
+  { const ws = $$(".sw"), ps = $$(".stp"), cs = $$(".sc"), cur = $(".curt"); let now = 0;
+    const go = (i) => { if (i === now) return; now = i; cur.classList.remove("go"); void cur.offsetWidth; cur.classList.add("go");
+      ws.forEach((w, k) => w.classList.toggle("on", k <= i)); ps.forEach((p, k) => p.classList.toggle("on", k === i)); cs.forEach((c, k) => c.classList.toggle("on", k === i)); };
+    ws[0].classList.add("on");
+    if (innerWidth >= 900) ScrollTrigger.create({ trigger: "#stage", start: "top top", end: "bottom bottom", onUpdate: (st) => go(Math.min(3, Math.floor(st.progress * 4))) });
+    else { let t = null; ScrollTrigger.create({ trigger: "#stage", start: "top 60%", end: "bottom 40%",
+      onToggle: (st) => { clearInterval(t); if (st.isActive) t = setInterval(() => go((now + 1) % 4), 3000); } }); } }
   // în panouri, poza se mișcă puțin mai încet decât pagina
   $$(".panel img").forEach((im) => gsap.fromTo(im, { yPercent: -8 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: im.parentNode, start: "top bottom", end: "bottom top", scrub: true } }));
 }
