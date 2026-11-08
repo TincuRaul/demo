@@ -151,16 +151,11 @@
   #walk { position: absolute; left: 0; top: 0; width: 100%; height: 0; pointer-events: none; z-index: 25; }
   #walk .road { position: absolute; left: 0; top: 0; overflow: visible; }
   #walk .road path { fill: none; stroke: rgba(31,69,150,.2); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1 10; }
-  .dog { position: absolute; left: 0; top: 0; width: 84px; transform-origin: 50% 100%; will-change: transform; }
-  .dog svg { display: block; width: 100%; height: auto; overflow: visible; }
-  .dog .lg { transform-box: fill-box; transform-origin: 50% 0; }
-  .dog .tail { transform-box: fill-box; transform-origin: 100% 100%; animation: wag .5s ease-in-out infinite alternate; }
-  .dog.run .tail { animation-duration: .18s; }
-  .dog .head { transform-box: fill-box; transform-origin: 20% 80%; transition: transform .45s cubic-bezier(.3,1.6,.5,1); }
-  .dog.idle .head { transform: rotate(-12deg) translateY(-1px); }
+  /* animația „Dog walking” de Syed Asim Ali Shah (LottieFiles, licență gratuită); decupată pe cățel */
+  .dog { position: absolute; left: 0; top: 0; width: 84px; aspect-ratio: 549 / 426; transform-origin: 50% 100%; will-change: transform; }
+  .dog .lt { position: absolute; width: 164%; height: 211.3%; left: -33.9%; top: -49.3%; }
   .dog .bub { position: absolute; left: 50%; bottom: 112%; transform: translateX(-50%) scale(.6); opacity: 0; background: var(--ink); color: #fff; font-size: 13px; font-weight: 700; white-space: nowrap; padding: 6px 11px; border-radius: 10px; transition: opacity .3s, transform .4s cubic-bezier(.3,1.6,.5,1); }
   .dog.talk .bub { opacity: 1; transform: translateX(-50%) scale(1); }
-  @keyframes wag { from { transform: rotate(-14deg); } to { transform: rotate(16deg); } }
   .pp { position: absolute; left: 0; top: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; color: var(--blue); opacity: .3; animation: ppin .5s ease-out; }
   @keyframes ppin { from { opacity: .8; transform: var(--t) scale(1.5); } }
 
@@ -199,7 +194,7 @@
     .fix { display: none; }
     .mbar { display: grid; grid-template-columns: 1.3fr 1fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: var(--paper); border-top: 1px solid var(--line); }
     .mbar .btn { justify-content: center; min-height: 50px; padding: 0 12px; }
-    .dog { width: 36px; }
+    .dog { width: 42px; }
     .dog .bub { font-size: 12px; }
     .foot { padding-bottom: 110px; }
   }
@@ -351,26 +346,11 @@
 <div id="walk" aria-hidden="true"><svg class="road" id="road"><path id="rp"/></svg><div id="prints"></div>
 <div class="dog" id="dog">
   <span class="bub" id="bub">Ham! Sună-ne.</span>
-  <svg viewBox="0 0 124 84" fill="#fffaf5" stroke="#1f4596" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
-    <path class="tail" fill="none" d="M31 40c-9-2-15-9-14-19"/>
-    <g class="lg l1"><path d="M40 52v22h-5"/></g>
-    <g class="lg l3"><path d="M78 52v22h5"/></g>
-    <rect x="28" y="30" width="62" height="28" rx="14"/>
-    <path d="M44 33c6 0 10 4 10 9s-4 8-10 8" fill="#1f4596" stroke="none" opacity=".9"/>
-    <g class="lg l2"><path d="M48 54v20h-5"/></g>
-    <g class="lg l4"><path d="M86 52v22h5"/></g>
-    <g class="head">
-      <circle cx="94" cy="26" r="15"/>
-      <path d="M100 30c4-3 12-3 16 1 2 3-1 7-6 8-5 0-9-2-10-5"/>
-      <circle cx="116" cy="30" r="3" fill="#1f4596" stroke="none"/>
-      <circle cx="98" cy="21" r="2.2" fill="#1f4596" stroke="none"/>
-      <path d="M85 13c-6 2-9 9-6 18 4-1 8-6 9-12" fill="#1f4596"/>
-      <path d="M84 37c4 3 10 3 14 0" stroke-width="3" fill="none"/>
-    </g>
-  </svg>
+  <div class="lt" id="lt"></div>
 </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js"></script>
 <script>
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = (s) => document.querySelector(s), $$ = (s) => document.querySelectorAll(s);
@@ -398,12 +378,14 @@ document.addEventListener("click", (e) => { const a = e.target.closest('a[href^=
 // cățelul merge pe un drum prin pagină: în jos pe margini și în diagonală prin golurile dintre secțiuni.
 // Stă mereu cam la 60% din înălțimea ecranului, deci se plimbă odată cu scroll-ul; când te oprești, se uită la tine.
 (() => {
-  const walk = $("#walk"), road = $("#road"), rp = $("#rp"), prints = $("#prints"), dog = $("#dog"), legs = [...dog.querySelectorAll(".lg")], svg = dog.querySelector("svg");
+  const walk = $("#walk"), road = $("#road"), rp = $("#rp"), prints = $("#prints"), dog = $("#dog");
+  // mersul e legat de cât derulezi: fiecare pas din animație = câțiva pixeli de drum
+  let anim = null, fr = 0; fetch("img/caine.json").then((r) => r.json()).then((d) => { anim = lottie.loadAnimation({ container: $("#lt"), renderer: "svg", loop: false, autoplay: false, animationData: d }); anim.goToAndStop(0, true); });
   let pts = [], total = 0, cur = 0, phase = 0, still = 99, lastPrint = 0, side = 1, upright = false, TH = 20;
   const build = () => {
     const vw = document.documentElement.clientWidth, H = document.documentElement.scrollHeight, mob = vw <= 900;
-    const w = dog.offsetWidth, th = w * .68, wrapL = Math.max(0, (vw - 1180) / 2) + (mob ? 28 : 22);
-    TH = th; upright = wrapL / 2 + th / 2 > w / 2 + 6; // pe ecrane late are loc să meargă drept pe margine
+    const w = dog.offsetWidth, th = w * .78, wrapL = Math.max(0, (vw - 1180) / 2) + (mob ? 28 : 22);
+    TH = th; upright = wrapL >= w + 10; // pe ecrane late are loc să meargă drept pe margine
     const lane = (sd) => sd < 0 ? Math.max(th + 3, wrapL / 2 + th / 2) : vw - Math.max(th + 3, wrapL / 2 + th / 2);
     walk.style.height = H + "px"; road.setAttribute("width", vw); road.setAttribute("height", H);
     // golurile dintre secțiuni: de la finalul conținutului unei secțiuni la începutul următoarei
@@ -444,10 +426,10 @@ document.addEventListener("click", (e) => { const a = e.target.closest('a[href^=
     if (vert && upright) tf = onLeft ? "" : "scaleX(-1)";
     else if (vert) { const down = ya > y; tf = `rotate(${down ? 90 : -90}deg) scaleY(${(down ? onLeft : !onLeft) ? -1 : 1})`; }
     else tf = side < 0 ? `rotate(${a - 180}deg) scaleX(-1)` : `rotate(${a}deg)`;
-    const w = dog.offsetWidth, h = dog.offsetHeight, bob = moving ? -Math.abs(Math.sin(phase)) * 2.2 : 0;
+    const w = dog.offsetWidth, h = dog.offsetHeight, bob = 0;
     dog.style.transform = `translate(${x - w / 2}px,${y - h}px) ${tf} translateY(${bob}px)`;
-    const sw = moving ? Math.sin(phase) * 26 : 0; legs.forEach((l, i) => l.style.transform = `rotate(${i % 2 ? -sw : sw}deg)`);
-    dog.classList.toggle("run", moving); dog.classList.toggle("idle", still > 25); dog.classList.toggle("talk", cur > total - 30 && still > 15);
+    if (anim && moving) { fr = (fr + Math.min(1.2, Math.abs(dl) * .16)) % 25; anim.goToAndStop(fr, true); }
+    dog.classList.toggle("talk", cur > total - 30 && still > 15);
     // lăbuțele rămân pe drum; dacă se întoarce, le strânge
     while (lastPrint + 30 < cur) { lastPrint += 30; paw(lastPrint, lastPrint / 30); }
     while (lastPrint > cur + 30) { const e = prints.lastElementChild; if (e) e.remove(); lastPrint -= 30; }
