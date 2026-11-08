@@ -13,8 +13,8 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js" defer></script>
 <script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("anim");</script>
 <style>
-  /* fond cald ca la KINS WITH; albastrul e cel din ovalul logo-ului Samvet, singurul accent */
-  :root { --paper: #faf4ee; --band: #f3e8de; --ink: #2a2622; --mute: #6f655d; --line: #e6d9cc; --blue: #1f4596; --blue2: #163474; --pad: 22px; }
+  /* fond cald ca la KINS WITH; accentul e rozul pe care îl folosește cabinetul (--blue a rămas doar numele variabilei) */
+  :root { --paper: #faf4ee; --band: #f3e8de; --ink: #2a2622; --mute: #6f655d; --line: #e6d9cc; --blue: #e8488a; --blue2: #c9306f; --pad: 22px; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
   body { background: var(--paper); color: var(--ink); font: 400 17px/1.7 "M PLUS Rounded 1c", system-ui, sans-serif; overflow-x: clip; }
@@ -218,6 +218,8 @@
     :root { --pad: 18px; }
     body { font-size: 16px; }
     section { padding: 64px 0; }
+    .pat { padding-bottom: 20px; }
+    .hours { padding-top: 44px; }
     .lead { font-size: 17px; }
     .top .wrap { height: 62px; }
     .nv, .tphone { display: none; }
