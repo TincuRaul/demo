@@ -147,17 +147,12 @@
   .fix { position: fixed; right: 22px; bottom: 26px; z-index: 30; }
   .mbar { display: none; }
 
-  /* cățelul: merge pe un drum desenat prin pagină, pe margini și prin golurile dintre secțiuni, odată cu scroll-ul */
-  #walk { position: absolute; left: 0; top: 0; width: 100%; height: 0; pointer-events: none; z-index: 25; }
-  #walk .road { position: absolute; left: 0; top: 0; overflow: visible; }
-  #walk .road path { fill: none; stroke: rgba(31,69,150,.2); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1 10; }
+  /* cățelul se plimbă singur, încet, pe la mijlocul ecranului; urmează pagina cu o mică întârziere când derulezi */
   /* animația „Dog walking” de Syed Asim Ali Shah (LottieFiles, licență gratuită); decupată pe cățel */
-  .dog { position: absolute; left: 0; top: 0; width: 84px; aspect-ratio: 549 / 426; transform-origin: 50% 100%; will-change: transform; }
+  .dog { position: fixed; left: 0; top: 0; z-index: 25; pointer-events: none; width: 92px; aspect-ratio: 549 / 426; transform-origin: 50% 100%; will-change: transform; }
   .dog .lt { position: absolute; width: 164%; height: 211.3%; left: -33.9%; top: -49.3%; }
   .dog .bub { position: absolute; left: 50%; bottom: 112%; transform: translateX(-50%) scale(.6); opacity: 0; background: var(--ink); color: #fff; font-size: 13px; font-weight: 700; white-space: nowrap; padding: 6px 11px; border-radius: 10px; transition: opacity .3s, transform .4s cubic-bezier(.3,1.6,.5,1); }
   .dog.talk .bub { opacity: 1; transform: translateX(-50%) scale(1); }
-  .pp { position: absolute; left: 0; top: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; color: var(--blue); opacity: .3; animation: ppin .5s ease-out; }
-  @keyframes ppin { from { opacity: .8; transform: var(--t) scale(1.5); } }
 
   /* pozele: se deschid ca o cortină la scroll și se mișcă după cursor */
   .ph, .big, .small, .pc { isolation: isolate; }
@@ -194,7 +189,7 @@
     .fix { display: none; }
     .mbar { display: grid; grid-template-columns: 1.3fr 1fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: var(--paper); border-top: 1px solid var(--line); }
     .mbar .btn { justify-content: center; min-height: 50px; padding: 0 12px; }
-    .dog { width: 42px; }
+    .dog { width: 60px; }
     .dog .bub { font-size: 12px; }
     .foot { padding-bottom: 110px; }
   }
@@ -343,11 +338,9 @@
 <nav class="mbar" aria-label="Acțiuni rapide"><a class="btn b" href="tel:+40745358721"><svg><use href="#tel"/></svg>Sună</a><a class="btn o" href="#contact"><svg><use href="#pin"/></svg>Cum ajungi</a></nav>
 
 <!-- cățelul: corp alb cu contur albastru, urechea și pata albastre -->
-<div id="walk" aria-hidden="true"><svg class="road" id="road"><path id="rp"/></svg><div id="prints"></div>
-<div class="dog" id="dog">
+<div class="dog" id="dog" aria-hidden="true">
   <span class="bub" id="bub">Ham! Sună-ne.</span>
   <div class="lt" id="lt"></div>
-</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js"></script>
@@ -375,71 +368,33 @@ $$(".nv a").forEach((a) => { const t = a.textContent.trim(), ch = [...t], mid = 
 document.addEventListener("click", (e) => { const a = e.target.closest('a[href^="#"]'); if (!a) return; e.preventDefault();
   const el = document.getElementById(a.getAttribute("href").slice(1)); scrollTo({ top: el ? el.getBoundingClientRect().top + scrollY - (el.id === "hero" ? 0 : 64) : 0, behavior: reduce ? "auto" : "smooth" }); });
 
-// cățelul merge pe un drum prin pagină: în jos pe margini și în diagonală prin golurile dintre secțiuni.
-// Stă mereu cam la 60% din înălțimea ecranului, deci se plimbă odată cu scroll-ul; când te oprești, se uită la tine.
+// cățelul se plimbă singur, tiptil, pe la mijlocul ecranului: alege un loc, merge încet până acolo,
+// stă puțin, apoi pornește iar. Când derulezi, rămâne puțin în urmă și te ajunge din urmă.
 (() => {
-  const walk = $("#walk"), road = $("#road"), rp = $("#rp"), prints = $("#prints"), dog = $("#dog");
-  // mersul e legat de cât derulezi: fiecare pas din animație = câțiva pixeli de drum
-  let anim = null, fr = 0; fetch("img/caine.json").then((r) => r.json()).then((d) => { anim = lottie.loadAnimation({ container: $("#lt"), renderer: "svg", loop: false, autoplay: false, animationData: d }); anim.goToAndStop(0, true); });
-  let pts = [], total = 0, cur = 0, phase = 0, still = 99, lastPrint = 0, side = 1, upright = false, TH = 20;
-  const build = () => {
-    const vw = document.documentElement.clientWidth, H = document.documentElement.scrollHeight, mob = vw <= 900;
-    const w = dog.offsetWidth, th = w * .78, wrapL = Math.max(0, (vw - 1180) / 2) + (mob ? 28 : 22);
-    TH = th; upright = wrapL >= w + 10; // pe ecrane late are loc să meargă drept pe margine
-    const lane = (sd) => sd < 0 ? Math.max(th + 3, wrapL / 2 + th / 2) : vw - Math.max(th + 3, wrapL / 2 + th / 2);
-    walk.style.height = H + "px"; road.setAttribute("width", vw); road.setAttribute("height", H);
-    // golurile dintre secțiuni: de la finalul conținutului unei secțiuni la începutul următoarei
-    const secs = [...$$("main > section")], Y = (el, k) => el.getBoundingClientRect()[k] + scrollY;
-    const P = [[lane(-1), Y(secs[0], "top") + (mob ? 70 : 110)]];
-    let sd = -1;
-    for (let i = 0; i < secs.length - 1; i++) {
-      const a = Y(secs[i].querySelector(".wrap"), "bottom") + th + 18, b = Y(secs[i + 1].querySelector(".wrap"), "top") - 14;
-      if (b - a < 30) continue;
-      P.push([lane(sd), a]); sd = -sd; P.push([lane(sd), b]);
-    }
-    const end = Y($(".foot"), "top") - 8; P.push([lane(sd), end - 40]); P.push([vw / 2 + (sd < 0 ? -40 : 40), end]);
-    // colțuri rotunjite
-    let d = `M${P[0][0]},${P[0][1]}`;
-    for (let i = 1; i < P.length; i++) { const [x, y] = P[i]; if (i < P.length - 1) { const [px, py] = P[i - 1], [nx, ny] = P[i + 1];
-        const r = 34, l1 = Math.hypot(x - px, y - py), l2 = Math.hypot(nx - x, ny - y), k1 = Math.min(r, l1 / 2) / l1, k2 = Math.min(r, l2 / 2) / l2;
-        d += ` L${x - (x - px) * k1},${y - (y - py) * k1} Q${x},${y} ${x + (nx - x) * k2},${y + (ny - y) * k2}`; } else d += ` L${x},${y}`; }
-    rp.setAttribute("d", d); total = rp.getTotalLength();
-    pts = []; for (let l = 0; l <= total; l += 4) { const q = rp.getPointAtLength(l); pts.push([l, q.x, q.y]); }
-    prints.innerHTML = ""; lastPrint = 0;
-  };
-  const at = (l) => { const i = Math.max(0, Math.min(pts.length - 1, Math.round(l / 4))); return pts[i]; };
-  const lFor = (y) => { let lo = 0, hi = pts.length - 1; while (lo < hi) { const m = (lo + hi) >> 1; if (pts[m][2] < y) lo = m + 1; else hi = m; } return pts[lo][0]; };
-  const paw = (l, n) => { let [, x, y] = at(l); const [, x2, y2] = at(l + 4), a = Math.atan2(y2 - y, x2 - x), o = n % 2 ? 5 : -5;
-    if (!upright && Math.abs(y2 - y) > Math.abs(x2 - x) * 1.5) x += x < innerWidth / 2 ? -TH / 2 : TH / 2;
-    const e = document.createElementNS("http://www.w3.org/2000/svg", "svg"); e.setAttribute("class", "pp"); e.innerHTML = '<use href="#paw"/>'; e.dataset.l = l;
-    const t = `translate(${x - Math.sin(a) * o}px,${y + Math.cos(a) * o}px) rotate(${a * 180 / Math.PI + 90}deg)`; e.style.setProperty("--t", t); e.style.transform = t; prints.append(e); };
-  const tick = () => {
-    const goal = lFor(scrollY + innerHeight * (innerWidth <= 900 ? .56 : .62)), dl = (goal - cur) * .1;
-    cur += dl; const moving = Math.abs(dl) > .2;
-    if (moving) { phase += Math.min(.5, Math.abs(dl) * .1); still = 0; } else still++;
-    const [, x, y] = at(cur), [, xa, ya] = at(cur + (dl >= 0 ? 6 : -6));
-    let a = Math.atan2(ya - y, xa - x) * 180 / Math.PI;
-    if (moving) side = (xa - x) < -.01 ? -1 : (xa - x) > .01 ? 1 : side;
-    // pe margini, spatele lui stă spre marginea ecranului, ca să nu acopere textul
-    const vert = Math.abs(ya - y) > Math.abs(xa - x) * 1.5, onLeft = x < innerWidth / 2;
-    let tf;
-    if (vert && upright) tf = onLeft ? "" : "scaleX(-1)";
-    else if (vert) { const down = ya > y; tf = `rotate(${down ? 90 : -90}deg) scaleY(${(down ? onLeft : !onLeft) ? -1 : 1})`; }
-    else tf = side < 0 ? `rotate(${a - 180}deg) scaleX(-1)` : `rotate(${a}deg)`;
-    const w = dog.offsetWidth, h = dog.offsetHeight, bob = 0;
-    dog.style.transform = `translate(${x - w / 2}px,${y - h}px) ${tf} translateY(${bob}px)`;
-    if (anim && moving) { fr = (fr + Math.min(1.2, Math.abs(dl) * .16)) % 25; anim.goToAndStop(fr, true); }
-    dog.classList.toggle("talk", cur > total - 30 && still > 15);
-    // lăbuțele rămân pe drum; dacă se întoarce, le strânge
-    while (lastPrint + 30 < cur) { lastPrint += 30; paw(lastPrint, lastPrint / 30); }
-    while (lastPrint > cur + 30) { const e = prints.lastElementChild; if (e) e.remove(); lastPrint -= 30; }
+  const dog = $("#dog"); let anim = null, x = 0, tx = 0, dir = 1, wait = 60, walking = false, lagY = 0, lastY = scrollY, still = 0;
+  fetch("img/caine.json").then((r) => r.json()).then((d) => { anim = lottie.loadAnimation({ container: $("#lt"), renderer: "svg", loop: true, autoplay: false, animationData: d }); anim.setSpeed(.55); anim.goToAndStop(0, true); });
+  const W = () => document.documentElement.clientWidth, mob = () => innerWidth <= 900;
+  x = W() * .2; tx = x;
+  const pick = () => { const w = dog.offsetWidth, m = 14, span = W() - w - m * 2;
+    let n; do { n = m + Math.random() * span; } while (Math.abs(n - x) < span * .18); tx = n; };
+  const place = () => { const h = dog.offsetHeight, base = innerHeight * (mob() ? .62 : .6);
+    dog.style.transform = `translate(${x}px,${base - h + lagY}px) scaleX(${dir})`; };
+  if (reduce) { place(); addEventListener("resize", place); return; }
+  let t0 = performance.now();
+  const tick = (t) => {
+    const dt = Math.min(50, t - t0) / 1000; t0 = t;
+    // derularea: cățelul e împins puțin și revine lin
+    const dy = scrollY - lastY; lastY = scrollY; lagY = Math.max(-60, Math.min(60, lagY - dy * .25)); lagY *= .9;
+    if (Math.abs(dy) > 1) still = 0; else still++;
+    if (wait > 0) { wait -= 1; if (walking) { walking = false; anim && anim.pause(); } if (wait <= 0) pick(); }
+    else { const sp = (mob() ? 26 : 34) * dt, d = tx - x;
+      if (Math.abs(d) <= sp) { x = tx; wait = 50 + Math.random() * 160; }
+      else { x += Math.sign(d) * sp; dir = Math.sign(d); if (!walking) { walking = true; anim && anim.play(); } } }
+    place();
+    dog.classList.toggle("talk", scrollY + innerHeight > document.documentElement.scrollHeight - 60 && still > 20);
     requestAnimationFrame(tick);
   };
-  build(); cur = lFor(scrollY + innerHeight * .6);
-  let rt; const rebuild = () => { clearTimeout(rt); rt = setTimeout(() => { build(); }, 150); };
-  addEventListener("resize", rebuild); addEventListener("load", rebuild); document.fonts && document.fonts.ready.then(rebuild);
-  new ResizeObserver(rebuild).observe(document.body);
-  if (reduce) { const put = () => { cur = lFor(scrollY + innerHeight * .6); const [, x, y] = at(cur); dog.style.transform = `translate(${x - dog.offsetWidth / 2}px,${y - dog.offsetHeight}px)`; }; addEventListener("scroll", put, { passive: true }); put(); return; }
+  addEventListener("resize", () => { x = Math.min(x, W() - dog.offsetWidth - 14); tx = Math.min(tx, W() - dog.offsetWidth - 14); });
   requestAnimationFrame(tick);
 })();
 
