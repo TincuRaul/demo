@@ -54,6 +54,23 @@
   .roll .sp { display: inline-block; width: .3em; }
   @media (hover: hover) { .nv a:hover .roll .l > span { transform: translateY(-1.5em); } }
 
+  /* meniul de pe telefon: trei linii care devin X, iar meniul acoperă ecranul */
+  .mb { display: none; margin-left: auto; width: 44px; height: 44px; border: 0; background: none; cursor: pointer; position: relative; z-index: 2; }
+  .mb i { position: absolute; left: 11px; right: 11px; height: 2px; border-radius: 2px; background: var(--ink); transition: transform .45s cubic-bezier(.76,0,.24,1), opacity .2s; }
+  .mb i:nth-child(1) { top: 15px; } .mb i:nth-child(2) { top: 21px; } .mb i:nth-child(3) { top: 27px; }
+  html.open .mb i:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  html.open .mb i:nth-child(2) { opacity: 0; }
+  html.open .mb i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .mn { position: fixed; inset: 0; z-index: 39; background: var(--paper); padding: 96px var(--pad) calc(28px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; visibility: hidden; clip-path: inset(0 0 100% 0); transition: clip-path .7s cubic-bezier(.76,0,.24,1), visibility 0s .7s; }
+  html.open .mn { visibility: visible; clip-path: inset(0 0 0 0); transition: clip-path .7s cubic-bezier(.76,0,.24,1); }
+  html.open { overflow: hidden; }
+  .mn nav a { display: flex; align-items: baseline; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); font-weight: 800; font-size: 34px; letter-spacing: -.02em; line-height: 1.2; }
+  .mn nav a small { font-size: 13px; font-weight: 500; color: var(--mute); }
+  .mn .bot { margin-top: auto; display: grid; gap: 10px; }
+  .mn .bot .btn { justify-content: center; }
+  .mn .bot p { color: var(--mute); font-size: 14px; margin-top: 6px; }
+  .mn .paw { position: absolute; right: var(--pad); top: 110px; font-size: 90px; color: var(--band); transform: rotate(-16deg); }
+
   /* primul ecran: textul la stânga, poza mare cu pacienții la dreapta */
   .hero { padding: 116px 0 90px; }
   .hero .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start; }
@@ -204,6 +221,7 @@
     .lead { font-size: 17px; }
     .top .wrap { height: 62px; }
     .nv, .tphone { display: none; }
+    .mb { display: block; margin-right: -10px; }
     .brand { font-size: 23px; }
     .hero { padding: 96px 0 64px; }
     .hero .wrap, .about .wrap, .pup .wrap, .hours .wrap, .contact .wrap { grid-template-columns: 1fr; gap: 40px; }
@@ -219,7 +237,8 @@
     .sv svg { width: 40px; height: 40px; grid-row: span 2; }
     .sv h3 { margin-top: 0; font-size: 19px; }
     .sv p { margin-top: 0; }
-    .pup .ph { aspect-ratio: 4/3; }
+    .pup .ph { aspect-ratio: 1/1; }
+    .pup .ph img { object-position: 50% 12%; }
     .steps { grid-template-columns: 1fr; gap: 34px; margin-top: 34px; }
     .st { display: grid; grid-template-columns: 116px 1fr; gap: 16px; align-items: center; }
     .st h3 { margin-top: 0; font-size: 18px; }
@@ -248,8 +267,14 @@
       <a href="#servicii">Servicii</a><a href="#vizita">Prima vizită</a><a href="#program">Program</a><a href="#contact">Contact</a>
     </nav>
     <a class="tphone" href="tel:+40745358721"><svg><use href="#tel"/></svg>0745 358 721</a>
+    <button class="mb" id="mb" aria-label="Deschide meniul" aria-expanded="false" aria-controls="mn"><i></i><i></i><i></i></button>
   </div>
 </header>
+<div class="mn" id="mn" aria-hidden="true">
+  <svg class="paw" aria-hidden="true"><use href="#paw"/></svg>
+  <nav aria-label="Meniu pe telefon"><a href="#servicii"><small>I.</small>Servicii</a><a href="#vizita"><small>II.</small>Prima vizită</a><a href="#program"><small>III.</small>Program</a><a href="#contact"><small>IV.</small>Contact</a></nav>
+  <div class="bot"><a class="btn b" href="tel:+40745358721"><svg><use href="#tel"/></svg>Sună: 0745 358 721</a><p>Martirilor Deportați 31, Satu Mare</p></div>
+</div>
 
 <main>
   <section class="hero" id="hero">
@@ -406,7 +431,12 @@ const hdr = $("#top"); const setTop = () => hdr.classList.toggle("solid", scroll
 // linkurile din meniu, cu literele care se rostogolesc la hover
 $$(".nv a").forEach((a) => { const t = a.textContent.trim(), ch = [...t], mid = (ch.length - 1) / 2; a.setAttribute("aria-label", t);
   a.innerHTML = `<span class="roll" aria-hidden="true">${ch.map((c, i) => c === " " ? '<span class="sp"></span>' : `<span class="l"><span style="--d:${Math.round(Math.abs(i - mid) * 26)}">${c}</span></span>`).join("")}</span>`; });
-document.addEventListener("click", (e) => { const a = e.target.closest('a[href^="#"]'); if (!a) return; e.preventDefault();
+const mb = $("#mb"), mn = $("#mn");
+const setMenu = (o) => { document.documentElement.classList.toggle("open", o); mb.setAttribute("aria-expanded", o); mb.setAttribute("aria-label", o ? "Închide meniul" : "Deschide meniul"); mn.setAttribute("aria-hidden", !o);
+  if (o && !reduce && window.gsap) gsap.fromTo("#mn nav a", { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .8, ease: "expo.out", stagger: .07, delay: .25 }); };
+mb.addEventListener("click", () => setMenu(!document.documentElement.classList.contains("open")));
+addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+document.addEventListener("click", (e) => { const a = e.target.closest('a[href^="#"]'); if (!a) return; e.preventDefault(); setMenu(false);
   const el = document.getElementById(a.getAttribute("href").slice(1)); scrollTo({ top: el ? el.getBoundingClientRect().top + scrollY - (el.id === "hero" ? 0 : 64) : 0, behavior: reduce ? "auto" : "smooth" }); });
 
 // pisica de deasupra serviciilor: iese când ajungi la ea, iar ochii se uită după cursor
