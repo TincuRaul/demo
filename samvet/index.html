@@ -22,7 +22,7 @@
   a { color: inherit; text-decoration: none; }
   :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
   .wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--pad); }
-  section { padding: 160px 0; overflow-x: clip; }
+  section { padding: 120px 0; overflow-x: clip; }
   h1, h2 { font-weight: 800; letter-spacing: -.02em; line-height: 1.18; }
   h2 { font-size: clamp(32px, 4.6vw, 58px); max-width: 17ch; line-height: 1.12; }
   .lead { margin-top: 22px; max-width: 50ch; color: var(--mute); font-size: 19px; line-height: 1.75; }
@@ -55,8 +55,9 @@
   @media (hover: hover) { .nv a:hover .roll .l > span { transform: translateY(-1.5em); } }
 
   /* primul ecran: textul la stânga, poza mare cu pacienții la dreapta */
-  .hero { padding: 168px 0 120px; }
-  .hero .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; }
+  .hero { padding: 116px 0 110px; }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start; }
+  .hero .wrap > div:first-child { padding-top: 34px; }
   .hero h1 { font-size: clamp(36px, 5vw, 60px); max-width: 16ch; }
   .hero .lead { font-size: 19px; }
   .now { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px; font-weight: 700; font-size: 15px; }
@@ -74,7 +75,7 @@
   .tagp { position: absolute; right: 18px; top: 18px; background: var(--paper); border-radius: 12px; padding: 8px 14px; font-size: 14px; font-weight: 700; }
 
   /* fraza despre ei */
-  .about { padding: 100px 0 170px; }
+  .about { padding: 90px 0 150px; }
   .about .wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 96px; align-items: end; }
   .about h2 { max-width: 20ch; }
   .about .lead { margin-top: 0; }
@@ -114,7 +115,7 @@
   .pc { border-radius: 16px; overflow: hidden; aspect-ratio: 3/4; transform: rotate(var(--r)); transition: transform .5s cubic-bezier(.2,.8,.2,1); background: var(--band); }
   .pc img { width: 100%; height: 100%; object-fit: cover; }
   @media (hover: hover) { .pc:hover { transform: rotate(0) scale(1.03); } }
-  .pnote { margin-top: 44px; color: var(--mute); font-size: 15px; }
+  .pnote { margin-top: 18px; color: var(--mute); font-size: 15px; }
   .pnote a { color: var(--blue); font-weight: 700; border-bottom: 1.5px solid currentColor; }
 
   /* programul cu lăbuțe, ca la KINS WITH */
@@ -169,6 +170,14 @@
   @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-8px) rotate(4deg); } }
   @keyframes swing { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
 
+  html:not(.anim) .yarn { display: none; }
+  .yarn { position: relative; margin-top: 56px; height: 96px; }
+  .yarn svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .yarn .th { fill: none; stroke: var(--blue); stroke-width: 2; stroke-linecap: round; }
+  .yarn .ball { transform-box: fill-box; transform-origin: 50% 50%; }
+  .yarn .ball circle { fill: var(--paper); stroke: var(--blue); stroke-width: 2.2; }
+  .yarn .ball path { fill: none; stroke: var(--blue); stroke-width: 1.8; stroke-linecap: round; }
+
   /* pozele: se deschid ca o cortină la scroll și se mișcă după cursor */
   .ph, .big, .small, .pc { isolation: isolate; }
   .ph img, .big img, .small img, .pc img { transition: transform .9s cubic-bezier(.2,.8,.2,1); }
@@ -179,7 +188,7 @@
   @media (max-width: 900px) {
     :root { --pad: 18px; }
     body { font-size: 16px; }
-    section { padding: 76px 0; }
+    section { padding: 64px 0; }
     .lead { font-size: 17px; }
     .top .wrap { height: 62px; }
     .nv, .tphone { display: none; }
@@ -315,6 +324,7 @@
         <div class="pc" style="--r:.8deg"><img src="img/p6.webp" alt="Shiba inu cu ham verde" loading="lazy" /></div>
         <div class="pc" style="--r:-1.2deg"><img src="img/p1.webp" alt="Pui de labrador într-un coș" loading="lazy" /></div>
       </div>
+      <div class="yarn" aria-hidden="true"><svg id="yarn" preserveAspectRatio="none"><path class="th" id="th"/><g class="ball" id="ball"><circle r="22"/><path d="M-20-8c10 6 30 6 40 0M-21 4c12 7 30 7 42 0M-12-18c6 12 6 26-2 38M4-21c8 12 8 30 0 42"/></g></svg></div>
       <p class="pnote">Mai multe poze pe <a href="https://www.facebook.com/samvetsm/" target="_blank" rel="noopener">pagina noastră de Facebook</a>.</p>
     </div>
   </section>
@@ -431,6 +441,16 @@ addEventListener("DOMContentLoaded", () => {
     f.addEventListener("mousemove", (e) => { const r = f.getBoundingClientRect(); qx(((e.clientX - r.left) / r.width - .5) * -22); qy(((e.clientY - r.top) / r.height - .5) * -22); });
     f.addEventListener("mouseleave", () => { qx(0); qy(0); });
   });
+  // ghemul se rostogolește de la stânga la dreapta cât derulezi și lasă firul în urmă
+  (() => { const svg = $("#yarn"), th = $("#th"), ball = $("#ball"); let L = 1, W = 0;
+    const lay = () => { W = svg.clientWidth; const h = svg.clientHeight, y = h - 24;
+      let d = `M0 ${y}`; for (let x = 0; x < W; x += 120) d += ` q30 ${-14} 60 0 t60 0`; th.setAttribute("d", d); L = th.getTotalLength(); th.style.strokeDasharray = L; th.style.strokeDashoffset = L; ball.setAttribute("transform", `translate(2 ${y - 22})`); };
+    lay(); addEventListener("resize", lay);
+    const st = { p: 0 };
+    gsap.to(st, { p: 1, ease: "none", scrollTrigger: { trigger: ".yarn", start: "top 92%", end: "bottom 35%", scrub: .8 }, onUpdate: () => {
+      const l = L * st.p, q = th.getPointAtLength(Math.max(0, l - 1)); th.style.strokeDashoffset = L - l;
+      ball.setAttribute("transform", `translate(${Math.min(W - 24, q.x + 2)} ${q.y - 22}) rotate(${l * 2.6})`); } });
+  })();
   gsap.utils.toArray(".rv").forEach((el) => gsap.from(el, { y: 26, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 92%" } }));
 });
 </script>
