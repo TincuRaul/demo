@@ -21,11 +21,11 @@
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
   :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
-  .wrap { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 var(--pad); }
-  section { padding: 110px 0; overflow-x: clip; }
+  .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 var(--pad); }
+  section { padding: 160px 0; overflow-x: clip; }
   h1, h2 { font-weight: 800; letter-spacing: -.02em; line-height: 1.18; }
-  h2 { font-size: clamp(30px, 4.4vw, 46px); max-width: 18ch; }
-  .lead { margin-top: 16px; max-width: 54ch; color: var(--mute); font-size: 18px; }
+  h2 { font-size: clamp(32px, 4.6vw, 58px); max-width: 17ch; line-height: 1.12; }
+  .lead { margin-top: 22px; max-width: 50ch; color: var(--mute); font-size: 19px; line-height: 1.75; }
   .lm { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .22em; margin-bottom: -.22em; }
   .lm > span { display: inline-block; }
   .paw { display: inline-block; width: 1em; height: 1em; fill: currentColor; vertical-align: -.12em; }
@@ -55,8 +55,8 @@
   @media (hover: hover) { .nv a:hover .roll .l > span { transform: translateY(-1.5em); } }
 
   /* primul ecran: textul la stânga, poza mare cu pacienții la dreapta */
-  .hero { padding: 132px 0 70px; }
-  .hero .wrap { display: grid; grid-template-columns: 1.02fr 1fr; gap: 56px; align-items: center; }
+  .hero { padding: 168px 0 120px; }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; }
   .hero h1 { font-size: clamp(36px, 5vw, 60px); max-width: 16ch; }
   .hero .lead { font-size: 19px; }
   .now { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px; font-weight: 700; font-size: 15px; }
@@ -74,23 +74,23 @@
   .tagp { position: absolute; right: 18px; top: 18px; background: var(--paper); border-radius: 12px; padding: 8px 14px; font-size: 14px; font-weight: 700; }
 
   /* fraza despre ei */
-  .about { padding: 60px 0 110px; }
-  .about .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  .about { padding: 100px 0 170px; }
+  .about .wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 96px; align-items: end; }
   .about h2 { max-width: 20ch; }
   .about .lead { margin-top: 0; }
   .about .lead + .lead { margin-top: 14px; }
 
   /* servicii: rânduri despărțite de linii, cu iconițe desenate linie cu linie */
   .serv { background: var(--band); }
-  .sgrid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 48px; border-top: 1px solid var(--line); }
-  .sv { padding: 34px 30px 36px 0; border-bottom: 1px solid var(--line); }
-  .sv:not(:nth-child(3n+1)) { padding-left: 30px; border-left: 1px solid var(--line); }
+  .sgrid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 72px; border-top: 1px solid var(--line); }
+  .sv { padding: 44px 40px 48px 0; border-bottom: 1px solid var(--line); }
+  .sv:not(:nth-child(3n+1)) { padding-left: 40px; border-left: 1px solid var(--line); }
   .sv svg { width: 54px; height: 54px; stroke: var(--blue); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
   .sv h3 { margin-top: 18px; font-size: 21px; font-weight: 800; letter-spacing: -.01em; }
   .sv p { margin-top: 8px; color: var(--mute); font-size: 16px; max-width: 34ch; }
 
   /* pui nou */
-  .pup .wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 64px; align-items: center; }
+  .pup .wrap { display: grid; grid-template-columns: .9fr 1fr; gap: 110px; align-items: center; }
   .pup .ph { border-radius: 24px; overflow: hidden; aspect-ratio: 4/5; }
   .pup .ph img { width: 100%; height: 100%; object-fit: cover; }
   .vax { margin-top: 30px; }
@@ -102,15 +102,15 @@
 
   /* prima vizită, în 3 pași desenați cu o linie */
   .visit { background: var(--band); }
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 54px; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 64px; margin-top: 80px; }
   .st svg { width: 100%; max-width: 230px; height: auto; aspect-ratio: 23/16; stroke: var(--ink); stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
   .st svg .acc { stroke: var(--blue); }
   .st h3 { margin-top: 20px; font-size: 20px; font-weight: 800; }
   .st p { margin-top: 6px; color: var(--mute); font-size: 16px; max-width: 32ch; }
-  .urg { margin-top: 54px; padding-top: 26px; border-top: 1px solid var(--line); font-weight: 700; font-size: 19px; max-width: 46ch; }
+  .urg { margin-top: 80px; padding-top: 26px; border-top: 1px solid var(--line); font-weight: 700; font-size: 19px; max-width: 46ch; }
 
   /* pacienții: poze puțin înclinate, ca pe un avizier */
-  .pgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; margin-top: 50px; }
+  .pgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px; margin-top: 72px; }
   .pc { border-radius: 16px; overflow: hidden; aspect-ratio: 3/4; transform: rotate(var(--r)); transition: transform .5s cubic-bezier(.2,.8,.2,1); background: var(--band); }
   .pc img { width: 100%; height: 100%; object-fit: cover; }
   @media (hover: hover) { .pc:hover { transform: rotate(0) scale(1.03); } }
@@ -118,7 +118,7 @@
   .pnote a { color: var(--blue); font-weight: 700; border-bottom: 1.5px solid currentColor; }
 
   /* programul cu lăbuțe, ca la KINS WITH */
-  .hours .wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 64px; }
+  .hours .wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 110px; }
   .tbl { border-top: 1px solid var(--line); }
   .row { display: grid; grid-template-columns: 1fr auto 40px; align-items: center; gap: 18px; padding: 15px 10px; border-bottom: 1px solid var(--line); border-radius: 10px; }
   .row b { font-weight: 700; }
@@ -130,8 +130,8 @@
 
   /* contact */
   .contact { background: var(--band); }
-  .contact .wrap { display: grid; grid-template-columns: 1fr 1.15fr; gap: 56px; align-items: start; }
-  .rows { margin-top: 30px; border-top: 1px solid var(--line); }
+  .contact .wrap { display: grid; grid-template-columns: 1fr 1.15fr; gap: 96px; align-items: start; }
+  .rows { margin-top: 40px; border-top: 1px solid var(--line); }
   .rows div { display: grid; grid-template-columns: 110px 1fr; gap: 18px; padding: 16px 0; border-bottom: 1px solid var(--line); }
   .rows dt { color: var(--mute); }
   .rows dd { font-weight: 700; }
@@ -139,7 +139,7 @@
   .map { border-radius: 22px; overflow: hidden; aspect-ratio: 5/4; background: var(--line); }
   .map iframe { width: 100%; height: 100%; border: 0; filter: saturate(.75) sepia(.12); }
 
-  .foot { padding: 46px 0 120px; font-size: 14px; color: var(--mute); }
+  .foot { padding: 56px 0 64px; font-size: 14px; color: var(--mute); }
   .foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; }
   .foot a { color: var(--ink); font-weight: 700; }
 
@@ -147,38 +147,44 @@
   .fix { position: fixed; right: 22px; bottom: 26px; z-index: 30; }
   .mbar { display: none; }
 
-  /* cățelul: merge pe marginea de jos cât derulezi, lasă lăbuțe în urmă */
-  .dog { position: fixed; left: 0; bottom: 16px; z-index: 31; width: 104px; pointer-events: none; will-change: transform; }
-  .dog svg { width: 100%; height: auto; overflow: visible; }
+  /* cățelul: merge pe un drum desenat prin pagină, pe margini și prin golurile dintre secțiuni, odată cu scroll-ul */
+  #walk { position: absolute; left: 0; top: 0; width: 100%; height: 0; pointer-events: none; z-index: 25; }
+  #walk .road { position: absolute; left: 0; top: 0; overflow: visible; }
+  #walk .road path { fill: none; stroke: rgba(31,69,150,.2); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1 10; }
+  .dog { position: absolute; left: 0; top: 0; width: 84px; transform-origin: 50% 100%; will-change: transform; }
+  .dog svg { display: block; width: 100%; height: auto; overflow: visible; }
   .dog .lg { transform-box: fill-box; transform-origin: 50% 0; }
   .dog .tail { transform-box: fill-box; transform-origin: 100% 100%; animation: wag .5s ease-in-out infinite alternate; }
   .dog.run .tail { animation-duration: .18s; }
   .dog .head { transform-box: fill-box; transform-origin: 20% 80%; transition: transform .45s cubic-bezier(.3,1.6,.5,1); }
   .dog.idle .head { transform: rotate(-12deg) translateY(-1px); }
-  .dog .bub { position: absolute; right: 40%; bottom: 100%; transform-origin: 100% 100%; transform: translateY(-4px) scale(.6); opacity: 0; background: var(--ink); color: #fff; font-size: 13px; font-weight: 700; white-space: nowrap; padding: 6px 11px; border-radius: 10px; transition: opacity .3s, transform .4s cubic-bezier(.3,1.6,.5,1); }
-  .dog.talk .bub { opacity: 1; transform: translateY(-8px) scale(1); }
+  .dog .bub { position: absolute; left: 50%; bottom: 112%; transform: translateX(-50%) scale(.6); opacity: 0; background: var(--ink); color: #fff; font-size: 13px; font-weight: 700; white-space: nowrap; padding: 6px 11px; border-radius: 10px; transition: opacity .3s, transform .4s cubic-bezier(.3,1.6,.5,1); }
+  .dog.talk .bub { opacity: 1; transform: translateX(-50%) scale(1); }
   @keyframes wag { from { transform: rotate(-14deg); } to { transform: rotate(16deg); } }
-  .ground { position: fixed; left: 0; right: 0; bottom: 0; height: 96px; z-index: 28; pointer-events: none; background: linear-gradient(to bottom, rgba(250,244,238,0), rgba(250,244,238,.94) 62%); }
-  .ground::after { content: ""; position: absolute; left: 0; right: 0; bottom: 16px; border-top: 1.5px dashed rgba(31,69,150,.22); }
-  .pp { position: fixed; z-index: 29; width: 13px; height: 13px; color: var(--blue); pointer-events: none; animation: ppf 1.6s ease-out forwards; }
-  @keyframes ppf { 0% { opacity: .55; } 100% { opacity: 0; } }
+  .pp { position: absolute; left: 0; top: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; color: var(--blue); opacity: .3; animation: ppin .5s ease-out; }
+  @keyframes ppin { from { opacity: .8; transform: var(--t) scale(1.5); } }
+
+  /* pozele: se deschid ca o cortină la scroll și se mișcă după cursor */
+  .ph, .big, .small, .pc { isolation: isolate; }
+  .ph img, .big img, .small img, .pc img { transition: transform .9s cubic-bezier(.2,.8,.2,1); }
 
   html.anim .hero .big { clip-path: inset(0 0 100% 0 round 26px); }
 
   /* telefon: totul pe o coloană, spații strânse, bara cu Sună / Cum ajungi jos */
   @media (max-width: 900px) {
-    :root { --pad: 18px; }
+    :root { --pad: 28px; }
     body { font-size: 16px; }
-    section { padding: 64px 0; }
+    section { padding: 76px 0; }
+    .lead { font-size: 17px; }
     .top .wrap { height: 62px; }
     .nv, .tphone { display: none; }
     .brand { font-size: 23px; }
-    .hero { padding: 86px 0 40px; }
-    .hero .wrap, .about .wrap, .pup .wrap, .hours .wrap, .contact .wrap { grid-template-columns: 1fr; gap: 34px; }
+    .hero { padding: 96px 0 64px; }
+    .hero .wrap, .about .wrap, .pup .wrap, .hours .wrap, .contact .wrap { grid-template-columns: 1fr; gap: 40px; }
     .hero h1 { font-size: clamp(32px, 9vw, 42px); }
     .hero .lead { font-size: 17px; }
     .hph .small { left: auto; right: -6px; bottom: -26px; width: 36%; }
-    .about { padding: 40px 0 64px; }
+    .about { padding: 40px 0 76px; }
     .sgrid { grid-template-columns: 1fr; margin-top: 30px; }
     .sv, .sv:not(:nth-child(3n+1)) { padding: 24px 0; border-left: 0; display: grid; grid-template-columns: 44px 1fr; gap: 4px 16px; }
     .sv svg { width: 40px; height: 40px; grid-row: span 2; }
@@ -193,11 +199,9 @@
     .fix { display: none; }
     .mbar { display: grid; grid-template-columns: 1.3fr 1fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: var(--paper); border-top: 1px solid var(--line); }
     .mbar .btn { justify-content: center; min-height: 50px; padding: 0 12px; }
-    .mbar { padding-top: 46px; }
-    .ground { display: none; }
-    .mbar::before { content: ""; position: absolute; left: 0; right: 0; top: 42px; border-top: 1.5px dashed rgba(31,69,150,.22); }
-    .dog { width: 58px; bottom: calc(63px + env(safe-area-inset-bottom)); }
-    .foot { padding-bottom: 170px; }
+    .dog { width: 36px; }
+    .dog .bub { font-size: 12px; }
+    .foot { padding-bottom: 110px; }
   }
 </style>
 </head>
@@ -265,7 +269,7 @@
 
   <section class="pup">
     <div class="wrap">
-      <div class="ph rv"><img src="img/p6.webp" alt="Un cățel shiba inu ținut în brațe" loading="lazy" /></div>
+      <div class="ph"><img src="img/p6.webp" alt="Un cățel shiba inu ținut în brațe" loading="lazy" /></div>
       <div>
         <h2 class="rvl">Ai luat un pui? Uite când vine la primul vaccin.</h2>
         <div class="vax">
@@ -328,7 +332,7 @@
         </dl>
         <div class="cta"><a class="btn b" href="tel:+40745358721"><svg><use href="#tel"/></svg>Sună acum</a><a class="btn o" href="https://www.google.com/maps/search/?api=1&query=Samvet+Strada+Martirilor+Deportați+31+Satu+Mare" target="_blank" rel="noopener"><svg><use href="#pin"/></svg>Deschide în Maps</a></div>
       </div>
-      <div class="map rv"><iframe title="Harta până la Samvet" loading="lazy" src="https://maps.google.com/maps?q=Samvet%2C%20Strada%20Martirilor%20Deporta%C8%9Bi%2031%2C%20Satu%20Mare&z=16&output=embed"></iframe></div>
+      <div class="map"><iframe title="Harta până la Samvet" loading="lazy" src="https://maps.google.com/maps?q=Samvet%2C%20Strada%20Martirilor%20Deporta%C8%9Bi%2031%2C%20Satu%20Mare&z=16&output=embed"></iframe></div>
     </div>
   </section>
 </main>
@@ -344,8 +348,8 @@
 <nav class="mbar" aria-label="Acțiuni rapide"><a class="btn b" href="tel:+40745358721"><svg><use href="#tel"/></svg>Sună</a><a class="btn o" href="#contact"><svg><use href="#pin"/></svg>Cum ajungi</a></nav>
 
 <!-- cățelul: corp alb cu contur albastru, urechea și pata albastre -->
-<div class="ground" aria-hidden="true"></div>
-<div class="dog" id="dog" aria-hidden="true">
+<div id="walk" aria-hidden="true"><svg class="road" id="road"><path id="rp"/></svg><div id="prints"></div>
+<div class="dog" id="dog">
   <span class="bub" id="bub">Ham! Sună-ne.</span>
   <svg viewBox="0 0 124 84" fill="#fffaf5" stroke="#1f4596" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
     <path class="tail" fill="none" d="M31 40c-9-2-15-9-14-19"/>
@@ -364,6 +368,7 @@
       <path d="M84 37c4 3 10 3 14 0" stroke-width="3" fill="none"/>
     </g>
   </svg>
+</div>
 </div>
 
 <script>
@@ -390,34 +395,69 @@ $$(".nv a").forEach((a) => { const t = a.textContent.trim(), ch = [...t], mid = 
 document.addEventListener("click", (e) => { const a = e.target.closest('a[href^="#"]'); if (!a) return; e.preventDefault();
   const el = document.getElementById(a.getAttribute("href").slice(1)); scrollTo({ top: el ? el.getBoundingClientRect().top + scrollY - (el.id === "hero" ? 0 : 64) : 0, behavior: reduce ? "auto" : "smooth" }); });
 
-// cățelul merge de la stânga la dreapta pe măsură ce derulezi pagina; când te oprești, se uită la tine
+// cățelul merge pe un drum prin pagină: în jos pe margini și în diagonală prin golurile dintre secțiuni.
+// Stă mereu cam la 60% din înălțimea ecranului, deci se plimbă odată cu scroll-ul; când te oprești, se uită la tine.
 (() => {
-  const dog = $("#dog"), legs = [...dog.querySelectorAll(".lg")], body = dog.querySelector("svg");
-  let x = 16, phase = 0, dir = 1, still = 0, trail = 0, talked = false;
-  const range = () => { const fix = $(".fix"), mob = innerWidth <= 900;
-    const right = mob ? innerWidth - 12 : fix.getBoundingClientRect().left - 14; return [12, right - dog.offsetWidth]; };
-  const target = () => { const [a, b] = range(), p = scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight); return a + (b - a) * Math.min(1, Math.max(0, p)); };
-  if (reduce) { const put = () => dog.style.transform = `translateX(${target()}px)`; addEventListener("scroll", put, { passive: true }); addEventListener("resize", put); put(); dog.classList.add("idle"); return; }
-  x = target();
+  const walk = $("#walk"), road = $("#road"), rp = $("#rp"), prints = $("#prints"), dog = $("#dog"), legs = [...dog.querySelectorAll(".lg")], svg = dog.querySelector("svg");
+  let pts = [], total = 0, cur = 0, phase = 0, still = 99, lastPrint = 0, side = 1, upright = false, TH = 20;
+  const build = () => {
+    const vw = document.documentElement.clientWidth, H = document.documentElement.scrollHeight, mob = vw <= 900;
+    const w = dog.offsetWidth, th = w * .68, wrapL = Math.max(0, (vw - 1180) / 2) + (mob ? 28 : 22);
+    TH = th; upright = wrapL / 2 + th / 2 > w / 2 + 6; // pe ecrane late are loc să meargă drept pe margine
+    const lane = (sd) => sd < 0 ? Math.max(th + 3, wrapL / 2 + th / 2) : vw - Math.max(th + 3, wrapL / 2 + th / 2);
+    walk.style.height = H + "px"; road.setAttribute("width", vw); road.setAttribute("height", H);
+    // golurile dintre secțiuni: de la finalul conținutului unei secțiuni la începutul următoarei
+    const secs = [...$$("main > section")], Y = (el, k) => el.getBoundingClientRect()[k] + scrollY;
+    const P = [[lane(-1), Y(secs[0], "top") + (mob ? 70 : 110)]];
+    let sd = -1;
+    for (let i = 0; i < secs.length - 1; i++) {
+      const a = Y(secs[i].querySelector(".wrap"), "bottom") + th + 18, b = Y(secs[i + 1].querySelector(".wrap"), "top") - 14;
+      if (b - a < 30) continue;
+      P.push([lane(sd), a]); sd = -sd; P.push([lane(sd), b]);
+    }
+    const end = Y($(".foot"), "top") - 8; P.push([lane(sd), end - 40]); P.push([vw / 2 + (sd < 0 ? -40 : 40), end]);
+    // colțuri rotunjite
+    let d = `M${P[0][0]},${P[0][1]}`;
+    for (let i = 1; i < P.length; i++) { const [x, y] = P[i]; if (i < P.length - 1) { const [px, py] = P[i - 1], [nx, ny] = P[i + 1];
+        const r = 34, l1 = Math.hypot(x - px, y - py), l2 = Math.hypot(nx - x, ny - y), k1 = Math.min(r, l1 / 2) / l1, k2 = Math.min(r, l2 / 2) / l2;
+        d += ` L${x - (x - px) * k1},${y - (y - py) * k1} Q${x},${y} ${x + (nx - x) * k2},${y + (ny - y) * k2}`; } else d += ` L${x},${y}`; }
+    rp.setAttribute("d", d); total = rp.getTotalLength();
+    pts = []; for (let l = 0; l <= total; l += 4) { const q = rp.getPointAtLength(l); pts.push([l, q.x, q.y]); }
+    prints.innerHTML = ""; lastPrint = 0;
+  };
+  const at = (l) => { const i = Math.max(0, Math.min(pts.length - 1, Math.round(l / 4))); return pts[i]; };
+  const lFor = (y) => { let lo = 0, hi = pts.length - 1; while (lo < hi) { const m = (lo + hi) >> 1; if (pts[m][2] < y) lo = m + 1; else hi = m; } return pts[lo][0]; };
+  const paw = (l, n) => { let [, x, y] = at(l); const [, x2, y2] = at(l + 4), a = Math.atan2(y2 - y, x2 - x), o = n % 2 ? 5 : -5;
+    if (!upright && Math.abs(y2 - y) > Math.abs(x2 - x) * 1.5) x += x < innerWidth / 2 ? -TH / 2 : TH / 2;
+    const e = document.createElementNS("http://www.w3.org/2000/svg", "svg"); e.setAttribute("class", "pp"); e.innerHTML = '<use href="#paw"/>'; e.dataset.l = l;
+    const t = `translate(${x - Math.sin(a) * o}px,${y + Math.cos(a) * o}px) rotate(${a * 180 / Math.PI + 90}deg)`; e.style.setProperty("--t", t); e.style.transform = t; prints.append(e); };
   const tick = () => {
-    const t = target(), dx = (t - x) * .09; x += dx;
-    const moving = Math.abs(dx) > .25;
-    if (moving) { phase += Math.min(.5, Math.abs(dx) * .12); dir = dx > 0 ? 1 : -1; still = 0; trail += Math.abs(dx); } else still++;
-    dog.classList.toggle("run", moving); dog.classList.toggle("idle", still > 25);
-    const sw = moving ? Math.sin(phase) * 26 : 0;
-    legs.forEach((l, i) => l.style.transform = `rotate(${(i % 2 ? -sw : sw)}deg)`);
-    const bob = moving ? -Math.abs(Math.sin(phase)) * 2.4 : 0;
-    body.style.transform = `translateY(${bob}px) scaleX(${dir})`;
-    dog.style.transform = `translateX(${x}px)`;
-    // lăbuțe lăsate în urmă
-    if (trail > 34) { trail = 0; const p = document.createElementNS("http://www.w3.org/2000/svg", "svg"); p.setAttribute("class", "pp"); p.innerHTML = '<use href="#paw"/>';
-      const r = dog.getBoundingClientRect(); p.style.left = (r.left + r.width * (dir > 0 ? .25 : .6)) + "px"; p.style.top = (r.bottom - 6 + (Math.random() * 4 - 2)) + "px";
-      p.style.transform = `rotate(${dir > 0 ? 90 : -90}deg)`; document.body.append(p); setTimeout(() => p.remove(), 1700); }
-    // la capătul paginii ajunge lângă buton și latră
-    const end = scrollY + innerHeight > document.documentElement.scrollHeight - 80;
-    dog.classList.toggle("talk", end && still > 20);
+    const goal = lFor(scrollY + innerHeight * (innerWidth <= 900 ? .56 : .62)), dl = (goal - cur) * .1;
+    cur += dl; const moving = Math.abs(dl) > .2;
+    if (moving) { phase += Math.min(.5, Math.abs(dl) * .1); still = 0; } else still++;
+    const [, x, y] = at(cur), [, xa, ya] = at(cur + (dl >= 0 ? 6 : -6));
+    let a = Math.atan2(ya - y, xa - x) * 180 / Math.PI;
+    if (moving) side = (xa - x) < -.01 ? -1 : (xa - x) > .01 ? 1 : side;
+    // pe margini, spatele lui stă spre marginea ecranului, ca să nu acopere textul
+    const vert = Math.abs(ya - y) > Math.abs(xa - x) * 1.5, onLeft = x < innerWidth / 2;
+    let tf;
+    if (vert && upright) tf = onLeft ? "" : "scaleX(-1)";
+    else if (vert) { const down = ya > y; tf = `rotate(${down ? 90 : -90}deg) scaleY(${(down ? onLeft : !onLeft) ? -1 : 1})`; }
+    else tf = side < 0 ? `rotate(${a - 180}deg) scaleX(-1)` : `rotate(${a}deg)`;
+    const w = dog.offsetWidth, h = dog.offsetHeight, bob = moving ? -Math.abs(Math.sin(phase)) * 2.2 : 0;
+    dog.style.transform = `translate(${x - w / 2}px,${y - h}px) ${tf} translateY(${bob}px)`;
+    const sw = moving ? Math.sin(phase) * 26 : 0; legs.forEach((l, i) => l.style.transform = `rotate(${i % 2 ? -sw : sw}deg)`);
+    dog.classList.toggle("run", moving); dog.classList.toggle("idle", still > 25); dog.classList.toggle("talk", cur > total - 30 && still > 15);
+    // lăbuțele rămân pe drum; dacă se întoarce, le strânge
+    while (lastPrint + 30 < cur) { lastPrint += 30; paw(lastPrint, lastPrint / 30); }
+    while (lastPrint > cur + 30) { const e = prints.lastElementChild; if (e) e.remove(); lastPrint -= 30; }
     requestAnimationFrame(tick);
   };
+  build(); cur = lFor(scrollY + innerHeight * .6);
+  let rt; const rebuild = () => { clearTimeout(rt); rt = setTimeout(() => { build(); }, 150); };
+  addEventListener("resize", rebuild); addEventListener("load", rebuild); document.fonts && document.fonts.ready.then(rebuild);
+  new ResizeObserver(rebuild).observe(document.body);
+  if (reduce) { const put = () => { cur = lFor(scrollY + innerHeight * .6); const [, x, y] = at(cur); dog.style.transform = `translate(${x - dog.offsetWidth / 2}px,${y - dog.offsetHeight}px)`; }; addEventListener("scroll", put, { passive: true }); put(); return; }
   requestAnimationFrame(tick);
 })();
 
@@ -449,7 +489,19 @@ addEventListener("DOMContentLoaded", () => {
   // lăbuțele din program apar pe rând, ca niște pași
   gsap.from(".row .paw", { scale: 0, rotate: -40, duration: .5, ease: "back.out(2.4)", stagger: .09, scrollTrigger: { trigger: "#tbl", start: "top 80%" } });
   // pozele pacienților cad pe avizier
-  gsap.from(".pc", { y: 70, rotate: (i) => (i % 2 ? 9 : -9), opacity: 0, duration: 1, ease: "back.out(1.3)", stagger: .07, scrollTrigger: { trigger: ".pgrid", start: "top 85%" } });
+  // fiecare poză se deschide de jos în sus, cu poza care se apropie; apoi alunecă puțin la scroll
+  $$(".pup .ph, .pc, .map").forEach((f) => {
+    const img = f.querySelector("img, iframe"), r = getComputedStyle(f).borderRadius;
+    gsap.fromTo(f, { clipPath: `inset(100% 0 0 0 round ${r})` }, { clipPath: `inset(0% 0 0 0 round ${r})`, duration: 1.3, ease: "expo.inOut", scrollTrigger: { trigger: f, start: "top 88%" } });
+    if (img && img.tagName === "IMG") gsap.fromTo(img, { scale: 1.35 }, { scale: 1.08, duration: 1.8, ease: "expo.out", scrollTrigger: { trigger: f, start: "top 88%" } });
+  });
+  $$(".hph .big img, .pup .ph img").forEach((img) => gsap.fromTo(img, { yPercent: -5 }, { yPercent: 5, ease: "none", scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true } }));
+  // pe desktop, poza urmărește cursorul în rama ei
+  if (matchMedia("(hover: hover)").matches) $$(".big, .small, .pup .ph, .pc").forEach((f) => {
+    const img = f.querySelector("img"); const qx = gsap.quickTo(img, "x", { duration: .8, ease: "power3" }), qy = gsap.quickTo(img, "y", { duration: .8, ease: "power3" });
+    f.addEventListener("mousemove", (e) => { const r = f.getBoundingClientRect(); qx(((e.clientX - r.left) / r.width - .5) * -22); qy(((e.clientY - r.top) / r.height - .5) * -22); });
+    f.addEventListener("mouseleave", () => { qx(0); qy(0); });
+  });
   gsap.utils.toArray(".rv").forEach((el) => gsap.from(el, { y: 26, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 92%" } }));
 });
 </script>
