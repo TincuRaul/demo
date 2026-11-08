@@ -58,6 +58,7 @@
   .hero { padding: 116px 0 90px; }
   .hero .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start; }
   .hero .wrap > div:first-child { padding-top: 34px; }
+  .hero .wrap > *, .about .wrap > *, .pup .wrap > *, .hours .wrap > *, .contact .wrap > * { min-width: 0; }
   .hero h1 { font-size: clamp(36px, 5vw, 60px); max-width: 16ch; }
   .hero .lead { font-size: 19px; }
   .now { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px; font-weight: 700; font-size: 15px; }
@@ -180,7 +181,7 @@
 
   /* puls sub nota de pe Google: o linie de EKG care bate și se termină într-o lăbuță */
   .ekg { display: flex; align-items: center; gap: 12px; margin-top: 46px; max-width: 470px; }
-  .ekg svg:first-child { flex: 1; height: 54px; overflow: visible; }
+  .ekg svg:first-child { flex: 1; min-width: 0; width: 100%; height: 54px; overflow: visible; }
   .ekg .paw { flex: none; width: 1em; height: 1em; }
   .ekg .base { fill: none; stroke: var(--line); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .ekg .run { fill: none; stroke: var(--blue); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 90 1000; stroke-dashoffset: 90; animation: ekg 2.6s cubic-bezier(.55,.1,.45,.9) infinite; }
@@ -208,6 +209,9 @@
     .hero .wrap, .about .wrap, .pup .wrap, .hours .wrap, .contact .wrap { grid-template-columns: 1fr; gap: 40px; }
     .hero h1 { font-size: clamp(32px, 9vw, 42px); }
     .hero .lead { font-size: 17px; }
+    .hero .wrap > div:first-child { padding-top: 0; }
+    .ekg { margin-top: 26px; }
+    .ekg svg:first-child { height: 40px; }
     .hph .small { left: auto; right: -6px; bottom: -26px; width: 36%; }
     .about { padding: 40px 0 76px; }
     .sgrid { grid-template-columns: 1fr; margin-top: 30px; }
