@@ -480,7 +480,8 @@ addEventListener("DOMContentLoaded", () => {
     gsap.fromTo(f, { clipPath: `inset(100% 0 0 0 round ${r})` }, { clipPath: `inset(0% 0 0 0 round ${r})`, duration: 1.3, ease: "expo.inOut", scrollTrigger: { trigger: f, start: "top 88%" } });
     if (img && img.tagName === "IMG") gsap.fromTo(img, { scale: 1.35 }, { scale: 1.08, duration: 1.8, ease: "expo.out", scrollTrigger: { trigger: f, start: "top 88%" } });
   });
-  $$(".hph .big img, .pup .ph img").forEach((img) => gsap.fromTo(img, { yPercent: -5 }, { yPercent: 5, ease: "none", scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true } }));
+  // alunecarea la scroll doar pe desktop: pe iPhone pozele legate de scroll tremură
+  if (innerWidth > 900) $$(".hph .big img, .pup .ph img").forEach((img) => gsap.fromTo(img, { yPercent: -5 }, { yPercent: 5, ease: "none", scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true } }));
   // pe desktop, poza urmărește cursorul în rama ei
   if (matchMedia("(hover: hover)").matches) $$(".big, .small, .pup .ph, .pc").forEach((f) => {
     const img = f.querySelector("img"); const qx = gsap.quickTo(img, "x", { duration: .8, ease: "power3" }), qy = gsap.quickTo(img, "y", { duration: .8, ease: "power3" });
