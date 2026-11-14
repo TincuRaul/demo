@@ -13,8 +13,8 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js" defer></script>
 <script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("anim");</script>
 <style>
-  /* auriul din coroana logo-ului, roz din torturile lor, negru și alb */
-  :root { --ink: #141110; --white: #fff; --gold: #c9a35a; --gold2: #a8843f; --pink: #f3a9c4; --pink2: #e8789f; --mute: #6b625c; --line: #ece6df; --pad: 28px; }
+  /* roșul cireșei de pe logo, roz din torturile lor, negru și alb (variabilele --gold au rămas doar ca nume) */
+  :root { --ink: #141110; --white: #fff; --gold: #d8263f; --gold2: #c01d36; --pink: #f3a9c4; --pink2: #e8789f; --mute: #6b625c; --line: #ece6df; --pad: 28px; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
   body { background: var(--white); color: var(--ink); font: 400 18px/1.65 "Hanken Grotesk", system-ui, sans-serif; overflow-x: clip; }
@@ -65,21 +65,21 @@
   .row.dark { background: var(--ink); color: #fff; }
   .row.dark .lead { color: #cfc6be; }
   .kick { display: inline-block; font-weight: 700; font-size: 15px; color: var(--gold2); margin-bottom: 18px; }
-  .row.dark .kick { color: var(--gold); }
+  .row.dark .kick { color: var(--pink); }
   h2 { font-size: clamp(44px, 4.8vw, 72px); }
   h2 em { font-style: normal; }
   .lead { margin-top: 24px; font-size: 20px; max-width: 34ch; color: var(--mute); }
   .price { display: inline-flex; align-items: baseline; gap: 10px; margin-top: 30px; padding: 12px 22px; border-radius: 999px; background: var(--ink); color: #fff; }
-  .row.dark .price { background: var(--gold); color: var(--ink); }
+  .row.dark .price { background: var(--gold); color: #fff; }
   .price b { font: 400 34px/1 "Shrikhand"; color: var(--pink); }
-  .row.dark .price b { color: var(--ink); }
+  .row.dark .price b { color: #fff; }
   .price span { font-weight: 500; }
   .list { margin-top: 28px; list-style: none; border-top: 1.5px solid var(--line); max-width: 460px; }
   .row.dark .list { border-color: #2c2826; }
   .list li { padding: 15px 0; border-bottom: 1.5px solid var(--line); display: flex; justify-content: space-between; gap: 20px; font-weight: 500; }
   .row.dark .list li { border-color: #2c2826; }
   .list li span:last-child { color: var(--gold2); }
-  .row.dark .list li span:last-child { color: var(--gold); }
+  .row.dark .list li span:last-child { color: var(--pink); }
   .btn { display: inline-flex; align-items: center; gap: 10px; margin-top: 34px; height: 58px; padding: 0 30px; border-radius: 999px; background: var(--pink); color: var(--ink); font-weight: 700; font-size: 17px; border: 1.5px solid var(--ink); transition: transform .25s, background .25s; }
   .btn:hover { background: var(--pink2); }
   .btn:active { transform: scale(.97); }
@@ -87,13 +87,19 @@
   .btn.ghost { background: transparent; border-color: currentColor; margin-left: 10px; }
   .row.dark .btn.ghost { color: #fff; }
 
+  @media (min-width: 901px) {
+    .row.flip .wrap { grid-template-columns: 1.05fr 1fr; }
+    .row.flip .pics { order: -1; }
+    .row.flip .pics .b { left: auto; right: -12%; }
+    .row.flip .sticker { right: auto; left: -18px; transform: rotate(-10deg); }
+  }
   /* pozele: o poză mare și una mică suprapusă; se deschid ca o cortină */
   .pics { position: relative; }
   .pics .a { border-radius: 30px; overflow: hidden; aspect-ratio: 4/5; }
   .pics .b { position: absolute; width: 44%; aspect-ratio: 3/4; border-radius: 22px; overflow: hidden; left: -12%; bottom: -8%; border: 8px solid #fff; box-shadow: 0 20px 50px rgba(0,0,0,.18); }
   .row.dark .pics .b { border-color: var(--ink); }
   .pics img { width: 100%; height: 100%; object-fit: cover; }
-  .sticker { position: absolute; right: -18px; top: 28px; width: 132px; height: 132px; border-radius: 50%; background: var(--gold); color: var(--ink); display: grid; place-items: center; text-align: center; font: 400 22px/1.05 "Shrikhand"; transform: rotate(10deg); box-shadow: 0 14px 30px rgba(0,0,0,.2); }
+  .sticker { position: absolute; right: -18px; top: 28px; width: 132px; height: 132px; border-radius: 50%; background: var(--gold); color: var(--ink); display: grid; place-items: center; text-align: center; font: 400 22px/1.05 "Shrikhand"; color: #fff; transform: rotate(10deg); box-shadow: 0 14px 30px rgba(0,0,0,.2); }
   /* trei torturi, în evantai */
   .fan { position: relative; height: 640px; }
   .fan .c { position: absolute; width: 52%; aspect-ratio: 3/4; border-radius: 26px; overflow: hidden; top: 40px; box-shadow: 0 24px 60px rgba(0,0,0,.35); transition: transform .7s cubic-bezier(.2,.8,.2,1); }
@@ -204,7 +210,7 @@
     </div>
   </section>
 
-  <section class="row dark" id="prajituri">
+  <section class="row dark flip" id="prajituri">
     <div class="wrap">
       <div>
         <span class="kick">Prăjituri artizanale</span>
@@ -229,7 +235,7 @@
     </div>
   </section>
 
-  <section class="row dark" id="cafenea">
+  <section class="row dark flip" id="cafenea">
     <div class="wrap">
       <div>
         <span class="kick">Cafeneaua</span>
@@ -289,6 +295,8 @@ const $ = (s) => document.querySelector(s), $$ = (s) => document.querySelectorAl
 // pe desktop, „Crown House” ocupă toată lățimea ecranului, ca la Deadstock
 const fitWord = () => { const w = $(".word"); if (innerWidth <= 900) { w.style.fontSize = ""; return; } w.style.fontSize = "100px"; w.style.right = "auto"; w.style.width = "max-content"; const k = (document.documentElement.clientWidth * .97) / w.offsetWidth; w.style.width = ""; w.style.right = ""; w.style.fontSize = (100 * k) + "px"; };
 addEventListener("resize", fitWord); document.fonts && document.fonts.ready.then(fitWord); fitWord();
+$$(".disp").forEach((el) => { const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); let n; while ((n = w.nextNode())) n.textContent = n.textContent.replace(/ț/g, "ţ").replace(/Ț/g, "Ţ"); });
+$$(".band span, .place b, .price b, .sticker, .mn a, .hero .tag b").forEach((el) => { el.innerHTML = el.innerHTML.replace(/ț/g, "ţ").replace(/Ț/g, "Ţ"); });
 const top_ = $("#top"); const st = () => top_.classList.toggle("solid", scrollY > innerHeight * .8); addEventListener("scroll", st, { passive: true }); st();
 // meniul cu literele care se rostogolesc
 $$(".nv a").forEach((a) => { const t = a.textContent.trim(), ch = [...t], mid = (ch.length - 1) / 2; a.setAttribute("aria-label", t);
