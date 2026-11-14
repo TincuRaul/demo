@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Crown House, torturi și cafenea în Satu Mare</title>
+<meta name="description" content="Torturi personalizate, prăjituri artizanale și cafenea pe Lucian Blaga 45, în Satu Mare." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&amp;family=Hanken+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js" defer></script>
+<script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("anim");</script>
+<style>
+  /* auriul din coroana logo-ului, roz din torturile lor, negru și alb */
+  :root { --ink: #141110; --white: #fff; --gold: #c9a35a; --gold2: #a8843f; --pink: #f3a9c4; --pink2: #e8789f; --mute: #6b625c; --line: #ece6df; --pad: 28px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+  body { background: var(--white); color: var(--ink); font: 400 18px/1.65 "Hanken Grotesk", system-ui, sans-serif; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--pink2); outline-offset: 3px; }
+  .wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 var(--pad); }
+  .disp { font-family: "Shrikhand", serif; font-weight: 400; letter-spacing: -.01em; line-height: 1.02; }
+  .lm { display: inline-block; overflow: hidden; vertical-align: top; padding: .08em .06em .24em; margin: -.08em -.06em -.24em; }
+  .lm > span { display: inline-block; }
+
+  /* header ca pastile albe, peste poză */
+  .top { position: fixed; inset: 0 0 auto; z-index: 40; padding: 18px var(--pad); display: flex; align-items: center; gap: 10px; transition: background .3s, padding .3s; }
+  .top.solid { background: rgba(255,255,255,.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding-top: 12px; padding-bottom: 12px; box-shadow: 0 1px 0 var(--line); }
+  .logo { width: 62px; height: 62px; border-radius: 50%; background: #fff; display: grid; place-items: center; overflow: hidden; margin-right: 8px; box-shadow: 0 6px 20px rgba(0,0,0,.18); }
+  .logo img { width: 92%; }
+  .pill { display: inline-flex; align-items: center; height: 50px; padding: 0 26px; border-radius: 999px; background: #fff; border: 1.5px solid var(--ink); font-weight: 500; font-size: 17px; transition: background .25s, color .25s; }
+  @media (hover: hover) { .nv .pill:hover { background: var(--ink); color: #fff; } }
+  .pill.call { margin-left: auto; background: var(--pink); border-color: var(--pink); }
+  .pill.call:hover { background: var(--pink2); border-color: var(--pink2); color: var(--ink); }
+  .nv { display: flex; gap: 10px; }
+  .roll { display: inline-block; white-space: nowrap; }
+  .roll .l { display: inline-block; overflow: hidden; vertical-align: top; line-height: 1.25; padding: .14em 0 .06em; margin: -.14em 0 -.06em; }
+  .roll .l > span { display: inline-block; text-shadow: 0 1.5em 0 currentColor; transition: transform .7s cubic-bezier(.76,0,.24,1); transition-delay: calc(var(--d) * 1ms); }
+  .roll .sp { display: inline-block; width: .28em; }
+  @media (hover: hover) { .nv a:hover .roll .l > span { transform: translateY(-1.5em); } }
+
+  /* primul ecran: poza cafenelei pe tot ecranul, cu numele uriaș jos */
+  .hero { position: relative; height: 100svh; min-height: 640px; overflow: hidden; background: var(--ink); }
+  .hero .ph { position: absolute; inset: 0; }
+  .hero .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+  .hero .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.3) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 50%, rgba(0,0,0,.5) 100%), linear-gradient(to right, rgba(0,0,0,.45), rgba(0,0,0,0) 45%); }
+  .word { position: absolute; left: 0; right: 0; bottom: -.1em; text-align: center; color: #fff; font-size: 13vw; white-space: nowrap; line-height: .95; pointer-events: none; }
+  .word .lt { display: inline-block; }
+  .hero .tag { position: absolute; left: var(--pad); top: 50%; transform: translateY(-50%); color: #fff; font-size: 20px; font-weight: 500; max-width: 300px; text-shadow: 0 2px 16px rgba(0,0,0,.5); }
+  .hero .tag b { display: block; font: 400 30px/1.1 "Shrikhand"; color: var(--pink); margin-bottom: 6px; }
+
+  /* banda roz cu sloganul lor */
+  .band { background: var(--pink); overflow: hidden; padding: 16px 0; border-block: 1.5px solid var(--ink); }
+  .band .tr { display: flex; gap: 48px; width: max-content; animation: run 28s linear infinite; }
+  .band span { font: 400 30px/1 "Shrikhand"; white-space: nowrap; display: inline-flex; align-items: center; gap: 48px; }
+  .band span::after { content: ""; width: 28px; height: 22px; background: var(--ink); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 22'%3E%3Cpath d='M2 20h24l2-16-7 6-7-9-7 9-7-6z'/%3E%3C/svg%3E") center/contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 22'%3E%3Cpath d='M2 20h24l2-16-7 6-7-9-7 9-7-6z'/%3E%3C/svg%3E") center/contain no-repeat; }
+  @keyframes run { to { transform: translateX(-50%); } }
+
+  /* secțiunile: text în stânga, poze în dreapta */
+  .row { padding: 130px 0; }
+  .row .wrap { display: grid; grid-template-columns: 1fr 1.05fr; gap: 90px; align-items: center; }
+  .row.dark { background: var(--ink); color: #fff; }
+  .row.dark .lead { color: #cfc6be; }
+  .kick { display: inline-block; font-weight: 700; font-size: 15px; color: var(--gold2); margin-bottom: 18px; }
+  .row.dark .kick { color: var(--gold); }
+  h2 { font-size: clamp(44px, 4.8vw, 72px); }
+  h2 em { font-style: normal; }
+  .lead { margin-top: 24px; font-size: 20px; max-width: 34ch; color: var(--mute); }
+  .price { display: inline-flex; align-items: baseline; gap: 10px; margin-top: 30px; padding: 12px 22px; border-radius: 999px; background: var(--ink); color: #fff; }
+  .row.dark .price { background: var(--gold); color: var(--ink); }
+  .price b { font: 400 34px/1 "Shrikhand"; color: var(--pink); }
+  .row.dark .price b { color: var(--ink); }
+  .price span { font-weight: 500; }
+  .list { margin-top: 28px; list-style: none; border-top: 1.5px solid var(--line); max-width: 460px; }
+  .row.dark .list { border-color: #2c2826; }
+  .list li { padding: 15px 0; border-bottom: 1.5px solid var(--line); display: flex; justify-content: space-between; gap: 20px; font-weight: 500; }
+  .row.dark .list li { border-color: #2c2826; }
+  .list li span:last-child { color: var(--gold2); }
+  .row.dark .list li span:last-child { color: var(--gold); }
+  .btn { display: inline-flex; align-items: center; gap: 10px; margin-top: 34px; height: 58px; padding: 0 30px; border-radius: 999px; background: var(--pink); color: var(--ink); font-weight: 700; font-size: 17px; border: 1.5px solid var(--ink); transition: transform .25s, background .25s; }
+  .btn:hover { background: var(--pink2); }
+  .btn:active { transform: scale(.97); }
+  .btn svg { width: 20px; height: 20px; }
+  .btn.ghost { background: transparent; border-color: currentColor; margin-left: 10px; }
+  .row.dark .btn.ghost { color: #fff; }
+
+  /* pozele: o poză mare și una mică suprapusă; se deschid ca o cortină */
+  .pics { position: relative; }
+  .pics .a { border-radius: 30px; overflow: hidden; aspect-ratio: 4/5; }
+  .pics .b { position: absolute; width: 44%; aspect-ratio: 3/4; border-radius: 22px; overflow: hidden; left: -12%; bottom: -8%; border: 8px solid #fff; box-shadow: 0 20px 50px rgba(0,0,0,.18); }
+  .row.dark .pics .b { border-color: var(--ink); }
+  .pics img { width: 100%; height: 100%; object-fit: cover; }
+  .sticker { position: absolute; right: -18px; top: 28px; width: 132px; height: 132px; border-radius: 50%; background: var(--gold); color: var(--ink); display: grid; place-items: center; text-align: center; font: 400 22px/1.05 "Shrikhand"; transform: rotate(10deg); box-shadow: 0 14px 30px rgba(0,0,0,.2); }
+  /* trei torturi, în evantai */
+  .fan { position: relative; height: 640px; }
+  .fan .c { position: absolute; width: 52%; aspect-ratio: 3/4; border-radius: 26px; overflow: hidden; top: 40px; box-shadow: 0 24px 60px rgba(0,0,0,.35); transition: transform .7s cubic-bezier(.2,.8,.2,1); }
+  .fan .c img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
+  .fan .c:nth-child(1) { left: 0; transform: rotate(-8deg); }
+  .fan .c:nth-child(2) { left: 24%; top: 0; z-index: 2; }
+  .fan .c:nth-child(3) { left: 48%; transform: rotate(8deg); }
+  @media (hover: hover) { .fan:hover .c:nth-child(1) { transform: rotate(-13deg) translateX(-30px); } .fan:hover .c:nth-child(3) { transform: rotate(13deg) translateX(30px); } }
+
+  /* comanda de tort, pe WhatsApp */
+  .order { padding: 130px 0; background: var(--pink); border-top: 1.5px solid var(--ink); }
+  .order .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .order .lead { color: #4a3a3f; }
+  form { background: #fff; border: 1.5px solid var(--ink); border-radius: 28px; padding: 34px; display: grid; gap: 16px; }
+  label { display: grid; gap: 6px; font-weight: 700; font-size: 15px; }
+  input, select, textarea { font: 500 17px "Hanken Grotesk"; padding: 14px 16px; border: 1.5px solid #d9d0c8; border-radius: 14px; background: #fff; color: var(--ink); width: 100%; }
+  textarea { min-height: 96px; resize: vertical; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  form .btn { margin-top: 6px; justify-content: center; background: var(--ink); color: #fff; }
+  form .btn:hover { background: #2a2523; }
+  form small { color: var(--mute); font-size: 14px; }
+
+  /* contact */
+  .contact { padding: 130px 0 110px; background: var(--ink); color: #fff; }
+  .contact .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+  .places { margin-top: 34px; display: grid; gap: 18px; }
+  .place { padding: 24px 26px; border: 1.5px solid #2f2a28; border-radius: 22px; }
+  .place b { font: 400 26px/1.1 "Shrikhand"; color: var(--pink); }
+  .place p { margin-top: 8px; color: #cfc6be; }
+  .place .stars { color: var(--gold); font-weight: 700; }
+  .map { border-radius: 26px; overflow: hidden; min-height: 460px; border: 1.5px solid #2f2a28; }
+  .map iframe { width: 100%; height: 100%; min-height: 460px; border: 0; filter: grayscale(.25); }
+  .soc { display: flex; gap: 10px; margin-top: 26px; flex-wrap: wrap; }
+  .soc a { height: 46px; padding: 0 20px; border-radius: 999px; border: 1.5px solid #3a3431; display: inline-flex; align-items: center; font-weight: 500; }
+  .soc a:hover { border-color: var(--gold); color: var(--gold); }
+  .foot { background: var(--ink); color: #8f857e; font-size: 14px; padding: 0 0 40px; }
+  .foot .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid #2a2523; padding-top: 26px; }
+  .foot a { color: #fff; font-weight: 700; }
+  .mbar { display: none; }
+
+  html.anim .hero .ph img { transform: scale(1.18); }
+  html.anim .word .lt { transform: translateY(110%); }
+
+  @media (max-width: 900px) {
+    :root { --pad: 18px; }
+    body { font-size: 17px; }
+    .nv, .top .call { display: none; }
+    .logo { width: 52px; height: 52px; }
+    .mb { margin-left: auto; height: 50px; padding: 0 20px; border-radius: 999px; background: #fff; border: 1.5px solid var(--ink); font: 500 16px "Hanken Grotesk"; color: var(--ink); }
+    .hero { min-height: 560px; }
+    .hero .ph img { object-position: 30% 50%; }
+    .word { font-size: 24vw; white-space: normal; line-height: .9; bottom: calc(84px + env(safe-area-inset-bottom)); }
+    .word .lm { display: block; }
+    .hero .tag { top: 110px; bottom: auto; font-size: 17px; max-width: 250px; transform: none; }
+    .hero .tag b { font-size: 24px; }
+    .band span { font-size: 22px; }
+    .row, .order, .contact { padding: 64px 0; }
+    .row .wrap, .order .wrap, .contact .wrap { grid-template-columns: 1fr; gap: 44px; }
+    .row .pics, .row .fan { order: 2; }
+    h2 { font-size: clamp(38px, 11vw, 52px); }
+    .lead { font-size: 17px; }
+    .pics .b { left: auto; right: -4%; bottom: -10%; width: 40%; }
+    .sticker { width: 104px; height: 104px; font-size: 18px; right: -6px; top: 14px; }
+    .fan { height: 440px; }
+    .btn.ghost { margin-left: 0; }
+    .two { grid-template-columns: 1fr; }
+    form { padding: 22px; }
+    .map, .map iframe { min-height: 320px; }
+    .mbar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: #fff; border-top: 1.5px solid var(--ink); }
+    .mbar a { height: 50px; border-radius: 999px; display: grid; place-items: center; font-weight: 700; border: 1.5px solid var(--ink); }
+    .mbar a:first-child { background: var(--pink); }
+    .foot { padding-bottom: 100px; }
+  }
+  @media (min-width: 901px) { .mb { display: none; } }
+  .mn { position: fixed; inset: 0; z-index: 39; background: var(--pink); padding: 110px var(--pad) 40px; display: flex; flex-direction: column; gap: 8px; visibility: hidden; clip-path: inset(0 0 100% 0); transition: clip-path .6s cubic-bezier(.76,0,.24,1), visibility 0s .6s; }
+  html.open .mn { visibility: visible; clip-path: inset(0); transition: clip-path .6s cubic-bezier(.76,0,.24,1); }
+  .mn a { font: 400 46px/1.15 "Shrikhand"; padding: 6px 0; border-bottom: 1.5px solid rgba(20,17,16,.15); }
+</style>
+</head>
+<body>
+<header class="top" id="top">
+  <a class="logo" href="#hero" aria-label="Crown House, la început"><img src="img/logo.png" alt="Crown House" /></a>
+  <nav class="nv" aria-label="Meniu"><a class="pill" href="#torturi">Torturi</a><a class="pill" href="#prajituri">Prăjituri</a><a class="pill" href="#cafenea">Cafenea</a><a class="pill" href="#comanda">Comandă</a></nav>
+  <a class="pill call" href="tel:+40770450714">0770 450 714</a>
+  <button class="mb" id="mb" aria-expanded="false" aria-controls="mn">Meniu</button>
+</header>
+<div class="mn" id="mn" aria-hidden="true"><a href="#torturi">Torturi</a><a href="#prajituri">Prăjituri</a><a href="#cafenea">Cafenea</a><a href="#comanda">Comandă un tort</a><a href="#contact">Contact</a></div>
+
+<main>
+  <section class="hero" id="hero">
+    <div class="ph"><img src="img/hero.webp" alt="Cafeneaua Crown House de pe Lucian Blaga, cu vitrina de prăjituri" fetchpriority="high" /></div>
+    <p class="tag"><b>Coroana evenimentelor tale!</b>Torturi, prăjituri și cafea, pe Lucian Blaga 45.</p>
+    <h1 class="word disp" aria-label="Crown House"><span class="lm"><span class="lt">Crown</span></span> <span class="lm"><span class="lt">House</span></span></h1>
+  </section>
+
+  <div class="band" aria-hidden="true"><div class="tr"><span>Coroana evenimentelor tale!</span><span>Torturi personalizate</span><span>Prăjituri artizanale</span><span>Bubble waffles</span><span>Coroana evenimentelor tale!</span><span>Torturi personalizate</span><span>Prăjituri artizanale</span><span>Bubble waffles</span></div></div>
+
+  <section class="row" id="torturi">
+    <div class="wrap">
+      <div>
+        <span class="kick">Torturi personalizate</span>
+        <h2 class="disp rvl">Tortul de care o să vorbească toți invitații.</h2>
+        <p class="lead">Pentru botez, aniversare sau nuntă. Ne spui tema, iar noi îl facem pe gustul și pe povestea voastră.</p>
+        <ul class="list"><li><span>Botez</span><span>îngeri, baloane, ursuleți</span></li><li><span>Aniversare</span><span>pe tema aleasă de voi</span></li><li><span>Nuntă</span><span>etajat, cu figurine</span></li></ul>
+        <a class="btn" href="#comanda">Comandă un tort</a>
+      </div>
+      <div class="fan" aria-label="Torturi Crown House"><div class="c"><img src="img/t1.webp" alt="Tort de botez alb, cu înger" loading="lazy" /></div><div class="c"><img src="img/t2.webp" alt="Tort albastru cu balon și ursuleți" loading="lazy" /></div><div class="c"><img src="img/t3.webp" alt="Tort roz etajat, cu miri" loading="lazy" /></div></div>
+    </div>
+  </section>
+
+  <section class="row dark" id="prajituri">
+    <div class="wrap">
+      <div>
+        <span class="kick">Prăjituri artizanale</span>
+        <h2 class="disp rvl">Arată ca fructele. Au gust de prăjitură.</h2>
+        <p class="lead">Prăjiturile noastre în formă de fructe, lucrate de mână, pentru o cutie de cadou sau pentru masa de la eveniment.</p>
+        <div class="price"><b>120 lei</b><span>platoul de prăjituri mixte, 1,15 kg</span></div>
+        <br><a class="btn" href="#comanda">Comandă un platou</a>
+      </div>
+      <div class="pics"><div class="a"><img src="img/fructe.webp" alt="Prăjituri artizanale în formă de fructe" loading="lazy" /></div><div class="b"><img src="img/platou.webp" alt="Platou de prăjituri mixte" loading="lazy" /></div><span class="sticker">Lucrate<br>de mână</span></div>
+    </div>
+  </section>
+
+  <section class="row" id="inimi">
+    <div class="wrap">
+      <div>
+        <span class="kick">Torturi în formă de inimă</span>
+        <h2 class="disp rvl">Pentru cine îți e drag.</h2>
+        <p class="lead">Torturi în formă de inimă, cu fructe proaspete sau cu flori de zahăr. Bune pentru aniversări, Valentine's Day sau doar pentru că vrei să faci o surpriză.</p>
+        <a class="btn" href="#comanda">Vreau o inimă</a>
+      </div>
+      <div class="pics"><div class="a"><img src="img/inima.webp" alt="Tort roz în formă de inimă" loading="lazy" /></div><div class="b"><img src="img/inima2.webp" alt="Tort inimă cu fructe și macarons" loading="lazy" /></div></div>
+    </div>
+  </section>
+
+  <section class="row dark" id="cafenea">
+    <div class="wrap">
+      <div>
+        <span class="kick">Cafeneaua</span>
+        <h2 class="disp rvl">O cafea, un bubble waffle și o vitrină plină.</h2>
+        <p class="lead">Treci pe la noi pe Lucian Blaga 45. Bei o cafea, alegi o prăjitură din vitrină sau îți faci un bubble waffle cu toppingul preferat.</p>
+        <div class="price"><b>25 lei</b><span>bubble waffle</span></div>
+        <br><a class="btn" href="#contact">Cum ajungi</a>
+      </div>
+      <div class="pics"><div class="a"><img src="img/vitrina.webp" alt="Vitrina Crown House, cu torturi etajate" loading="lazy" /></div><div class="b"><img src="img/waffle.webp" alt="Bubble waffles cu fructe și topping" loading="lazy" /></div><span class="sticker">5,0 pe<br>Google</span></div>
+    </div>
+  </section>
+
+  <section class="order" id="comanda">
+    <div class="wrap">
+      <div>
+        <span class="kick" style="color:var(--ink)">Comandă un tort</span>
+        <h2 class="disp rvl">Spune-ne ce sărbătorești.</h2>
+        <p class="lead">Completezi trei rânduri și cererea pleacă direct pe WhatsApp. Te sunăm noi să stabilim gustul, modelul și prețul.</p>
+      </div>
+      <form id="f" novalidate>
+        <div class="two">
+          <label>Ce sărbătorești<select id="ev"><option>Botez</option><option>Aniversare</option><option>Nuntă</option><option>Altceva</option></select></label>
+          <label>Data<input id="dt" type="date" /></label>
+        </div>
+        <div class="two">
+          <label>Câte persoane<input id="nr" type="number" min="1" placeholder="de exemplu 30" /></label>
+          <label>Numele tău<input id="nm" type="text" placeholder="Ana" /></label>
+        </div>
+        <label>Cum ți-l imaginezi<textarea id="ms" placeholder="Tema, culorile, gustul preferat…"></textarea></label>
+        <button class="btn" type="submit">Trimite pe WhatsApp</button>
+        <small>Se deschide WhatsApp cu mesajul gata scris. Demo: verifică numărul cu Crown House înainte de lansare.</small>
+      </form>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div>
+        <h2 class="disp rvl">Treci pe la noi.</h2>
+        <div class="places">
+          <div class="place"><b>Cafeneaua</b><p>Bulevardul Lucian Blaga 45, Satu Mare<br><span class="stars">★ 5,0</span> din 211 recenzii pe Google</p></div>
+          <div class="place"><b>Cofetăria</b><p>Strada Căprioarei, Satu Mare<br><span class="stars">★ 4,9</span> din 142 recenzii pe Google</p></div>
+        </div>
+        <a class="btn" href="tel:+40770450714">Sună: 0770 450 714</a>
+        <div class="soc"><a href="#">Facebook</a><a href="#">Instagram</a><a href="#">TikTok</a></div>
+      </div>
+      <div class="map"><iframe title="Crown House pe hartă" loading="lazy" src="https://maps.google.com/maps?q=Crown%20House%20Elegant%20Coffee%2C%20Bulevardul%20Lucian%20Blaga%2045%2C%20Satu%20Mare&z=16&output=embed"></iframe></div>
+    </div>
+  </section>
+</main>
+<footer class="foot"><div class="wrap"><span>© Crown House, Satu Mare</span><span>Demo al site-ului realizat de <a href="https://rtweb.ro">RTWEB</a>. Textele sunt provizorii.</span></div></footer>
+<nav class="mbar" aria-label="Acțiuni rapide"><a href="#comanda">Comandă un tort</a><a href="tel:+40770450714">Sună</a></nav>
+
+<script>
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (s) => document.querySelector(s), $$ = (s) => document.querySelectorAll(s);
+// pe desktop, „Crown House” ocupă toată lățimea ecranului, ca la Deadstock
+const fitWord = () => { const w = $(".word"); if (innerWidth <= 900) { w.style.fontSize = ""; return; } w.style.fontSize = "100px"; w.style.right = "auto"; w.style.width = "max-content"; const k = (document.documentElement.clientWidth * .97) / w.offsetWidth; w.style.width = ""; w.style.right = ""; w.style.fontSize = (100 * k) + "px"; };
+addEventListener("resize", fitWord); document.fonts && document.fonts.ready.then(fitWord); fitWord();
+const top_ = $("#top"); const st = () => top_.classList.toggle("solid", scrollY > innerHeight * .8); addEventListener("scroll", st, { passive: true }); st();
+// meniul cu literele care se rostogolesc
+$$(".nv a").forEach((a) => { const t = a.textContent.trim(), ch = [...t], mid = (ch.length - 1) / 2; a.setAttribute("aria-label", t);
+  a.innerHTML = `<span class="roll" aria-hidden="true">${ch.map((c, i) => c === " " ? '<span class="sp"></span>' : `<span class="l"><span style="--d:${Math.round(Math.abs(i - mid) * 26)}">${c}</span></span>`).join("")}</span>`; });
+const mb = $("#mb"), setMenu = (o) => { document.documentElement.classList.toggle("open", o); mb.setAttribute("aria-expanded", o); mb.textContent = o ? "Închide" : "Meniu"; $("#mn").setAttribute("aria-hidden", !o); };
+mb.addEventListener("click", () => setMenu(!document.documentElement.classList.contains("open")));
+document.addEventListener("click", (e) => { const a = e.target.closest('a[href^="#"]'); if (!a || a.getAttribute("href") === "#") return; e.preventDefault(); setMenu(false);
+  const el = document.getElementById(a.getAttribute("href").slice(1)); scrollTo({ top: el ? el.getBoundingClientRect().top + scrollY - (el.id === "hero" ? 0 : 70) : 0, behavior: reduce ? "auto" : "smooth" }); });
+// comanda pleacă pe WhatsApp, cu mesajul gata scris
+$("#f").addEventListener("submit", (e) => { e.preventDefault();
+  const m = `Bună ziua! Aș vrea un tort pentru: ${$("#ev").value}${$("#dt").value ? `, pe ${$("#dt").value}` : ""}${$("#nr").value ? `, pentru ${$("#nr").value} persoane` : ""}.${$("#ms").value ? ` ${$("#ms").value}` : ""}${$("#nm").value ? ` Mă numesc ${$("#nm").value}.` : ""}`;
+  open("https://wa.me/40770450714?text=" + encodeURIComponent(m), "_blank"); });
+
+addEventListener("DOMContentLoaded", () => {
+  if (reduce || !window.gsap) return;
+  gsap.registerPlugin(ScrollTrigger);
+  // numele urcă literă cu literă, poza se apropie lent
+  gsap.to(".hero .ph img", { scale: 1, duration: 2.2, ease: "expo.out" });
+  gsap.set(".word .lt", { yPercent: 110, y: 0 }); gsap.to(".word .lt", { yPercent: 0, duration: 1.3, ease: "expo.out", stagger: .12, delay: .25 });
+  gsap.from(".hero .tag", { y: 20, opacity: 0, duration: 1, delay: .9, ease: "power3.out" });
+  gsap.from(".top > *", { y: -20, opacity: 0, duration: .8, stagger: .05, delay: .5, ease: "power3.out" });
+  // numele se ridică ușor la scroll
+  gsap.to(".word", { yPercent: -18, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  // titlurile urcă din mască, cuvânt cu cuvânt
+  $$(".rvl").forEach((el) => { el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="lm"><span>${w}&nbsp;</span></span>`).join("");
+    gsap.from(el.querySelectorAll(".lm > span"), { yPercent: 115, duration: 1.1, ease: "expo.out", stagger: .06, scrollTrigger: { trigger: el, start: "top 86%" } }); });
+  // restul textului intră cuvânt cu cuvânt
+  const words = (el) => { const walk = (n) => { [...n.childNodes].forEach((c) => { if (c.nodeType === 3) { if (!c.textContent.trim()) return; const f = document.createDocumentFragment();
+        c.textContent.split(/(\s+)/).forEach((w) => { if (!w) return; if (/^\s+$/.test(w)) { f.append(" "); return; } const o = document.createElement("span"); o.className = "lm"; o.innerHTML = "<span></span>"; o.firstChild.textContent = w; f.append(o); }); c.replaceWith(f); }
+      else if (c.nodeType === 1) walk(c); }); }; walk(el); return el.querySelectorAll(".lm > span"); };
+  $$(".kick, .lead, .list li, .price, .place p").forEach((el) => { const ws = words(el); gsap.from(ws, { yPercent: 110, duration: .9, ease: "expo.out", stagger: Math.min(.03, .6 / ws.length), scrollTrigger: { trigger: el, start: "top 92%" } }); });
+  // pozele se deschid ca o cortină de jos în sus; cea mică intră după, ușor rotită
+  $$(".pics").forEach((p) => { const tl = gsap.timeline({ scrollTrigger: { trigger: p, start: "top 80%" } });
+    tl.fromTo(p.querySelector(".a"), { clipPath: "inset(100% 0 0 0 round 30px)" }, { clipPath: "inset(0% 0 0 0 round 30px)", duration: 1.3, ease: "expo.inOut" })
+      .from(p.querySelector(".a img"), { scale: 1.3, duration: 1.8, ease: "expo.out" }, .2)
+      .from(p.querySelector(".b"), { y: 80, rotate: -8, opacity: 0, duration: 1.1, ease: "back.out(1.4)" }, .7);
+    const s = p.querySelector(".sticker"); if (s) tl.from(s, { scale: 0, rotate: -40, duration: .8, ease: "back.out(2.2)" }, 1.0);
+    if (innerWidth > 900) gsap.to(p.querySelector(".a img"), { yPercent: -6, ease: "none", scrollTrigger: { trigger: p, start: "top bottom", end: "bottom top", scrub: true } }); });
+  // torturile se desfac în evantai
+  gsap.from(".fan .c", { y: 120, rotate: 0, opacity: 0, duration: 1.2, ease: "expo.out", stagger: .14, scrollTrigger: { trigger: ".fan", start: "top 80%" } });
+  gsap.from("form", { y: 60, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: "form", start: "top 85%" } });
+  gsap.from(".place, .map", { y: 40, opacity: 0, duration: .9, ease: "power3.out", stagger: .1, scrollTrigger: { trigger: ".contact", start: "top 75%" } });
+});
+</script>
+</body>
+</html>
