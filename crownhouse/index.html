@@ -163,7 +163,11 @@
     .lead { font-size: 17px; }
     .pics .b { left: auto; right: -4%; bottom: -10%; width: 40%; }
     .sticker { width: 104px; height: 104px; font-size: 18px; right: -6px; top: 14px; }
-    .fan { height: 440px; }
+    /* pe telefon, cele trei torturi stau unul lângă altul, întregi, fără gol deasupra */
+    .fan { height: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .fan .c, .fan .c:nth-child(n) { position: relative; left: auto; top: auto; width: auto; transform: none !important; box-shadow: 0 12px 28px rgba(0,0,0,.18); border-radius: 18px; }
+    .fan .c:nth-child(2) { transform: translateY(-14px) !important; }
+    .fan .c img { object-position: 50% 78%; }
     .btn.ghost { margin-left: 0; }
     .two { grid-template-columns: 1fr; }
     form { padding: 22px; }
