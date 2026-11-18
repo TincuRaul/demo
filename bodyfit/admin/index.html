@@ -220,6 +220,9 @@ function kpi() {
 function grid() {
   const z = R.iso(zi), s = R.sloturi(zi);
   $("dtitle").textContent = (R.iso(R.azi()) === z ? "Azi, " : "") + R.frumos(zi);
+  const dif = Math.round((zi - R.azi()) / 864e5);   // butonul din mijloc arată ziua aleasă
+  $("tod").textContent = dif === 0 ? "Azi" : dif === 1 ? "Mâine" : dif === -1 ? "Ieri" : R.ZILE[zi.getDay()].slice(0, 3) + " " + zi.getDate();
+  $("tod").title = dif === 0 ? "" : "Înapoi la azi";
   if (!s.length) { $("grid").innerHTML = `<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--mute)">Sala e închisă în ziua asta.</div>`; return; }
   let h = `<div class="gh"></div>` + R.APARATE.map(a => { const c = ({ "EMS": "var(--ems)", "Vacuum": "var(--red)", "Masaj": "var(--pink)", "Trepte": "#5b7cff" })[a] || "var(--roll)"; return `<div class="gh" style="--c:${c}"><i></i>${a}</div>`; }).join("");
   s.forEach(o => { h += `<div class="t">${o}</div>`;
