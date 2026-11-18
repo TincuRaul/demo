@@ -235,7 +235,7 @@
 <aside class="drawer" id="drawer" hidden aria-live="polite"></aside>
 <div class="toast" id="toast" hidden><i></i><span id="toastt"></span></div>
 
-<script src="../rezervari.js?v=1794998962"></script>
+<script src="../rezervari.js?v=1795017072"></script>
 <script>
 const R = window.BFR, $ = s => document.getElementById(s);
 let L = R.citeste(), zi = R.azi(), tab = "zi";
@@ -397,24 +397,24 @@ $("list").onclick = e => { const q = e.target.closest("[data-q]"); if (q) { cons
 $("q").oninput = clients; $("srt").onchange = clients; $("cl").onclick = e => { const r = e.target.closest("tr[data-c]"); if (r) openClient(r.dataset.c); };
 document.querySelector(".tabs").onclick = e => { const b = e.target.closest("button"); if (!b) return; tab = b.dataset.t;
   document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b)); ["zi", "sapt", "cl", "set"].forEach(t => $("v-" + t).hidden = t !== tab); render(); };
-$("logout").onclick = () => { try { localStorage.removeItem(PK); } catch (e) {} location.reload(); };
+$("logout").onclick = () => { R.logout(); location.reload(); };
 $("reset").onclick = async () => { await R.reset(); zi = R.azi(); render(); toast("Exemplul a fost repornit"); };
 // o programare făcută pe site, în altă filă, apare aici pe loc
 // programările noi vin de pe server: verific la câteva secunde și anunț ce a apărut
-// parola panoului: se verifică după amprenta ei (parola nu apare în cod); telefonul o ține minte
-const PW = ["0ac83633347b69042526711dccbe52c1ca495acf4a646b86a6666fdc3bce0d3b", "32034f2cb0682f5ecd7a23bd6b0f36b4c09e5c4e2480634c272ba4064ca12577"], PK = "bf-admin-ok";
-async function amprenta(t) { const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(t)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join(""); }
+// intrarea în panou: cont pe server (Supabase Auth); parola nu e în cod și nici în site, iar fără cont serverul nu dă nicio programare
 function deschide() { $("lock").hidden = true; document.body.classList.remove("locked"); }
-try { if (PW.includes(localStorage.getItem(PK))) deschide(); } catch (e) {}
-$("lf").onsubmit = async e => { e.preventDefault(); const h = await amprenta($("pw").value.trim());
-  if (PW.includes(h)) { try { localStorage.setItem(PK, h); } catch (e) {} deschide(); }
+function inchide() { $("lock").hidden = false; document.body.classList.add("locked"); $("pw").value = ""; }
+if (R.autentificat()) deschide();
+$("lf").onsubmit = async e => { e.preventDefault(); const btn = $("lf").querySelector("button"); btn.disabled = true; btn.textContent = "Se verifică…";
+  const ok = await R.login($("pw").value); btn.disabled = false; btn.textContent = "Intră";
+  if (ok) { $("perr").textContent = ""; deschide(); primul = true; poll(); }
   else { $("perr").textContent = "Parola nu e corectă."; $("lock").classList.remove("shake"); void $("lock").offsetWidth; $("lock").classList.add("shake"); } };
 let primul = true;
 let ultim = "";
-async function poll() { try { const vechi = new Set(L.map(b => b.id)); await R.sync();
+async function poll() { if (!R.autentificat()) { inchide(); document.body.classList.remove("wait"); return; } try { const vechi = new Set(L.map(b => b.id)); await R.sync();
   const sem = JSON.stringify(R.citeste().map(b => [b.id, b.stare])); if (sem !== ultim) { ultim = sem; render(); } document.body.classList.remove("wait");
   if (!primul) R.citeste().filter(b => !vechi.has(b.id) && b.sursa === "site").forEach(n => { n.nou = true; toast(`Programare nouă de pe site: ${n.nume}, ${R.frumos(new Date(n.zi))}, ${n.ora}`); grid(); });
-  primul = false; } catch (e) { document.body.classList.remove("wait"); } }
+  primul = false; } catch (e) { if (!R.autentificat()) inchide(); document.body.classList.remove("wait"); } }
 poll(); setInterval(poll, 4000);
 setInterval(() => { if (tab === "zi") { live(); grid(); list(); } }, 60000);
 // notificări pe telefon: panoul pus pe ecranul principal primește o notificare la fiecare programare nouă
@@ -430,14 +430,14 @@ const SBP = "https://gwjvqdciuwguhjtamaor.supabase.co/rest/v1/rpc/abonare", KP =
   if (ios && !standalone) return arata("<b>Primește notificări la fiecare programare.</b> Apasă Share, apoi „Adaugă pe ecranul principal”, și deschide panoul de acolo.", false);
   if (!okPush) return arata("Telefonul nu primește încă notificări web. Pe iPhone e nevoie de iOS 16.4 sau mai nou (Setări, General, Actualizare software).", false);
   const sub = await reg.pushManager.getSubscription();
-  if (sub && Notification.permission === "granted") { await fetch(SBP, { method: "POST", headers: { apikey: KP, Authorization: "Bearer " + KP, "Content-Type": "application/json" }, body: JSON.stringify((j => ({ p_endpoint: j.endpoint, p_p256dh: j.keys.p256dh, p_auth: j.keys.auth, p_aparat: navigator.userAgent.slice(0, 120) }))(sub.toJSON())) }).catch(() => {}); return arata("<b>Notificările sunt pornite</b> pe acest telefon.", false); }
+  if (sub && Notification.permission === "granted") { await fetch(SBP, { method: "POST", headers: { apikey: KP, Authorization: "Bearer " + (R.tokenAcces() || KP), "Content-Type": "application/json" }, body: JSON.stringify((j => ({ p_endpoint: j.endpoint, p_p256dh: j.keys.p256dh, p_auth: j.keys.auth, p_aparat: navigator.userAgent.slice(0, 120) }))(sub.toJSON())) }).catch(() => {}); return arata("<b>Notificările sunt pornite</b> pe acest telefon.", false); }
   arata("<b>Primește o notificare pe telefon</b> la fiecare programare nouă de pe site.", true);
   btn.onclick = async () => {
     const perm = await Notification.requestPermission(); if (perm !== "granted") return arata("Notificările sunt oprite din setările telefonului.", false);
     const key = Uint8Array.from(atob(VAPID.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((VAPID.length + 3) % 4)), c => c.charCodeAt(0));
     const s2 = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: key });
     const j = s2.toJSON();
-    await fetch(SBP, { method: "POST", headers: { apikey: KP, Authorization: "Bearer " + KP, "Content-Type": "application/json" }, body: JSON.stringify({ p_endpoint: j.endpoint, p_p256dh: j.keys.p256dh, p_auth: j.keys.auth, p_aparat: navigator.userAgent.slice(0, 120) }) });
+    await fetch(SBP, { method: "POST", headers: { apikey: KP, Authorization: "Bearer " + (R.tokenAcces() || KP), "Content-Type": "application/json" }, body: JSON.stringify({ p_endpoint: j.endpoint, p_p256dh: j.keys.p256dh, p_auth: j.keys.auth, p_aparat: navigator.userAgent.slice(0, 120) }) });
     arata("<b>Notificările sunt pornite</b> pe acest telefon.", false); toast("Notificările sunt pornite pe acest telefon");
   };
 })();

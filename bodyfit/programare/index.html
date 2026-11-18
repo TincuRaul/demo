@@ -200,7 +200,7 @@
 <canvas class="burst" id="burst" aria-hidden="true"></canvas>
 <div class="bar" id="bar"><div class="in"><div class="sum" id="sum">Alege o ședință, un abonament sau un combo</div><button class="go" id="go" type="button" disabled>Confirmă</button></div></div>
 
-<script src="../rezervari.js?v=1794998962"></script>
+<script src="../rezervari.js?v=1795017072"></script>
 <script>
 const R = window.BFR, $ = s => document.getElementById(s);
 // prețurile din lista lor („Bodyfit ems, Lista tarife”); prețul pe ședință și economia le calculez față de ședința individuală
@@ -264,9 +264,7 @@ function render() {
   } else $("times").innerHTML = "";
   $("s4").classList.toggle("off", !st.ora);
   const tel = $("tel").value.replace(/\D/g, ""), w = $("emsw");
-  if ((st.srv === "ems" || st.srv === "prima") && st.zi && tel.length >= 9) { const z = new Date(st.zi);
-    const apr = lista.find(b => (b.serviciu === "ems" || b.serviciu === "prima") && b.stare !== "anulat" && b.tel.replace(/\D/g, "").slice(-3) === tel.slice(-3) && Math.abs(new Date(b.zi) - z) < 4 * 864e5);
-    w.hidden = !apr; if (apr) w.textContent = `Ai deja EMS pe ${R.frumos(new Date(apr.zi))}. Între două ședințe de EMS lași cel puțin 4 zile, ca mușchii să se refacă.`; } else w.hidden = true;
+  w.hidden = true; // avertizarea pentru două ședințe EMS apropiate o face sala (pagina nu mai vede telefoanele altor cliente)
   $("sum").innerHTML = !P ? "Alege o ședință, un abonament sau un combo" : `<b>${P.nume} · ${P.pret}</b>${st.zi ? R.frumos(new Date(st.zi)) : "Alege ziua"}${st.ora ? ", ora " + st.ora : ""}`;
   $("go").disabled = !(P && st.srv && st.zi && st.ora && $("nume").value.trim().length > 2 && tel.length >= 9 && $("gdpr").checked);
 }

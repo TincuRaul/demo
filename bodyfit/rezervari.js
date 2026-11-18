@@ -40,36 +40,50 @@ window.BFR = (() => {
     const ex = [["ems", "EMS", CLIENTE[0]], ["vac", "Vacuum", CLIENTE[3]], ["roll", "Body Roll 1", CLIENTE[5]]];
     return ore.map((o, i) => ({ id: i + 1, zi: iso(z), ora: o, serviciu: ex[i][0], aparat: ex[i][1], nume: ex[i][2].nume, tel: ex[i][2].tel, stare: "confirmat", sursa: i === 1 ? "site" : "telefon", nota: "" }));
   }
-  // programările stau în Supabase (proiectul demo), ca să se vadă de pe orice telefon pe orice laptop
-  const SB = "https://gwjvqdciuwguhjtamaor.supabase.co/rest/v1/programari", KEYSB = "sb_publishable_YP3dU4DRUIlpTeKOhB3TWg_jXPs0qA4";
-  const H = { apikey: KEYSB, Authorization: "Bearer " + KEYSB, "Content-Type": "application/json" };
-  let cache = [], snap = new Map(), gata = false;
-  const din = r => ({ ...r, id: r.id, zi: r.zi, nota: r.nota || "" });
+  // programările stau în Supabase. Pagina clientelor vede doar orele ocupate; numele și telefoanele le vede doar sala, după autentificare.
+  const BASE = "https://gwjvqdciuwguhjtamaor.supabase.co", SB = BASE + "/rest/v1/programari", KEYSB = "sb_publishable_YP3dU4DRUIlpTeKOhB3TWg_jXPs0qA4";
+  const EMAIL = "contact.rtweb@gmail.com", SK = "bf-sesiune";
+  let ses = null; try { ses = JSON.parse(localStorage.getItem(SK)); } catch (e) {}
+  const H = () => ({ apikey: KEYSB, Authorization: "Bearer " + (ses ? ses.access_token : KEYSB), "Content-Type": "application/json" });
+  async function token(body, tip) {
+    const r = await fetch(`${BASE}/auth/v1/token?grant_type=${tip}`, { method: "POST", headers: { apikey: KEYSB, "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    if (!r.ok) return false; const d = await r.json(); ses = { access_token: d.access_token, refresh_token: d.refresh_token, exp: Date.now() + (d.expires_in - 60) * 1000 };
+    try { localStorage.setItem(SK, JSON.stringify(ses)); } catch (e) {} return true; }
+  const login = parola => token({ email: EMAIL, password: parola }, "password");
+  async function asigura() { if (ses && Date.now() > ses.exp && !(await token({ refresh_token: ses.refresh_token }, "refresh_token"))) logout(); return !!ses; }
+  function logout() { ses = null; try { localStorage.removeItem(SK); } catch (e) {} }
+  let cache = [], snap = new Map();
   async function sync() {
     const de = iso(adauga(azi(), -14)), pana = iso(adauga(azi(), 21));
-    const r = await fetch(`${SB}?select=*&zi=gte.${de}&zi=lte.${pana}&order=zi,ora`, { headers: H, cache: "no-store" });
-    if (!r.ok) throw new Error("server " + r.status);
-    const rows = (await r.json()).map(din), nou = new Set(cache.filter(b => b.nou).map(b => b.id));
-    cache = rows.map(b => nou.has(b.id) ? { ...b, nou: true } : b); snap = new Map(rows.map(b => [b.id, b.stare])); gata = true; return cache;
+    if (await asigura()) { // sala: toate datele
+      const r = await fetch(`${SB}?select=*&zi=gte.${de}&zi=lte.${pana}&order=zi,ora`, { headers: H(), cache: "no-store" });
+      if (r.status === 401) { logout(); throw new Error("sesiune"); } if (!r.ok) throw new Error("server " + r.status);
+      const rows = (await r.json()).map(x => ({ ...x, nota: x.nota || "" })), nou = new Set(cache.filter(b => b.nou).map(b => b.id));
+      cache = rows.map(b => nou.has(b.id) ? { ...b, nou: true } : b); snap = new Map(rows.map(b => [b.id, b.stare]));
+    } else { // clientele: doar orele ocupate
+      const r = await fetch(`${BASE}/rest/v1/rpc/ocupate`, { method: "POST", headers: H(), cache: "no-store", body: JSON.stringify({ de, pana }) });
+      if (!r.ok) throw new Error("server " + r.status);
+      cache = (await r.json()).map((x, i) => ({ id: "o" + i, ...x, stare: "confirmat" }));
+    }
+    return cache;
   }
   function citeste() { return cache; }
-  function salveaza(lista) { // trimite pe server doar stările schimbate (a venit, nu a venit, anulat)
-    lista.forEach(b => { if (snap.has(b.id) && snap.get(b.id) !== b.stare) { snap.set(b.id, b.stare);
-      fetch(`${SB}?id=eq.${b.id}`, { method: "PATCH", headers: H, body: JSON.stringify({ stare: b.stare }) }); } }); }
+  function salveaza(lista) { lista.forEach(b => { if (snap.has(b.id) && snap.get(b.id) !== b.stare) { snap.set(b.id, b.stare);
+    fetch(`${SB}?id=eq.${b.id}`, { method: "PATCH", headers: H(), body: JSON.stringify({ stare: b.stare }) }); } }); }
   function liber(lista, zi, oraS, srv) { return SERVICII[srv].aparate.find(a => !lista.some(b => b.zi === zi && b.ora === oraS && b.aparat === a && b.stare !== "anulat")) || null; }
   async function adaugaProgramare(p) {
     await sync().catch(() => {});
     const aparat = liber(cache, p.zi, p.ora, p.serviciu); if (!aparat) return null;
     const row = { zi: p.zi, ora: p.ora, serviciu: p.serviciu, aparat, nume: p.nume, tel: p.tel, stare: "confirmat", sursa: p.sursa || "site", nota: p.nota || "" };
-    const r = await fetch(SB, { method: "POST", headers: { ...H, Prefer: "return=representation" }, body: JSON.stringify(row) });
-    if (!r.ok) return null; // 409: locul tocmai a fost luat de altcineva
-    const n = { ...din((await r.json())[0]), nou: !!p.nou }; cache.push(n); snap.set(n.id, n.stare); return n;
+    const sala = !!ses, r = await fetch(SB, { method: "POST", headers: { ...H(), Prefer: sala ? "return=representation" : "return=minimal" }, body: JSON.stringify(row) });
+    if (!r.ok) return null; // 409: locul tocmai a fost luat
+    const n = sala ? { ...(await r.json())[0], nou: !!p.nou } : { id: "n" + Date.now(), ...row, nou: !!p.nou };
+    cache.push(n); if (sala) snap.set(n.id, n.stare); return n;
   }
-  async function reset() { // șterge tot și pune 3 programări de exemplu azi
-    await fetch(`${SB}?id=gt.0`, { method: "DELETE", headers: H });
-    const rows = seed().map(({ id, ...r }) => r);
-    if (rows.length) await fetch(SB, { method: "POST", headers: H, body: JSON.stringify(rows) });
-    await sync();
-  }
-  return { SERVICII, APARATE, PROGRAM, ZILE, LUNI, CLIENTE, KEY, iso, azi, adauga, min, ora, sloturi, frumos, citeste, salveaza, liber, adaugaProgramare, reset, sync, gata: () => gata };
+  async function reset() { if (!(await asigura())) return;
+    await fetch(`${SB}?id=gt.0`, { method: "DELETE", headers: H() });
+    const rows = seed().map(({ id, ...r }) => r); if (rows.length) await fetch(SB, { method: "POST", headers: H(), body: JSON.stringify(rows) });
+    await sync(); }
+  const autentificat = () => !!ses, tokenAcces = () => ses && ses.access_token;
+  return { SERVICII, APARATE, PROGRAM, ZILE, LUNI, CLIENTE, KEY, iso, azi, adauga, min, ora, sloturi, frumos, citeste, salveaza, liber, adaugaProgramare, reset, sync, login, logout, autentificat, tokenAcces, KEYSB };
 })();
