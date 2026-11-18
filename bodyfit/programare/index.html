@@ -12,7 +12,7 @@
   /* aceleași culori ca site-ul Bodyfit: negrul din logo, rozul ganterei, verdele EMS; pagina închisă, ca primul ecran al site-ului */
   :root { --ink:#0f0d10; --char:#19161b; --char2:#241f26; --pink:#f07fb7; --pink2:#e2559a; --ems:#3fe0a5; --roll:#9a7cf4; --red:#ff5a5a; --paper:#fbf8f6; --mute:rgba(255,255,255,.55); --line:rgba(255,255,255,.12); }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--ink)}
+  html,body{background:var(--paper)}
   body{color:#fff;font:400 16.5px/1.55 "Hanken Grotesk",system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
   button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
   :focus-visible{outline:2px solid var(--pink);outline-offset:3px}
@@ -20,7 +20,7 @@
   .m{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.2em;margin-bottom:-.2em}
   .m > span{display:inline-block;transform:translateY(105%);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
   .in .m > span{transform:none}
-  .hero{position:relative;padding:110px 20px 34px;overflow:hidden;isolation:isolate}
+  .hero{position:relative;padding:110px 20px 34px;overflow:hidden;isolation:isolate;background:var(--ink)}
   /* poza reală din sală în spatele titlului, care se topește în negru spre conținut */
   .hero::before{content:"";position:absolute;inset:0;z-index:-2;background:url(../img/sala.webp) center 55%/cover;transform:scale(1.06);animation:zoom 14s ease-out forwards}
   .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(15,13,16,.5) 0%,rgba(15,13,16,.3) 40%,rgba(15,13,16,.8) 78%,var(--ink) 100%)}
@@ -35,24 +35,25 @@
   .hero h1 em{font-style:normal;color:var(--pink)}
   .hero p{position:relative;max-width:720px;margin:16px auto 0;color:var(--mute);font-size:17px;opacity:0;transform:translateY(10px);transition:opacity .8s .5s,transform .8s .5s}
   .in .hero p{opacity:1;transform:none}
-  main{max-width:720px;margin:0 auto;padding:0 20px 140px}
+  main{max-width:720px;margin:0 auto;padding:0 20px 140px;color:var(--ink);--mute:rgba(15,13,16,.55);--line:rgba(15,13,16,.1)}
+  .done{color:var(--ink);--mute:rgba(15,13,16,.55);--line:rgba(15,13,16,.1)}
   /* prima ședință gratuită: impulsul verde trece prin ea */
-  .first{position:relative;overflow:hidden;width:100%;text-align:left;border-radius:20px;padding:22px 20px;background:var(--char);display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin-top:8px}
+  .first{position:relative;overflow:hidden;width:100%;color:#fff;margin-top:-26px !important;box-shadow:0 18px 40px rgba(15,13,16,.18);text-align:left;border-radius:20px;padding:22px 20px;background:var(--char);display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin-top:8px}
   .first::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-45%;background:linear-gradient(90deg,transparent,rgba(63,224,165,.18),transparent);animation:sweep 3.6s 1.2s ease-in-out infinite}
   @keyframes sweep{to{left:110%}}
   .first small{display:block;color:var(--ems);font-size:13.5px;font-weight:600}
   .first b{display:block;font-weight:600;font-size:24px;line-height:1.15;letter-spacing:-.02em;margin-top:4px}
-  .first span.d{display:block;color:var(--mute);font-size:14.5px;margin-top:6px}
+  .first span.d{display:block;color:rgba(255,255,255,.6);font-size:14.5px;margin-top:6px}
   .first em{position:relative;z-index:1;font-style:normal;background:var(--ems);color:var(--ink);font-weight:600;border-radius:12px;padding:12px 16px;white-space:nowrap}
   .first[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--ems)}
   h2{font-weight:600;font-size:clamp(30px,7vw,40px);line-height:1.05;letter-spacing:-.035em;margin-top:44px}
   /* filele: cuvinte mari, cu o linie roz care alunecă sub cel ales */
   .tabs{position:relative;margin-top:18px;display:flex;gap:26px;border-bottom:1px solid var(--line)}
   .tabs button{padding:0 0 14px;font-size:18px;font-weight:600;color:var(--mute);transition:color .3s}
-  .tabs button[aria-selected="true"]{color:#fff}
+  .tabs button[aria-selected="true"]{color:var(--ink)}
   .tabs i{position:absolute;bottom:-1px;height:2px;background:var(--pink);transition:left .45s cubic-bezier(.76,0,.24,1),width .45s cubic-bezier(.76,0,.24,1)}
   .group{margin-top:26px}
-  .group h3{font-size:14px;font-weight:600;color:var(--pink);display:flex;justify-content:space-between}
+  .group h3{font-size:14px;font-weight:600;color:var(--pink2);display:flex;justify-content:space-between}
   .group h3 small{color:var(--mute);font-weight:500}
   /* rândurile intră pe rând; cel ales se umple de roz de la stânga la dreapta */
   .opt{position:relative;overflow:hidden;width:100%;display:grid;grid-template-columns:1fr auto;gap:2px 16px;align-items:center;text-align:left;padding:18px 4px;border-bottom:1px solid var(--line);opacity:0;transform:translateY(14px);animation:rise .6s cubic-bezier(.2,.8,.2,1) forwards}
@@ -62,7 +63,7 @@
   .opt b{font-weight:600;font-size:21px;letter-spacing:-.02em;line-height:1.2}
   .opt .p{font-weight:600;font-size:22px;white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
   .opt .s{font-size:14px;color:var(--mute)}
-  .opt .sv{text-align:right;font-size:13px;color:var(--ems);font-weight:600;white-space:nowrap}
+  .opt .sv{text-align:right;font-size:13px;color:#0f9a6a;font-weight:600;white-space:nowrap}
   .opt .im{grid-column:1/-1;max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.2,.8,.2,1),margin .6s}
   .opt .im img{width:100%;height:180px;object-fit:cover;object-position:50% 25%;border-radius:14px;transform:scale(1.08);transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
   .opt[aria-pressed="true"]{color:var(--ink)}
@@ -70,33 +71,33 @@
   .opt[aria-pressed="true"] .s,.opt[aria-pressed="true"] .sv{color:rgba(15,13,16,.7)}
   .opt[aria-pressed="true"] .im{max-height:200px;margin-top:12px}
   .opt[aria-pressed="true"] .im img{transform:none}
-  @media (hover:hover){.opt:not([aria-pressed="true"]):hover b{color:var(--pink)}}
+  @media (hover:hover){.opt:not([aria-pressed="true"]):hover b{color:var(--pink2)}}
   .note{margin-top:14px;font-size:14px;color:var(--mute)}
   .step{margin-top:6px;transition:opacity .4s}
   .step.off{opacity:.25;pointer-events:none}
   .chips{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
-  .chips button{height:46px;padding:0 18px;border-radius:12px;background:var(--char2);font-weight:600}
+  .chips button{height:46px;padding:0 18px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font-weight:600}
   .chips button[aria-pressed="true"]{background:var(--pink);color:var(--ink)}
   .days{margin-top:14px;display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
   .days::-webkit-scrollbar{display:none}
-  .days button{flex:none;width:64px;padding:10px 0 12px;border-radius:14px;background:var(--char);text-align:center;transition:background .25s,color .25s}
+  .days button{flex:none;width:64px;padding:10px 0 12px;border-radius:14px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);text-align:center;transition:background .25s,color .25s}
   .days small{display:block;font-size:12.5px;color:var(--mute)}
   .days b{display:block;font-weight:600;font-size:24px;line-height:1.1}
   .days button[disabled]{opacity:.3;cursor:not-allowed}
-  .days button[aria-pressed="true"]{background:#fff;color:var(--ink)} .days button[aria-pressed="true"] small{color:rgba(15,13,16,.6)}
+  .days button[aria-pressed="true"]{background:var(--ink);color:#fff;box-shadow:none} .days button[aria-pressed="true"] small{color:rgba(255,255,255,.65)}
   .times{margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-  .times button{height:48px;border-radius:12px;background:var(--char);font-weight:600;font-variant-numeric:tabular-nums;transition:background .25s,transform .2s}
+  .times button{height:48px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font-weight:600;font-variant-numeric:tabular-nums;transition:background .25s,transform .2s}
   .times button:active{transform:scale(.95)}
-  .times button[disabled]{background:transparent;color:rgba(255,255,255,.22);text-decoration:line-through;cursor:not-allowed}
+  .times button[disabled]{background:transparent;box-shadow:none;color:rgba(15,13,16,.25);text-decoration:line-through;cursor:not-allowed}
   .times button[aria-pressed="true"]{background:var(--pink);color:var(--ink)}
   form{margin-top:14px;display:grid;gap:12px}
   label{display:grid;gap:6px;font-size:14px;font-weight:500;color:var(--mute)}
-  input,textarea{font:inherit;font-size:17px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--char);color:#fff;width:100%}
-  input::placeholder,textarea::placeholder{color:rgba(255,255,255,.3)}
+  input,textarea{font:inherit;font-size:17px;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);width:100%}
+  input::placeholder,textarea::placeholder{color:rgba(15,13,16,.35)}
   textarea{min-height:70px;resize:vertical}
   .ck{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14px}
   .ck input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--pink)}
-  .warn{background:rgba(240,127,183,.12);border:1px solid rgba(240,127,183,.4);color:#ffd1e6;border-radius:12px;padding:12px 14px;font-size:14px}
+  .warn{background:#fff0f7;border:1px solid #f8c8df;color:#8a2357;border-radius:12px;padding:12px 14px;font-size:14px}
   .bar{position:fixed;left:0;right:0;bottom:0;background:rgba(25,22,27,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px));z-index:10}
   .bar .in{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:14px}
   .bar .sum{flex:1;min-width:0;font-size:14px;line-height:1.35;color:var(--mute)}
@@ -110,7 +111,7 @@
   .done dl div{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--line)}
   .done dt{color:var(--mute)} .done dd{font-weight:600;text-align:right}
   .done p{margin-top:14px;color:var(--mute)}
-  .done .again{margin-top:22px;border-radius:12px;height:50px;padding:0 20px;font-weight:600;background:var(--char2)}
+  .done .again{margin-top:22px;border-radius:12px;height:50px;padding:0 20px;font-weight:600;background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
   /* header */
   /* header plutitor, ca o capsulă de iPhone: sticlă închisă, o pastilă care urmărește secțiunea curentă */
   .top { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 50; width: calc(100% - 20px); max-width: 980px; height: 60px; display: flex; align-items: center; gap: 8px; padding: 0 7px 0 18px; color: #fff; border-radius: 999px;
