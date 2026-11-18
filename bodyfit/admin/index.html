@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Programări, Body Fit</title>
+<link rel="icon" href="../img/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+<style>
+  /* panoul patroanei: aceleași culori ca site-ul; fiecare aparat pe coloana lui, fiecare serviciu în culoarea lui */
+  :root { --ink:#0f0d10; --char:#19161b; --char2:#241f26; --pink:#f07fb7; --ems:#3fe0a5; --roll:#9a7cf4; --red:#ff5a5a; --paper:#fbf8f6; --text:#231d24; --mute:#6e6570; --line:#ece4e8; --row:56px; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper)}
+  body{color:var(--text);font:400 15.5px/1.5 "Hanken Grotesk",system-ui,sans-serif;min-height:100vh}
+  button,input,select,textarea{font:inherit;color:inherit}
+  button{cursor:pointer}
+  :focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+  .demo{background:var(--ink);color:rgba(255,255,255,.75);font-size:13px;text-align:center;padding:7px 16px}
+  .demo b{color:var(--pink);font-weight:600}
+  .demo button{background:none;border:0;color:#fff;text-decoration:underline;margin-left:8px}
+  /* bara de sus */
+  .top{background:var(--char);color:#fff;padding:12px 20px 0;position:sticky;top:0;z-index:20}
+  .tr{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:14px}
+  .tr img{height:34px}
+  .tr h1{font-size:17px;font-weight:600;margin-right:auto}
+  .tr h1 small{display:block;font-weight:400;font-size:13px;color:rgba(255,255,255,.6)}
+  .new{border:0;border-radius:10px;background:var(--pink);color:var(--ink);font-weight:600;height:42px;padding:0 16px;white-space:nowrap}
+  .tabs{max-width:1280px;margin:10px auto 0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .tabs button{background:none;border:0;color:rgba(255,255,255,.62);padding:10px 14px 12px;font-weight:500;border-bottom:2px solid transparent;white-space:nowrap}
+  .tabs button[aria-selected="true"]{color:#fff;border-bottom-color:var(--pink)}
+  main{max-width:1280px;margin:0 auto;padding:20px 20px 60px}
+  /* sumarul zilei */
+  .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .kpi div{background:#fff;padding:14px 16px}
+  .kpi small{display:block;color:var(--mute);font-size:13px}
+  .kpi b{font-size:28px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .kpi b em{font-style:normal;font-size:14px;color:var(--mute);font-weight:500;margin-left:4px}
+  .dayhead{display:flex;align-items:center;gap:10px;margin:22px 0 12px}
+  .dayhead h2{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-right:auto}
+  .nav{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:18px}
+  .today{height:38px;border-radius:10px;border:1px solid var(--line);background:#fff;padding:0 12px;font-weight:500}
+  /* grila zilei: ore pe rânduri, aparate pe coloane */
+  .gridw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:#fff}
+  .grid{display:grid;grid-template-columns:64px repeat(6,minmax(130px,1fr));min-width:880px;position:relative}
+  .gh{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);padding:10px 12px;font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;z-index:2}
+  .gh i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+  .t{height:var(--row);border-bottom:1px solid #f4eef1;padding:6px 10px;color:var(--mute);font-size:13px;font-variant-numeric:tabular-nums}
+  .cell{height:var(--row);border-bottom:1px solid #f4eef1;border-left:1px solid #f4eef1;padding:4px;position:relative}
+  .cell.free:hover::after{content:"+ programare";position:absolute;inset:4px;border:1px dashed #d9cdd4;border-radius:10px;display:grid;place-items:center;color:var(--mute);font-size:13px}
+  .bk{height:100%;width:100%;border:0;border-radius:10px;background:color-mix(in srgb,var(--c) 18%,#fff);border-left:4px solid var(--c);text-align:left;padding:5px 9px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+  .bk b{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bk small{font-size:12.5px;color:var(--mute);white-space:nowrap}
+  .bk.venit{opacity:.55}
+  .bk.anulat{opacity:.4;text-decoration:line-through}
+  .bk.lipsa{background:#fff1f1;border-left-color:var(--red)}
+  .bk.nou{animation:nou 1.6s ease 3}
+  @keyframes nou{50%{box-shadow:0 0 0 4px color-mix(in srgb,var(--pink) 55%,transparent)}}
+  .now{position:absolute;left:64px;right:0;height:2px;background:var(--red);z-index:3;pointer-events:none}
+  .now::before{content:"";position:absolute;left:-5px;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--red)}
+  /* săptămâna */
+  .week{display:grid;grid-template-columns:repeat(7,minmax(130px,1fr));gap:10px;overflow-x:auto}
+  .wd{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;min-height:220px}
+  .wd h3{font-size:14px;font-weight:600}
+  .wd h3 small{display:block;font-weight:400;color:var(--mute)}
+  .wd .bar{height:6px;border-radius:3px;background:#f1eaee;margin:10px 0}
+  .wd .bar i{display:block;height:100%;border-radius:3px;background:var(--pink)}
+  .wd ul{list-style:none;display:grid;gap:4px;font-size:13px}
+  .wd li{display:flex;gap:6px;align-items:center;white-space:nowrap;overflow:hidden}
+  .wd li i{width:8px;height:8px;border-radius:50%;background:var(--c);flex:none}
+  .wd.closed{opacity:.5}
+  /* clientele */
+  .tools{display:flex;gap:10px;margin-bottom:12px}
+  .tools input{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid #f1eaee;font-size:14.5px;vertical-align:middle}
+  th{font-size:12.5px;color:var(--mute);font-weight:500}
+  td .rest{display:flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}
+  td .rest i{display:block;width:80px;height:6px;border-radius:3px;background:#f1eaee;overflow:hidden}
+  td .rest i span{display:block;height:100%;background:var(--ems)}
+  .low{color:#b4235f;font-weight:600}
+  .tw{overflow-x:auto}
+  /* setări */
+  .set{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+  .card h3{font-size:16px;font-weight:600}
+  .card p{color:var(--mute);font-size:14px;margin-top:4px}
+  .hrs{margin-top:12px;display:grid;gap:8px}
+  .hrs div{display:grid;grid-template-columns:96px 1fr 1fr;gap:8px;align-items:center;font-size:14px}
+  .hrs input{border:1px solid var(--line);border-radius:8px;padding:6px 8px}
+  .sms{margin-top:12px;background:#f3f0f2;border-radius:16px 16px 16px 4px;padding:12px 14px;font-size:14.5px;max-width:360px}
+  .tg{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;font-size:14.5px}
+  .sw{width:44px;height:26px;border-radius:13px;background:var(--ems);position:relative;flex:none;border:0}
+  .sw::after{content:"";position:absolute;right:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff}
+  /* fereastra cu detaliile */
+  .dim{position:fixed;inset:0;background:rgba(15,13,16,.45);z-index:40}
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:#fff;z-index:41;padding:22px 22px calc(22px + env(safe-area-inset-bottom,0px));overflow-y:auto;box-shadow:-20px 0 50px rgba(0,0,0,.2)}
+  .drawer h2{font-size:24px;font-weight:600;letter-spacing:-.02em}
+  .drawer .x{position:absolute;right:16px;top:16px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:18px}
+  .tag{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:4px 10px;border-radius:999px;font-size:13px;font-weight:600;background:color-mix(in srgb,var(--c) 20%,#fff)}
+  .drawer dl{margin-top:16px;border-top:1px solid var(--line)}
+  .drawer dl div{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+  .drawer dt{color:var(--mute)} .drawer dd{font-weight:600;text-align:right}
+  .acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+  .acts button,.f button{height:44px;border-radius:10px;border:1px solid var(--line);background:#fff;font-weight:600}
+  .acts .p{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .acts .r{color:#b4235f}
+  .f{display:grid;gap:10px;margin-top:16px}
+  .f label{display:grid;gap:5px;font-size:13.5px;font-weight:500}
+  .f input,.f select,.f textarea{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;font-size:15.5px}
+  .f .p{background:var(--pink);border-color:var(--pink);color:var(--ink)}
+  .note{margin-top:14px;font-size:13.5px;color:var(--mute)}
+  /* notificarea */
+  .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--char);color:#fff;border-radius:14px;padding:12px 16px;z-index:60;box-shadow:0 18px 40px rgba(0,0,0,.35);display:flex;gap:12px;align-items:center;max-width:calc(100% - 32px)}
+  .toast i{width:10px;height:10px;border-radius:50%;background:var(--pink);flex:none}
+  [hidden]{display:none!important}
+  @media (max-width:760px){
+    .kpi{grid-template-columns:repeat(2,1fr)} .set{grid-template-columns:1fr} .tr h1 small{display:none}
+    .tr img{height:28px} .new{height:38px;padding:0 12px;font-size:14.5px} main{padding:16px}
+  }
+</style>
+</head>
+<body>
+<div class="demo"><b>Demonstrație</b> cu programări de exemplu. Încearcă pagina <a href="../programare/" style="color:#fff">de programare</a> într-o filă alăturată: programarea apare aici pe loc.<button type="button" id="reset">Repornește exemplul</button></div>
+<div class="top">
+  <div class="tr"><img src="../img/logo-s.png" alt="Body Fit" /><h1>Programări<small id="azitxt"></small></h1><button class="new" id="new" type="button">+ Programare</button></div>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-t="zi">Azi</button><button role="tab" aria-selected="false" data-t="sapt">Săptămâna</button>
+    <button role="tab" aria-selected="false" data-t="cl">Cliente</button><button role="tab" aria-selected="false" data-t="set">Setări</button>
+  </div>
+</div>
+<main>
+  <section id="v-zi">
+    <div class="kpi" id="kpi"></div>
+    <div class="dayhead"><h2 id="dtitle"></h2><button class="nav" id="prev" type="button" aria-label="Ziua de dinainte">‹</button><button class="today" id="tod" type="button">Azi</button><button class="nav" id="next" type="button" aria-label="Ziua următoare">›</button></div>
+    <div class="gridw"><div class="grid" id="grid"></div></div>
+  </section>
+  <section id="v-sapt" hidden><div class="dayhead"><h2>Următoarele 7 zile</h2></div><div class="week" id="week"></div></section>
+  <section id="v-cl" hidden>
+    <div class="tools"><input id="q" placeholder="Caută după nume sau telefon" /></div>
+    <div class="tw"><table><thead><tr><th>Clienta</th><th>Telefon</th><th>Abonament</th><th>Ședințe rămase</th><th>Următoarea programare</th></tr></thead><tbody id="cl"></tbody></table></div>
+  </section>
+  <section id="v-set" hidden>
+    <div class="set">
+      <div class="card"><h3>Programul sălii</h3><p>Orele în care clientele se pot programa pe site. Program de exemplu, de completat cu cel real.</p><div class="hrs" id="hrs"></div></div>
+      <div class="card"><h3>Reamintirea pe SMS</h3><p>Pleacă automat cu o zi înainte, la ora 18:00. Costă în jur de 0,035 € plus TVA pe mesaj, cam 28 de lei pe lună la 130 de programări.</p>
+        <div class="sms" id="smsprev"></div>
+        <div class="tg">SMS de reamintire cu o zi înainte <button class="sw" type="button" aria-label="Pornit"></button></div>
+        <div class="tg">Email către sală la fiecare programare nouă <button class="sw" type="button" aria-label="Pornit"></button></div>
+        <div class="tg">Clientele pot anula singure până cu 4 ore înainte <button class="sw" type="button" aria-label="Pornit"></button></div>
+      </div>
+      <div class="card"><h3>Servicii și aparate</h3><p>Durata unui loc în calendar și pe ce aparat se face. De confirmat cu sala.</p><div class="hrs" id="srvs"></div></div>
+      <div class="card"><h3>Reguli</h3><p>EMS: site-ul avertizează clienta dacă își face două ședințe la mai puțin de 4 zile distanță, cum scrie în ghidul de aplicare EMS.</p><p>Prima ședință de EMS e gratuită: clienta o alege separat pe site, iar în panou apare ca „EMS, prima”.</p><p>Plata: la sală, ca acum. Plata cu cardul pe site se poate adăuga mai târziu.</p></div>
+    </div>
+  </section>
+</main>
+
+<div class="dim" id="dim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-live="polite"></aside>
+<div class="toast" id="toast" hidden><i></i><span id="toastt"></span></div>
+
+<script src="../rezervari.js"></script>
+<script>
+const R = window.BFR, $ = s => document.getElementById(s);
+let L = R.citeste(), zi = R.azi(), tab = "zi";
+const STARI = { confirmat: "Confirmată", venit: "A venit", lipsa: "Nu a venit", anulat: "Anulată" };
+const srvOf = b => R.SERVICII[b.serviciu];
+$("azitxt").textContent = R.frumos(R.azi());
+
+function kpi() {
+  const z = R.iso(R.azi()), azi = L.filter(b => b.zi === z && b.stare !== "anulat"), loc = R.sloturi(R.azi()).length * R.APARATE.length;
+  const sapt = L.filter(b => b.stare !== "anulat" && new Date(b.zi) - R.azi() < 7 * 864e5).length;
+  const maine = L.filter(b => b.zi === R.iso(R.adauga(R.azi(), 1)) && b.stare !== "anulat").length;
+  $("kpi").innerHTML = [["Programări azi", azi.length, ""], ["Au venit", azi.filter(b => b.stare === "venit").length, "din " + azi.length], ["Ocupare azi", loc ? Math.round(azi.length / loc * 100) : 0, "%"], ["SMS-uri pentru mâine", maine, "pleacă la 18:00"]]
+    .map(([a, b, c]) => `<div><small>${a}</small><b>${b}<em>${c}</em></b></div>`).join("") + "";
+  $("kpi").insertAdjacentHTML("beforeend", "");
+  void sapt;
+}
+function grid() {
+  const z = R.iso(zi), s = R.sloturi(zi);
+  $("dtitle").textContent = (R.iso(R.azi()) === z ? "Azi, " : "") + R.frumos(zi);
+  if (!s.length) { $("grid").innerHTML = `<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--mute)">Sala e închisă în ziua asta.</div>`; return; }
+  let h = `<div class="gh"></div>` + R.APARATE.map(a => { const c = ({ "EMS": "var(--ems)", "Vacuum": "var(--red)", "Masaj": "var(--pink)", "Trepte": "#5b7cff" })[a] || "var(--roll)"; return `<div class="gh" style="--c:${c}"><i></i>${a}</div>`; }).join("");
+  s.forEach(o => { h += `<div class="t">${o}</div>`;
+    R.APARATE.forEach(a => { const b = L.find(x => x.zi === z && x.ora === o && x.aparat === a && x.stare !== "anulat") || L.find(x => x.zi === z && x.ora === o && x.aparat === a);
+      h += b ? `<div class="cell"><button type="button" class="bk ${b.stare} ${b.nou ? "nou" : ""}" data-id="${b.id}" style="--c:${srvOf(b).culoare}"><b>${b.nume}</b><small>${srvOf(b).scurt} · ${STARI[b.stare]}${b.sursa === "site" ? " · de pe site" : ""}</small></button></div>`
+             : `<div class="cell free" data-o="${o}" data-a="${a}"></div>`; }); });
+  $("grid").innerHTML = h;
+  if (R.iso(R.azi()) === z) { const n = new Date(), m = n.getHours() * 60 + n.getMinutes(), st = R.min(s[0]);
+    if (m >= st && m < R.min(s[s.length - 1]) + 30) { const row = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--row")); const head = $("grid").querySelector(".gh").offsetHeight;
+      $("grid").insertAdjacentHTML("beforeend", `<div class="now" style="top:${head + (m - st) / 30 * row}px"></div>`); } }
+}
+function week() {
+  $("week").innerHTML = Array.from({ length: 7 }, (_, i) => R.adauga(R.azi(), i)).map(d => { const z = R.iso(d), s = R.sloturi(d), l = L.filter(b => b.zi === z && b.stare !== "anulat").sort((a, b) => a.ora.localeCompare(b.ora));
+    const p = s.length ? Math.round(l.length / (s.length * R.APARATE.length) * 100) : 0;
+    return `<div class="wd ${s.length ? "" : "closed"}"><h3>${R.ZILE[d.getDay()]}<small>${d.getDate()} ${R.LUNI[d.getMonth()]} · ${s.length ? l.length + " programări" : "închis"}</small></h3><div class="bar"><i style="width:${p}%"></i></div><ul>${l.slice(0, 9).map(b => `<li style="--c:${srvOf(b).culoare}"><i></i>${b.ora} ${b.nume.split(" ")[0]}</li>`).join("")}${l.length > 9 ? `<li>și încă ${l.length - 9}</li>` : ""}</ul></div>`; }).join("");
+}
+function clients() {
+  const q = $("q").value.toLowerCase();
+  $("cl").innerHTML = R.CLIENTE.filter(c => (c.nume + c.tel).toLowerCase().includes(q)).map(c => { const nx = L.filter(b => b.nume === c.nume && b.stare === "confirmat" && new Date(b.zi + "T" + b.ora) >= new Date()).sort((a, b) => (a.zi + a.ora).localeCompare(b.zi + b.ora))[0];
+    const r = c.total ? `<div class="rest"><i><span style="width:${c.ramase / c.total * 100}%"></span></i><span class="${c.ramase <= 2 ? "low" : ""}">${c.ramase} din ${c.total}</span></div>` : `<span style="color:var(--mute)">fără abonament</span>`;
+    return `<tr><td><b>${c.nume}</b></td><td>${c.tel}</td><td>${c.abon}</td><td>${r}</td><td>${nx ? R.frumos(new Date(nx.zi)) + ", " + nx.ora : "<span style='color:var(--mute)'>nicio programare</span>"}</td></tr>`; }).join("");
+}
+function settings() {
+  $("hrs").innerHTML = [1, 2, 3, 4, 5, 6, 0].map(d => { const p = R.PROGRAM[d]; return `<div><span>${R.ZILE[d]}</span><input aria-label="De la" value="${p ? p[0] : "închis"}" /><input aria-label="Până la" value="${p ? p[1] : ""}" /></div>`; }).join("");
+  $("srvs").innerHTML = Object.values(R.SERVICII).map(s => `<div><span style="display:flex;align-items:center;gap:6px"><i style="width:10px;height:10px;border-radius:50%;background:${s.culoare}"></i>${s.scurt}</span><input aria-label="Durata" value="${s.durata} min" /><input aria-label="Aparate" value="${s.aparate.length} ${s.aparate.length > 1 ? "aparate" : "aparat"}" /></div>`).join("");
+  $("smsprev").textContent = "Body Fit: Bună, Andreea! Te așteptăm mâine la 17:30 la EMS, pe Aurel Popp 16. Dacă nu mai poți ajunge, sună la 0758 407 533.";
+}
+function render() { L = R.citeste(); kpi(); grid(); if (tab === "sapt") week(); if (tab === "cl") clients(); if (tab === "set") settings(); }
+
+// detaliile unei programări
+function openB(id) {
+  const b = L.find(x => String(x.id) === String(id)); if (!b) return; const s = srvOf(b), c = R.CLIENTE.find(x => x.nume === b.nume);
+  $("drawer").innerHTML = `<button class="x" type="button" data-close aria-label="Închide">×</button><h2>${b.nume}</h2><span class="tag" style="--c:${s.culoare}">${s.nume}</span>
+   <dl><div><dt>Când</dt><dd>${R.frumos(new Date(b.zi))}, ${b.ora}</dd></div><div><dt>Aparat</dt><dd>${b.aparat}</dd></div><div><dt>Telefon</dt><dd>${b.tel}</dd></div>
+   <div><dt>Abonament</dt><dd>${c ? c.abon + (c.total ? ", " + c.ramase + " rămase" : "") : "clientă nouă"}</dd></div><div><dt>Stare</dt><dd>${STARI[b.stare]}</dd></div><div><dt>Făcută</dt><dd>${b.sursa === "site" ? "de clientă, pe site" : "de sală, la telefon"}</dd></div>
+   ${b.nota ? `<div><dt>Notă</dt><dd>${b.nota}</dd></div>` : ""}</dl>
+   <div class="acts"><button class="p" type="button" data-s="venit">A venit</button><button type="button" data-s="lipsa">Nu a venit</button><button type="button" data-sms>Trimite SMS</button><button class="r" type="button" data-s="anulat">Anulează</button></div>
+   <p class="note">Când marchezi „A venit”, se scade o ședință din abonamentul clientei. La anulare, ora se eliberează pe site.</p>`;
+  $("drawer").onclick = e => { const t = e.target.closest("button"); if (!t) return;
+    if (t.dataset.close !== undefined) return close();
+    if (t.dataset.sms !== undefined) return toast(`SMS trimis către ${b.nume.split(" ")[0]} (demo)`);
+    if (t.dataset.s) { b.stare = t.dataset.s; b.nou = false; if (t.dataset.s === "venit" && c && c.ramase > 0) c.ramase--; R.salveaza(L); close(); render(); toast(`${b.nume.split(" ")[0]}: ${STARI[b.stare].toLowerCase()}`); } };
+  show();
+}
+// programare nouă, de exemplu când sună o clientă
+function openNew(o, a) {
+  const opts = Object.entries(R.SERVICII).map(([k, s]) => `<option value="${k}" ${a && s.aparate.includes(a) ? "selected" : ""}>${s.nume}</option>`).join("");
+  const zile = Array.from({ length: 14 }, (_, i) => R.adauga(R.azi(), i)).filter(d => R.sloturi(d).length);
+  $("drawer").innerHTML = `<button class="x" type="button" data-close aria-label="Închide">×</button><h2>Programare nouă</h2><p class="note" style="margin-top:6px">Pentru clientele care sună sau vin la sală.</p>
+   <form class="f" id="nf"><label for="nn">Numele<input id="nn" required list="cls" /></label><datalist id="cls">${R.CLIENTE.map(c => `<option value="${c.nume}">`).join("")}</datalist>
+   <label for="nt">Telefonul<input id="nt" type="tel" required /></label><label for="ns">Serviciul<select id="ns">${opts}</select></label>
+   <label for="nz">Ziua<select id="nz">${zile.map(d => `<option value="${R.iso(d)}" ${R.iso(d) === R.iso(zi) ? "selected" : ""}>${R.frumos(d)}</option>`).join("")}</select></label>
+   <label for="no">Ora<select id="no"></select></label><button class="p" type="submit">Salvează programarea</button></form>`;
+  const fill = () => { const d = new Date($("nz").value), lista = R.citeste(); $("no").innerHTML = R.sloturi(d).filter(x => R.liber(lista, $("nz").value, x, $("ns").value)).map(x => `<option ${x === o ? "selected" : ""}>${x}</option>`).join("") || "<option value=''>nicio oră liberă</option>"; };
+  $("nz").onchange = $("ns").onchange = fill; fill();
+  $("nn").oninput = () => { const c = R.CLIENTE.find(x => x.nume === $("nn").value); if (c) $("nt").value = c.tel; };
+  $("nf").onsubmit = e => { e.preventDefault(); if (!$("nn").value.trim() || !$("no").value) return;
+    const p = R.adaugaProgramare({ zi: $("nz").value, ora: $("no").value, serviciu: $("ns").value, nume: $("nn").value.trim(), tel: $("nt").value.trim(), sursa: "telefon" });
+    if (p) { close(); zi = new Date($("nz") ? p.zi : p.zi); zi.setHours(0, 0, 0, 0); render(); toast(`Programare salvată: ${p.nume.split(" ")[0]}, ${p.ora}`); } };
+  $("drawer").onclick = e => { if (e.target.closest("[data-close]")) close(); };
+  show();
+}
+function show() { $("dim").hidden = false; $("drawer").hidden = false; }
+function close() { $("dim").hidden = true; $("drawer").hidden = true; }
+$("dim").onclick = close; addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+let tt; function toast(t) { $("toastt").textContent = t; $("toast").hidden = false; clearTimeout(tt); tt = setTimeout(() => $("toast").hidden = true, 3800); }
+
+$("grid").onclick = e => { const b = e.target.closest(".bk"); if (b) return openB(b.dataset.id); const c = e.target.closest(".cell.free"); if (c) openNew(c.dataset.o, c.dataset.a); };
+$("new").onclick = () => openNew();
+$("prev").onclick = () => { zi = R.adauga(zi, -1); grid(); }; $("next").onclick = () => { zi = R.adauga(zi, 1); grid(); }; $("tod").onclick = () => { zi = R.azi(); grid(); };
+$("q").oninput = clients;
+document.querySelector(".tabs").onclick = e => { const b = e.target.closest("button"); if (!b) return; tab = b.dataset.t;
+  document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b)); ["zi", "sapt", "cl", "set"].forEach(t => $("v-" + t).hidden = t !== tab); render(); };
+$("reset").onclick = () => { R.reset(); zi = R.azi(); render(); toast("Exemplul a fost repornit"); };
+// o programare făcută pe site, în altă filă, apare aici pe loc
+addEventListener("storage", e => { if (e.key !== R.KEY) return; const vechi = new Set(L.map(b => b.id)); render(); const n = L.find(b => !vechi.has(b.id));
+  if (n) { toast(`Programare nouă de pe site: ${n.nume}, ${R.frumos(new Date(n.zi))}, ${n.ora}`); if (n.zi === R.iso(zi)) grid(); } });
+setInterval(() => { if (tab === "zi") grid(); }, 60000);
+render();
+</script>
+</body>
+</html>
