@@ -30,7 +30,8 @@ window.BFR = (() => {
     ["Mihaela Sabău", "0726 xxx 640", "10 Vacuum + 10 body roll", 20, 14], ["Cristina Bălaj", "0758 xxx 115", "Ședință cu ședință", 0, 0], ["Orsolya Fazakas", "0744 xxx 582", "8 Ems + 4 M + 4 body roll", 16, 9],
     ["Diana Rus", "0733 xxx 029", "12 ems, 550 lei", 12, 7], ["Raluca Vaida", "0762 xxx 451", "12 body roll, 300 lei", 12, 10], ["Bianca Chiș", "0749 xxx 806", "8 Trepte + 8 body roll", 16, 13],
     ["Larisa Horvath", "0721 xxx 334", "8 Masaj anticelulitic", 8, 2], ["Gabriela Nagy", "0755 xxx 793", "10 Ems + 10 Vacuum", 20, 15], ["Alexandra Toma", "0740 xxx 168", "Prima ședință EMS", 0, 0]
-  ].map(([nume, tel, abon, total, ramase]) => ({ nume, tel, abon, total, ramase }));
+  ].map(([nume, tel, abon, total, ramase], i) => ({ nume, tel, abon, total, ramase,
+    vizite: [23, 6, 41, 14, 3, 30, 9, 17, 5, 12, 26, 0][i], ultima: [2, 9, 1, 5, 34, 3, 12, 6, 21, 4, 2, null][i], din: ["martie 2025", "septembrie 2026", "ianuarie 2025", "mai 2026", "iunie 2026", "noiembrie 2024", "august 2026", "aprilie 2026", "octombrie 2026", "iulie 2026", "februarie 2026", "noiembrie 2026"][i] }));
 
   function seed() {
     // panoul pornește aproape gol: doar 3 programări azi, după ora curentă, ca să se vadă clar cele noi venite de pe site

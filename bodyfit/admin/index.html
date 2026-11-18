@@ -74,6 +74,12 @@
   /* clientele */
   .tools{display:flex;gap:10px;margin-bottom:12px}
   .tools input{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff}
+  .tools select{border:1px solid var(--line);border-radius:10px;padding:0 10px;background:#fff}
+  #cl tr{cursor:pointer} #cl tr:hover td{background:#fbf7f9}
+  .nw{display:inline-block;margin-left:6px;font-size:11.5px;font-weight:600;background:#ffe3f1;color:#b4235f;border-radius:999px;padding:2px 7px;vertical-align:1px}
+  .hist{margin-top:14px;border-top:1px solid var(--line)} .hist div{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .hist i{width:8px;height:8px;border-radius:50%;background:var(--c);display:inline-block;margin-right:6px}
+  @media (max-width:760px){ #cl td:nth-child(3),#cl th:nth-child(3),#cl td:nth-child(6),#cl th:nth-child(6){display:none} }
   table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
   th,td{text-align:left;padding:11px 14px;border-bottom:1px solid #f1eaee;font-size:14.5px;vertical-align:middle}
   th{font-size:12.5px;color:var(--mute);font-weight:500}
@@ -177,8 +183,9 @@
   </section>
   <section id="v-sapt" hidden><div class="dayhead"><h2>Următoarele 7 zile</h2></div><div class="week" id="week"></div></section>
   <section id="v-cl" hidden>
-    <div class="tools"><input id="q" placeholder="Caută după nume sau telefon" /></div>
-    <div class="tw"><table><thead><tr><th>Clienta</th><th>Telefon</th><th>Abonament</th><th>Ședințe rămase</th><th>Următoarea programare</th></tr></thead><tbody id="cl"></tbody></table></div>
+    <div class="kpi" id="ckpi" style="margin-bottom:14px"></div>
+    <div class="tools"><input id="q" placeholder="Caută după nume sau telefon" /><select id="srt" aria-label="Ordonează"><option value="ult">Ultima vizită</option><option value="viz">Cele mai multe vizite</option><option value="rest">Abonament pe terminate</option><option value="nume">Nume</option></select></div>
+    <div class="tw"><table><thead><tr><th>Clienta</th><th>Vizite</th><th>Ultima vizită</th><th>Abonament</th><th>Ședințe rămase</th><th>Următoarea programare</th></tr></thead><tbody id="cl"></tbody></table></div>
   </section>
   <section id="v-set" hidden>
     <div class="set">
@@ -239,11 +246,39 @@ function week() {
     const p = s.length ? Math.round(l.length / (s.length * R.APARATE.length) * 100) : 0;
     return `<div class="wd ${s.length ? "" : "closed"}"><h3>${R.ZILE[d.getDay()]}<small>${d.getDate()} ${R.LUNI[d.getMonth()]} · ${s.length ? l.length + " programări" : "închis"}</small></h3><div class="bar"><i style="width:${p}%"></i></div><ul>${l.slice(0, 9).map(b => `<li style="--c:${srvOf(b).culoare}"><i></i>${b.ora} ${b.nume.split(" ")[0]}</li>`).join("")}${l.length > 9 ? `<li>și încă ${l.length - 9}</li>` : ""}</ul></div>`; }).join("");
 }
+// fișa fiecărei cliente se construiește din programări + istoricul de până acum; clientele noi de pe site apar singure, după telefon
+function toateClientele() {
+  const map = new Map(); const key = t => t.replace(/\D/g, "").slice(-6);
+  R.CLIENTE.forEach(c => map.set(c.nume, { ...c }));
+  L.forEach(b => { if (!map.has(b.nume)) map.set(b.nume, { nume: b.nume, tel: b.tel, abon: "Fără abonament", total: 0, ramase: 0, vizite: 0, ultima: null, din: R.LUNI[new Date().getMonth()] + " " + new Date().getFullYear(), noua: true }); });
+  const azi = R.azi();
+  return [...map.values()].map(c => { const lb = L.filter(b => b.nume === c.nume);
+    const venit = lb.filter(b => b.stare === "venit"), lipsa = lb.filter(b => b.stare === "lipsa").length;
+    let ultima = c.ultima; venit.forEach(b => { const d = Math.round((azi - new Date(b.zi)) / 864e5); if (ultima === null || d < ultima) ultima = d; });
+    const nx = lb.filter(b => b.stare === "confirmat" && new Date(b.zi + "T" + b.ora) >= new Date()).sort((a, b) => (a.zi + a.ora).localeCompare(b.zi + b.ora))[0];
+    return { ...c, vizite: c.vizite + venit.length, ultima, lipsa, nx, prog: lb }; });
+}
+const cand = d => d === null ? "încă n-a venit" : d === 0 ? "azi" : d === 1 ? "ieri" : `acum ${d} zile`;
 function clients() {
-  const q = $("q").value.toLowerCase();
-  $("cl").innerHTML = R.CLIENTE.filter(c => (c.nume + c.tel).toLowerCase().includes(q)).map(c => { const nx = L.filter(b => b.nume === c.nume && b.stare === "confirmat" && new Date(b.zi + "T" + b.ora) >= new Date()).sort((a, b) => (a.zi + a.ora).localeCompare(b.zi + b.ora))[0];
-    const r = c.total ? `<div class="rest"><i><span style="width:${c.ramase / c.total * 100}%"></span></i><span class="${c.ramase <= 2 ? "low" : ""}">${c.ramase} din ${c.total}</span></div>` : `<span style="color:var(--mute)">fără abonament</span>`;
-    return `<tr><td><b>${c.nume}</b></td><td>${c.tel}</td><td>${c.abon}</td><td>${r}</td><td>${nx ? R.frumos(new Date(nx.zi)) + ", " + nx.ora : "<span style='color:var(--mute)'>nicio programare</span>"}</td></tr>`; }).join("");
+  const q = $("q").value.toLowerCase(), srt = $("srt").value, A = toateClientele();
+  const noi = A.filter(c => c.noua || c.vizite <= 1).length, active = A.filter(c => c.ultima !== null && c.ultima <= 30).length, pe = A.filter(c => c.total && c.ramase <= 2).length;
+  $("ckpi").innerHTML = [["Cliente", A.length, ""], ["Au venit în ultima lună", active, ""], ["Cliente noi", noi, ""], ["Abonament pe terminate", pe, "≤ 2 ședințe"]].map(([a, b, c]) => `<div><small>${a}</small><b>${b}<em>${c}</em></b></div>`).join("");
+  const ord = { ult: (a, b) => (a.ultima ?? 999) - (b.ultima ?? 999), viz: (a, b) => b.vizite - a.vizite, rest: (a, b) => (a.total ? a.ramase : 99) - (b.total ? b.ramase : 99), nume: (a, b) => a.nume.localeCompare(b.nume) }[srt];
+  $("cl").innerHTML = A.filter(c => (c.nume + c.tel).toLowerCase().includes(q)).sort(ord).map(c => {
+    const r = c.total ? `<div class="rest"><i><span style="width:${c.ramase / c.total * 100}%"></span></i><span class="${c.ramase <= 2 ? "low" : ""}">${c.ramase} din ${c.total}</span></div>` : `<span style="color:var(--mute)">—</span>`;
+    return `<tr data-c="${c.nume}"><td><b>${c.nume}</b>${c.noua ? '<span class="nw">nouă, de pe site</span>' : ""}<br><small style="color:var(--mute)">${c.tel}</small></td><td><b>${c.vizite}</b></td><td>${cand(c.ultima)}</td><td>${c.abon}</td><td>${r}</td><td>${c.nx ? R.frumos(new Date(c.nx.zi)) + ", " + c.nx.ora : "<span style='color:var(--mute)'>—</span>"}</td></tr>`; }).join("");
+}
+function openClient(nume) {
+  const c = toateClientele().find(x => x.nume === nume); if (!c) return;
+  const ist = c.prog.slice().sort((a, b) => (b.zi + b.ora).localeCompare(a.zi + a.ora));
+  $("drawer").innerHTML = `<button class="x" type="button" data-close aria-label="Închide">×</button><h2>${c.nume}</h2><p class="note" style="margin-top:4px">${c.tel} · clientă din ${c.din}</p>
+   <dl><div><dt>Vizite până acum</dt><dd>${c.vizite}</dd></div><div><dt>Ultima vizită</dt><dd>${cand(c.ultima)}</dd></div><div><dt>N-a venit</dt><dd>${c.lipsa ? c.lipsa + (c.lipsa === 1 ? " dată" : " ori") : "niciodată"}</dd></div>
+   <div><dt>Abonament</dt><dd>${c.abon}</dd></div>${c.total ? `<div><dt>Ședințe rămase</dt><dd class="${c.ramase <= 2 ? "low" : ""}">${c.ramase} din ${c.total}</dd></div>` : ""}<div><dt>Următoarea programare</dt><dd>${c.nx ? R.frumos(new Date(c.nx.zi)) + ", " + c.nx.ora : "—"}</dd></div></dl>
+   <div class="acts"><button class="p" type="button" data-new>+ Programare</button><button type="button" data-sms>Trimite SMS</button></div>
+   ${ist.length ? `<h3 style="margin-top:20px;font-size:15px">Programări</h3><div class="hist">${ist.map(b => `<div style="--c:${srvOf(b).culoare}"><span><i></i>${R.frumos(new Date(b.zi))}, ${b.ora}</span><span>${srvOf(b).scurt} · ${STARI[b.stare]}</span></div>`).join("")}</div>` : ""}`;
+  $("drawer").onclick = e => { const t = e.target.closest("button"); if (!t) return; if (t.dataset.close !== undefined) return close(); if (t.dataset.sms !== undefined) return toast(`SMS trimis către ${c.nume.split(" ")[0]} (demo)`);
+    if (t.dataset.new !== undefined) { openNew(); setTimeout(() => { $("nn").value = c.nume; $("nn").dispatchEvent(new Event("input")); const sb = $("sug").querySelector("button"); if (sb) sb.click(); }, 60); } };
+  show();
 }
 function settings() {
   $("hrs").innerHTML = [1, 2, 3, 4, 5, 6, 0].map(d => { const p = R.PROGRAM[d]; return `<div><span>${R.ZILE[d]}</span><input aria-label="De la" value="${p ? p[0] : "închis"}" /><input aria-label="Până la" value="${p ? p[1] : ""}" /></div>`; }).join("");
@@ -331,7 +366,7 @@ $("vsw").onclick = () => { document.body.classList.toggle("cal"); $("vsw").textC
 $("list").onclick = e => { const q = e.target.closest("[data-q]"); if (q) { const b = L.find(x => String(x.id) === q.dataset.id); const c = R.CLIENTE.find(x => x.nume === b.nume);
     b.stare = q.dataset.q; b.nou = false; if (b.stare === "venit" && c && c.ramase > 0) c.ramase--; R.salveaza(L); render(); toast(`${b.nume.split(" ")[0]}: ${STARI[b.stare].toLowerCase()}`); return; }
   const o = e.target.closest("[data-open]"); if (o) openB(o.dataset.open); };
-$("q").oninput = clients;
+$("q").oninput = clients; $("srt").onchange = clients; $("cl").onclick = e => { const r = e.target.closest("tr[data-c]"); if (r) openClient(r.dataset.c); };
 document.querySelector(".tabs").onclick = e => { const b = e.target.closest("button"); if (!b) return; tab = b.dataset.t;
   document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b)); ["zi", "sapt", "cl", "set"].forEach(t => $("v-" + t).hidden = t !== tab); render(); };
 $("reset").onclick = () => { R.reset(); zi = R.azi(); render(); toast("Exemplul a fost repornit"); };
