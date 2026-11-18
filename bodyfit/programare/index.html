@@ -255,13 +255,18 @@ function render() {
   $("sum").innerHTML = !P ? "Alege o ședință, un abonament sau un combo" : `<b>${P.nume} · ${P.pret}</b>${st.zi ? R.frumos(new Date(st.zi)) : "Alege ziua"}${st.ora ? ", ora " + st.ora : ""}`;
   $("go").disabled = !(P && st.srv && st.zi && st.ora && $("nume").value.trim().length > 2 && tel.length >= 9 && $("gdpr").checked);
 }
+// derulare lină, cu accelerare și frânare, până la pasul următor (lasă loc pentru antetul de sus)
+function lin(el, off = 110) { if (!el) return; const y0 = scrollY, y1 = Math.max(0, el.getBoundingClientRect().top + scrollY - off), d = y1 - y0;
+  if (Math.abs(d) < 4 || matchMedia("(prefers-reduced-motion: reduce)").matches) { scrollTo(0, y1); return; }
+  const dur = Math.min(1100, 500 + Math.abs(d) * .35), t0 = performance.now(), e = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  const step = now => { const k = Math.min(1, (now - t0) / dur); scrollTo(0, y0 + d * e(k)); if (k < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); }
 const fresh = () => { st.srv = null; st.ora = null; };
-$("first").onclick = () => { st.pick = st.pick === "prima" ? null : "prima"; fresh(); render(); if (st.pick) setTimeout(() => $("s2").scrollIntoView({ behavior: "smooth", block: "center" }), 60); };
+$("first").onclick = () => { st.pick = st.pick === "prima" ? null : "prima"; fresh(); render(); if (st.pick) setTimeout(() => lin($("s2")), 80); };
 document.querySelector(".tabs").onclick = e => { const b = e.target.closest("button"); if (b) { st.tab = b.dataset.t; render(); } };
-$("list").onclick = e => { const b = e.target.closest(".opt"); if (!b) return; st.pick = b.dataset.i; fresh(); render(); setTimeout(() => (pickInfo().srvs.length > 1 ? $("s1") : $("s2")).scrollIntoView({ behavior: "smooth", block: "center" }), 60); };
+$("list").onclick = e => { const b = e.target.closest(".opt"); if (!b) return; st.pick = b.dataset.i; fresh(); render(); setTimeout(() => lin(pickInfo().srvs.length > 1 ? $("s1") : $("s2")), 80); };
 $("start").onclick = e => { const b = e.target.closest("button"); if (b) { st.srv = b.dataset.k; st.ora = null; render(); } };
 $("days").onclick = e => { const b = e.target.closest("button"); if (b && !b.disabled) { st.zi = b.dataset.z; st.ora = null; render(); } };
-$("times").onclick = e => { const b = e.target.closest("button"); if (b && !b.disabled) { st.ora = b.dataset.o; render(); setTimeout(() => $("s4").scrollIntoView({ behavior: "smooth", block: "start" }), 60); } };
+$("times").onclick = e => { const b = e.target.closest("button"); if (b && !b.disabled) { st.ora = b.dataset.o; render(); setTimeout(() => lin($("s4")), 80); } };
 ["nume", "tel", "gdpr"].forEach(id => $(id).addEventListener("input", render));
 $("go").onclick = () => { const P = pickInfo();
   const p = R.adaugaProgramare({ zi: st.zi, ora: st.ora, serviciu: st.srv, nume: $("nume").value.trim(), tel: $("tel").value.trim(), nota: [P.abon ? P.nume + ", " + P.pret + ", plătește la sală" : "", $("nota").value.trim()].filter(Boolean).join(". "), sursa: "site", nou: true });
