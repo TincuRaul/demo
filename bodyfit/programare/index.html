@@ -58,19 +58,17 @@
   /* rândurile intră pe rând; cel ales se umple de roz de la stânga la dreapta */
   .opt{position:relative;overflow:hidden;width:100%;display:grid;grid-template-columns:1fr auto;gap:2px 16px;align-items:center;text-align:left;padding:18px 4px;border-bottom:1px solid var(--line);opacity:0;transform:translateY(14px);animation:rise .6s cubic-bezier(.2,.8,.2,1) forwards}
   @keyframes rise{to{opacity:1;transform:none}}
-  .opt::before{content:"";position:absolute;inset:0;background:var(--pink);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.76,0,.24,1);z-index:0}
+  .opt::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:2px;background:var(--pink2);transform:scaleY(0);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
   .opt > *{position:relative;z-index:1}
   .opt b{font-weight:600;font-size:21px;letter-spacing:-.02em;line-height:1.2}
   .opt .p{font-weight:600;font-size:22px;white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
   .opt .s{font-size:14px;color:var(--mute)}
   .opt .sv{text-align:right;font-size:13px;color:#0f9a6a;font-weight:600;white-space:nowrap}
-  .opt .im{grid-column:1/-1;max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.2,.8,.2,1),margin .6s}
-  .opt .im img{width:100%;height:180px;object-fit:cover;object-position:50% 25%;border-radius:14px;transform:scale(1.08);transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
-  .opt[aria-pressed="true"]{color:var(--ink)}
-  .opt[aria-pressed="true"]::before{transform:scaleX(1)}
-  .opt[aria-pressed="true"] .s,.opt[aria-pressed="true"] .sv{color:rgba(15,13,16,.7)}
-  .opt[aria-pressed="true"] .im{max-height:200px;margin-top:12px}
-  .opt[aria-pressed="true"] .im img{transform:none}
+  .opt{padding-left:16px;transition:padding .3s}
+  .opt[aria-pressed="true"]{padding-left:22px}
+  .opt[aria-pressed="true"]::before{transform:scaleY(1)}
+  .opt[aria-pressed="true"] b{color:var(--pink2)}
+  .opt[aria-pressed="true"] b::after{content:" ✓";font-size:.85em}
   @media (hover:hover){.opt:not([aria-pressed="true"]):hover b{color:var(--pink2)}}
   .note{margin-top:14px;font-size:14px;color:var(--mute)}
   .step{margin-top:6px;transition:opacity .4s}
@@ -216,7 +214,7 @@ function moveLine() { const b = document.querySelector('.tabs [aria-selected="tr
 
 function list() {
   const L = $("list");
-  if (st.tab === "sed") { L.innerHTML = `<div class="group">${SED.map(([k, n, d, img], i) => `<button type="button" class="opt" style="animation-delay:${i * 70}ms" data-i="sed:${i}" aria-pressed="${st.pick === "sed:" + i}"><b>${n}</b><span class="p">${UNIT[k]} lei</span><span class="s">${d}</span>${img ? `<span class="im"><img src="../img/${img}" alt="" loading="lazy" /></span>` : ""}</button>`).join("")}</div>`; return; }
+  if (st.tab === "sed") { L.innerHTML = `<div class="group">${SED.map(([k, n, d, img], i) => `<button type="button" class="opt" style="animation-delay:${i * 70}ms" data-i="sed:${i}" aria-pressed="${st.pick === "sed:" + i}"><b>${n}</b><span class="p">${UNIT[k]} lei</span><span class="s">${d}</span></button>`).join("")}</div>`; return; }
   const G = st.tab === "abo" ? ABO : COM;
   L.innerHTML = G.map(([t, arr], gi) => `<div class="group"><h3>${t}${t === "Body Contour" ? "<small>pachet separat</small>" : ""}</h3>${arr.map(([c, pret, tag, label], i) => {
     const id = st.tab + ":" + gi + ":" + i, n = Object.values(c).reduce((a, b) => a + b, 0), econ = total(c) - pret;
