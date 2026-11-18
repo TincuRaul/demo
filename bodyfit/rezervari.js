@@ -15,7 +15,7 @@ window.BFR = (() => {
   const PROGRAM = { 1: ["08:00", "20:00"], 2: ["08:00", "20:00"], 3: ["08:00", "20:00"], 4: ["08:00", "20:00"], 5: ["08:00", "20:00"], 6: ["09:00", "13:00"], 0: null };
   const ZILE = ["Duminică", "Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă"];
   const LUNI = ["ianuarie", "februarie", "martie", "aprilie", "mai", "iunie", "iulie", "august", "septembrie", "octombrie", "noiembrie", "decembrie"];
-  const KEY = "bf-demo-programari-v3";
+  const KEY = "bf-demo-programari-v4";
 
   const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   const azi = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
@@ -33,19 +33,11 @@ window.BFR = (() => {
   ].map(([nume, tel, abon, total, ramase]) => ({ nume, tel, abon, total, ramase }));
 
   function seed() {
-    // programări de exemplu pentru azi și următoarele 6 zile (cam o treime din locuri ocupate), mereu pornind de la data de azi
-    const out = []; let id = 1; const z = azi(), acum = new Date(), mAcum = acum.getHours() * 60 + acum.getMinutes();
-    const SRV = { "EMS": "ems", "Vacuum": "vac", "Body Roll 1": "roll", "Body Roll 2": "roll", "Masaj": "masaj", "Trepte": "trepte" };
-    for (let zi = 0; zi < 7; zi++) {
-      const d = adauga(z, zi); sloturi(d).forEach((slot, i) => APARATE.forEach((aparat, j) => {
-        const h = (i * 7 + j * 13 + zi * 5 + (i * j) % 3) % 10, seara = min(slot) >= 16 * 60;
-        if (h >= (seara ? 6 : 3)) return;   // seara e mai aglomerat, ca la orice sală
-        const cl = CLIENTE[(i * 3 + j * 5 + zi * 7) % CLIENTE.length], trecut = zi === 0 && min(slot) + 30 <= mAcum;
-        out.push({ id: id++, zi: iso(d), ora: slot, serviciu: SRV[aparat], aparat, nume: cl.nume, tel: cl.tel,
-          stare: trecut ? ((i + j) % 9 === 4 ? "lipsa" : "venit") : "confirmat", sursa: (i + j + zi) % 3 === 0 ? "telefon" : "site", nota: "" });
-      }));
-    }
-    return out;
+    // panoul pornește aproape gol: doar 3 programări azi, după ora curentă, ca să se vadă clar cele noi venite de pe site
+    const z = azi(), s = sloturi(z), m = new Date().getHours() * 60 + new Date().getMinutes();
+    const viitoare = s.filter(o => min(o) > m + 30), ore = viitoare.length >= 3 ? [viitoare[0], viitoare[Math.floor(viitoare.length / 2)], viitoare[viitoare.length - 1]] : viitoare;
+    const ex = [["ems", "EMS", CLIENTE[0]], ["vac", "Vacuum", CLIENTE[3]], ["roll", "Body Roll 1", CLIENTE[5]]];
+    return ore.map((o, i) => ({ id: i + 1, zi: iso(z), ora: o, serviciu: ex[i][0], aparat: ex[i][1], nume: ex[i][2].nume, tel: ex[i][2].tel, stare: "confirmat", sursa: i === 1 ? "site" : "telefon", nota: "" }));
   }
   function citeste() { try { const v = JSON.parse(localStorage.getItem(KEY)); if (v && v.ziua === iso(azi())) return v.lista; } catch (e) {} const l = seed(); salveaza(l); return l; }
   function salveaza(lista) { try { localStorage.setItem(KEY, JSON.stringify({ ziua: iso(azi()), lista })); } catch (e) {} }
