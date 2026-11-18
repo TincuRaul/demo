@@ -6,6 +6,11 @@
 <meta name="robots" content="noindex, nofollow" />
 <title>Programări, Body Fit</title>
 <link rel="icon" href="../img/favicon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Body Fit" />
+<meta name="theme-color" content="#19161b" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
 <style>
@@ -157,6 +162,16 @@
   .save[disabled]{opacity:.45}
   .fab{display:none}
   @media (max-width:760px){ .fab{display:grid;place-items:center;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:50%;border:0;background:var(--pink);color:var(--ink);font-size:30px;box-shadow:0 12px 28px rgba(0,0,0,.25);z-index:30} }
+  /* butonul de notificări */
+  .ntf{display:flex;align-items:center;gap:12px;background:var(--char);color:#fff;border-radius:14px;padding:12px 14px;margin-top:14px}
+  .ntf p{flex:1;font-size:14px;line-height:1.4;color:rgba(255,255,255,.8)} .ntf p b{color:#fff}
+  .ntf button{height:42px;padding:0 14px;border:0;border-radius:10px;background:var(--pink);color:var(--ink);font-weight:600;white-space:nowrap}
+  /* la încărcare: nu arăt zerouri până nu vin programările de pe server, apoi apare totul lin */
+  main{transition:opacity .45s ease,transform .45s ease}
+  body.wait main{opacity:0;transform:translateY(8px)}
+  .loader{position:fixed;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:3px solid #eadde4;border-top-color:var(--pink);animation:sp 0.8s linear infinite;opacity:0;transition:opacity .3s;pointer-events:none}
+  body.wait .loader{opacity:1}
+  @keyframes sp{to{transform:rotate(360deg)}}
   [hidden]{display:none!important}
   @media (max-width:760px){
     .kpi{grid-template-columns:repeat(2,1fr)} .set{grid-template-columns:1fr} .tr h1 small{display:none}
@@ -164,7 +179,7 @@
   }
 </style>
 </head>
-<body>
+<body class="wait"><div class="loader" aria-hidden="true"></div>
 <div class="demo"><b>Demonstrație</b> cu programări de exemplu. Fă o programare pe <a href="../programare/" style="color:#fff">pagina de programare</a>, de pe orice telefon: apare aici în câteva secunde.<button type="button" id="reset">Repornește exemplul</button></div>
 <div class="top">
   <div class="tr"><img src="../img/logo-s.png" alt="Body Fit" /><h1>Programări<small id="azitxt"></small></h1><button class="new" id="new" type="button">+ Programare</button></div>
@@ -175,6 +190,7 @@
 </div>
 <main>
   <section id="v-zi">
+    <div class="ntf" id="ntf" hidden><p id="ntft"></p><button type="button" id="ntfb">Pornește notificările</button></div>
     <div class="kpi" id="kpi"></div>
     <div class="live" id="live"></div>
     <div class="dayhead"><h2 id="dtitle"></h2><button class="nav" id="prev" type="button" aria-label="Ziua de dinainte">‹</button><button class="today" id="tod" type="button">Azi</button><button class="nav" id="next" type="button" aria-label="Ziua următoare">›</button><button class="vsw" id="vsw" type="button">Calendar</button></div>
@@ -207,7 +223,7 @@
 <aside class="drawer" id="drawer" hidden aria-live="polite"></aside>
 <div class="toast" id="toast" hidden><i></i><span id="toastt"></span></div>
 
-<script src="../rezervari.js?v=1794998488"></script>
+<script src="../rezervari.js?v=1794998962"></script>
 <script>
 const R = window.BFR, $ = s => document.getElementById(s);
 let L = R.citeste(), zi = R.azi(), tab = "zi";
@@ -373,11 +389,37 @@ $("reset").onclick = async () => { await R.reset(); zi = R.azi(); render(); toas
 // o programare făcută pe site, în altă filă, apare aici pe loc
 // programările noi vin de pe server: verific la câteva secunde și anunț ce a apărut
 let primul = true;
-async function poll() { try { const vechi = new Set(L.map(b => b.id)); await R.sync(); render();
+let ultim = "";
+async function poll() { try { const vechi = new Set(L.map(b => b.id)); await R.sync();
+  const sem = JSON.stringify(R.citeste().map(b => [b.id, b.stare])); if (sem !== ultim) { ultim = sem; render(); } document.body.classList.remove("wait");
   if (!primul) R.citeste().filter(b => !vechi.has(b.id) && b.sursa === "site").forEach(n => { n.nou = true; toast(`Programare nouă de pe site: ${n.nume}, ${R.frumos(new Date(n.zi))}, ${n.ora}`); grid(); });
-  primul = false; } catch (e) {} }
+  primul = false; } catch (e) { document.body.classList.remove("wait"); } }
 poll(); setInterval(poll, 4000);
 setInterval(() => { if (tab === "zi") { live(); grid(); list(); } }, 60000);
+// notificări pe telefon: panoul pus pe ecranul principal primește o notificare la fiecare programare nouă
+const VAPID = "BMjUd6oE57uybFcuWxBq9s7RmXp33mCKG8A-e_uZ35oJ1TDEq86UuPF5g0KFA1ZbRfV_O8uO2hkAwbnqKZ0HQjU";
+const SBP = "https://gwjvqdciuwguhjtamaor.supabase.co/rest/v1/push_abonati", KP = "sb_publishable_YP3dU4DRUIlpTeKOhB3TWg_jXPs0qA4";
+(async () => {
+  const box = $("ntf"), txt = $("ntft"), btn = $("ntfb");
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent), standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  if (!("serviceWorker" in navigator)) return;
+  const reg = await navigator.serviceWorker.register("sw.js").catch(() => null); if (!reg) return;
+  const okPush = "PushManager" in window && "Notification" in window;
+  const arata = (t, b) => { box.hidden = false; txt.innerHTML = t; btn.hidden = !b; };
+  if (ios && !standalone) return arata("<b>Primește notificări la fiecare programare.</b> Apasă Share, apoi „Adaugă pe ecranul principal”, și deschide panoul de acolo.", false);
+  if (!okPush) return;
+  const sub = await reg.pushManager.getSubscription();
+  if (sub && Notification.permission === "granted") return;
+  arata("<b>Primește o notificare pe telefon</b> la fiecare programare nouă de pe site.", true);
+  btn.onclick = async () => {
+    const perm = await Notification.requestPermission(); if (perm !== "granted") return arata("Notificările sunt oprite din setările telefonului.", false);
+    const key = Uint8Array.from(atob(VAPID.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((VAPID.length + 3) % 4)), c => c.charCodeAt(0));
+    const s2 = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: key });
+    const j = s2.toJSON();
+    await fetch(SBP, { method: "POST", headers: { apikey: KP, Authorization: "Bearer " + KP, "Content-Type": "application/json", Prefer: "resolution=merge-duplicates" }, body: JSON.stringify({ endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth, aparat: navigator.userAgent.slice(0, 120) }) });
+    box.hidden = true; toast("Notificările sunt pornite pe acest telefon");
+  };
+})();
 render();
 </script>
 </body>
