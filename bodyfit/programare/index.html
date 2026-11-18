@@ -45,7 +45,8 @@
   .first[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--pink)}
   h2{font-weight:600;font-size:clamp(30px,7vw,40px);line-height:1.05;letter-spacing:-.035em;margin-top:44px}
   /* filele: cuvinte mari, cu o linie roz care alunecă sub cel ales */
-  .tabs{position:relative;margin-top:18px;display:flex;gap:26px;border-bottom:1px solid var(--line)}
+  .ctr{text-align:center}
+  .tabs{position:relative;margin-top:18px;display:flex;justify-content:center;gap:26px;border-bottom:1px solid var(--line)}
   .tabs button{padding:0 0 14px;font-size:18px;font-weight:600;color:var(--mute);transition:color .3s}
   .tabs button[aria-selected="true"]{color:#fff}
   .tabs i{position:absolute;bottom:-1px;height:2px;background:var(--pink);transition:left .45s cubic-bezier(.76,0,.24,1),width .45s cubic-bezier(.76,0,.24,1)}
@@ -157,7 +158,7 @@
 <main id="flow">
   <button type="button" class="first" id="first" aria-pressed="false"><span><small>Prima dată la noi?</small><b>Prima ședință de EMS e gratuită</b><span class="d">Te obișnuiești cu impulsul, cu antrenorul lângă tine.</span></span><em>Vreau</em></button>
 
-  <h2>Ce alegi?</h2>
+  <h2 class="ctr">Ce alegi?</h2>
   <div class="tabs" role="tablist"><button role="tab" data-t="sed" aria-selected="true">O ședință</button><button role="tab" data-t="abo" aria-selected="false">Abonamente</button><button role="tab" data-t="com" aria-selected="false">Combo</button><i id="tl"></i></div>
   <div id="list"></div>
 
