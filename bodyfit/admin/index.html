@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
 <style>
   /* panoul patroanei: aceleași culori ca site-ul; fiecare aparat pe coloana lui, fiecare serviciu în culoarea lui */
-  :root { --ink:#0f0d10; --char:#19161b; --char2:#241f26; --pink:#f07fb7; --ems:#3fe0a5; --roll:#9a7cf4; --red:#ff5a5a; --paper:#fbf8f6; --text:#231d24; --mute:#6e6570; --line:#ece4e8; --row:56px; }
+  :root { --ink:#0f0d10; --char:#19161b; --char2:#241f26; --pink:#f07fb7; --ems:#3fe0a5; --roll:#9a7cf4; --red:#ff5a5a; --paper:#fbf8f6; --text:#231d24; --mute:#6e6570; --line:#ece4e8; --row:46px; }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:var(--paper)}
   body{color:var(--text);font:400 15.5px/1.5 "Hanken Grotesk",system-ui,sans-serif;min-height:100vh}
@@ -50,9 +50,10 @@
   .cell{height:var(--row);border-bottom:1px solid #f4eef1;border-left:1px solid #f4eef1;padding:4px;position:relative}
   .cell.free:hover::after{content:"+ programare";position:absolute;inset:4px;border:1px dashed #d9cdd4;border-radius:10px;display:grid;place-items:center;color:var(--mute);font-size:13px}
   .bk{height:100%;width:100%;border:0;border-radius:10px;background:color-mix(in srgb,var(--c) 18%,#fff);border-left:4px solid var(--c);text-align:left;padding:5px 9px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
-  .bk b{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bk b{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
+  .bk b svg{width:12px;height:12px;flex:none;opacity:.55}
   .bk small{font-size:12.5px;color:var(--mute);white-space:nowrap}
-  .bk.venit{opacity:.55}
+  .bk.venit{opacity:.5}
   .bk.anulat{opacity:.4;text-decoration:line-through}
   .bk.lipsa{background:#fff1f1;border-left-color:var(--red)}
   .bk.nou{animation:nou 1.6s ease 3}
@@ -138,6 +139,18 @@
     body:not(.cal) .gridw{display:none} body.cal .list{display:none}
   }
   @media (min-width:761px){ .list{display:none} }
+  /* programare nouă: totul cu atingeri, fără liste derulante */
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chips button{height:40px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:#fff;font-weight:500;font-size:14.5px}
+  .chips button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .chips.times button{min-width:66px;font-variant-numeric:tabular-nums}
+  .sug{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .sug button{height:34px;padding:0 10px;border-radius:999px;border:1px solid var(--line);background:#faf6f8;font-size:14px}
+  .lbl{font-size:13.5px;font-weight:500;margin-bottom:6px}
+  .save{position:sticky;bottom:0;margin-top:18px;width:100%;height:52px;border:0;border-radius:12px;background:var(--pink);color:var(--ink);font-weight:600;font-size:15.5px}
+  .save[disabled]{opacity:.45}
+  .fab{display:none}
+  @media (max-width:760px){ .fab{display:grid;place-items:center;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:50%;border:0;background:var(--pink);color:var(--ink);font-size:30px;box-shadow:0 12px 28px rgba(0,0,0,.25);z-index:30} }
   [hidden]{display:none!important}
   @media (max-width:760px){
     .kpi{grid-template-columns:repeat(2,1fr)} .set{grid-template-columns:1fr} .tr h1 small{display:none}
@@ -182,6 +195,7 @@
   </section>
 </main>
 
+<button class="fab" id="fab" type="button" aria-label="Programare nouă">+</button>
 <div class="dim" id="dim" hidden></div>
 <aside class="drawer" id="drawer" hidden aria-live="polite"></aside>
 <div class="toast" id="toast" hidden><i></i><span id="toastt"></span></div>
@@ -210,8 +224,8 @@ function grid() {
   let h = `<div class="gh"></div>` + R.APARATE.map(a => { const c = ({ "EMS": "var(--ems)", "Vacuum": "var(--red)", "Masaj": "var(--pink)", "Trepte": "#5b7cff" })[a] || "var(--roll)"; return `<div class="gh" style="--c:${c}"><i></i>${a}</div>`; }).join("");
   s.forEach(o => { h += `<div class="t">${o}</div>`;
     R.APARATE.forEach(a => { const b = L.find(x => x.zi === z && x.ora === o && x.aparat === a && x.stare !== "anulat") || L.find(x => x.zi === z && x.ora === o && x.aparat === a);
-      h += b ? `<div class="cell"><button type="button" class="bk ${b.stare} ${b.nou ? "nou" : ""}" data-id="${b.id}" style="--c:${srvOf(b).culoare}"><b>${b.nume}</b><small>${srvOf(b).scurt} · ${STARI[b.stare]}${b.sursa === "site" ? " · de pe site" : ""}</small></button></div>`
-             : `<div class="cell free" data-o="${o}" data-a="${a}"></div>`; }); });
+      h += b ? `<div class="cell"><button type="button" class="bk ${b.stare} ${b.nou ? "nou" : ""}" data-id="${b.id}" style="--c:${srvOf(b).culoare}" title="${srvOf(b).nume}, ${STARI[b.stare]}"><b>${b.stare === "venit" ? "✓ " : b.stare === "lipsa" ? "✕ " : ""}${b.nume}${b.sursa === "site" ? '<svg viewBox="0 0 24 24" aria-label="de pe site"><path fill="currentColor" d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 3v13h10V5H7zm5 14.2a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>' : ""}</b></button></div>`
+             : (R.iso(R.azi()) === z && R.min(o) + 30 <= nowMin() ? `<div class="cell"></div>` : `<div class="cell free" data-o="${o}" data-a="${a}"></div>`); }); });
   $("grid").innerHTML = h;
   if (R.iso(R.azi()) === z) { const n = new Date(), m = n.getHours() * 60 + n.getMinutes(), st = R.min(s[0]);
     if (m >= st && m < R.min(s[s.length - 1]) + 30) { const row = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--row")); const head = $("grid").querySelector(".gh").offsetHeight;
@@ -265,23 +279,42 @@ function openB(id) {
     if (t.dataset.s) { b.stare = t.dataset.s; b.nou = false; if (t.dataset.s === "venit" && c && c.ramase > 0) c.ramase--; R.salveaza(L); close(); render(); toast(`${b.nume.split(" ")[0]}: ${STARI[b.stare].toLowerCase()}`); } };
   show();
 }
-// programare nouă, de exemplu când sună o clientă
+// programare nouă, cât mai simplu: din calendar vin deja aparatul, ziua și ora; rămâne doar numele
 function openNew(o, a) {
-  const opts = Object.entries(R.SERVICII).map(([k, s]) => `<option value="${k}" ${a && s.aparate.includes(a) ? "selected" : ""}>${s.nume}</option>`).join("");
-  const zile = Array.from({ length: 14 }, (_, i) => R.adauga(R.azi(), i)).filter(d => R.sloturi(d).length);
-  $("drawer").innerHTML = `<button class="x" type="button" data-close aria-label="Închide">×</button><h2>Programare nouă</h2><p class="note" style="margin-top:6px">Pentru clientele care sună sau vin la sală.</p>
-   <form class="f" id="nf"><label for="nn">Numele<input id="nn" required list="cls" /></label><datalist id="cls">${R.CLIENTE.map(c => `<option value="${c.nume}">`).join("")}</datalist>
-   <label for="nt">Telefonul<input id="nt" type="tel" required /></label><label for="ns">Serviciul<select id="ns">${opts}</select></label>
-   <label for="nz">Ziua<select id="nz">${zile.map(d => `<option value="${R.iso(d)}" ${R.iso(d) === R.iso(zi) ? "selected" : ""}>${R.frumos(d)}</option>`).join("")}</select></label>
-   <label for="no">Ora<select id="no"></select></label><button class="p" type="submit">Salvează programarea</button></form>`;
-  const fill = () => { const d = new Date($("nz").value), lista = R.citeste(); $("no").innerHTML = R.sloturi(d).filter(x => R.liber(lista, $("nz").value, x, $("ns").value)).map(x => `<option ${x === o ? "selected" : ""}>${x}</option>`).join("") || "<option value=''>nicio oră liberă</option>"; };
-  $("nz").onchange = $("ns").onchange = fill; fill();
-  $("nn").oninput = () => { const c = R.CLIENTE.find(x => x.nume === $("nn").value); if (c) $("nt").value = c.tel; };
-  $("nf").onsubmit = e => { e.preventDefault(); if (!$("nn").value.trim() || !$("no").value) return;
-    const p = R.adaugaProgramare({ zi: $("nz").value, ora: $("no").value, serviciu: $("ns").value, nume: $("nn").value.trim(), tel: $("nt").value.trim(), sursa: "telefon" });
-    if (p) { close(); zi = new Date($("nz") ? p.zi : p.zi); zi.setHours(0, 0, 0, 0); render(); toast(`Programare salvată: ${p.nume.split(" ")[0]}, ${p.ora}`); } };
-  $("drawer").onclick = e => { if (e.target.closest("[data-close]")) close(); };
-  show();
+  const keys = Object.keys(R.SERVICII).filter(k => k !== "prima"), zile = Array.from({ length: 7 }, (_, i) => R.adauga(R.azi(), i)).filter(d => R.sloturi(d).length);
+  const f = { nume: "", tel: "", srv: a ? keys.find(k => R.SERVICII[k].aparate.includes(a)) : "ems", zi: R.iso(zi), ora: o || null };
+  if (!zile.some(d => R.iso(d) === f.zi)) f.zi = R.iso(zile[0]);
+  const zn = d => { const i = Math.round((d - R.azi()) / 864e5); return i === 0 ? "Azi" : i === 1 ? "Mâine" : R.ZILE[d.getDay()].slice(0, 3) + " " + d.getDate(); };
+  $("drawer").innerHTML = `<button class="x" type="button" data-close aria-label="Închide">×</button><h2>Programare nouă</h2>
+   <div class="f"><label for="nn">Numele clientei<input id="nn" autocomplete="off" placeholder="Scrie primele litere" /></label><div class="sug" id="sug"></div>
+   <label for="nt" id="ntl" hidden>Telefonul (clientă nouă)<input id="nt" type="tel" placeholder="07xx xxx xxx" /></label>
+   <div><div class="lbl">Ce face</div><div class="chips" id="cs"></div></div>
+   <div><div class="lbl">Ziua</div><div class="chips" id="cz"></div></div>
+   <div><div class="lbl">Ora</div><div class="chips times" id="co"></div></div></div>
+   <button class="save" id="sv" type="button" disabled>Salvează</button>`;
+  const draw = () => {
+    $("cs").innerHTML = keys.map(k => `<button type="button" data-k="${k}" aria-pressed="${f.srv === k}">${R.SERVICII[k].scurt}</button>`).join("");
+    $("cz").innerHTML = zile.map(d => `<button type="button" data-z="${R.iso(d)}" aria-pressed="${f.zi === R.iso(d)}">${zn(d)}</button>`).join("");
+    const lista = R.citeste(), azi = R.iso(R.azi()) === f.zi, m = nowMin();
+    const ore = R.sloturi(new Date(f.zi)).filter(x => R.liber(lista, f.zi, x, f.srv) && !(azi && R.min(x) + 30 <= m));
+    if (f.ora && !ore.includes(f.ora)) f.ora = null;
+    $("co").innerHTML = ore.length ? ore.map(x => `<button type="button" data-o="${x}" aria-pressed="${f.ora === x}">${x}</button>`).join("") : `<span class="note">Nicio oră liberă în ziua asta.</span>`;
+    const ok = f.nume.trim().length > 1 && f.ora && (R.CLIENTE.some(c => c.nume === f.nume) || f.tel.replace(/\D/g, "").length >= 9);
+    $("sv").disabled = !ok; $("sv").textContent = ok ? `Salvează · ${zn(new Date(f.zi))} ${f.ora} · ${R.SERVICII[f.srv].scurt}` : "Salvează";
+  };
+  $("nn").oninput = () => { f.nume = $("nn").value; const q = f.nume.toLowerCase().trim(), c = R.CLIENTE.find(x => x.nume === f.nume);
+    $("sug").innerHTML = q && !c ? R.CLIENTE.filter(x => x.nume.toLowerCase().includes(q)).slice(0, 4).map(x => `<button type="button" data-n="${x.nume}">${x.nume}</button>`).join("") : "";
+    $("ntl").hidden = !q || !!c || R.CLIENTE.some(x => x.nume.toLowerCase().includes(q)); draw(); };
+  $("nt").oninput = () => { f.tel = $("nt").value; draw(); };
+  $("drawer").onclick = e => { const t = e.target.closest("button"); if (!t) return;
+    if (t.dataset.close !== undefined) return close();
+    if (t.dataset.n) { f.nume = t.dataset.n; $("nn").value = f.nume; $("sug").innerHTML = ""; $("ntl").hidden = true; }
+    if (t.dataset.k) f.srv = t.dataset.k; if (t.dataset.z) { f.zi = t.dataset.z; f.ora = null; } if (t.dataset.o) f.ora = t.dataset.o;
+    if (t.id === "sv" && !t.disabled) { const c = R.CLIENTE.find(x => x.nume === f.nume);
+      const p = R.adaugaProgramare({ zi: f.zi, ora: f.ora, serviciu: f.srv, nume: f.nume.trim(), tel: c ? c.tel : f.tel.trim(), sursa: "telefon", nou: true });
+      if (p) { close(); zi = new Date(p.zi); zi.setHours(0, 0, 0, 0); render(); toast(`Salvat: ${p.nume.split(" ")[0]}, ${p.ora}, ${R.SERVICII[p.serviciu].scurt}`); } return; }
+    draw(); };
+  draw(); show(); setTimeout(() => $("nn").focus(), 50);
 }
 function show() { $("dim").hidden = false; $("drawer").hidden = false; }
 function close() { $("dim").hidden = true; $("drawer").hidden = true; }
@@ -289,7 +322,7 @@ $("dim").onclick = close; addEventListener("keydown", e => { if (e.key === "Esca
 let tt; function toast(t) { $("toastt").textContent = t; $("toast").hidden = false; clearTimeout(tt); tt = setTimeout(() => $("toast").hidden = true, 3800); }
 
 $("grid").onclick = e => { const b = e.target.closest(".bk"); if (b) return openB(b.dataset.id); const c = e.target.closest(".cell.free"); if (c) openNew(c.dataset.o, c.dataset.a); };
-$("new").onclick = () => openNew();
+$("new").onclick = () => openNew(); $("fab").onclick = () => openNew();
 $("prev").onclick = () => { zi = R.adauga(zi, -1); grid(); list(); }; $("next").onclick = () => { zi = R.adauga(zi, 1); grid(); list(); }; $("tod").onclick = () => { zi = R.azi(); grid(); list(); };
 $("vsw").onclick = () => { document.body.classList.toggle("cal"); $("vsw").textContent = document.body.classList.contains("cal") ? "Listă" : "Calendar"; };
 $("list").onclick = e => { const q = e.target.closest("[data-q]"); if (q) { const b = L.find(x => String(x.id) === q.dataset.id); const c = R.CLIENTE.find(x => x.nume === b.nume);
