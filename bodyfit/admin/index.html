@@ -114,6 +114,30 @@
   /* notificarea */
   .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--char);color:#fff;border-radius:14px;padding:12px 16px;z-index:60;box-shadow:0 18px 40px rgba(0,0,0,.35);display:flex;gap:12px;align-items:center;max-width:calc(100% - 32px)}
   .toast i{width:10px;height:10px;border-radius:50%;background:var(--pink);flex:none}
+  /* telefon: „Acum”, „Urmează” și lista zilei cu butoane mari */
+  .live{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 0}
+  .live div{background:var(--char);color:#fff;border-radius:14px;padding:12px 14px;min-height:92px}
+  .live small{display:block;font-size:12.5px;color:rgba(255,255,255,.6)}
+  .live b{display:block;font-size:15.5px;font-weight:600;margin-top:4px;line-height:1.3}
+  .live span{display:block;font-size:13px;color:rgba(255,255,255,.65)}
+  .list{margin-top:14px;border-top:1px solid var(--line)}
+  .li{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center;padding:12px 2px;border-bottom:1px solid var(--line)}
+  .li time{font-weight:600;font-variant-numeric:tabular-nums}
+  .li b{display:block;font-weight:600;line-height:1.25}
+  .li small{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--mute)}
+  .li small i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+  .li .bt{display:flex;gap:6px}
+  .li .bt button{width:46px;height:46px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:20px;font-weight:600}
+  .li .bt .y{background:var(--ems);border-color:var(--ems);color:var(--ink)}
+  .li .st{font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px;background:#f1eaee}
+  .li .st.venit{background:#dff8ee;color:#0d6b49}.li .st.lipsa{background:#ffe9e9;color:#b42323}.li .st.anulat{text-decoration:line-through;color:var(--mute)}
+  .li.past{opacity:.6}
+  .vsw{display:none}
+  @media (max-width:760px){
+    .vsw{display:inline-flex;height:38px;border-radius:10px;border:1px solid var(--line);background:#fff;padding:0 12px;font-weight:500;align-items:center}
+    body:not(.cal) .gridw{display:none} body.cal .list{display:none}
+  }
+  @media (min-width:761px){ .list{display:none} }
   [hidden]{display:none!important}
   @media (max-width:760px){
     .kpi{grid-template-columns:repeat(2,1fr)} .set{grid-template-columns:1fr} .tr h1 small{display:none}
@@ -133,8 +157,10 @@
 <main>
   <section id="v-zi">
     <div class="kpi" id="kpi"></div>
-    <div class="dayhead"><h2 id="dtitle"></h2><button class="nav" id="prev" type="button" aria-label="Ziua de dinainte">‹</button><button class="today" id="tod" type="button">Azi</button><button class="nav" id="next" type="button" aria-label="Ziua următoare">›</button></div>
+    <div class="live" id="live"></div>
+    <div class="dayhead"><h2 id="dtitle"></h2><button class="nav" id="prev" type="button" aria-label="Ziua de dinainte">‹</button><button class="today" id="tod" type="button">Azi</button><button class="nav" id="next" type="button" aria-label="Ziua următoare">›</button><button class="vsw" id="vsw" type="button">Calendar</button></div>
     <div class="gridw"><div class="grid" id="grid"></div></div>
+    <div class="list" id="list"></div>
   </section>
   <section id="v-sapt" hidden><div class="dayhead"><h2>Următoarele 7 zile</h2></div><div class="week" id="week"></div></section>
   <section id="v-cl" hidden>
@@ -207,7 +233,22 @@ function settings() {
   $("srvs").innerHTML = Object.values(R.SERVICII).map(s => `<div><span style="display:flex;align-items:center;gap:6px"><i style="width:10px;height:10px;border-radius:50%;background:${s.culoare}"></i>${s.scurt}</span><input aria-label="Durata" value="${s.durata} min" /><input aria-label="Aparate" value="${s.aparate.length} ${s.aparate.length > 1 ? "aparate" : "aparat"}" /></div>`).join("");
   $("smsprev").textContent = "Body Fit: Bună, Andreea! Te așteptăm mâine la 17:30 la EMS, pe Aurel Popp 16. Dacă nu mai poți ajunge, sună la 0758 407 533.";
 }
-function render() { L = R.citeste(); kpi(); grid(); if (tab === "sapt") week(); if (tab === "cl") clients(); if (tab === "set") settings(); }
+function nowMin() { const n = new Date(); return n.getHours() * 60 + n.getMinutes(); }
+function live() {
+  const z = R.iso(R.azi()), m = nowMin(), l = L.filter(b => b.zi === z && b.stare !== "anulat");
+  const acum = l.filter(b => R.min(b.ora) <= m && m < R.min(b.ora) + 30), nx = l.filter(b => R.min(b.ora) > m).sort((a, b) => a.ora.localeCompare(b.ora));
+  const urm = nx.length ? nx.filter(b => b.ora === nx[0].ora) : [];
+  const fmt = (arr, gol) => arr.length ? arr.map(b => `<b>${b.nume.split(" ")[0]} · ${srvOf(b).scurt}</b>`).join("") : `<b>${gol}</b>`;
+  $("live").innerHTML = `<div><small>Acum în sală</small>${fmt(acum, "Nimeni programat")}</div><div><small>Urmează${urm.length ? ", la " + urm[0].ora : ""}</small>${fmt(urm, "Nimic azi")}</div>`;
+}
+function list() {
+  const z = R.iso(zi), m = nowMin(), azi = R.iso(R.azi()) === z, l = L.filter(b => b.zi === z).sort((a, b) => a.ora.localeCompare(b.ora) || a.aparat.localeCompare(b.aparat));
+  if (!R.sloturi(zi).length) { $("list").innerHTML = `<p style="padding:24px 0;color:var(--mute)">Sala e închisă în ziua asta.</p>`; return; }
+  $("list").innerHTML = l.length ? l.map(b => { const s = srvOf(b), trec = azi && R.min(b.ora) + 30 <= m;
+    const act = b.stare === "confirmat" ? `<div class="bt"><button class="y" type="button" data-q="venit" data-id="${b.id}" aria-label="A venit">✓</button><button type="button" data-q="lipsa" data-id="${b.id}" aria-label="Nu a venit">✕</button></div>` : `<span class="st ${b.stare}">${STARI[b.stare]}</span>`;
+    return `<div class="li ${trec ? "past" : ""}"><time>${b.ora}</time><div data-open="${b.id}"><b>${b.nume}</b><small style="--c:${s.culoare}"><i></i>${s.scurt}${b.sursa === "site" ? " · de pe site" : ""}</small></div>${act}</div>`; }).join("") : `<p style="padding:24px 0;color:var(--mute)">Nicio programare în ziua asta.</p>`;
+}
+function render() { L = R.citeste(); kpi(); live(); grid(); list(); if (tab === "sapt") week(); if (tab === "cl") clients(); if (tab === "set") settings(); }
 
 // detaliile unei programări
 function openB(id) {
@@ -249,7 +290,11 @@ let tt; function toast(t) { $("toastt").textContent = t; $("toast").hidden = fal
 
 $("grid").onclick = e => { const b = e.target.closest(".bk"); if (b) return openB(b.dataset.id); const c = e.target.closest(".cell.free"); if (c) openNew(c.dataset.o, c.dataset.a); };
 $("new").onclick = () => openNew();
-$("prev").onclick = () => { zi = R.adauga(zi, -1); grid(); }; $("next").onclick = () => { zi = R.adauga(zi, 1); grid(); }; $("tod").onclick = () => { zi = R.azi(); grid(); };
+$("prev").onclick = () => { zi = R.adauga(zi, -1); grid(); list(); }; $("next").onclick = () => { zi = R.adauga(zi, 1); grid(); list(); }; $("tod").onclick = () => { zi = R.azi(); grid(); list(); };
+$("vsw").onclick = () => { document.body.classList.toggle("cal"); $("vsw").textContent = document.body.classList.contains("cal") ? "Listă" : "Calendar"; };
+$("list").onclick = e => { const q = e.target.closest("[data-q]"); if (q) { const b = L.find(x => String(x.id) === q.dataset.id); const c = R.CLIENTE.find(x => x.nume === b.nume);
+    b.stare = q.dataset.q; b.nou = false; if (b.stare === "venit" && c && c.ramase > 0) c.ramase--; R.salveaza(L); render(); toast(`${b.nume.split(" ")[0]}: ${STARI[b.stare].toLowerCase()}`); return; }
+  const o = e.target.closest("[data-open]"); if (o) openB(o.dataset.open); };
 $("q").oninput = clients;
 document.querySelector(".tabs").onclick = e => { const b = e.target.closest("button"); if (!b) return; tab = b.dataset.t;
   document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b)); ["zi", "sapt", "cl", "set"].forEach(t => $("v-" + t).hidden = t !== tab); render(); };
@@ -257,7 +302,7 @@ $("reset").onclick = () => { R.reset(); zi = R.azi(); render(); toast("Exemplul 
 // o programare făcută pe site, în altă filă, apare aici pe loc
 addEventListener("storage", e => { if (e.key !== R.KEY) return; const vechi = new Set(L.map(b => b.id)); render(); const n = L.find(b => !vechi.has(b.id));
   if (n) { toast(`Programare nouă de pe site: ${n.nume}, ${R.frumos(new Date(n.zi))}, ${n.ora}`); if (n.zi === R.iso(zi)) grid(); } });
-setInterval(() => { if (tab === "zi") grid(); }, 60000);
+setInterval(() => { if (tab === "zi") { live(); grid(); list(); } }, 60000);
 render();
 </script>
 </body>
