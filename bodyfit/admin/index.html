@@ -184,6 +184,12 @@
   .lock.shake form{animation:shk .35s}
   @keyframes shk{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
   body.locked main,body.locked .top{visibility:hidden}
+  /* telefon: fără zoom automat la scris, fără „elastic” care mișcă pagina, fără derulat în spate când e deschisă o fereastră */
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  body{overscroll-behavior-y:none;touch-action:manipulation}
+  body.modal{overflow:hidden}
+  .drawer{overscroll-behavior:contain}
+  @media (max-width:760px){ input,select,textarea{font-size:16px !important} .top{padding-top:calc(10px + env(safe-area-inset-top,0px))} .demo{display:none} }
   [hidden]{display:none!important}
   @media (max-width:760px){
     .kpi{grid-template-columns:repeat(2,1fr)} .set{grid-template-columns:1fr} .tr h1 small{display:none}
@@ -382,8 +388,8 @@ function openNew(o, a) {
     draw(); };
   draw(); show(); setTimeout(() => $("nn").focus(), 50);
 }
-function show() { $("dim").hidden = false; $("drawer").hidden = false; }
-function close() { $("dim").hidden = true; $("drawer").hidden = true; }
+function show() { $("dim").hidden = false; $("drawer").hidden = false; document.body.classList.add("modal"); }
+function close() { $("dim").hidden = true; $("drawer").hidden = true; document.body.classList.remove("modal"); }
 $("dim").onclick = close; addEventListener("keydown", e => { if (e.key === "Escape") close(); });
 let tt; function toast(t) { $("toastt").textContent = t; $("toast").hidden = false; clearTimeout(tt); tt = setTimeout(() => $("toast").hidden = true, 3800); }
 
@@ -416,7 +422,7 @@ async function poll() { if (!R.autentificat()) { inchide(); document.body.classL
   if (!primul) R.citeste().filter(b => !vechi.has(b.id) && b.sursa === "site").forEach(n => { n.nou = true; toast(`Programare nouă de pe site: ${n.nume}, ${R.frumos(new Date(n.zi))}, ${n.ora}`); grid(); });
   primul = false; } catch (e) { if (!R.autentificat()) inchide(); document.body.classList.remove("wait"); } }
 poll(); setInterval(poll, 4000);
-setInterval(() => { if (tab === "zi") { live(); grid(); list(); } }, 60000);
+let ultimMin = -1; setInterval(() => { const m = Math.floor(nowMin() / 30); if (tab === "zi" && m !== ultimMin) { ultimMin = m; live(); grid(); list(); } }, 60000);
 // notificări pe telefon: panoul pus pe ecranul principal primește o notificare la fiecare programare nouă
 const VAPID = "BMjUd6oE57uybFcuWxBq9s7RmXp33mCKG8A-e_uZ35oJ1TDEq86UuPF5g0KFA1ZbRfV_O8uO2hkAwbnqKZ0HQjU";
 const SBP = "https://gwjvqdciuwguhjtamaor.supabase.co/rest/v1/rpc/abonare", KP = "sb_publishable_YP3dU4DRUIlpTeKOhB3TWg_jXPs0qA4";
