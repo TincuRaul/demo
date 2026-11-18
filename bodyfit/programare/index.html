@@ -30,15 +30,22 @@
   .step h2{font-weight:600;font-size:22px;letter-spacing:-.02em;display:flex;align-items:baseline;gap:10px}
   .step h2 span{font-size:14px;font-weight:500;color:var(--mute)}
   .step.off{opacity:.38;pointer-events:none}
-  /* serviciile: rânduri, nu carduri */
-  .srv{margin-top:14px;border-top:1px solid var(--line)}
-  .srv button{width:100%;display:grid;grid-template-columns:14px 1fr auto;gap:14px;align-items:center;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:16px 4px}
-  .srv i{width:14px;height:14px;border-radius:50%;background:var(--c)}
-  .srv b{display:block;font-weight:600;font-size:18px}
-  .srv small{display:block;color:var(--mute);font-size:14.5px}
-  .srv em{font-style:normal;font-size:14.5px;color:var(--mute);white-space:nowrap}
-  .srv button[aria-pressed="true"]{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 16%,transparent),transparent 80%)}
-  .srv button[aria-pressed="true"] b::after{content:" ✓";color:var(--ink)}
+  /* serviciile: butoane mari pe 2 coloane; prima ședință gratuită separat, sus */
+  .free{margin-top:14px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;border:0;border-radius:16px;padding:16px 18px;background:var(--pink);color:var(--ink)}
+  .free b{display:block;font-weight:600;font-size:18px;line-height:1.2}
+  .free small{display:block;font-size:14px;opacity:.75;margin-top:2px}
+  .free em{font-style:normal;font-weight:600;font-size:15px;background:var(--ink);color:#fff;border-radius:999px;padding:7px 12px;white-space:nowrap}
+  .free[aria-pressed="true"]{box-shadow:0 0 0 3px var(--ink)}
+  .free[aria-pressed="true"] em{background:#fff;color:var(--ink)}
+  .srv{margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .srv button{display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:118px;text-align:left;border:0;border-radius:16px;padding:16px;background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+  .srv b{display:block;font-weight:600;font-size:17px;line-height:1.2}
+  .srv small{display:block;color:var(--mute);font-size:13.5px;line-height:1.35;margin-top:3px}
+  .srv em{font-style:normal;font-weight:600;font-size:24px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .srv em span{font-size:14px;font-weight:500;color:var(--mute);margin-left:3px}
+  .srv button:last-child:nth-child(odd){grid-column:1/-1;min-height:0;flex-direction:row;align-items:center}
+  .srv button[aria-pressed="true"]{background:var(--ink);color:#fff;box-shadow:none}
+  .srv button[aria-pressed="true"] small,.srv button[aria-pressed="true"] em span{color:rgba(255,255,255,.65)}
   /* zilele: o bandă care se derulează */
   .days{margin-top:14px;display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .days::-webkit-scrollbar{display:none}
@@ -88,7 +95,9 @@
 </header>
 
 <main id="flow">
-  <section class="step" id="s1"><h2>Ce vrei să faci</h2><div class="srv" id="srv"></div></section>
+  <section class="step" id="s1"><h2>Ce vrei să faci</h2>
+    <button type="button" class="free" id="free" data-k="prima" aria-pressed="false"><span><b>Prima ședință de EMS e gratuită</b><small>Te obișnuiești cu impulsul, cu antrenorul lângă tine</small></span><em>Gratuit</em></button>
+    <div class="srv" id="srv"></div></section>
   <section class="step off" id="s2"><h2>În ce zi <span id="luna"></span></h2><div class="days" id="days"></div></section>
   <section class="step off" id="s3"><h2>La ce oră <span id="liber"></span></h2><div class="times" id="times"></div><p class="none" id="none" hidden>Nu mai sunt ore libere în ziua asta. Alege altă zi.</p></section>
   <section class="step off" id="s4"><h2>Datele tale</h2>
@@ -118,12 +127,13 @@ const R = window.BFR, $ = s => document.getElementById(s);
 const st = { srv: null, zi: null, ora: null };
 const zile = Array.from({ length: 14 }, (_, i) => R.adauga(R.azi(), i));
 
-$("srv").innerHTML = Object.entries(R.SERVICII).map(([k, s]) => `<button type="button" data-k="${k}" aria-pressed="false" style="--c:${s.culoare}"><i></i><span><b>${s.nume}</b><small>${s.minute}</small></span><em>${s.pret}</em></button>`).join("");
-$("srv").onclick = e => { const b = e.target.closest("button"); if (!b) return; st.srv = b.dataset.k; st.ora = null; render(); };
+$("srv").innerHTML = Object.entries(R.SERVICII).filter(([k]) => k !== "prima").map(([k, s]) => `<button type="button" data-k="${k}" aria-pressed="false"><span><b>${s.nume}</b><small>${s.minute}</small></span><em>${s.pret.replace(" lei", "")}<span>lei</span></em></button>`).join("");
+const alege = e => { const b = e.target.closest("button[data-k]"); if (!b) return; st.srv = b.dataset.k; st.ora = null; render(); };
+$("srv").onclick = alege; $("free").onclick = alege;
 
 function render() {
   const lista = R.citeste();
-  document.querySelectorAll("#srv button").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === st.srv));
+  document.querySelectorAll("#srv button, #free").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === st.srv));
   $("s2").classList.toggle("off", !st.srv);
   $("days").innerHTML = zile.map(d => { const z = R.iso(d), inch = !R.sloturi(d).length;
     return `<button type="button" data-z="${z}" ${inch ? "disabled" : ""} aria-pressed="${st.zi === z}"><small>${R.ZILE[d.getDay()].slice(0, 3)}</small><b>${d.getDate()}</b></button>`; }).join("");
