@@ -4,115 +4,128 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="robots" content="noindex, nofollow" />
-<title>Programează-te, Bodyfit EMS</title>
+<title>Programează-te, Body Fit</title>
 <link rel="icon" href="../img/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
-  /* identitatea nouă Bodyfit, luată din lista lor de prețuri: portocaliu cald cu valuri de lumină, serif elegant, linii fine cu o steluță */
-  :root { --ink:#1d140e; --ink2:#3a2a20; --cream:#fbf3ea; --sand:#f4e6d6; --orange:#ec7a2c; --ember:#c9541c; --peach:#f6b47a; --mute:#7a6658; --line:#e6d5c3; }
+  /* aceleași culori ca site-ul Bodyfit: negrul din logo, rozul ganterei, verdele EMS; pagina închisă, ca primul ecran al site-ului */
+  :root { --ink:#0f0d10; --char:#19161b; --char2:#241f26; --pink:#f07fb7; --pink2:#e2559a; --ems:#3fe0a5; --roll:#9a7cf4; --red:#ff5a5a; --paper:#fbf8f6; --mute:rgba(255,255,255,.55); --line:rgba(255,255,255,.12); }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--cream)}
-  body{color:var(--ink);font:400 16.5px/1.55 "Hanken Grotesk",system-ui,sans-serif;min-height:100vh}
+  html,body{background:var(--ink)}
+  body{color:#fff;font:400 16.5px/1.55 "Hanken Grotesk",system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
   button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
-  :focus-visible{outline:2px solid var(--ember);outline-offset:3px}
-  .demo{background:var(--ink);color:rgba(255,255,255,.72);font-size:13px;text-align:center;padding:7px 16px}
-  /* primul ecran: valurile portocalii din afișul lor */
-  .hero{position:relative;overflow:hidden;color:var(--ink);padding:18px 20px 40px;background:#ef8a3c}
-  .silk{position:absolute;inset:-30%;background:
-     radial-gradient(40% 35% at 20% 30%,rgba(255,214,170,.9),transparent 70%),
-     radial-gradient(35% 40% at 80% 20%,rgba(214,78,22,.85),transparent 70%),
-     radial-gradient(45% 40% at 70% 80%,rgba(255,180,120,.85),transparent 70%),
-     radial-gradient(40% 45% at 10% 90%,rgba(200,70,20,.7),transparent 70%);filter:blur(30px);animation:silk 18s ease-in-out infinite alternate}
-  @keyframes silk{to{transform:translate(6%,-4%) rotate(8deg) scale(1.08)}}
-  .hero > *:not(.silk){position:relative}
-  .hd{max-width:680px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-  .hd img{height:36px;filter:invert(1) brightness(.15)}
-  .hd a{font-size:14px;color:var(--ink2);text-decoration:none;border-bottom:1px solid rgba(29,20,14,.35)}
-  .hero h1{max-width:680px;margin:28px auto 0;font:600 clamp(40px,10vw,60px)/1 "Playfair Display",serif;letter-spacing:-.01em}
-  .hero p{max-width:680px;margin:12px auto 0;color:var(--ink2);font-size:17px}
-  .rule{display:flex;align-items:center;gap:10px;color:var(--ember);margin:30px 0 0}
-  .rule::before,.rule::after{content:"";flex:1;height:1px;background:currentColor;opacity:.45}
-  .rule i{font-style:normal;font-size:11px}
-  main{max-width:680px;margin:0 auto;padding:0 20px 130px}
-  /* prima dată */
-  .first{margin-top:-20px;position:relative;width:100%;text-align:left;background:var(--ink);color:#fff;border-radius:18px;padding:20px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
-  .first small{display:block;color:var(--peach);font-size:13px;letter-spacing:.04em}
-  .first b{display:block;font:600 24px/1.15 "Playfair Display",serif;margin-top:4px}
-  .first span.d{display:block;color:rgba(255,255,255,.65);font-size:14.5px;margin-top:6px}
-  .first em{font-style:normal;background:var(--orange);color:var(--ink);font-weight:600;border-radius:999px;padding:10px 16px;white-space:nowrap}
-  .first[aria-pressed="true"]{box-shadow:0 0 0 3px var(--orange)}
-  h2{font:600 28px/1.15 "Playfair Display",serif;margin-top:30px}
-  .tabs{margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);background:var(--sand);border-radius:14px;padding:4px}
-  .tabs button{height:44px;border-radius:11px;font-weight:600;font-size:15px;color:var(--mute)}
-  .tabs button[aria-selected="true"]{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(29,20,14,.08)}
-  .group{margin-top:22px}
-  .group h3{font:600 19px/1.2 "Playfair Display",serif;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-  .group h3 small{font:500 13px "Hanken Grotesk";color:var(--mute)}
-  /* rândurile: fără carduri, despărțite de linii fine, ca în lista lor */
-  .opt{width:100%;display:grid;grid-template-columns:1fr auto;gap:4px 14px;align-items:center;text-align:left;padding:15px 14px;border-bottom:1px solid var(--line)}
-  .group h3 + .opt,.group > .opt:first-child{border-top:1px solid var(--line);margin-top:10px}
-  .opt b{font-weight:600;font-size:16.5px}
-  .opt .p{font:600 20px "Playfair Display",serif;white-space:nowrap;text-align:right}
-  .opt .s{font-size:13.5px;color:var(--mute)}
-  .opt .sv{text-align:right;font-size:13px;color:var(--ember);font-weight:600;white-space:nowrap}
-  .opt .tag{display:inline-block;margin-left:8px;font:600 11px "Hanken Grotesk";letter-spacing:.06em;text-transform:uppercase;background:var(--orange);color:var(--ink);border-radius:999px;padding:3px 8px;vertical-align:2px}
-  .opt[aria-pressed="true"]{background:var(--ink);color:#fff;border-radius:12px;border-bottom-color:transparent}
-  .opt[aria-pressed="true"] .s{color:rgba(255,255,255,.65)} .opt[aria-pressed="true"] .sv{color:var(--peach)}
-  .note{margin-top:12px;font-size:13.5px;color:var(--mute)}
-  .step.off{opacity:.35;pointer-events:none}
-  .chips{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
-  .chips button{height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:600}
-  .chips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-  .days{margin-top:12px;display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+  :focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+  .demo{background:var(--pink);color:var(--ink);font-size:13px;text-align:center;padding:7px 16px;font-weight:500}
+  /* textul intră din mască, cuvânt cu cuvânt, ca pe site */
+  .m{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.2em;margin-bottom:-.2em}
+  .m > span{display:inline-block;transform:translateY(105%);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+  .in .m > span{transform:none}
+  .hero{position:relative;padding:18px 20px 30px;overflow:hidden}
+  .pulse{position:absolute;left:0;right:0;top:120px;height:90px;opacity:.5}
+  .pulse path{fill:none;stroke:var(--pink);stroke-width:2;stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.4s .3s cubic-bezier(.6,0,.2,1) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .hd{max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+  .hd img{height:38px}
+  .hd a{font-size:14px;color:var(--mute);text-decoration:none}
+  .hero h1{position:relative;max-width:720px;margin:40px auto 0;font-weight:600;font-size:clamp(46px,13vw,84px);line-height:.98;letter-spacing:-.045em}
+  .hero h1 em{font-style:normal;color:var(--pink)}
+  .hero p{position:relative;max-width:720px;margin:16px auto 0;color:var(--mute);font-size:17px;opacity:0;transform:translateY(10px);transition:opacity .8s .5s,transform .8s .5s}
+  .in .hero p{opacity:1;transform:none}
+  main{max-width:720px;margin:0 auto;padding:0 20px 140px}
+  /* prima ședință gratuită: impulsul verde trece prin ea */
+  .first{position:relative;overflow:hidden;width:100%;text-align:left;border-radius:20px;padding:22px 20px;background:var(--char);display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin-top:8px}
+  .first::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-45%;background:linear-gradient(90deg,transparent,rgba(63,224,165,.18),transparent);animation:sweep 3.6s 1.2s ease-in-out infinite}
+  @keyframes sweep{to{left:110%}}
+  .first small{display:block;color:var(--ems);font-size:13.5px;font-weight:600}
+  .first b{display:block;font-weight:600;font-size:24px;line-height:1.15;letter-spacing:-.02em;margin-top:4px}
+  .first span.d{display:block;color:var(--mute);font-size:14.5px;margin-top:6px}
+  .first em{position:relative;z-index:1;font-style:normal;background:var(--ems);color:var(--ink);font-weight:600;border-radius:12px;padding:12px 16px;white-space:nowrap}
+  .first[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--ems)}
+  h2{font-weight:600;font-size:clamp(30px,7vw,40px);line-height:1.05;letter-spacing:-.035em;margin-top:44px}
+  /* filele: cuvinte mari, cu o linie roz care alunecă sub cel ales */
+  .tabs{position:relative;margin-top:18px;display:flex;gap:26px;border-bottom:1px solid var(--line)}
+  .tabs button{padding:0 0 14px;font-size:18px;font-weight:600;color:var(--mute);transition:color .3s}
+  .tabs button[aria-selected="true"]{color:#fff}
+  .tabs i{position:absolute;bottom:-1px;height:2px;background:var(--pink);transition:left .45s cubic-bezier(.76,0,.24,1),width .45s cubic-bezier(.76,0,.24,1)}
+  .group{margin-top:26px}
+  .group h3{font-size:14px;font-weight:600;color:var(--pink);display:flex;justify-content:space-between}
+  .group h3 small{color:var(--mute);font-weight:500}
+  /* rândurile intră pe rând; cel ales se umple de roz de la stânga la dreapta */
+  .opt{position:relative;overflow:hidden;width:100%;display:grid;grid-template-columns:1fr auto;gap:2px 16px;align-items:center;text-align:left;padding:18px 4px;border-bottom:1px solid var(--line);opacity:0;transform:translateY(14px);animation:rise .6s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .opt::before{content:"";position:absolute;inset:0;background:var(--pink);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.76,0,.24,1);z-index:0}
+  .opt > *{position:relative;z-index:1}
+  .opt b{font-weight:600;font-size:21px;letter-spacing:-.02em;line-height:1.2}
+  .opt .p{font-weight:600;font-size:22px;white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
+  .opt .s{font-size:14px;color:var(--mute)}
+  .opt .sv{text-align:right;font-size:13px;color:var(--ems);font-weight:600;white-space:nowrap}
+  .opt .im{grid-column:1/-1;max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.2,.8,.2,1),margin .6s}
+  .opt .im img{width:100%;height:180px;object-fit:cover;object-position:50% 25%;border-radius:14px;transform:scale(1.08);transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+  .opt[aria-pressed="true"]{color:var(--ink)}
+  .opt[aria-pressed="true"]::before{transform:scaleX(1)}
+  .opt[aria-pressed="true"] .s,.opt[aria-pressed="true"] .sv{color:rgba(15,13,16,.7)}
+  .opt[aria-pressed="true"] .im{max-height:200px;margin-top:12px}
+  .opt[aria-pressed="true"] .im img{transform:none}
+  @media (hover:hover){.opt:not([aria-pressed="true"]):hover b{color:var(--pink)}}
+  .note{margin-top:14px;font-size:14px;color:var(--mute)}
+  .step{margin-top:6px;transition:opacity .4s}
+  .step.off{opacity:.25;pointer-events:none}
+  .chips{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+  .chips button{height:46px;padding:0 18px;border-radius:12px;background:var(--char2);font-weight:600}
+  .chips button[aria-pressed="true"]{background:var(--pink);color:var(--ink)}
+  .days{margin-top:14px;display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
   .days::-webkit-scrollbar{display:none}
-  .days button{flex:none;width:62px;padding:10px 0 12px;border-radius:14px;border:1px solid var(--line);background:#fff;text-align:center}
+  .days button{flex:none;width:64px;padding:10px 0 12px;border-radius:14px;background:var(--char);text-align:center;transition:background .25s,color .25s}
   .days small{display:block;font-size:12.5px;color:var(--mute)}
-  .days b{display:block;font:600 22px/1.1 "Playfair Display",serif}
-  .days button[disabled]{opacity:.35;cursor:not-allowed}
-  .days button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)} .days button[aria-pressed="true"] small{color:rgba(255,255,255,.7)}
-  .times{margin-top:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-  .times button{height:46px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:600;font-variant-numeric:tabular-nums}
-  .times button[disabled]{background:transparent;color:#cbb9a8;text-decoration:line-through;cursor:not-allowed}
-  .times button[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:var(--ink)}
-  form{margin-top:12px;display:grid;gap:12px}
-  label{display:grid;gap:6px;font-size:14px;font-weight:500}
-  input,textarea{font:inherit;font-size:17px;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);width:100%}
+  .days b{display:block;font-weight:600;font-size:24px;line-height:1.1}
+  .days button[disabled]{opacity:.3;cursor:not-allowed}
+  .days button[aria-pressed="true"]{background:#fff;color:var(--ink)} .days button[aria-pressed="true"] small{color:rgba(15,13,16,.6)}
+  .times{margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .times button{height:48px;border-radius:12px;background:var(--char);font-weight:600;font-variant-numeric:tabular-nums;transition:background .25s,transform .2s}
+  .times button:active{transform:scale(.95)}
+  .times button[disabled]{background:transparent;color:rgba(255,255,255,.22);text-decoration:line-through;cursor:not-allowed}
+  .times button[aria-pressed="true"]{background:var(--pink);color:var(--ink)}
+  form{margin-top:14px;display:grid;gap:12px}
+  label{display:grid;gap:6px;font-size:14px;font-weight:500;color:var(--mute)}
+  input,textarea{font:inherit;font-size:17px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--char);color:#fff;width:100%}
+  input::placeholder,textarea::placeholder{color:rgba(255,255,255,.3)}
   textarea{min-height:70px;resize:vertical}
-  .ck{display:flex;gap:10px;align-items:flex-start;font-weight:400;color:var(--mute);font-size:14px}
-  .ck input{width:20px;height:20px;margin-top:2px;flex:none}
-  .warn{background:#fff1e6;border:1px solid #f4c9a5;color:#7a3410;border-radius:12px;padding:12px 14px;font-size:14px}
-  .bar{position:fixed;left:0;right:0;bottom:0;background:var(--ink);color:#fff;padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px));z-index:10}
-  .bar .in{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:14px}
-  .bar .sum{flex:1;min-width:0;font-size:14px;line-height:1.35;color:rgba(255,255,255,.7)}
+  .ck{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14px}
+  .ck input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--pink)}
+  .warn{background:rgba(240,127,183,.12);border:1px solid rgba(240,127,183,.4);color:#ffd1e6;border-radius:12px;padding:12px 14px;font-size:14px}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:rgba(25,22,27,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px));z-index:10}
+  .bar .in{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:14px}
+  .bar .sum{flex:1;min-width:0;font-size:14px;line-height:1.35;color:var(--mute)}
   .bar .sum b{display:block;color:#fff;font-size:15.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .go{border-radius:12px;background:var(--orange);color:var(--ink);font-weight:600;height:52px;padding:0 22px;white-space:nowrap}
-  .go[disabled]{opacity:.35;cursor:not-allowed}
-  .done{max-width:680px;margin:0 auto;padding:36px 20px 60px}
-  .done h2{margin-top:0;font-size:38px}
-  .done dl{margin-top:18px;border-top:1px solid var(--line)}
-  .done dl div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .go{border-radius:12px;background:var(--pink);color:var(--ink);font-weight:600;height:52px;padding:0 24px;white-space:nowrap;transition:opacity .3s,transform .2s}
+  .go:not([disabled]):active{transform:scale(.97)}
+  .go[disabled]{opacity:.3;cursor:not-allowed}
+  .done{max-width:720px;margin:0 auto;padding:30px 20px 60px}
+  .done h2{margin-top:0;font-size:clamp(40px,10vw,60px)}
+  .done dl{margin-top:20px;border-top:1px solid var(--line)}
+  .done dl div{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--line)}
   .done dt{color:var(--mute)} .done dd{font-weight:600;text-align:right}
   .done p{margin-top:14px;color:var(--mute)}
-  .done .again{margin-top:20px;border:1px solid var(--line);border-radius:12px;height:48px;padding:0 18px;font-weight:600;background:#fff}
+  .done .again{margin-top:22px;border-radius:12px;height:50px;padding:0 20px;font-weight:600;background:var(--char2)}
   [hidden]{display:none!important}
-  @media (prefers-reduced-motion:reduce){.silk{animation:none}}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.m > span,.opt{transform:none!important;opacity:1!important}.hero p{opacity:1;transform:none}.pulse path{stroke-dashoffset:0}}
 </style>
 </head>
 <body>
 <div class="demo">Demonstrație: programările făcute aici nu ajung încă la sală.</div>
 <header class="hero">
-  <div class="silk" aria-hidden="true"></div>
-  <div class="hd"><img src="../img/logo-s.png" alt="Bodyfit" /><a href="../">Înapoi la site</a></div>
-  <h1>Programează-te</h1>
+  <svg class="pulse" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 45 H360 L390 45 L405 10 L425 80 L445 20 L460 45 H760 L790 45 L805 12 L825 78 L845 22 L860 45 H1200"/></svg>
+  <div class="hd"><img src="../img/logo-s.png" alt="Body Fit" /><a href="../">Înapoi la site</a></div>
+  <h1><span class="m"><span>Programează-te</span></span><br><span class="m"><span style="transition-delay:.12s"><em>în 3 atingeri.</em></span></span></h1>
   <p>O ședință, un abonament sau un combo. Alegi, apoi ziua și ora. Plătești la sală.</p>
 </header>
 
 <main id="flow">
   <button type="button" class="first" id="first" aria-pressed="false"><span><small>Prima dată la noi?</small><b>Prima ședință de EMS e gratuită</b><span class="d">Te obișnuiești cu impulsul, cu antrenorul lângă tine.</span></span><em>Vreau</em></button>
 
-  <h2>Ce alegi</h2>
-  <div class="tabs" role="tablist"><button role="tab" data-t="sed" aria-selected="true">O ședință</button><button role="tab" data-t="abo" aria-selected="false">Abonamente</button><button role="tab" data-t="com" aria-selected="false">Combo</button></div>
+  <h2>Ce alegi?</h2>
+  <div class="tabs" role="tablist"><button role="tab" data-t="sed" aria-selected="true">O ședință</button><button role="tab" data-t="abo" aria-selected="false">Abonamente</button><button role="tab" data-t="com" aria-selected="false">Combo</button><i id="tl"></i></div>
   <div id="list"></div>
 
   <section class="step off" id="s1" hidden><div class="rule"><i>✦</i></div><h2>Cu ce începi</h2><div class="chips" id="start"></div></section>
@@ -144,7 +157,7 @@ const R = window.BFR, $ = s => document.getElementById(s);
 // prețurile din lista lor („Bodyfit ems, Lista tarife”); prețul pe ședință și economia le calculez față de ședința individuală
 const UNIT = { ems: 60, masaj: 40, vac: 50, roll: 35, trepte: 45 };
 const NUME = { ems: "EMS", masaj: "Masaj anticelulitic", vac: "Vacuum", roll: "Body Roll", trepte: "Trepte" };
-const SED = [["ems", "EMS cu costum", "20 de minute de antrenament"], ["vac", "Vacuum", "capsula cu vid și infraroșu"], ["roll", "Body Roll", "masaj cu role"], ["masaj", "Masaj anticelulitic", "masaj manual"], ["trepte", "Trepte", "aparatul cu trepte"]];
+const SED = [["ems", "EMS cu costum", "20 de minute de antrenament", "g8.webp"], ["vac", "Vacuum", "capsula cu vid și infraroșu", "g6.webp"], ["roll", "Body Roll", "masaj cu role", "g4.webp"], ["masaj", "Masaj anticelulitic", "masaj manual", ""], ["trepte", "Trepte", "aparatul cu trepte", ""]];
 const ABO = [
   ["EMS", [[{ ems: 4 }, 200], [{ ems: 8 }, 400], [{ ems: 12 }, 550]]],
   ["Vacuum", [[{ vac: 8 }, 240], [{ vac: 10 }, 300], [{ vac: 12 }, 360], [{ vac: 19 }, 500, "", "18 + 1 ședințe Vacuum"]]],
@@ -161,16 +174,17 @@ const COM = [
 ];
 const txt = c => Object.entries(c).map(([k, n]) => n + " " + (k === "masaj" ? "masaj" : NUME[k])).join(" + ");
 const total = c => Object.entries(c).reduce((a, [k, n]) => a + n * UNIT[k], 0);
-const st = { tab: "sed", pick: null, srv: null, zi: null, ora: null };
+const st = { tab: "sed", pick: null, srv: null, zi: null, ora: null }; let lastList = null;
+function moveLine() { const b = document.querySelector('.tabs [aria-selected="true"]'), t = document.querySelector('.tabs'); if (!b) return; $("tl").style.left = (b.offsetLeft) + "px"; $("tl").style.width = b.offsetWidth + "px"; }
 
 function list() {
   const L = $("list");
-  if (st.tab === "sed") { L.innerHTML = `<div class="group">${SED.map(([k, n, d], i) => `<button type="button" class="opt" data-i="sed:${i}" aria-pressed="${st.pick === "sed:" + i}"><b>${n}</b><span class="p">${UNIT[k]} lei</span><span class="s">${d}</span></button>`).join("")}</div>`; return; }
+  if (st.tab === "sed") { L.innerHTML = `<div class="group">${SED.map(([k, n, d, img], i) => `<button type="button" class="opt" style="animation-delay:${i * 70}ms" data-i="sed:${i}" aria-pressed="${st.pick === "sed:" + i}"><b>${n}</b><span class="p">${UNIT[k]} lei</span><span class="s">${d}</span>${img ? `<span class="im"><img src="../img/${img}" alt="" loading="lazy" /></span>` : ""}</button>`).join("")}</div>`; return; }
   const G = st.tab === "abo" ? ABO : COM;
   L.innerHTML = G.map(([t, arr], gi) => `<div class="group"><h3>${t}${t === "Body Contour" ? "<small>pachet separat</small>" : ""}</h3>${arr.map(([c, pret, tag, label], i) => {
     const id = st.tab + ":" + gi + ":" + i, n = Object.values(c).reduce((a, b) => a + b, 0), econ = total(c) - pret;
     const per = Object.keys(c).length === 1 ? `${Math.round(pret / n)} lei ședința` : `${n} ședințe în total`;
-    return `<button type="button" class="opt" data-i="${id}" aria-pressed="${st.pick === id}"><b>${label || txt(c)}${tag ? `<span class="tag">${tag}</span>` : ""}</b><span class="p">${pret} lei</span><span class="s">${per}</span><span class="sv">${econ > 0 ? "economisești " + econ + " lei" : ""}</span></button>`; }).join("")}</div>`).join("")
+    return `<button type="button" class="opt" style="animation-delay:${i * 60}ms" data-i="${id}" aria-pressed="${st.pick === id}"><b>${label || txt(c)}${tag ? `<span class="tag">${tag}</span>` : ""}</b><span class="p">${pret} lei</span><span class="s">${per}</span><span class="sv">${econ > 0 ? "economisești " + econ + " lei" : ""}</span></button>`; }).join("")}</div>`).join("")
     + `<p class="note">Abonamentul îl plătești la sală, la prima vizită. Aici îți faci prima programare.</p>`;
 }
 function pickInfo() {
@@ -185,7 +199,8 @@ function render() {
   const lista = R.citeste(), P = pickInfo();
   $("first").setAttribute("aria-pressed", st.pick === "prima");
   document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.t === st.tab));
-  list();
+  const key = st.tab + "|" + st.pick; if (key !== lastList) { if (key.split("|")[0] !== (lastList || "").split("|")[0]) list(); else document.querySelectorAll("#list .opt").forEach(o => { o.setAttribute("aria-pressed", o.dataset.i === st.pick); o.style.animation = "none"; o.style.opacity = 1; }); lastList = key; }
+  moveLine();
   const multi = !!(P && P.srvs.length > 1);
   $("s1").hidden = !multi; $("s1").classList.toggle("off", !multi);
   if (P && !multi) st.srv = P.srvs[0];
@@ -219,8 +234,9 @@ $("go").onclick = () => { const P = pickInfo();
   if (!p) { st.ora = null; render(); return; }
   $("rez").innerHTML = [["Ai ales", P.nume], ["Preț", P.pret + (P.abon ? ", la sală" : "")], ["Prima programare", R.SERVICII[st.srv].nume], ["Când", R.frumos(new Date(st.zi)) + ", " + st.ora], ["Pe numele", p.nume]].map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join("");
   $("flow").hidden = $("bar").hidden = true; $("done").hidden = false; scrollTo(0, 0); };
-$("again").onclick = () => { Object.assign(st, { pick: null, srv: null, zi: null, ora: null }); $("f").reset(); $("flow").hidden = $("bar").hidden = false; $("done").hidden = true; render(); };
-render();
+$("again").onclick = () => { Object.assign(st, { pick: null, srv: null, zi: null, ora: null }); lastList = null; $("f").reset(); $("flow").hidden = $("bar").hidden = false; $("done").hidden = true; render(); };
+render(); addEventListener("resize", moveLine);
+requestAnimationFrame(() => document.body.classList.add("in"));
 </script>
 </body>
 </html>
