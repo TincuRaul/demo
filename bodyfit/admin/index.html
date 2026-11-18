@@ -165,7 +165,7 @@
 </style>
 </head>
 <body>
-<div class="demo"><b>Demonstrație</b> cu programări de exemplu. Încearcă pagina <a href="../programare/" style="color:#fff">de programare</a> într-o filă alăturată: programarea apare aici pe loc.<button type="button" id="reset">Repornește exemplul</button></div>
+<div class="demo"><b>Demonstrație</b> cu programări de exemplu. Fă o programare pe <a href="../programare/" style="color:#fff">pagina de programare</a>, de pe orice telefon: apare aici în câteva secunde.<button type="button" id="reset">Repornește exemplul</button></div>
 <div class="top">
   <div class="tr"><img src="../img/logo-s.png" alt="Body Fit" /><h1>Programări<small id="azitxt"></small></h1><button class="new" id="new" type="button">+ Programare</button></div>
   <div class="tabs" role="tablist">
@@ -207,7 +207,7 @@
 <aside class="drawer" id="drawer" hidden aria-live="polite"></aside>
 <div class="toast" id="toast" hidden><i></i><span id="toastt"></span></div>
 
-<script src="../rezervari.js?v=1794997984"></script>
+<script src="../rezervari.js?v=1794998488"></script>
 <script>
 const R = window.BFR, $ = s => document.getElementById(s);
 let L = R.citeste(), zi = R.azi(), tab = "zi";
@@ -348,9 +348,9 @@ function openNew(o, a) {
     if (t.dataset.close !== undefined) return close();
     if (t.dataset.n) { f.nume = t.dataset.n; $("nn").value = f.nume; $("sug").innerHTML = ""; $("ntl").hidden = true; }
     if (t.dataset.k) f.srv = t.dataset.k; if (t.dataset.z) { f.zi = t.dataset.z; f.ora = null; } if (t.dataset.o) f.ora = t.dataset.o;
-    if (t.id === "sv" && !t.disabled) { const c = R.CLIENTE.find(x => x.nume === f.nume);
-      const p = R.adaugaProgramare({ zi: f.zi, ora: f.ora, serviciu: f.srv, nume: f.nume.trim(), tel: c ? c.tel : f.tel.trim(), sursa: "telefon", nou: true });
-      if (p) { close(); zi = new Date(p.zi); zi.setHours(0, 0, 0, 0); render(); toast(`Salvat: ${p.nume.split(" ")[0]}, ${p.ora}, ${R.SERVICII[p.serviciu].scurt}`); } return; }
+    if (t.id === "sv" && !t.disabled) { const c = R.CLIENTE.find(x => x.nume === f.nume); t.disabled = true;
+      R.adaugaProgramare({ zi: f.zi, ora: f.ora, serviciu: f.srv, nume: f.nume.trim(), tel: c ? c.tel : f.tel.trim(), sursa: "telefon", nou: true }).then(p => {
+      if (p) { close(); zi = new Date(p.zi); zi.setHours(0, 0, 0, 0); render(); toast(`Salvat: ${p.nume.split(" ")[0]}, ${p.ora}, ${R.SERVICII[p.serviciu].scurt}`); } else { toast("Ora tocmai s-a ocupat, alege alta"); draw(); } }); return; }
     draw(); };
   draw(); show(); setTimeout(() => $("nn").focus(), 50);
 }
@@ -369,10 +369,14 @@ $("list").onclick = e => { const q = e.target.closest("[data-q]"); if (q) { cons
 $("q").oninput = clients; $("srt").onchange = clients; $("cl").onclick = e => { const r = e.target.closest("tr[data-c]"); if (r) openClient(r.dataset.c); };
 document.querySelector(".tabs").onclick = e => { const b = e.target.closest("button"); if (!b) return; tab = b.dataset.t;
   document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b)); ["zi", "sapt", "cl", "set"].forEach(t => $("v-" + t).hidden = t !== tab); render(); };
-$("reset").onclick = () => { R.reset(); zi = R.azi(); render(); toast("Exemplul a fost repornit"); };
+$("reset").onclick = async () => { await R.reset(); zi = R.azi(); render(); toast("Exemplul a fost repornit"); };
 // o programare făcută pe site, în altă filă, apare aici pe loc
-addEventListener("storage", e => { if (e.key !== R.KEY) return; const vechi = new Set(L.map(b => b.id)); render(); const n = L.find(b => !vechi.has(b.id));
-  if (n) { toast(`Programare nouă de pe site: ${n.nume}, ${R.frumos(new Date(n.zi))}, ${n.ora}`); if (n.zi === R.iso(zi)) grid(); } });
+// programările noi vin de pe server: verific la câteva secunde și anunț ce a apărut
+let primul = true;
+async function poll() { try { const vechi = new Set(L.map(b => b.id)); await R.sync(); render();
+  if (!primul) R.citeste().filter(b => !vechi.has(b.id) && b.sursa === "site").forEach(n => { n.nou = true; toast(`Programare nouă de pe site: ${n.nume}, ${R.frumos(new Date(n.zi))}, ${n.ora}`); grid(); });
+  primul = false; } catch (e) {} }
+poll(); setInterval(poll, 4000);
 setInterval(() => { if (tab === "zi") { live(); grid(); list(); } }, 60000);
 render();
 </script>

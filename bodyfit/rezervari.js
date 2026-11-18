@@ -40,10 +40,36 @@ window.BFR = (() => {
     const ex = [["ems", "EMS", CLIENTE[0]], ["vac", "Vacuum", CLIENTE[3]], ["roll", "Body Roll 1", CLIENTE[5]]];
     return ore.map((o, i) => ({ id: i + 1, zi: iso(z), ora: o, serviciu: ex[i][0], aparat: ex[i][1], nume: ex[i][2].nume, tel: ex[i][2].tel, stare: "confirmat", sursa: i === 1 ? "site" : "telefon", nota: "" }));
   }
-  function citeste() { try { const v = JSON.parse(localStorage.getItem(KEY)); if (v && v.ziua === iso(azi())) return v.lista; } catch (e) {} const l = seed(); salveaza(l); return l; }
-  function salveaza(lista) { try { localStorage.setItem(KEY, JSON.stringify({ ziua: iso(azi()), lista })); } catch (e) {} }
+  // programările stau în Supabase (proiectul demo), ca să se vadă de pe orice telefon pe orice laptop
+  const SB = "https://gwjvqdciuwguhjtamaor.supabase.co/rest/v1/programari", KEYSB = "sb_publishable_YP3dU4DRUIlpTeKOhB3TWg_jXPs0qA4";
+  const H = { apikey: KEYSB, Authorization: "Bearer " + KEYSB, "Content-Type": "application/json" };
+  let cache = [], snap = new Map(), gata = false;
+  const din = r => ({ ...r, id: r.id, zi: r.zi, nota: r.nota || "" });
+  async function sync() {
+    const de = iso(adauga(azi(), -14)), pana = iso(adauga(azi(), 21));
+    const r = await fetch(`${SB}?select=*&zi=gte.${de}&zi=lte.${pana}&order=zi,ora`, { headers: H, cache: "no-store" });
+    if (!r.ok) throw new Error("server " + r.status);
+    const rows = (await r.json()).map(din), nou = new Set(cache.filter(b => b.nou).map(b => b.id));
+    cache = rows.map(b => nou.has(b.id) ? { ...b, nou: true } : b); snap = new Map(rows.map(b => [b.id, b.stare])); gata = true; return cache;
+  }
+  function citeste() { return cache; }
+  function salveaza(lista) { // trimite pe server doar stările schimbate (a venit, nu a venit, anulat)
+    lista.forEach(b => { if (snap.has(b.id) && snap.get(b.id) !== b.stare) { snap.set(b.id, b.stare);
+      fetch(`${SB}?id=eq.${b.id}`, { method: "PATCH", headers: H, body: JSON.stringify({ stare: b.stare }) }); } }); }
   function liber(lista, zi, oraS, srv) { return SERVICII[srv].aparate.find(a => !lista.some(b => b.zi === zi && b.ora === oraS && b.aparat === a && b.stare !== "anulat")) || null; }
-  function adaugaProgramare(p) { const l = citeste(); const aparat = liber(l, p.zi, p.ora, p.serviciu); if (!aparat) return null; const n = { id: Date.now(), stare: "confirmat", nota: "", ...p, aparat }; l.push(n); salveaza(l); return n; }
-  function reset() { try { localStorage.removeItem(KEY); } catch (e) {} }
-  return { SERVICII, APARATE, PROGRAM, ZILE, LUNI, CLIENTE, KEY, iso, azi, adauga, min, ora, sloturi, frumos, citeste, salveaza, liber, adaugaProgramare, reset };
+  async function adaugaProgramare(p) {
+    await sync().catch(() => {});
+    const aparat = liber(cache, p.zi, p.ora, p.serviciu); if (!aparat) return null;
+    const row = { zi: p.zi, ora: p.ora, serviciu: p.serviciu, aparat, nume: p.nume, tel: p.tel, stare: "confirmat", sursa: p.sursa || "site", nota: p.nota || "" };
+    const r = await fetch(SB, { method: "POST", headers: { ...H, Prefer: "return=representation" }, body: JSON.stringify(row) });
+    if (!r.ok) return null; // 409: locul tocmai a fost luat de altcineva
+    const n = { ...din((await r.json())[0]), nou: !!p.nou }; cache.push(n); snap.set(n.id, n.stare); return n;
+  }
+  async function reset() { // șterge tot și pune 3 programări de exemplu azi
+    await fetch(`${SB}?id=gt.0`, { method: "DELETE", headers: H });
+    const rows = seed().map(({ id, ...r }) => r);
+    if (rows.length) await fetch(SB, { method: "POST", headers: H, body: JSON.stringify(rows) });
+    await sync();
+  }
+  return { SERVICII, APARATE, PROGRAM, ZILE, LUNI, CLIENTE, KEY, iso, azi, adauga, min, ora, sloturi, frumos, citeste, salveaza, liber, adaugaProgramare, reset, sync, gata: () => gata };
 })();

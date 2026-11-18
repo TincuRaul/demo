@@ -200,7 +200,7 @@
 <canvas class="burst" id="burst" aria-hidden="true"></canvas>
 <div class="bar" id="bar"><div class="in"><div class="sum" id="sum">Alege o ședință, un abonament sau un combo</div><button class="go" id="go" type="button" disabled>Confirmă</button></div></div>
 
-<script src="../rezervari.js?v=1794997984"></script>
+<script src="../rezervari.js?v=1794998488"></script>
 <script>
 const R = window.BFR, $ = s => document.getElementById(s);
 // prețurile din lista lor („Bodyfit ems, Lista tarife”); prețul pe ședință și economia le calculez față de ședința individuală
@@ -283,9 +283,10 @@ $("start").onclick = e => { const b = e.target.closest("button"); if (b) { st.sr
 $("days").onclick = e => { const b = e.target.closest("button"); if (b && !b.disabled) { st.zi = b.dataset.z; st.ora = null; render(); } };
 $("times").onclick = e => { const b = e.target.closest("button"); if (b && !b.disabled) { st.ora = b.dataset.o; render(); setTimeout(() => lin($("s4")), 80); } };
 ["nume", "tel", "gdpr"].forEach(id => $(id).addEventListener("input", render));
-$("go").onclick = () => { const P = pickInfo();
-  const p = R.adaugaProgramare({ zi: st.zi, ora: st.ora, serviciu: st.srv, nume: $("nume").value.trim(), tel: $("tel").value.trim(), nota: [P.abon ? P.nume + ", " + P.pret + ", plătește la sală" : "", $("nota").value.trim()].filter(Boolean).join(". "), sursa: "site", nou: true });
-  if (!p) { st.ora = null; render(); return; }
+$("go").onclick = async () => { const P = pickInfo(); $("go").disabled = true; $("go").textContent = "Se trimite…";
+  const p = await R.adaugaProgramare({ zi: st.zi, ora: st.ora, serviciu: st.srv, nume: $("nume").value.trim(), tel: $("tel").value.trim(), nota: [P.abon ? P.nume + ", " + P.pret + ", plătește la sală" : "", $("nota").value.trim()].filter(Boolean).join(". "), sursa: "site", nou: true });
+  $("go").textContent = "Confirmă";
+  if (!p) { st.ora = null; render(); lin($("s3")); return; }
   $("rez").innerHTML = [["Ai ales", P.nume], ["Preț", P.pret + (P.abon ? ", la sală" : "")], ...(P.abon ? [["Prima programare", R.SERVICII[st.srv].nume]] : []), ["Când", R.frumos(new Date(st.zi)) + ", " + st.ora], ["Pe numele", p.nume]].map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join("");
   $("thxh").textContent = "Mulțumim, " + p.nume.split(" ")[0] + "!";
   $("thxl").textContent = "Te așteptăm " + R.frumos(new Date(st.zi)).toLowerCase().replace(/^./, c => c) + ", la " + st.ora + ".";
@@ -364,6 +365,8 @@ $("again").onclick = () => { Object.assign(st, { pick: null, srv: null, zi: null
   requestAnimationFrame(frame);
 })();
 render(); addEventListener("resize", moveLine);
+// orele ocupate vin de pe server; se reîmprospătează din când în când
+R.sync().then(render).catch(() => {}); setInterval(() => { if (!$("flow").hidden) R.sync().then(render).catch(() => {}); }, 15000);
 requestAnimationFrame(() => document.body.classList.add("in"));
 </script>
 </body>
