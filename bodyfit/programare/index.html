@@ -16,19 +16,18 @@
   body{color:#fff;font:400 16.5px/1.55 "Hanken Grotesk",system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
   button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
   :focus-visible{outline:2px solid var(--pink);outline-offset:3px}
-  .demo{background:var(--pink);color:var(--ink);font-size:13px;text-align:center;padding:7px 16px;font-weight:500}
   /* textul intră din mască, cuvânt cu cuvânt, ca pe site */
   .m{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.2em;margin-bottom:-.2em}
   .m > span{display:inline-block;transform:translateY(105%);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
   .in .m > span{transform:none}
-  .hero{position:relative;padding:18px 20px 30px;overflow:hidden}
-  .pulse{position:absolute;left:0;right:0;top:120px;height:90px;opacity:.5}
+  .hero{position:relative;padding:100px 20px 30px;overflow:hidden}
+  .pulse{display:block;position:relative;width:calc(100% + 40px);margin:26px -20px 0;height:70px;opacity:.55}
   .pulse path{fill:none;stroke:var(--pink);stroke-width:2;stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.4s .3s cubic-bezier(.6,0,.2,1) forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   .hd{max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
   .hd img{height:38px}
   .hd a{font-size:14px;color:var(--mute);text-decoration:none}
-  .hero h1{position:relative;max-width:720px;margin:40px auto 0;font-weight:600;font-size:clamp(46px,13vw,84px);line-height:.98;letter-spacing:-.045em}
+  .hero h1{position:relative;max-width:720px;margin:20px auto 0;font-weight:600;font-size:clamp(46px,13vw,84px);line-height:.98;letter-spacing:-.045em}
   .hero h1 em{font-style:normal;color:var(--pink)}
   .hero p{position:relative;max-width:720px;margin:16px auto 0;color:var(--mute);font-size:17px;opacity:0;transform:translateY(10px);transition:opacity .8s .5s,transform .8s .5s}
   .in .hero p{opacity:1;transform:none}
@@ -108,17 +107,50 @@
   .done dt{color:var(--mute)} .done dd{font-weight:600;text-align:right}
   .done p{margin-top:14px;color:var(--mute)}
   .done .again{margin-top:22px;border-radius:12px;height:50px;padding:0 20px;font-weight:600;background:var(--char2)}
+  /* header */
+  /* header plutitor, ca o capsulă de iPhone: sticlă închisă, o pastilă care urmărește secțiunea curentă */
+  .top { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 50; width: calc(100% - 20px); max-width: 980px; height: 60px; display: flex; align-items: center; gap: 8px; padding: 0 7px 0 18px; color: #fff; border-radius: 999px;
+    background: rgba(28,24,30,.5); backdrop-filter: blur(18px) saturate(1.6); -webkit-backdrop-filter: blur(18px) saturate(1.6);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.1), inset 0 1px 0 rgba(255,255,255,.14), 0 10px 30px rgba(0,0,0,.28); transition: background .35s; }
+  .top.solid, .open .top { background: rgba(28,24,30,.78); }
+  .lg { margin-right: auto; display: block; height: 40px; }
+  .lg img { height: 100%; width: auto; }
+  .nv { display: none; position: relative; font-weight: 500; font-size: 15px; }
+  .nv a { position: relative; z-index: 1; display: flex; align-items: center; height: 46px; padding: 9px 17px 0; border-radius: 999px; color: rgba(255,255,255,.72); transition: color .3s; }
+  .nv a.cur { color: #fff; }
+  .nv .hl { position: absolute; top: 0; bottom: 0; left: 0; width: 0; border-radius: 999px; background: rgba(255,255,255,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); opacity: 0; transition: left .5s cubic-bezier(.3,1.3,.5,1), width .5s cubic-bezier(.3,1.3,.5,1), opacity .3s; }
+  .tc { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; min-width: 46px; padding: 0 12px; border-radius: 999px; background: var(--pink); color: var(--ink); font-weight: 600; font-size: 15px; }
+  .tc svg { width: 17px; height: 17px; } .tc span { display: none; }
+  .mb { width: 46px; height: 46px; border: 0; border-radius: 50%; background: rgba(255,255,255,.12); display: grid; place-content: center; gap: 5px; cursor: pointer; }
+  .mb i { display: block; width: 18px; height: 2px; background: #fff; transition: transform .3s; }
+  .mb i:nth-child(2) { transition: opacity .2s; }
+  .open .mb i:first-child { transform: translateY(7px) rotate(45deg); } .open .mb i:nth-child(2) { opacity: 0; } .open .mb i:last-child { transform: translateY(-7px) rotate(-45deg); }
+  .mn { position: fixed; inset: 0; z-index: 45; background: var(--ink); color: #fff; padding: 110px 20px 40px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s .25s; }
+  .open .mn { opacity: 1; visibility: visible; transition: opacity .25s; }
+  .mn nav { display: grid; }
+  .mn nav a { font-weight: 600; font-size: 38px; letter-spacing: -.03em; padding: 10px 0; border-bottom: 1px solid rgba(240,127,183,.2); }
+  .mn p { color: #a99fab; }
+  html.open { overflow: hidden; }
+  .top.hid { transform: translate(-50%, -90px); }
+  .top { transition: background .35s, transform .4s; }
+  @media (min-width: 900px) { .top { width: max-content; height: 64px; padding-left: 26px; gap: 22px; } .lg { margin-right: 0; height: 44px; } .nv { display: flex; margin-right: 6px; } .tc span { display: inline; } .tc { padding: 0 22px; height: 50px; } .mb { display: none; } }
+  @media (max-width: 380px) { .tc, .mb { height: 38px; min-width: 38px; width: 38px; padding: 0; } }
   [hidden]{display:none!important}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.m > span,.opt{transform:none!important;opacity:1!important}.hero p{opacity:1;transform:none}.pulse path{stroke-dashoffset:0}}
 </style>
 </head>
 <body>
-<div class="demo">Demonstrație: programările făcute aici nu ajung încă la sală.</div>
+<header class="top" id="top">
+  <a class="lg" href="../" aria-label="Body Fit, prima pagină"><img src="../img/logo-s.png" alt="Body Fit" width="480" height="373" /></a>
+  <nav class="nv" aria-label="Meniu"><a href="../#aparate">Aparate</a><a href="../#ems">EMS</a><a href="../#preturi">Prețuri</a><a href="../#faq">Întrebări</a><a href="../#contact">Contact</a></nav>
+  <a class="tc" href="tel:+40758407533"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span>0758 407 533</span></a>
+  <button class="mb" id="mb" type="button" aria-expanded="false" aria-controls="mn" aria-label="Deschide meniul"><i></i><i></i><i></i></button>
+</header>
+<div class="mn" id="mn" aria-hidden="true"><nav aria-label="Meniu pe telefon"><a href="../">Prima pagină</a><a href="../#aparate">Aparate</a><a href="../#ems">EMS</a><a href="../#preturi">Prețuri</a><a href="../#contact">Contact</a></nav><p>Str. Aurel Popp 16, Satu Mare</p></div>
 <header class="hero">
-  <svg class="pulse" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 45 H360 L390 45 L405 10 L425 80 L445 20 L460 45 H760 L790 45 L805 12 L825 78 L845 22 L860 45 H1200"/></svg>
-  <div class="hd"><img src="../img/logo-s.png" alt="Body Fit" /><a href="../">Înapoi la site</a></div>
   <h1><span class="m"><span>Programează-te</span></span><br><span class="m"><span style="transition-delay:.12s"><em>în 3 atingeri.</em></span></span></h1>
   <p>O ședință, un abonament sau un combo. Alegi, apoi ziua și ora. Plătești la sală.</p>
+  <svg class="pulse" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 45 H360 L390 45 L405 10 L425 80 L445 20 L460 45 H760 L790 45 L805 12 L825 78 L845 22 L860 45 H1200"/></svg>
 </header>
 
 <main id="flow">
@@ -235,6 +267,10 @@ $("go").onclick = () => { const P = pickInfo();
   $("rez").innerHTML = [["Ai ales", P.nume], ["Preț", P.pret + (P.abon ? ", la sală" : "")], ["Prima programare", R.SERVICII[st.srv].nume], ["Când", R.frumos(new Date(st.zi)) + ", " + st.ora], ["Pe numele", p.nume]].map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join("");
   $("flow").hidden = $("bar").hidden = true; $("done").hidden = false; scrollTo(0, 0); };
 $("again").onclick = () => { Object.assign(st, { pick: null, srv: null, zi: null, ora: null }); lastList = null; $("f").reset(); $("flow").hidden = $("bar").hidden = false; $("done").hidden = true; render(); };
+// antetul ca pe site: meniul de pe telefon și capsula care se ascunde la derulat în jos
+{ const hdr = $("top"), mb = $("mb"), mn = $("mn"); let lastY = scrollY;
+  addEventListener("scroll", () => { const y = scrollY; hdr.classList.toggle("solid", y > 60); if (Math.abs(y - lastY) > 6) { hdr.classList.toggle("hid", y > lastY && y > 120 && !document.documentElement.classList.contains("open")); lastY = y; } }, { passive: true });
+  mb.onclick = () => { const o = !document.documentElement.classList.contains("open"); document.documentElement.classList.toggle("open", o); mb.setAttribute("aria-expanded", o); mn.setAttribute("aria-hidden", !o); }; }
 render(); addEventListener("resize", moveLine);
 requestAnimationFrame(() => document.body.classList.add("in"));
 </script>
