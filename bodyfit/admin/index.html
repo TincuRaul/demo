@@ -416,7 +416,7 @@ const SBP = "https://gwjvqdciuwguhjtamaor.supabase.co/rest/v1/push_abonati", KP 
     const key = Uint8Array.from(atob(VAPID.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((VAPID.length + 3) % 4)), c => c.charCodeAt(0));
     const s2 = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: key });
     const j = s2.toJSON();
-    await fetch(SBP, { method: "POST", headers: { apikey: KP, Authorization: "Bearer " + KP, "Content-Type": "application/json", Prefer: "resolution=merge-duplicates" }, body: JSON.stringify({ endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth, aparat: navigator.userAgent.slice(0, 120) }) });
+    await fetch(SBP, { method: "POST", headers: { apikey: KP, Authorization: "Bearer " + KP, "Content-Type": "application/json", Prefer: "resolution=ignore-duplicates" }, body: JSON.stringify({ endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth, aparat: navigator.userAgent.slice(0, 120) }) });
     box.hidden = true; toast("Notificările sunt pornite pe acest telefon");
   };
 })();
