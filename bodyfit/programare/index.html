@@ -36,13 +36,13 @@
   main{max-width:720px;margin:0 auto;padding:0 20px 140px}
   /* prima ședință gratuită: impulsul verde trece prin ea */
   .first{position:relative;overflow:hidden;width:100%;text-align:left;border-radius:20px;padding:22px 20px;background:var(--char);display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin-top:8px}
-  .first::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-45%;background:linear-gradient(90deg,transparent,rgba(63,224,165,.18),transparent);animation:sweep 3.6s 1.2s ease-in-out infinite}
+  .first::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-45%;background:linear-gradient(90deg,transparent,rgba(240,127,183,.16),transparent);animation:sweep 3.6s 1.2s ease-in-out infinite}
   @keyframes sweep{to{left:110%}}
-  .first small{display:block;color:var(--ems);font-size:13.5px;font-weight:600}
+  .first small{display:block;color:var(--pink);font-size:13.5px;font-weight:600}
   .first b{display:block;font-weight:600;font-size:24px;line-height:1.15;letter-spacing:-.02em;margin-top:4px}
   .first span.d{display:block;color:var(--mute);font-size:14.5px;margin-top:6px}
-  .first em{position:relative;z-index:1;font-style:normal;background:var(--ems);color:var(--ink);font-weight:600;border-radius:12px;padding:12px 16px;white-space:nowrap}
-  .first[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--ems)}
+  .first em{position:relative;z-index:1;font-style:normal;background:var(--pink);color:var(--ink);font-weight:600;border-radius:12px;padding:12px 16px;white-space:nowrap}
+  .first[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--pink)}
   h2{font-weight:600;font-size:clamp(30px,7vw,40px);line-height:1.05;letter-spacing:-.035em;margin-top:44px}
   /* filele: cuvinte mari, cu o linie roz care alunecă sub cel ales */
   .tabs{position:relative;margin-top:18px;display:flex;gap:26px;border-bottom:1px solid var(--line)}
@@ -60,7 +60,7 @@
   .opt b{font-weight:600;font-size:21px;letter-spacing:-.02em;line-height:1.2}
   .opt .p{font-weight:600;font-size:22px;white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
   .opt .s{font-size:14px;color:var(--mute)}
-  .opt .sv{text-align:right;font-size:13px;color:var(--ems);font-weight:600;white-space:nowrap}
+  .opt .sv{text-align:right;font-size:13px;color:var(--pink);font-weight:600;white-space:nowrap}
   .opt{padding-left:16px;transition:padding .3s}
   .opt[aria-pressed="true"]{padding-left:22px}
   .opt[aria-pressed="true"]::before{transform:scaleY(1)}
