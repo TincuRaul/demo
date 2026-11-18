@@ -403,7 +403,7 @@ $("reset").onclick = async () => { await R.reset(); zi = R.azi(); render(); toas
 // programările noi vin de pe server: verific la câteva secunde și anunț ce a apărut
 // intrarea în panou: cont pe server (Supabase Auth); parola nu e în cod și nici în site, iar fără cont serverul nu dă nicio programare
 function deschide() { $("lock").hidden = true; document.body.classList.remove("locked"); }
-function inchide() { $("lock").hidden = false; document.body.classList.add("locked"); $("pw").value = ""; }
+function inchide() { if (!$("lock").hidden) return; $("lock").hidden = false; document.body.classList.add("locked"); $("pw").value = ""; }
 if (R.autentificat()) deschide();
 $("lf").onsubmit = async e => { e.preventDefault(); const btn = $("lf").querySelector("button"); btn.disabled = true; btn.textContent = "Se verifică…";
   const ok = await R.login($("pw").value); btn.disabled = false; btn.textContent = "Intră";
