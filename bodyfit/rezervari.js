@@ -43,15 +43,16 @@ window.BFR = (() => {
   // programările stau în Supabase. Pagina clientelor vede doar orele ocupate; numele și telefoanele le vede doar sala, după autentificare.
   const BASE = "https://gwjvqdciuwguhjtamaor.supabase.co", SB = BASE + "/rest/v1/programari", KEYSB = "sb_publishable_YP3dU4DRUIlpTeKOhB3TWg_jXPs0qA4";
   const EMAIL = "contact.rtweb@gmail.com", SK = "bf-sesiune";
-  let ses = null; try { ses = JSON.parse(localStorage.getItem(SK)); } catch (e) {}
+  // sesiunea stă doar în memorie: la fiecare deschidere a panoului se cere parola din nou
+  let ses = null; try { localStorage.removeItem(SK); } catch (e) {}
   const H = () => ({ apikey: KEYSB, Authorization: "Bearer " + (ses ? ses.access_token : KEYSB), "Content-Type": "application/json" });
   async function token(body, tip) {
     const r = await fetch(`${BASE}/auth/v1/token?grant_type=${tip}`, { method: "POST", headers: { apikey: KEYSB, "Content-Type": "application/json" }, body: JSON.stringify(body) });
     if (!r.ok) return false; const d = await r.json(); ses = { access_token: d.access_token, refresh_token: d.refresh_token, exp: Date.now() + (d.expires_in - 60) * 1000 };
-    try { localStorage.setItem(SK, JSON.stringify(ses)); } catch (e) {} return true; }
+    return true; }
   const login = parola => token({ email: EMAIL, password: parola }, "password");
   async function asigura() { if (ses && Date.now() > ses.exp && !(await token({ refresh_token: ses.refresh_token }, "refresh_token"))) logout(); return !!ses; }
-  function logout() { ses = null; try { localStorage.removeItem(SK); } catch (e) {} }
+  function logout() { ses = null; }
   let cache = [], snap = new Map();
   async function sync() {
     const de = iso(adauga(azi(), -14)), pana = iso(adauga(azi(), 21));
