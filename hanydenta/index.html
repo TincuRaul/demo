@@ -8,8 +8,9 @@
 <meta name="description" content="Cabinet stomatologic dr. Laura Diana Bota, Strada Alexandru Ioan Cuza 6, Satu Mare. Contract CNAS. Programări: 0744 939 652." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
-<link rel="preload" as="image" href="img/hero.webp" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" /></noscript>
+<link rel="preload" as="image" href="img/hero-m.webp" imagesrcset="img/hero-m.webp 900w, img/hero.webp 1800w" imagesizes="100vw" />
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
 <style>
@@ -22,7 +23,7 @@
   img { display: block; max-width: 100%; }
   em, .it { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: 0; }
   .wrap { width: 100%; max-width: 1360px; margin: 0 auto; padding: 0 var(--pad); }
-  .tag { font-size: 13px; color: var(--mute); display: flex; align-items: center; gap: 8px; }
+  .tag { font-size: 13px; color: rgba(34,35,38,.78); display: flex; align-items: center; gap: 8px; }
   .tag::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--red); }
   .pill { display: inline-flex; gap: .35em; font-weight: 500; }
   .pill::before { content: "("; } .pill::after { content: ")"; }
@@ -94,13 +95,17 @@
   .card small { display: block; margin-top: 18px; font-size: 12px; color: var(--mute); }
   .card h3 { font-weight: 500; font-size: 19px; line-height: 1.12; letter-spacing: -.02em; margin-top: 4px; }
   .card h3 em { font-size: 1.12em; }
+  .card { position: relative; }
+  .plus { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: #fff; font: 400 18px/1 "Geist", sans-serif; color: var(--ink); cursor: pointer; transition: transform .45s cubic-bezier(.76,0,.24,1), background .3s, color .3s; }
+  .card.open .plus { transform: rotate(45deg); background: var(--ink); color: #fff; }
+  .card .more { max-height: 0; overflow: hidden; opacity: 0; transition: max-height .6s cubic-bezier(.2,.8,.2,1), opacity .4s, margin .4s; margin-top: 0 !important; }
+  .card.open .more { max-height: 260px; opacity: 1; margin-top: 10px !important; color: var(--ink) !important; }
   .card p { font-size: 13px; color: var(--mute); margin-top: 6px; line-height: 1.45; }
 
   /* de ce noi: carduri mari, cu cifra mare */
   .why { background: var(--blush); padding: 10px 0 90px; }
   .stack { margin-top: 44px; display: grid; gap: 14px; }
   .big-card { position: relative; background: #fff; border-radius: 14px; padding: 22px 18px 18px; overflow: hidden; display: grid; gap: 16px; transform-origin: 50% 0; }
-  .big-card .ghost { position: absolute; top: 14px; left: 18px; right: 0; font-size: 74px; line-height: 1; letter-spacing: -.05em; color: rgba(34,35,38,.045); white-space: nowrap; pointer-events: none; font-weight: 500; }
   .big-card h3 { position: relative; font-size: clamp(26px, 6vw, 44px); font-weight: 500; letter-spacing: -.035em; line-height: 1.05; }
   .big-card p { position: relative; max-width: 42ch; color: var(--mute); font-size: 15px; }
   .big-card .meta { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px; }
@@ -125,6 +130,23 @@
   .quote q em { font-size: 1.1em; }
   .quote span { font-size: 13px; color: var(--mute); }
 
+  /* prima vizită: patru pași pe un rând, despărțiți de linii */
+  .steps { padding: 80px 0 30px; }
+  .sl { list-style: none; margin-top: 44px; display: grid; border-top: 1px solid var(--line); }
+  .sl li { padding: 22px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 54px 1fr; gap: 4px 12px; }
+  .sl span { grid-row: span 2; font-size: 13px; color: var(--mute); padding-top: 6px; }
+  .sl h3 { font-weight: 500; font-size: 24px; letter-spacing: -.025em; }
+  .sl p { color: var(--mute); font-size: 15px; max-width: 34ch; }
+  /* întrebări */
+  .faq { padding: 80px 0 90px; }
+  .qs { margin-top: 44px; border-top: 1px solid var(--line); }
+  .qs details { border-bottom: 1px solid var(--line); }
+  .qs summary { list-style: none; cursor: pointer; padding: 22px 44px 22px 0; position: relative; font-size: 20px; font-weight: 500; letter-spacing: -.02em; }
+  .qs summary::-webkit-details-marker { display: none; }
+  .qs summary::after { content: "+"; position: absolute; right: 4px; top: 50%; translate: 0 -50%; font-weight: 400; font-size: 22px; transition: rotate .4s cubic-bezier(.76,0,.24,1); }
+  .qs details[open] summary::after { rotate: 45deg; }
+  .qs details p { padding: 0 0 22px; color: var(--mute); font-size: 15.5px; max-width: 56ch; }
+  .qs details p a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
   /* medicul */
   .team { padding: 80px 0 90px; }
   .team .big { margin-top: 18px; font-size: clamp(30px, 6.4vw, 58px); line-height: 1.08; letter-spacing: -.035em; font-weight: 500; }
@@ -154,7 +176,7 @@
   footer .word { font-size: clamp(54px, 15vw, 210px); line-height: .9; letter-spacing: -.05em; font-weight: 500; }
   footer .slog { margin-top: 10px; font-size: 15px; color: var(--mute); }
   footer .cols { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px 20px; font-size: 15px; }
-  footer h4 { font-size: 13px; color: var(--mute); font-weight: 400; margin-bottom: 10px; }
+  footer .fh { font-size: 13px; color: var(--mute); font-weight: 400; margin-bottom: 10px; }
   footer .cols a, footer .cols p { display: block; line-height: 1.75; }
   footer .legal { margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 12.5px; color: var(--mute); }
 
@@ -187,10 +209,9 @@
     .card .im { width: 42%; }
     .why { padding: 40px 0 140px; }
     .stack { gap: 0; margin-top: 70px; }
-    .big-card { position: sticky; top: 90px; min-height: 420px; padding: 30px 30px 26px; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; margin-bottom: 40vh; box-shadow: 0 -1px 0 var(--line); }
+    .big-card { position: sticky; top: calc(90px + var(--i, 0) * 14px); height: 440px; padding: 30px 30px 26px; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; margin-bottom: 40vh; box-shadow: 0 -1px 0 var(--line); }
     .big-card:last-child { margin-bottom: 0; }
-    .big-card .ghost { font-size: 150px; top: 18px; left: 30px; }
-    .big-card .txt { grid-column: 1; }
+      .big-card .txt { grid-column: 1; }
     .big-card .meta { grid-column: 1; align-self: end; }
     .big-card .num { font-size: 110px; }
     .big-card .note { text-align: left; }
@@ -203,6 +224,16 @@
     .quote { grid-column: span 2; }
     .quote q { font-size: 34px; }
     .team { padding: 120px 0 130px; }
+    .steps { padding: 120px 0 20px; }
+    .sl { grid-template-columns: repeat(4, 1fr); margin-top: 64px; border-top: 0; }
+    .sl li { display: block; padding: 22px 24px 0 0; border-bottom: 0; border-top: 1px solid var(--ink); }
+    .sl span { display: block; padding: 0 0 50px; }
+    .sl h3 { font-size: 28px; margin-bottom: 10px; }
+    .faq { padding: 120px 0 130px; }
+    .faq .wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: 60px; }
+    .faq .head { display: block; } .faq .head h2 { margin-top: 18px; }
+    .qs { margin-top: 0; }
+    .qs summary { font-size: 22px; }
     .doc { grid-template-columns: 1fr 1fr 1fr; align-items: end; margin-top: 70px; }
     .doc h3 { font-size: 56px; }
     .doc .txt { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; }
@@ -219,19 +250,19 @@
 <header class="top" id="top">
   <div class="wrap">
     <a class="logo" href="#hero">HANYDENTA<small>dr. Laura Diana Bota</small></a>
-    <nav class="nav" aria-label="Meniu"><a href="#despre">Despre</a><a href="#tratamente">Tratamente</a><a href="#de-ce">De ce noi</a><a href="#rezultate">Rezultate</a><a href="#medicul">Medicul</a></nav>
+    <nav class="nav" aria-label="Meniu"><a href="#despre">Despre</a><a href="#tratamente">Tratamente</a><a href="#de-ce">De ce noi</a><a href="#rezultate">Rezultate</a><a href="#medicul">Medicul</a><a href="#intrebari">Întrebări</a></nav>
     <a class="tel pill nav" href="tel:+40744939652">Programări 0744 939 652</a>
     <button class="burger" id="burger" type="button" aria-label="Deschide meniul" aria-expanded="false"><i></i><i></i></button>
   </div>
 </header>
 <div class="menu" id="menu" aria-hidden="true">
-  <nav aria-label="Meniu pe telefon"><a href="#despre">Despre</a><a href="#tratamente">Tratamente</a><a href="#de-ce">De ce noi</a><a href="#rezultate">Rezultate</a><a href="#medicul">Medicul</a></nav>
+  <nav aria-label="Meniu pe telefon"><a href="#despre">Despre</a><a href="#tratamente">Tratamente</a><a href="#de-ce">De ce noi</a><a href="#rezultate">Rezultate</a><a href="#medicul">Medicul</a><a href="#intrebari">Întrebări</a></nav>
   <p>Strada Alexandru Ioan Cuza 6, Satu Mare<br /><a href="tel:+40744939652">0744 939 652</a></p>
 </div>
 
 <main>
   <section class="hero" id="hero">
-    <div class="hero__bg" id="herobg"><img src="img/hero.webp" alt="Dr. Laura Diana Bota la lucru, cu o pacientă în cabinetul HanyDenta" width="1800" height="1800" fetchpriority="high" /></div>
+    <div class="hero__bg" id="herobg"><img src="img/hero-m.webp" srcset="img/hero-m.webp 900w, img/hero.webp 1800w" sizes="100vw" alt="Dr. Laura Diana Bota la lucru, cu o pacientă în cabinetul HanyDenta" width="1800" height="1800" fetchpriority="high" /></div>
     <div class="wrap">
       <h1 class="lines"><span class="ln">Un zâmbet frumos,</span><span class="ln">natural și</span><span class="ln"><em>armonios.</em></span></h1>
       <p class="sub rv">Cabinetul stomatologic al doamnei doctor Laura Diana Bota, în Satu Mare. Cu contract CNAS.</p>
@@ -246,7 +277,7 @@
         <p class="big words">La HanyDenta lucrează <em>dr. Laura Diana Bota,</em> medic dentist generalist, împreună cu asistenta ei. Pe peretele cabinetului scrie un singur lucru: <em>the perfect smile.</em></p>
       </div>
       <div class="row">
-        <div class="ph rvi"><img src="img/echipa.webp" alt="Dr. Laura Diana Bota și asistenta ei, în cabinet" loading="lazy" width="900" height="1349" /></div>
+        <div class="ph rvi"><img src="img/echipa-s.webp" srcset="img/echipa-s.webp 480w, img/echipa.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Dr. Laura Diana Bota și asistenta ei, în cabinet" loading="lazy" width="900" height="1349" /></div>
         <p class="rv"><b>Strada Alexandru Ioan Cuza nr. 6.</b> Programările se fac la telefon, la 0744 939 652. Lucrăm dimineața în unele zile și după-amiaza în altele, ca să găsești o oră care ți se potrivește.</p>
       </div>
     </div>
@@ -260,10 +291,10 @@
         <p class="rv">De la un control obișnuit până la o transformare completă a zâmbetului. Ce lucrăm, pe scurt:</p>
       </div>
       <div class="grid">
-        <article class="card"><div class="im"><img src="img/z1.webp" alt="Zâmbet înainte și după tratament" loading="lazy" /></div><div><small>(01)</small><h3>Transformarea <em>zâmbetului</em></h3><p>Dinți refăcuți ca formă și culoare.</p></div></article>
-        <article class="card"><div class="im"><img src="img/albire.webp" alt="Dinți înainte și după albire" loading="lazy" /></div><div><small>(02)</small><h3>Albire <em>profesională</em></h3><p>Făcută în cabinet.</p></div></article>
-        <article class="card"><div class="im"><img src="img/z2.webp" alt="Lucrare estetică, înainte și după" loading="lazy" /></div><div><small>(03)</small><h3>Lucrări <em>estetice</em></h3><p>Pentru un zâmbet mai uniform.</p></div></article>
-        <article class="card"><div class="im"><img src="img/hero.webp" alt="Consultație în cabinet" loading="lazy" style="object-position:60% 30%" /></div><div><small>(04)</small><h3>Consultații și <em>tratamente</em></h3><p>Cu contract CNAS.</p></div></article>
+        <article class="card"><button class="plus" type="button" aria-expanded="false" aria-label="Citește mai mult">+</button><div class="im"><img src="img/z1-s.webp" srcset="img/z1-s.webp 480w, img/z1.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Zâmbet înainte și după tratament" loading="lazy" /></div><div><small>(01)</small><h3>Transformarea <em>zâmbetului</em></h3><p>Dinți refăcuți ca formă și culoare.</p><p class="more">Când dinții sunt pătați, tociți sau așezați inegal, zâmbetul se poate reface ca formă și culoare. La consultație, doamna doctor se uită la dinți și îți spune ce variante ai. Pozele de pe pagină sunt lucrări făcute aici.</p></div></article>
+        <article class="card"><button class="plus" type="button" aria-expanded="false" aria-label="Citește mai mult">+</button><div class="im"><img src="img/albire-s.webp" srcset="img/albire-s.webp 480w, img/albire.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Dinți înainte și după albire" loading="lazy" /></div><div><small>(02)</small><h3>Albire <em>profesională</em></h3><p>Făcută în cabinet.</p><p class="more">Albirea se face în cabinet, cu medicul lângă tine. Înainte se verifică dinții și gingiile, ca să știi dacă albirea ți se potrivește. Cât de albi devin dinții diferă de la om la om.</p></div></article>
+        <article class="card"><button class="plus" type="button" aria-expanded="false" aria-label="Citește mai mult">+</button><div class="im"><img src="img/z2-s.webp" srcset="img/z2-s.webp 480w, img/z2.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Lucrare estetică, înainte și după" loading="lazy" /></div><div><small>(03)</small><h3>Lucrări <em>estetice</em></h3><p>Pentru un zâmbet mai uniform.</p><p class="more">Dinții ciobiți, pătați sau cu forme diferite se refac acolo unde e nevoie, ca zâmbetul să arate unitar. Tipul lucrării îl alegeți împreună, după consultație.</p></div></article>
+        <article class="card"><button class="plus" type="button" aria-expanded="false" aria-label="Citește mai mult">+</button><div class="im"><img src="img/hero-m.webp" alt="Consultație în cabinet" loading="lazy" style="object-position:60% 30%" /></div><div><small>(04)</small><h3>Consultații și <em>tratamente</em></h3><p>Cu contract CNAS.</p><p class="more">Control de rutină, carii, dureri de dinți: tot ce ține de grija de zi cu zi a dinților. Cabinetul are contract cu CNAS, așa că întreabă la programare ce se decontează.</p></div></article>
       </div>
     </div>
   </section>
@@ -275,10 +306,10 @@
         <h2 class="lines"><span class="ln"><em>Patru motive</em></span><span class="ln">să vii la noi</span></h2>
       </div>
       <div class="stack">
-        <article class="big-card"><span class="ghost" aria-hidden="true">Premiată</span><div class="txt"><h3>Premiată pentru zâmbete</h3><p>În martie 2024, dr. Laura Diana Bota a primit premiul Health Beauty &amp; Lifestyle Awards pentru rezultate excepționale în transformarea zâmbetului.</p></div><div class="meta"><span class="num">(01)</span><span class="note">(București,<br />19 martie 2024)</span></div><div class="pic"><img src="img/premiu.webp" alt="Dr. Laura Diana Bota cu premiul Health Beauty & Lifestyle Awards" loading="lazy" style="object-position:50% 45%" /></div></article>
-        <article class="big-card"><span class="ghost" aria-hidden="true">Contract CNAS</span><div class="txt"><h3>Contract cu CNAS</h3><p>Cabinetul are contract cu Casa de Asigurări de Sănătate. Întreabă la programare ce tratamente se decontează.</p></div><div class="meta"><span class="num">(02)</span><span class="note">(Decontat<br />CNAS)</span></div><div class="pic"><img src="img/echipa.webp" alt="Echipa HanyDenta" loading="lazy" style="object-position:50% 35%" /></div></article>
-        <article class="big-card"><span class="ghost" aria-hidden="true">Recomandat</span><div class="txt"><h3>Pacienți care ne recomandă</h3><p>4,4 din 28 de recenzii pe Google și 96% recomandări pe Facebook.</p></div><div class="meta"><span class="num">(03)</span><span class="note">(Google<br />și Facebook)</span></div><div class="pic"><img src="img/final.webp" alt="Zâmbetul unei paciente după tratament" loading="lazy" /></div></article>
-        <article class="big-card"><span class="ghost" aria-hidden="true">Dimineața sau seara</span><div class="txt"><h3>Dimineața sau seara</h3><p>Luni, miercuri și vineri de la 8 la 14. Marți și joi de la 14 la 20. Alegi ziua după programul tău.</p></div><div class="meta"><span class="num">(04)</span><span class="note">(Luni–vineri)</span></div><div class="pic"><img src="img/z2.webp" alt="Rezultat după tratament" loading="lazy" style="object-position:50% 80%" /></div></article>
+        <article class="big-card" style="--i:0"><div class="txt"><h3>Premiată pentru zâmbete</h3><p>În martie 2024, dr. Laura Diana Bota a primit premiul Health Beauty &amp; Lifestyle Awards pentru rezultate excepționale în transformarea zâmbetului.</p></div><div class="meta"><span class="num">(01)</span><span class="note">(București,<br />19 martie 2024)</span></div><div class="pic"><img src="img/premiu-s.webp" srcset="img/premiu-s.webp 480w, img/premiu.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Dr. Laura Diana Bota cu premiul Health Beauty & Lifestyle Awards" loading="lazy" style="object-position:50% 45%" /></div></article>
+        <article class="big-card" style="--i:1"><div class="txt"><h3>Contract cu CNAS</h3><p>Cabinetul are contract cu Casa de Asigurări de Sănătate. Întreabă la programare ce tratamente se decontează.</p></div><div class="meta"><span class="num">(02)</span><span class="note">(Decontat<br />CNAS)</span></div><div class="pic"><img src="img/echipa-s.webp" srcset="img/echipa-s.webp 480w, img/echipa.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Echipa HanyDenta" loading="lazy" style="object-position:50% 35%" /></div></article>
+        <article class="big-card" style="--i:2"><div class="txt"><h3>Pacienți care ne recomandă</h3><p>4,4 din 28 de recenzii pe Google și 96% recomandări pe Facebook.</p></div><div class="meta"><span class="num">(03)</span><span class="note">(Google<br />și Facebook)</span></div><div class="pic"><img src="img/final.webp" alt="Zâmbetul unei paciente după tratament" loading="lazy" /></div></article>
+        <article class="big-card" style="--i:3"><div class="txt"><h3>Dimineața sau seara</h3><p>Luni, miercuri și vineri de la 8 la 14. Marți și joi de la 14 la 20. Alegi ziua după programul tău.</p></div><div class="meta"><span class="num">(04)</span><span class="note">(Luni–vineri)</span></div><div class="pic"><img src="img/z2-s.webp" srcset="img/z2-s.webp 480w, img/z2.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Rezultat după tratament" loading="lazy" style="object-position:50% 80%" /></div></article>
       </div>
     </div>
   </section>
@@ -291,13 +322,29 @@
         <p class="rv">Pozele sunt ale pacienților noștri, așa cum le-am publicat pe pagina cabinetului.</p>
       </div>
       <div class="bento">
-        <div class="ph wide"><img src="img/z1.webp" alt="Transformarea zâmbetului, înainte și după" loading="lazy" /></div>
+        <div class="ph wide"><img src="img/z1-s.webp" srcset="img/z1-s.webp 480w, img/z1.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Transformarea zâmbetului, înainte și după" loading="lazy" /></div>
         <div class="score"><span class="stars" aria-hidden="true">★★★★★</span><div><b>4,4</b><span>din 28 de recenzii pe Google</span></div></div>
         <div class="score"><span class="stars" aria-hidden="true">♥</span><div><b>96%</b><span>recomandă cabinetul pe Facebook</span></div></div>
-        <div class="ph sq"><img src="img/albire.webp" alt="Albire profesională, înainte și după" loading="lazy" /></div>
-        <div class="ph sq"><img src="img/z2.webp" alt="Lucrare estetică, înainte și după" loading="lazy" /></div>
+        <div class="ph sq"><img src="img/albire-s.webp" srcset="img/albire-s.webp 480w, img/albire.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Albire profesională, înainte și după" loading="lazy" /></div>
+        <div class="ph sq"><img src="img/z2-s.webp" srcset="img/z2-s.webp 480w, img/z2.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Lucrare estetică, înainte și după" loading="lazy" /></div>
         <div class="quote"><q>Un zâmbet frumos, natural și <em>armonios!</em></q><span>Dr. Laura Diana Bota, pe pagina cabinetului</span></div>
       </div>
+    </div>
+  </section>
+
+  <section class="steps" id="vizita">
+    <div class="wrap">
+      <div class="head">
+        <p class="tag">Prima vizită</p>
+        <h2 class="lines"><span class="ln">Cum decurge</span><span class="ln"><em>prima vizită</em></span></h2>
+        <p class="rv">Fără grabă și fără surprize. Afli ce ai înainte să începi orice tratament.</p>
+      </div>
+      <ol class="sl">
+        <li><span>(01)</span><h3>Suni și alegi ora</h3><p>La 0744 939 652, în timpul programului. Dimineața sau după-amiaza, cum îți vine.</p></li>
+        <li><span>(02)</span><h3>Consultația</h3><p>Doamna doctor se uită la dinți și îți explică pe înțeles ce vede.</p></li>
+        <li><span>(03)</span><h3>Planul</h3><p>Afli ce tratament îți trebuie și în câte ședințe, înainte să începi.</p></li>
+        <li><span>(04)</span><h3>Tratamentul</h3><p>Revii la ședințele stabilite, iar la final faci un control.</p></li>
+      </ol>
     </div>
   </section>
 
@@ -307,14 +354,30 @@
       <p class="big words">Cabinetul poartă numele doctoriței <em>care te tratează.</em></p>
       <div class="doc">
         <div><h3><em>Dr.</em><br />Laura Diana Bota</h3><p class="role">Medic dentist generalist</p></div>
-        <div class="ph rvi"><img src="img/premiu.webp" alt="Dr. Laura Diana Bota" loading="lazy" /></div>
+        <div class="ph rvi"><img src="img/premiu-s.webp" srcset="img/premiu-s.webp 480w, img/premiu.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Dr. Laura Diana Bota" loading="lazy" /></div>
         <div class="txt rv"><p>Premiată în 2024 la Health Beauty &amp; Lifestyle Awards pentru transformarea zâmbetului. Lucrează în cabinetul de pe Alexandru Ioan Cuza, împreună cu asistenta ei.</p><p class="spec">(Ce face)<br /><span>Transformarea zâmbetului</span><span>Albire profesională</span><span>Stomatologie generală</span></p></div>
       </div>
     </div>
   </section>
 
+  <section class="faq" id="intrebari">
+    <div class="wrap">
+      <div class="head">
+        <p class="tag">Întrebări</p>
+        <h2 class="lines"><span class="ln">Ce ne întreabă</span><span class="ln"><em>pacienții</em></span></h2>
+      </div>
+      <div class="qs">
+        <details><summary>Cum fac o programare?</summary><p>Suni la 0744 939 652, în timpul programului. Dacă nu răspundem, suntem cu un pacient: mai încearcă puțin mai târziu sau scrie-ne pe Facebook.</p></details>
+        <details><summary>Lucrați cu CNAS?</summary><p>Da, cabinetul are contract cu Casa de Asigurări de Sănătate. Întreabă la programare ce tratamente se decontează în cazul tău.</p></details>
+        <details><summary>Care e programul?</summary><p>Luni, miercuri și vineri de la 8 la 14. Marți și joi de la 14 la 20. Sâmbăta și duminica e închis.</p></details>
+        <details><summary>Unde e cabinetul?</summary><p>Pe strada Alexandru Ioan Cuza nr. 6, în Satu Mare. <a href="https://maps.google.com/?q=Strada+Alexandru+Ioan+Cuza+6,+Satu+Mare" target="_blank" rel="noopener">Deschide harta</a>.</p></details>
+        <details><summary>Ce aduc la prima consultație?</summary><p>Cardul de sănătate, dacă vrei un tratament decontat, și numele medicamentelor pe care le iei, dacă iei ceva.</p></details>
+      </div>
+    </div>
+  </section>
+
   <section class="end" id="programare">
-    <div class="end__bg" id="endbg"><img src="img/final.webp" alt="Zâmbet după tratament la HanyDenta" loading="lazy" /></div>
+    <div class="end__bg" id="endbg"><img src="img/final-m.webp" srcset="img/final-m.webp 900w, img/final.webp 1600w" sizes="100vw" alt="Zâmbet după tratament la HanyDenta" loading="lazy" /></div>
     <div class="wrap">
       <h2 class="lines"><span class="ln">Programează-te</span><span class="ln">la un telefon</span><span class="ln"><em>distanță.</em></span></h2>
       <p class="sub rv">Spune-ne ce te supără sau ce ți-ai dori să schimbi la zâmbet, și îți găsim o oră.</p>
@@ -328,9 +391,9 @@
     <div class="top-f">
       <div><p class="word">HANYDENTA</p><p class="slog">the perfect smile</p></div>
       <div class="cols">
-        <div><h4>Meniu</h4><a href="#despre">Despre</a><a href="#tratamente">Tratamente</a><a href="#rezultate">Rezultate</a><a href="#medicul">Medicul</a></div>
-        <div><h4>Program</h4><p>Luni 8–14</p><p>Marți 14–20</p><p>Miercuri 8–14</p><p>Joi 14–20</p><p>Vineri 8–14</p></div>
-        <div><h4>Contact</h4><a href="tel:+40744939652">0744 939 652</a><a href="https://maps.google.com/?q=Strada+Alexandru+Ioan+Cuza+6,+Satu+Mare" target="_blank" rel="noopener">Alexandru Ioan Cuza 6, Satu Mare</a><a href="https://www.facebook.com/CabinetHanyDentaDr.LauraDianaBota" target="_blank" rel="noopener">Facebook</a></div>
+        <div><h3 class="fh">Meniu</h3><a href="#despre">Despre</a><a href="#tratamente">Tratamente</a><a href="#rezultate">Rezultate</a><a href="#medicul">Medicul</a></div>
+        <div><h3 class="fh">Program</h3><p>Luni 8–14</p><p>Marți 14–20</p><p>Miercuri 8–14</p><p>Joi 14–20</p><p>Vineri 8–14</p></div>
+        <div><h3 class="fh">Contact</h3><a href="tel:+40744939652">0744 939 652</a><a href="https://maps.google.com/?q=Strada+Alexandru+Ioan+Cuza+6,+Satu+Mare" target="_blank" rel="noopener">Alexandru Ioan Cuza 6, Satu Mare</a><a href="https://www.facebook.com/CabinetHanyDentaDr.LauraDianaBota" target="_blank" rel="noopener">Facebook</a></div>
       </div>
     </div>
     <div class="legal"><span>© 2026 HanyDenta. Demonstrație: tratamentele și textele sunt de confirmat cu cabinetul.</span><a href="https://rtweb.ro">Site realizat de RTWEB</a></div>
@@ -367,6 +430,7 @@ document.addEventListener("DOMContentLoaded", () => {
   $$(".lines .ln").forEach((l) => { l.outerHTML = `<span class="m" style="display:block"><span>${l.innerHTML}</span></span>`; });
   $$(".words").forEach((p) => { p.innerHTML = p.innerHTML.replace(/(<em>.*?<\/em>)|([^\s<]+)/g, (w) => `<span class="m"><span>${w}</span></span>`); });
 
+  $$(".plus").forEach((b) => b.addEventListener("click", () => { const c = b.closest(".card"), o = !c.classList.contains("open"); c.classList.toggle("open", o); b.setAttribute("aria-expanded", o); }));
   if (reduce || !window.gsap) return;
   gsap.registerPlugin(ScrollTrigger);
 
@@ -383,17 +447,15 @@ document.addEventListener("DOMContentLoaded", () => {
   $$("main section:not(.hero) .rv").forEach((el) => gsap.fromTo(el, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
   $$(".rvi").forEach((el) => gsap.fromTo(el, { clipPath: "inset(14% 8% 14% 8% round 12px)" }, { clipPath: "inset(0% 0% 0% 0% round 12px)", duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
   // cardurile cu tratamente și rezultatele intră pe rând
-  [".grid", ".bento"].forEach((g) => gsap.fromTo(`${g} > *`, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: .08, scrollTrigger: { trigger: g, start: "top 85%" } }));
+  [".grid", ".bento", ".sl", ".qs"].forEach((g) => gsap.fromTo(`${g} > *`, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: .08, scrollTrigger: { trigger: g, start: "top 85%" } }));
   // cifrele mari de pe carduri cresc
   $$(".score b").forEach((b) => { const t = b.textContent, n = parseFloat(t.replace(",", ".")), dec = t.includes(","), pct = t.includes("%"); const o = { v: 0 };
     gsap.to(o, { v: n, duration: 1.6, ease: "power2.out", scrollTrigger: { trigger: b, start: "top 90%" }, onUpdate: () => (b.textContent = (dec ? o.v.toFixed(1).replace(".", ",") : Math.round(o.v)) + (pct ? "%" : "")) }); });
 
   // pe desktop, cardurile „De ce noi” se suprapun la scroll; cel de dedesubt se micșorează puțin
   if (desk) $$(".big-card").forEach((c, i, all) => { if (i === all.length - 1) return;
-    gsap.to(c, { scale: .94, opacity: .55, ease: "none", scrollTrigger: { trigger: all[i + 1], start: "top bottom", end: "top 90px", scrub: true } }); });
+    gsap.to(c, { scale: .96, filter: "brightness(.94)", ease: "none", scrollTrigger: { trigger: all[i + 1], start: "top bottom", end: () => "top " + (90 + (i + 1) * 14) + "px", scrub: true } }); });
   else $$(".big-card").forEach((c) => gsap.fromTo(c, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: c, start: "top 88%" } }));
-  // textul uriaș din spatele cardurilor alunecă ușor
-  $$(".big-card .ghost").forEach((g) => gsap.fromTo(g, { xPercent: 0 }, { xPercent: -12, ease: "none", scrollTrigger: { trigger: g.parentNode, start: "top bottom", end: "bottom top", scrub: true } }));
 });
 </script>
 </body>
