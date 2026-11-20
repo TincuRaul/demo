@@ -84,6 +84,7 @@
 
   /* tratamente: carduri albe pe roz, așezate în trepte */
   .srv { background: var(--blush); padding: 80px 0 90px; }
+  .head { text-align: center; } .head .tag { justify-content: center; } .head p { margin-left: auto; margin-right: auto; }
   .head h2 { margin-top: 18px; font-size: clamp(38px, 8vw, 76px); line-height: 1; letter-spacing: -.04em; font-weight: 500; }
   .head h2 em { font-size: 1.08em; }
   .head p { margin-top: 18px; max-width: 40ch; color: var(--mute); font-size: 15px; }
@@ -108,7 +109,8 @@
   .tooth .t-in { stroke: var(--red); }
   .tooth .spark path { stroke: var(--red); stroke-width: 1.4; transform-box: fill-box; transform-origin: center; }
   /* înainte și după: o linie care mătură gura */
-  .ba { position: relative; overflow: hidden; aspect-ratio: 1254 / 545; background: #eee; touch-action: pan-y; cursor: ew-resize; user-select: none; }
+  .ba { position: relative; overflow: hidden; aspect-ratio: 1254 / 545; background: #eee; touch-action: pan-y; cursor: ew-resize; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+  .ba * { user-select: none; -webkit-user-select: none; pointer-events: none; }
   .ba-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .ba-after { clip-path: inset(0 0 0 var(--x, 100%)); }
   .ba-line { position: absolute; top: 0; bottom: 0; left: var(--x, 100%); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 18px rgba(255,255,255,.8); }
@@ -146,7 +148,8 @@
   .quote { grid-column: span 2; padding: 20px 16px; display: flex; flex-direction: column; justify-content: space-between; gap: 22px; }
   .quote q { font-size: 26px; line-height: 1.15; letter-spacing: -.02em; quotes: "„" "”"; }
   .quote q em { font-size: 1.1em; }
-  .quote span { font-size: 13px; color: var(--mute); }
+  .quote span { display: block; font-size: 13px; color: var(--mute); }
+  .qcta { margin-top: 18px; font-size: 15px; }
 
   /* întrebări */
   .faq { padding: 30px 0 80px; }
@@ -158,6 +161,10 @@
   .qs details[open] summary::after { rotate: 45deg; }
   .qs details p { padding: 0 0 22px; color: var(--mute); font-size: 15.5px; max-width: 56ch; }
   .qs details p a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  .faq-call { margin-top: 18px; font-size: 16px; color: var(--mute); max-width: 32ch; }
+  .faq-call a { color: var(--ink); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+  .tooth2 { display: none; }
+  .qs details p { overflow: hidden; }
   /* medicul */
   .team { padding: 80px 0 50px; }
   .team .big { margin-top: 18px; font-size: clamp(30px, 6.4vw, 58px); line-height: 1.08; letter-spacing: -.035em; font-weight: 500; }
@@ -210,7 +217,9 @@
     .about .row { grid-template-columns: 1fr 1fr; align-items: end; margin-top: 70px; }
     .about .row p { margin-left: 0; }
     .srv { padding: 120px 0 130px; }
-    .head { display: block; }
+    .head { display: block; text-align: center; }
+    .head .tag { justify-content: center; }
+    .head p:not(.tag) { margin-left: auto; margin-right: auto; }
     .head h2 { font-size: clamp(40px, 4.9vw, 78px); white-space: nowrap; }
     .head h2, .head p:not(.tag) { margin-top: 18px !important; }
     .head .tag { padding-top: 14px; }
@@ -236,11 +245,16 @@
     .bento .sq { aspect-ratio: 1; }
     .score { min-height: 250px; padding: 18px; }
     .quote { grid-column: span 1; }
-    .quote q { font-size: 34px; }
+    .quote q { font-size: 46px; line-height: 1.08; } .quote { padding: 28px 24px; }
+    .res { padding-bottom: 80px !important; }
     .team { padding: 110px 0 70px; }
     .faq { padding: 50px 0 110px; }
     .faq .wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: 60px; }
-    .faq .head { display: block; } .faq .head h2 { margin-top: 18px; }
+    .faq .head { display: block; text-align: left; position: sticky; top: 110px; align-self: start; } .faq .head .tag { justify-content: flex-start !important; margin: 0 !important; } .faq .head h2 { margin-top: 18px; white-space: normal; }
+    .faq .head p:not(.tag) { margin-left: 0 !important; }
+    .tooth2 { display: block; width: 150px; height: 170px; margin-top: 40px; overflow: visible; }
+    .tooth2 path { fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+    .tooth2 path + path { stroke: var(--red); }
     .qs { margin-top: 0; }
     .qs summary { font-size: 22px; }
     .doc { grid-template-columns: 1fr 1.1fr; grid-template-rows: auto 1fr; gap: 0 56px; align-items: start; margin-top: 60px; }
@@ -343,7 +357,7 @@
         <div class="score"><span class="stars" aria-hidden="true">♥</span><div><b>96%</b><span>recomandă cabinetul pe Facebook</span></div></div>
         <div class="ph sq shine"><img src="img/albire-s.webp" srcset="img/albire-s.webp 480w, img/albire.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Albire profesională, înainte și după" loading="lazy" /></div>
         <div class="ph sq shine"><img src="img/z2-s.webp" srcset="img/z2-s.webp 480w, img/z2.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Lucrare estetică, înainte și după" loading="lazy" /></div>
-        <div class="quote"><q>Un zâmbet frumos, natural și <em>armonios!</em></q><span>Dr. Laura Diana Bota, pe pagina cabinetului</span></div>
+        <div class="quote"><q>Un zâmbet frumos, natural și <em>armonios!</em></q><div><span>Dr. Laura Diana Bota, pe pagina cabinetului</span><a class="pill qcta" href="tel:+40744939652">Sună pentru programare</a></div></div>
       </div>
     </div>
   </section>
@@ -365,6 +379,8 @@
       <div class="head">
         <p class="tag">Întrebări</p>
         <h2 class="lines"><span class="ln">Ce ne întreabă</span><span class="ln"><em>pacienții</em></span></h2>
+        <p class="faq-call rv">N-ai găsit răspunsul? Sună la <a href="tel:+40744939652">0744 939 652</a>, în timpul programului.</p>
+        <svg class="tooth2" viewBox="-6 -6 68 76" aria-hidden="true"><path d="M20 6C9 6 4 15 6 26c2 10 4 19 6 31 1 6 7 6 8 0l3-16c1-4 7-4 8 0l3 16c1 6 7 6 8 0 2-12 4-21 6-31C50 15 45 6 34 6c-4 0-5 3-6 3s-3-3-8-3Z"/><path d="M16 18c3-4 8-5 12-3"/></svg>
       </div>
       <div class="qs">
         <details><summary>Cum fac o programare?</summary><p>Suni la 0744 939 652, în timpul programului. Dacă nu răspundem, suntem cu un pacient: mai încearcă puțin mai târziu sau scrie-ne pe Facebook.</p></details>
@@ -460,10 +476,18 @@ document.addEventListener("DOMContentLoaded", () => {
   if (ba) { const st = { x: 100 }, put = () => ba.style.setProperty("--x", st.x + "%");
     gsap.to(st, { x: 0, ease: "none", onUpdate: put, scrollTrigger: { trigger: ba, start: "top 75%", end: "center 35%", scrub: .6 } });
     const drag = (e) => { const r = ba.getBoundingClientRect(); st.x = Math.max(0, Math.min(100, (e.clientX - r.left) / r.width * 100)); put(); };
-    ba.addEventListener("pointerdown", (e) => { ScrollTrigger.getAll().forEach((t) => t.trigger === ba && t.disable(false)); drag(e); ba.setPointerCapture(e.pointerId); ba.onpointermove = drag; });
+    ba.addEventListener("pointerdown", (e) => { e.preventDefault(); getSelection && getSelection().removeAllRanges(); ScrollTrigger.getAll().forEach((t) => t.trigger === ba && t.disable(false)); drag(e); ba.setPointerCapture(e.pointerId); ba.onpointermove = drag; });
     ba.addEventListener("pointerup", () => (ba.onpointermove = null)); }
   // sclipirea trece o dată peste fiecare poză când intră în ecran
   $$(".shine").forEach((el) => ScrollTrigger.create({ trigger: el, start: "top 80%", once: true, onEnter: () => setTimeout(() => el.classList.add("lit"), 400) }));
+  // dintele din dreptul întrebărilor se desenează pe măsură ce derulezi prin ele
+  $$(".tooth2 path").forEach((p, i) => { const L = p.getTotalLength(); p.style.strokeDasharray = L;
+    gsap.fromTo(p, { strokeDashoffset: L }, { strokeDashoffset: 0, ease: "none", scrollTrigger: { trigger: ".qs", start: i ? "center 60%" : "top 75%", end: i ? "bottom 60%" : "center 50%", scrub: .5 } }); });
+  // întrebările se deschid și se închid lin
+  $$(".qs details").forEach((d) => { const sum = d.querySelector("summary"), p = d.querySelector("p");
+    sum.addEventListener("click", (e) => { e.preventDefault();
+      if (d.open) gsap.to(p, { height: 0, opacity: 0, duration: .45, ease: "power3.inOut", onComplete: () => { d.open = false; gsap.set(p, { clearProps: "all" }); } });
+      else { d.open = true; gsap.fromTo(p, { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: .55, ease: "power3.out" }); } }); });
   // cifrele mari de pe carduri cresc
   $$(".score b").forEach((b) => { const t = b.textContent, n = parseFloat(t.replace(",", ".")), dec = t.includes(","), pct = t.includes("%"); const o = { v: 0 };
     gsap.to(o, { v: n, duration: 1.6, ease: "power2.out", scrollTrigger: { trigger: b, start: "top 90%" }, onUpdate: () => (b.textContent = (dec ? o.v.toFixed(1).replace(".", ",") : Math.round(o.v)) + (pct ? "%" : "")) }); });
