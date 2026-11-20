@@ -49,7 +49,7 @@
   .logo small { font-weight: 400; opacity: .7; margin-left: 6px; font-size: 13px; }
   .nav { display: none; gap: 26px; font-size: 14px; }
   .nav a { opacity: .9; }
-  .tel { font-size: 14px; }
+  .tel { font-size: 14px; } .hd-tel { display: none; }
   .burger { width: 42px; height: 42px; display: grid; place-content: center; gap: 6px; background: none; border: 0; color: inherit; cursor: pointer; }
   .burger i { display: block; width: 22px; height: 1.5px; background: currentColor; transition: transform .35s; }
   .open .burger i:first-child { transform: translateY(3.75px) rotate(45deg); } .open .burger i:last-child { transform: translateY(-3.75px) rotate(-45deg); }
@@ -102,6 +102,24 @@
   .card.open .more { max-height: 260px; opacity: 1; margin-top: 10px !important; color: var(--ink) !important; }
   .card p { font-size: 13px; color: var(--mute); margin-top: 6px; line-height: 1.45; }
 
+  /* dintele desenat */
+  .tooth { width: 74px; height: 84px; margin-top: 22px; overflow: visible; }
+  .tooth path { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .tooth .t-in { stroke: var(--red); }
+  .tooth .spark path { stroke: var(--red); stroke-width: 1.4; transform-box: fill-box; transform-origin: center; }
+  /* înainte și după: o linie care mătură gura */
+  .ba { position: relative; overflow: hidden; aspect-ratio: 1254 / 545; background: #eee; touch-action: pan-y; cursor: ew-resize; user-select: none; }
+  .ba-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .ba-after { clip-path: inset(0 0 0 var(--x, 100%)); }
+  .ba-line { position: absolute; top: 0; bottom: 0; left: var(--x, 100%); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 18px rgba(255,255,255,.8); }
+  .ba-line i { position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: 38px; height: 38px; border-radius: 50%; background: #fff; color: var(--ink); display: grid; place-items: center; font-style: normal; font-size: 15px; box-shadow: 0 4px 16px rgba(0,0,0,.2); }
+  .ba-tag { position: absolute; bottom: 12px; font-size: 12.5px; font-weight: 500; background: rgba(255,255,255,.9); border-radius: 999px; padding: 5px 10px; }
+  .ba-tag.l { left: 12px; } .ba-tag.r { right: 12px; }
+  /* sclipirea care trece peste poze, ca lumina pe un dinte proaspăt albit */
+  .shine { position: relative; overflow: hidden; }
+  .shine::after { content: ""; position: absolute; top: -20%; bottom: -20%; width: 40%; left: -60%; background: linear-gradient(105deg, transparent, rgba(255,255,255,.55), transparent); transform: skewX(-12deg); pointer-events: none; }
+  .shine.lit::after { animation: lit 1.4s cubic-bezier(.4,0,.2,1) forwards; }
+  @keyframes lit { to { left: 130%; } }
   /* de ce noi: carduri mari, cu cifra mare */
   .why { background: var(--blush); padding: 10px 0 90px; }
   .stack { margin-top: 44px; display: grid; gap: 14px; }
@@ -130,15 +148,8 @@
   .quote q em { font-size: 1.1em; }
   .quote span { font-size: 13px; color: var(--mute); }
 
-  /* prima vizită: patru pași pe un rând, despărțiți de linii */
-  .steps { padding: 80px 0 30px; }
-  .sl { list-style: none; margin-top: 44px; display: grid; border-top: 1px solid var(--line); }
-  .sl li { padding: 22px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 54px 1fr; gap: 4px 12px; }
-  .sl span { grid-row: span 2; font-size: 13px; color: var(--mute); padding-top: 6px; }
-  .sl h3 { font-weight: 500; font-size: 24px; letter-spacing: -.025em; }
-  .sl p { color: var(--mute); font-size: 15px; max-width: 34ch; }
   /* întrebări */
-  .faq { padding: 80px 0 90px; }
+  .faq { padding: 30px 0 80px; }
   .qs { margin-top: 44px; border-top: 1px solid var(--line); }
   .qs details { border-bottom: 1px solid var(--line); }
   .qs summary { list-style: none; cursor: pointer; padding: 22px 44px 22px 0; position: relative; font-size: 20px; font-weight: 500; letter-spacing: -.02em; }
@@ -148,7 +159,7 @@
   .qs details p { padding: 0 0 22px; color: var(--mute); font-size: 15.5px; max-width: 56ch; }
   .qs details p a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
   /* medicul */
-  .team { padding: 80px 0 90px; }
+  .team { padding: 80px 0 50px; }
   .team .big { margin-top: 18px; font-size: clamp(30px, 6.4vw, 58px); line-height: 1.08; letter-spacing: -.035em; font-weight: 500; }
   .team .big em { font-size: 1.08em; }
   .doc { margin-top: 48px; display: grid; gap: 22px; }
@@ -188,7 +199,7 @@
 
   @media (min-width: 900px) {
     :root { --pad: 28px; }
-    .nav { display: flex; } .burger { display: none; } .bar { display: none; }
+    .nav { display: flex; } .hd-tel { display: inline-flex; } .burger { display: none; } .bar { display: none; }
     .hero .wrap { padding-bottom: 0; justify-content: center; }
     .hero h1 { margin-top: -6vh; }
     .hero .sub, .hero .cta { margin-left: 26%; }
@@ -208,28 +219,22 @@
     .card:nth-child(2) { grid-column: 3; } .card:nth-child(3) { grid-column: 2; grid-row: 2; } .card:nth-child(4) { grid-column: 4; grid-row: 2; }
     .card .im { width: 42%; }
     .why { padding: 40px 0 140px; }
-    .stack { gap: 0; margin-top: 70px; }
-    .big-card { position: sticky; top: calc(90px + var(--i, 0) * 14px); height: 440px; padding: 30px 30px 26px; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; margin-bottom: 40vh; box-shadow: 0 -1px 0 var(--line); }
-    .big-card:last-child { margin-bottom: 0; }
+    .stack { grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 60px; }
+    .big-card { padding: 26px 26px 24px; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; min-height: 380px; }
       .big-card .txt { grid-column: 1; }
     .big-card .meta { grid-column: 1; align-self: end; }
-    .big-card .num { font-size: 110px; }
+    .big-card .num { font-size: 84px; }
     .big-card .note { text-align: left; }
-    .big-card .pic { grid-column: 2; grid-row: 1 / span 2; align-self: end; justify-self: end; width: 66%; }
+    .big-card .pic { grid-column: 2; grid-row: 1 / span 2; align-self: end; justify-self: end; width: 100%; aspect-ratio: 4 / 5; }
     .res { padding: 120px 0 130px; }
     .bento { grid-template-columns: repeat(4, 1fr); margin-top: 60px; }
-    .bento .wide { grid-column: span 2; aspect-ratio: auto; grid-row: span 2; }
+    .bento .wide { grid-column: span 2; grid-row: span 2; } .bento .ba.wide { grid-row: auto; align-self: start; } .tooth { position: absolute; right: 0; top: 0; width: 120px; height: 136px; margin: 0; } .srv .head { position: relative; }
     .bento .sq { aspect-ratio: auto; grid-row: span 2; }
     .score { min-height: 250px; padding: 18px; }
     .quote { grid-column: span 2; }
     .quote q { font-size: 34px; }
-    .team { padding: 120px 0 130px; }
-    .steps { padding: 120px 0 20px; }
-    .sl { grid-template-columns: repeat(4, 1fr); margin-top: 64px; border-top: 0; }
-    .sl li { display: block; padding: 22px 24px 0 0; border-bottom: 0; border-top: 1px solid var(--ink); }
-    .sl span { display: block; padding: 0 0 50px; }
-    .sl h3 { font-size: 28px; margin-bottom: 10px; }
-    .faq { padding: 120px 0 130px; }
+    .team { padding: 110px 0 70px; }
+    .faq { padding: 50px 0 110px; }
     .faq .wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: 60px; }
     .faq .head { display: block; } .faq .head h2 { margin-top: 18px; }
     .qs { margin-top: 0; }
@@ -240,8 +245,9 @@
     .end .wrap { padding-bottom: 0; align-self: center; }
     .end .sub, .end .acts { margin-left: 26%; }
     .end .sub { margin-top: 70px; font-size: 17px; }
-    footer .top-f { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
-    footer .cols { grid-template-columns: auto auto auto; gap: 60px; margin-top: 0; white-space: nowrap; }
+    footer .top-f { display: flex; flex-direction: column; gap: 44px; }
+    footer .word { font-size: min(15.6vw, 214px); }
+    footer .cols { grid-template-columns: repeat(3, auto); justify-content: start; gap: 90px; margin-top: 0; white-space: nowrap; }
   }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
 </style>
@@ -251,7 +257,7 @@
   <div class="wrap">
     <a class="logo" href="#hero">HANYDENTA<small>dr. Laura Diana Bota</small></a>
     <nav class="nav" aria-label="Meniu"><a href="#despre">Despre</a><a href="#tratamente">Tratamente</a><a href="#de-ce">De ce noi</a><a href="#rezultate">Rezultate</a><a href="#medicul">Medicul</a><a href="#intrebari">Întrebări</a></nav>
-    <a class="tel pill nav" href="tel:+40744939652">Programări 0744 939 652</a>
+    <a class="tel pill hd-tel" href="tel:+40744939652">Programări 0744 939 652</a>
     <button class="burger" id="burger" type="button" aria-label="Deschide meniul" aria-expanded="false"><i></i><i></i></button>
   </div>
 </header>
@@ -287,14 +293,15 @@
     <div class="wrap">
       <div class="head">
         <p class="tag">Tratamente</p>
+        <svg class="tooth" viewBox="-6 -6 68 76" aria-hidden="true"><path class="t-out" d="M20 6C9 6 4 15 6 26c2 10 4 19 6 31 1 6 7 6 8 0l3-16c1-4 7-4 8 0l3 16c1 6 7 6 8 0 2-12 4-21 6-31C50 15 45 6 34 6c-4 0-5 3-6 3s-3-3-8-3Z"/><path class="t-in" d="M16 18c3-4 8-5 12-3"/><g class="spark"><path d="M50 2v8M46 6h8"/><path d="M58 18v5M55.5 20.5h5"/><path d="M-1 30v5M-3.5 32.5h5"/></g></svg>
         <h2 class="lines"><span class="ln">Zâmbete refăcute,</span><span class="ln"><em>pas cu pas</em></span></h2>
         <p class="rv">De la un control obișnuit până la o transformare completă a zâmbetului. Ce lucrăm, pe scurt:</p>
       </div>
       <div class="grid">
-        <article class="card"><button class="plus" type="button" aria-expanded="false" aria-label="Citește mai mult">+</button><div class="im"><img src="img/z1-s.webp" srcset="img/z1-s.webp 480w, img/z1.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Zâmbet înainte și după tratament" loading="lazy" /></div><div><small>(01)</small><h3>Transformarea <em>zâmbetului</em></h3><p>Dinți refăcuți ca formă și culoare.</p><p class="more">Când dinții sunt pătați, tociți sau așezați inegal, zâmbetul se poate reface ca formă și culoare. La consultație, doamna doctor se uită la dinți și îți spune ce variante ai. Pozele de pe pagină sunt lucrări făcute aici.</p></div></article>
-        <article class="card"><button class="plus" type="button" aria-expanded="false" aria-label="Citește mai mult">+</button><div class="im"><img src="img/albire-s.webp" srcset="img/albire-s.webp 480w, img/albire.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Dinți înainte și după albire" loading="lazy" /></div><div><small>(02)</small><h3>Albire <em>profesională</em></h3><p>Făcută în cabinet.</p><p class="more">Albirea se face în cabinet, cu medicul lângă tine. Înainte se verifică dinții și gingiile, ca să știi dacă albirea ți se potrivește. Cât de albi devin dinții diferă de la om la om.</p></div></article>
-        <article class="card"><button class="plus" type="button" aria-expanded="false" aria-label="Citește mai mult">+</button><div class="im"><img src="img/z2-s.webp" srcset="img/z2-s.webp 480w, img/z2.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Lucrare estetică, înainte și după" loading="lazy" /></div><div><small>(03)</small><h3>Lucrări <em>estetice</em></h3><p>Pentru un zâmbet mai uniform.</p><p class="more">Dinții ciobiți, pătați sau cu forme diferite se refac acolo unde e nevoie, ca zâmbetul să arate unitar. Tipul lucrării îl alegeți împreună, după consultație.</p></div></article>
-        <article class="card"><button class="plus" type="button" aria-expanded="false" aria-label="Citește mai mult">+</button><div class="im"><img src="img/hero-m.webp" alt="Consultație în cabinet" loading="lazy" style="object-position:60% 30%" /></div><div><small>(04)</small><h3>Consultații și <em>tratamente</em></h3><p>Cu contract CNAS.</p><p class="more">Control de rutină, carii, dureri de dinți: tot ce ține de grija de zi cu zi a dinților. Cabinetul are contract cu CNAS, așa că întreabă la programare ce se decontează.</p></div></article>
+        <article class="card"><button class="plus" type="button" aria-expanded="false" aria-label="Citește mai mult">+</button><div class="im shine"><img src="img/z1-s.webp" srcset="img/z1-s.webp 480w, img/z1.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Zâmbet înainte și după tratament" loading="lazy" /></div><div><small>(01)</small><h3>Transformarea <em>zâmbetului</em></h3><p>Dinți refăcuți ca formă și culoare.</p><p class="more">Când dinții sunt pătați, tociți sau așezați inegal, zâmbetul se poate reface ca formă și culoare. La consultație, doamna doctor se uită la dinți și îți spune ce variante ai. Pozele de pe pagină sunt lucrări făcute aici.</p></div></article>
+        <article class="card"><button class="plus" type="button" aria-expanded="false" aria-label="Citește mai mult">+</button><div class="im shine"><img src="img/albire-s.webp" srcset="img/albire-s.webp 480w, img/albire.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Dinți înainte și după albire" loading="lazy" /></div><div><small>(02)</small><h3>Albire <em>profesională</em></h3><p>Făcută în cabinet.</p><p class="more">Albirea se face în cabinet, cu medicul lângă tine. Înainte se verifică dinții și gingiile, ca să știi dacă albirea ți se potrivește. Cât de albi devin dinții diferă de la om la om.</p></div></article>
+        <article class="card"><button class="plus" type="button" aria-expanded="false" aria-label="Citește mai mult">+</button><div class="im shine"><img src="img/z2-s.webp" srcset="img/z2-s.webp 480w, img/z2.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Lucrare estetică, înainte și după" loading="lazy" /></div><div><small>(03)</small><h3>Lucrări <em>estetice</em></h3><p>Pentru un zâmbet mai uniform.</p><p class="more">Dinții ciobiți, pătați sau cu forme diferite se refac acolo unde e nevoie, ca zâmbetul să arate unitar. Tipul lucrării îl alegeți împreună, după consultație.</p></div></article>
+        <article class="card"><button class="plus" type="button" aria-expanded="false" aria-label="Citește mai mult">+</button><div class="im shine"><img src="img/hero-m.webp" alt="Consultație în cabinet" loading="lazy" style="object-position:60% 30%" /></div><div><small>(04)</small><h3>Consultații și <em>tratamente</em></h3><p>Cu contract CNAS.</p><p class="more">Control de rutină, carii, dureri de dinți: tot ce ține de grija de zi cu zi a dinților. Cabinetul are contract cu CNAS, așa că întreabă la programare ce se decontează.</p></div></article>
       </div>
     </div>
   </section>
@@ -306,10 +313,10 @@
         <h2 class="lines"><span class="ln"><em>Patru motive</em></span><span class="ln">să vii la noi</span></h2>
       </div>
       <div class="stack">
-        <article class="big-card" style="--i:0"><div class="txt"><h3>Premiată pentru zâmbete</h3><p>În martie 2024, dr. Laura Diana Bota a primit premiul Health Beauty &amp; Lifestyle Awards pentru rezultate excepționale în transformarea zâmbetului.</p></div><div class="meta"><span class="num">(01)</span><span class="note">(București,<br />19 martie 2024)</span></div><div class="pic"><img src="img/premiu-s.webp" srcset="img/premiu-s.webp 480w, img/premiu.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Dr. Laura Diana Bota cu premiul Health Beauty & Lifestyle Awards" loading="lazy" style="object-position:50% 45%" /></div></article>
-        <article class="big-card" style="--i:1"><div class="txt"><h3>Contract cu CNAS</h3><p>Cabinetul are contract cu Casa de Asigurări de Sănătate. Întreabă la programare ce tratamente se decontează.</p></div><div class="meta"><span class="num">(02)</span><span class="note">(Decontat<br />CNAS)</span></div><div class="pic"><img src="img/echipa-s.webp" srcset="img/echipa-s.webp 480w, img/echipa.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Echipa HanyDenta" loading="lazy" style="object-position:50% 35%" /></div></article>
-        <article class="big-card" style="--i:2"><div class="txt"><h3>Pacienți care ne recomandă</h3><p>4,4 din 28 de recenzii pe Google și 96% recomandări pe Facebook.</p></div><div class="meta"><span class="num">(03)</span><span class="note">(Google<br />și Facebook)</span></div><div class="pic"><img src="img/final.webp" alt="Zâmbetul unei paciente după tratament" loading="lazy" /></div></article>
-        <article class="big-card" style="--i:3"><div class="txt"><h3>Dimineața sau seara</h3><p>Luni, miercuri și vineri de la 8 la 14. Marți și joi de la 14 la 20. Alegi ziua după programul tău.</p></div><div class="meta"><span class="num">(04)</span><span class="note">(Luni–vineri)</span></div><div class="pic"><img src="img/z2-s.webp" srcset="img/z2-s.webp 480w, img/z2.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Rezultat după tratament" loading="lazy" style="object-position:50% 80%" /></div></article>
+        <article class="big-card"><div class="txt"><h3>Premiată pentru zâmbete</h3><p>În martie 2024, dr. Laura Diana Bota a primit premiul Health Beauty &amp; Lifestyle Awards pentru rezultate excepționale în transformarea zâmbetului.</p></div><div class="meta"><span class="num">(01)</span><span class="note">(București,<br />19 martie 2024)</span></div><div class="pic"><img src="img/premiu-s.webp" srcset="img/premiu-s.webp 480w, img/premiu.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Dr. Laura Diana Bota cu premiul Health Beauty & Lifestyle Awards" loading="lazy" style="object-position:50% 45%" /></div></article>
+        <article class="big-card"><div class="txt"><h3>Contract cu CNAS</h3><p>Cabinetul are contract cu Casa de Asigurări de Sănătate. Întreabă la programare ce tratamente se decontează.</p></div><div class="meta"><span class="num">(02)</span><span class="note">(Decontat<br />CNAS)</span></div><div class="pic"><img src="img/echipa-s.webp" srcset="img/echipa-s.webp 480w, img/echipa.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Echipa HanyDenta" loading="lazy" style="object-position:50% 35%" /></div></article>
+        <article class="big-card"><div class="txt"><h3>Pacienți care ne recomandă</h3><p>4,4 din 28 de recenzii pe Google și 96% recomandări pe Facebook.</p></div><div class="meta"><span class="num">(03)</span><span class="note">(Google<br />și Facebook)</span></div><div class="pic"><img src="img/final.webp" alt="Zâmbetul unei paciente după tratament" loading="lazy" /></div></article>
+        <article class="big-card"><div class="txt"><h3>Dimineața sau seara</h3><p>Luni, miercuri și vineri de la 8 la 14. Marți și joi de la 14 la 20. Alegi ziua după programul tău.</p></div><div class="meta"><span class="num">(04)</span><span class="note">(Luni–vineri)</span></div><div class="pic"><img src="img/z2-s.webp" srcset="img/z2-s.webp 480w, img/z2.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Rezultat după tratament" loading="lazy" style="object-position:50% 80%" /></div></article>
       </div>
     </div>
   </section>
@@ -322,29 +329,14 @@
         <p class="rv">Pozele sunt ale pacienților noștri, așa cum le-am publicat pe pagina cabinetului.</p>
       </div>
       <div class="bento">
-        <div class="ph wide"><img src="img/z1-s.webp" srcset="img/z1-s.webp 480w, img/z1.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Transformarea zâmbetului, înainte și după" loading="lazy" /></div>
+        <div class="ba wide" id="ba"><img class="ba-img ba-before" src="img/ba-inainte.webp" alt="Zâmbet înainte de tratament" loading="lazy" draggable="false" /><img class="ba-img ba-after" src="img/ba-dupa.webp" alt="Același zâmbet după tratament" loading="lazy" draggable="false" /><span class="ba-line"><i>↔</i></span><span class="ba-tag l">Înainte</span><span class="ba-tag r">După</span></div>
+        <div class="ph wide" hidden><img src="img/z1-s.webp" srcset="img/z1-s.webp 480w, img/z1.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Transformarea zâmbetului, înainte și după" loading="lazy" /></div>
         <div class="score"><span class="stars" aria-hidden="true">★★★★★</span><div><b>4,4</b><span>din 28 de recenzii pe Google</span></div></div>
         <div class="score"><span class="stars" aria-hidden="true">♥</span><div><b>96%</b><span>recomandă cabinetul pe Facebook</span></div></div>
-        <div class="ph sq"><img src="img/albire-s.webp" srcset="img/albire-s.webp 480w, img/albire.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Albire profesională, înainte și după" loading="lazy" /></div>
-        <div class="ph sq"><img src="img/z2-s.webp" srcset="img/z2-s.webp 480w, img/z2.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Lucrare estetică, înainte și după" loading="lazy" /></div>
+        <div class="ph sq shine"><img src="img/albire-s.webp" srcset="img/albire-s.webp 480w, img/albire.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Albire profesională, înainte și după" loading="lazy" /></div>
+        <div class="ph sq shine"><img src="img/z2-s.webp" srcset="img/z2-s.webp 480w, img/z2.webp 900w" sizes="(min-width: 900px) 40vw, 90vw" alt="Lucrare estetică, înainte și după" loading="lazy" /></div>
         <div class="quote"><q>Un zâmbet frumos, natural și <em>armonios!</em></q><span>Dr. Laura Diana Bota, pe pagina cabinetului</span></div>
       </div>
-    </div>
-  </section>
-
-  <section class="steps" id="vizita">
-    <div class="wrap">
-      <div class="head">
-        <p class="tag">Prima vizită</p>
-        <h2 class="lines"><span class="ln">Cum decurge</span><span class="ln"><em>prima vizită</em></span></h2>
-        <p class="rv">Fără grabă și fără surprize. Afli ce ai înainte să începi orice tratament.</p>
-      </div>
-      <ol class="sl">
-        <li><span>(01)</span><h3>Suni și alegi ora</h3><p>La 0744 939 652, în timpul programului. Dimineața sau după-amiaza, cum îți vine.</p></li>
-        <li><span>(02)</span><h3>Consultația</h3><p>Doamna doctor se uită la dinți și îți explică pe înțeles ce vede.</p></li>
-        <li><span>(03)</span><h3>Planul</h3><p>Afli ce tratament îți trebuie și în câte ședințe, înainte să începi.</p></li>
-        <li><span>(04)</span><h3>Tratamentul</h3><p>Revii la ședințele stabilite, iar la final faci un control.</p></li>
-      </ol>
     </div>
   </section>
 
@@ -447,15 +439,29 @@ document.addEventListener("DOMContentLoaded", () => {
   $$("main section:not(.hero) .rv").forEach((el) => gsap.fromTo(el, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
   $$(".rvi").forEach((el) => gsap.fromTo(el, { clipPath: "inset(14% 8% 14% 8% round 12px)" }, { clipPath: "inset(0% 0% 0% 0% round 12px)", duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
   // cardurile cu tratamente și rezultatele intră pe rând
-  [".grid", ".bento", ".sl", ".qs"].forEach((g) => gsap.fromTo(`${g} > *`, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: .08, scrollTrigger: { trigger: g, start: "top 85%" } }));
+  [".grid", ".bento", ".qs"].forEach((g) => gsap.fromTo(`${g} > *`, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: .08, scrollTrigger: { trigger: g, start: "top 85%" } }));
+  // dintele se desenează cât derulezi, apoi sclipește
+  const out = $(".t-out"), inn = $(".t-in");
+  if (out) { [out, inn].forEach((p) => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
+    const tl = gsap.timeline({ scrollTrigger: { trigger: ".tooth", start: "top 85%" } });
+    tl.to(out, { strokeDashoffset: 0, duration: 1.8, ease: "power2.inOut" }).to(inn, { strokeDashoffset: 0, duration: .6, ease: "power2.out" }, "-=.3")
+      .fromTo(".spark path", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .5, ease: "back.out(3)", stagger: .12 }, "-=.2")
+      .to(".spark path", { scale: .6, opacity: .4, duration: 1.2, yoyo: true, repeat: -1, ease: "sine.inOut", stagger: .3 }); }
+  // înainte/după: linia trece peste gură când ajungi la poză; poți trage și cu degetul sau mouse-ul
+  const ba = $("#ba");
+  if (ba) { const st = { x: 100 }, put = () => ba.style.setProperty("--x", st.x + "%");
+    gsap.to(st, { x: 0, ease: "none", onUpdate: put, scrollTrigger: { trigger: ba, start: "top 75%", end: "center 35%", scrub: .6 } });
+    const drag = (e) => { const r = ba.getBoundingClientRect(); st.x = Math.max(0, Math.min(100, (e.clientX - r.left) / r.width * 100)); put(); };
+    ba.addEventListener("pointerdown", (e) => { ScrollTrigger.getAll().forEach((t) => t.trigger === ba && t.disable(false)); drag(e); ba.setPointerCapture(e.pointerId); ba.onpointermove = drag; });
+    ba.addEventListener("pointerup", () => (ba.onpointermove = null)); }
+  // sclipirea trece o dată peste fiecare poză când intră în ecran
+  $$(".shine").forEach((el) => ScrollTrigger.create({ trigger: el, start: "top 80%", once: true, onEnter: () => setTimeout(() => el.classList.add("lit"), 400) }));
   // cifrele mari de pe carduri cresc
   $$(".score b").forEach((b) => { const t = b.textContent, n = parseFloat(t.replace(",", ".")), dec = t.includes(","), pct = t.includes("%"); const o = { v: 0 };
     gsap.to(o, { v: n, duration: 1.6, ease: "power2.out", scrollTrigger: { trigger: b, start: "top 90%" }, onUpdate: () => (b.textContent = (dec ? o.v.toFixed(1).replace(".", ",") : Math.round(o.v)) + (pct ? "%" : "")) }); });
 
-  // pe desktop, cardurile „De ce noi” se suprapun la scroll; cel de dedesubt se micșorează puțin
-  if (desk) $$(".big-card").forEach((c, i, all) => { if (i === all.length - 1) return;
-    gsap.to(c, { scale: .96, filter: "brightness(.94)", ease: "none", scrollTrigger: { trigger: all[i + 1], start: "top bottom", end: () => "top " + (90 + (i + 1) * 14) + "px", scrub: true } }); });
-  else $$(".big-card").forEach((c) => gsap.fromTo(c, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: c, start: "top 88%" } }));
+  // cardurile „De ce noi” intră pe rând
+  $$(".big-card").forEach((c) => gsap.fromTo(c, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: c, start: "top 88%" } }));
 });
 </script>
 </body>
