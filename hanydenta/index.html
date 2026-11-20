@@ -23,13 +23,13 @@
   img { display: block; max-width: 100%; }
   em, .it { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: 0; }
   .wrap { width: 100%; max-width: 1360px; margin: 0 auto; padding: 0 var(--pad); }
-  .tag { font-size: 13px; color: rgba(34,35,38,.78); display: flex; align-items: center; gap: 8px; }
+  .tag { font-size: 15px; color: rgba(34,35,38,.78); display: flex; align-items: center; gap: 8px; }
   .tag::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--red); }
   .pill { display: inline-flex; gap: .35em; font-weight: 500; }
   .pill::before { content: "("; } .pill::after { content: ")"; }
   :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
   /* textul intră din mască, rând cu rând sau cuvânt cu cuvânt; lasă loc sub rând pentru diacritice */
-  .m { text-indent: 0; display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .16em; margin-bottom: -.16em; }
+  .m { text-indent: 0; display: inline-block; overflow: hidden; vertical-align: top; padding: .14em 0 .16em; margin: -.14em 0 -.16em; }
   .m > span { display: inline-block; will-change: transform; }
 
   /* meniul: literele se rostogolesc la hover, din mijlocul cuvântului spre capete */
@@ -210,9 +210,13 @@
     .about .row { grid-template-columns: 1fr 1fr; align-items: end; margin-top: 70px; }
     .about .row p { margin-left: 0; }
     .srv { padding: 120px 0 130px; }
-    .head { display: grid; grid-template-columns: 26% 1fr; }
+    .head { display: block; }
+    .head h2 { font-size: clamp(40px, 4.9vw, 78px); white-space: nowrap; }
+    .head h2, .head p:not(.tag) { margin-top: 18px !important; }
     .head .tag { padding-top: 14px; }
     .head h2 { margin-top: 0; }
+    .head h2 .m { display: inline-block !important; margin-right: .22em; }
+    .head .tag { font-size: 16px; }
     .head .tag { grid-column: 1; grid-row: 1; } .head h2 { grid-column: 2; grid-row: 1; } .head p:not(.tag) { grid-column: 2; }
     .grid { grid-template-columns: repeat(4, 1fr); margin-top: 60px; }
     .card { min-height: 290px; padding: 14px; }
@@ -227,11 +231,11 @@
     .big-card .note { text-align: left; }
     .big-card .pic { grid-column: 2; grid-row: 1 / span 2; align-self: end; justify-self: end; width: 100%; aspect-ratio: 4 / 5; }
     .res { padding: 120px 0 130px; }
-    .bento { grid-template-columns: repeat(4, 1fr); margin-top: 60px; }
-    .bento .wide { grid-column: span 2; grid-row: span 2; } .bento .ba.wide { grid-row: auto; align-self: start; } .tooth { position: absolute; right: 0; top: 0; width: 120px; height: 136px; margin: 0; } .srv .head { position: relative; }
-    .bento .sq { aspect-ratio: auto; grid-row: span 2; }
+    .bento { grid-template-columns: repeat(3, 1fr); margin-top: 60px; }
+    .bento .wide { grid-column: span 2; grid-row: span 2; } .bento .ba.wide { aspect-ratio: auto; } .tooth { position: absolute; right: 0; top: 0; width: 120px; height: 136px; margin: 0; } .srv .head { position: relative; }
+    .bento .sq { aspect-ratio: 1; }
     .score { min-height: 250px; padding: 18px; }
-    .quote { grid-column: span 2; }
+    .quote { grid-column: span 1; }
     .quote q { font-size: 34px; }
     .team { padding: 110px 0 70px; }
     .faq { padding: 50px 0 110px; }
@@ -239,9 +243,13 @@
     .faq .head { display: block; } .faq .head h2 { margin-top: 18px; }
     .qs { margin-top: 0; }
     .qs summary { font-size: 22px; }
-    .doc { grid-template-columns: 1fr 1fr 1fr; align-items: end; margin-top: 70px; }
+    .doc { grid-template-columns: 1fr 1.1fr; grid-template-rows: auto 1fr; gap: 0 56px; align-items: start; margin-top: 60px; }
+    .doc .ph { grid-column: 1; grid-row: 1 / span 2; max-width: none; }
+    .doc > div:first-child { grid-column: 2; padding-top: 10px; }
+    .doc .txt { grid-column: 2; margin-top: 28px; }
+    .doc .txt p { font-size: 17px; }
     .doc h3 { font-size: 56px; }
-    .doc .txt { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; }
+
     .end .wrap { padding-bottom: 0; align-self: center; }
     .end .sub, .end .acts { margin-left: 26%; }
     .end .sub { margin-top: 70px; font-size: 17px; }
