@@ -46,7 +46,7 @@
   .top.solid { background: rgba(255,255,255,.94); color: var(--ink); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line); }
   .top.hid { transform: translateY(-100%); }
   .logo { font-weight: 500; letter-spacing: .02em; font-size: 17px; }
-  .logo small { font-weight: 400; opacity: .7; margin-left: 6px; font-size: 13px; }
+  .logo small { display: none; font-weight: 400; opacity: .7; margin-left: 6px; font-size: 13px; }
   .nav { display: none; gap: 26px; font-size: 14px; }
   .nav a { opacity: .9; }
   .tel { font-size: 14px; } .hd-tel { display: none; }
@@ -63,12 +63,13 @@
 
   /* primul ecran */
   .hero { position: relative; height: 100svh; min-height: 620px; overflow: hidden; color: #fff; background: #1c1a1b; }
-  .hero__bg { position: absolute; inset: -12% 0 0; }
+  .hero__bg { position: absolute; inset: 0; }
+  @media (min-width: 900px) { .hero__bg { inset: -12% 0 0; } .end__bg { inset: -10% 0 0 !important; } }
   .hero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 30%; }
   .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,16,18,.35) 0%, rgba(20,16,18,.15) 35%, rgba(20,16,18,.72) 100%); }
   .hero .wrap { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 40px; }
-  .hero h1 { font-weight: 500; font-size: clamp(46px, 12.5vw, 112px); line-height: .95; letter-spacing: -.045em; }
-  .hero h1 em { font-size: 1.06em; }
+  .hero h1 { font-weight: 500; font-size: clamp(36px, 9.6vw, 112px); line-height: .95; letter-spacing: -.045em; }
+  .hero h1 em { font-size: 1.08em; }
   .hero .sub { margin-top: 22px; max-width: 34ch; font-size: 15.5px; color: rgba(255,255,255,.86); }
   .hero .cta { margin-top: 18px; font-size: 16px; }
 
@@ -181,7 +182,7 @@
 
   /* programare: poza mare cu un zâmbet de-al lor */
   .end { position: relative; min-height: 92svh; overflow: hidden; color: #fff; display: flex; align-items: flex-end; background: #2a2224; }
-  .end__bg { position: absolute; inset: -10% 0 0; }
+  .end__bg { position: absolute; inset: 0; }
   .end__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
   .end::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,16,18,.2), rgba(20,16,18,.75)); }
   .end .wrap { position: relative; z-index: 2; padding-bottom: 48px; }
@@ -206,6 +207,7 @@
 
   @media (min-width: 900px) {
     :root { --pad: 28px; }
+    .logo small { display: inline; }
     .nav { display: flex; } .hd-tel { display: inline-flex; } .burger { display: none; } .bar { display: none; }
     .hero .wrap { padding-bottom: 0; justify-content: center; }
     .hero h1 { margin-top: -6vh; }
@@ -271,6 +273,22 @@
     footer .word { font-size: min(15.6vw, 214px); }
     footer .cols { grid-template-columns: repeat(3, auto); justify-content: start; gap: 90px; margin-top: 0; white-space: nowrap; }
   }
+  @media (max-width: 899px) {
+    .about, .srv, .res, .team, .faq { padding-top: 96px; padding-bottom: 96px; }
+    .why { padding-top: 0; padding-bottom: 96px; }
+    .faq { padding-top: 0; }
+    .head h2 { margin-top: 14px; font-size: clamp(34px, 9.4vw, 52px); }
+    .head p { margin-top: 14px; }
+    .grid, .bento, .stack { margin-top: 36px; gap: 10px; }
+    .about .big, .team .big { font-size: clamp(28px, 7.6vw, 40px); }
+    .about .row, .doc { margin-top: 36px; }
+    .card { min-height: 0; gap: 16px; padding: 14px; }
+    .card .im { width: 72%; }
+    .hero .wrap { padding-bottom: calc(36px + env(safe-area-inset-bottom, 0px)); }
+    .hero .sub { margin-top: 16px; }
+    .end { min-height: 80svh; }
+    footer { padding-bottom: 96px; }
+  }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
 </style>
 </head>
@@ -292,7 +310,7 @@
   <section class="hero" id="hero">
     <div class="hero__bg" id="herobg"><img src="img/hero-m.webp" srcset="img/hero-m.webp 900w, img/hero.webp 1800w" sizes="100vw" alt="Dr. Laura Diana Bota la lucru, cu o pacientă în cabinetul HanyDenta" width="1800" height="1800" fetchpriority="high" /></div>
     <div class="wrap">
-      <h1 class="lines"><span class="ln">Un zâmbet frumos,</span><span class="ln">natural și</span><span class="ln"><em>armonios.</em></span></h1>
+      <h1 class="lines"><span class="ln">Un zâmbet frumos,</span><span class="ln">natural și <em>armonios.</em></span></h1>
       <p class="sub rv">Cabinetul stomatologic al doamnei doctor Laura Diana Bota, în Satu Mare. Cu contract CNAS.</p>
       <a class="cta pill rv" href="tel:+40744939652">Sună pentru programare</a>
     </div>
@@ -453,10 +471,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // la încărcare: titlul din primul ecran urcă rând cu rând
   gsap.fromTo(".hero .m > span", { yPercent: 110 }, { yPercent: 0, duration: 1.4, ease: "expo.out", stagger: .09, delay: .15 });
   gsap.fromTo(".hero .rv", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", stagger: .1, delay: .6 });
-  gsap.fromTo("#herobg img", { scale: 1.08 }, { scale: 1, duration: 2.2, ease: "power2.out" });
-  // pozele mari se mișcă mai încet decât pagina
+  // pozele mari se mișcă mai încet decât pagina, doar pe desktop (pe telefon blocau scroll-ul)
+  if (desk) { gsap.fromTo("#herobg img", { scale: 1.08 }, { scale: 1, duration: 2.2, ease: "power2.out" });
   gsap.to("#herobg", { yPercent: 14, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-  gsap.fromTo("#endbg", { yPercent: -6 }, { yPercent: 8, ease: "none", scrollTrigger: { trigger: ".end", start: "top bottom", end: "bottom top", scrub: true } });
+  gsap.fromTo("#endbg", { yPercent: -6 }, { yPercent: 8, ease: "none", scrollTrigger: { trigger: ".end", start: "top bottom", end: "bottom top", scrub: true } }); }
 
   $$("main section:not(.hero) .lines").forEach((h) => gsap.fromTo($$(".m > span", h), { yPercent: 110 }, { yPercent: 0, duration: 1.2, ease: "expo.out", stagger: .08, scrollTrigger: { trigger: h, start: "top 85%" } }));
   $$(".words").forEach((p) => gsap.fromTo($$(".m > span", p), { yPercent: 110 }, { yPercent: 0, duration: 1, ease: "expo.out", stagger: .018, scrollTrigger: { trigger: p, start: "top 82%" } }));
