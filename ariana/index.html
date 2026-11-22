@@ -166,14 +166,26 @@
   .spa-facts .src { margin-top: 30px; font-size: 12px; color: rgba(255,255,255,.45); }
   /* prin împrejurimi */
   .near { padding: 90px 0; }
-  .near h2 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(32px, 6.4vw, 54px); line-height: 1.05; margin-top: 12px; }
+  .near { background: var(--sand); }
+  .nhead { text-align: center; }
+  .near h2 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(32px, 6.4vw, 56px); line-height: 1.05; margin-top: 12px; }
   .near h2 .script { display: block; font-size: .8em; color: var(--bronze); }
-  .nlead { margin-top: 16px; color: var(--mute); max-width: 40ch; } .nsrc { margin-top: 14px; font-size: 12px; color: var(--mute); opacity: .8; }
-  .ncols { display: grid; gap: 34px; margin-top: 40px; } .ncols h3 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: 26px; }
-  .nnote { margin-top: 16px; font-size: 14px; color: var(--bronze); }
-  .nl { list-style: none; margin-top: 14px; border-top: 1px solid var(--line); }
-  .nl li { display: grid; gap: 2px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 16.5px; }
-  .nl em { font-style: normal; font-size: 14px; color: var(--mute); }
+  .nlead { margin: 16px auto 0; color: var(--mute); max-width: 48ch; }
+  .sgrid { margin-top: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .sc { background: var(--paper); border-radius: 16px; padding: 20px 16px; display: grid; justify-items: center; text-align: center; gap: 4px; transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+  @media (hover: hover) { .sc:hover { transform: translateY(-6px); } }
+  .sc svg { width: 46px; height: 46px; margin-bottom: 8px; overflow: visible; }
+  .sc svg * { fill: none; stroke: var(--bronze); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+  .sc b { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: 42px; line-height: 1; min-height: 0; }
+  .sc b:empty { display: none; }
+  .sc h3 { font-size: 16px; font-weight: 600; }
+  .sc p { font-size: 13.5px; color: var(--mute); line-height: 1.4; }
+  .town { margin-top: 50px; text-align: center; }
+  .town h3 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: 28px; }
+  .town ul { list-style: none; margin-top: 18px; display: grid; gap: 0; border-top: 1px solid var(--line); text-align: left; max-width: 760px; margin-left: auto; margin-right: auto; }
+  .town li { display: grid; gap: 2px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .town li span { font-size: 14px; color: var(--mute); }
+  .nnote { margin-top: 16px; font-size: 13.5px; color: var(--bronze); }
   /* părerea oaspeților */
   .rev { background: var(--sage); padding: 80px 0; text-align: center; }
   .rev a { display: inline-block; margin-top: 22px; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
@@ -221,7 +233,7 @@
   .bar { position: fixed; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); z-index: 30; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; transform: translateY(140%); transition: transform .45s cubic-bezier(.2,.8,.2,1); }
   .bar.on { transform: none; }
   .bar a { height: 50px; border-radius: 999px; display: grid; place-items: center; font-weight: 500; font-size: 15px; background: #fff; box-shadow: 0 6px 24px rgba(0,0,0,.16); }
-  .bar a:first-child { background: var(--bronze); color: #fff; }
+  .bar a:first-child { background: #003b95; color: #fff; }
 
   @media (min-width: 900px) {
     :root { --pad: 40px; }
@@ -248,12 +260,13 @@
     .stay .pics { margin-top: 120px; }
     .rev { padding: 120px 0; } .rgrid { grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
     .spa-facts { padding: 130px 0; } .nums { grid-template-columns: repeat(3, 1fr); max-width: 1000px; margin: 60px auto 0; }
-    .near { padding: 130px 0; } .near .wrap { display: grid; grid-template-columns: .9fr 1.6fr; gap: 60px; } .ncols { grid-template-columns: 1fr 1fr; margin-top: 0; gap: 40px; }
+    .near { padding: 130px 0; } .sgrid { grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 60px; } .sc { padding: 28px 18px; } .town ul { grid-template-columns: 1fr 1fr; column-gap: 40px; } .town li { text-align: left; }
     .info { padding: 130px 0; }
     footer .grid { grid-template-columns: 1.2fr 1fr 1fr 1fr; }
     footer .big a { font-size: 44px; }
   }
   @media (max-width: 899px) {
+    .rooms .head { margin: 0 auto; text-align: center; } .room > div { text-align: center; } .room p { margin-left: auto; margin-right: auto; } .room .acts { justify-content: center; }
     .fan .s { display: none; }
     .trio .wrap { grid-template-columns: 1fr 1fr; } .trio figure.mid { grid-column: 1 / -1; grid-row: 1; aspect-ratio: 4 / 3; }
     .slider .track { justify-content: flex-start; }
@@ -374,26 +387,21 @@
 
   <section class="near">
     <div class="wrap">
-      <div><p class="kick rv">Stațiunea Tășnad</p>
-      <h2 class="lines"><span class="ln">Ștrandul termal,</span><span class="ln"><span class="script">la câțiva pași</span></span></h2>
-      <p class="rv nlead">Hotelul e chiar lângă stațiunea Tășnad, stațiune turistică de interes național din anul 2000. Ziua o petreci la bazinele termale, seara te întorci la cameră.</p>
-      <p class="rv nsrc">Informații de la OMD Tășnad și Primăria Tășnad.</p></div>
-      <div class="ncols">
-        <div><h3 class="rv">La ștrand</h3><ul class="nl">
-          <li class="rv"><span>4 bazine termale</span><em>apă încălzită peste 35°C, deschise cam 150 de zile pe an</em></li>
-          <li class="rv"><span>2 bazine cu hidromasaj</span><em>cu jeturi, într-o zonă de relaxare</em></li>
-          <li class="rv"><span>Bazin pentru copii</span><em>apă mai puțin adâncă, cu supraveghere</em></li>
-          <li class="rv"><span>Tobogane și bazin rece</span><em>zona de distracție</em></li>
-          <li class="rv"><span>Bazin semiolimpic</span><em>25 × 12,5 metri</em></li>
-          <li class="rv"><span>Terenuri de sport</span><em>fotbal și volei, cu nocturnă</em></li>
-        </ul></div>
-        <div><h3 class="rv">În oraș</h3><ul class="nl">
-          <li class="rv"><span>Muzeul Orășenesc</span><em>în Castelul Cserey-Fischer, cu arheologie, istorie și etnografie</em></li>
-          <li class="rv"><span>Patru biserici istorice</span><em>romano-catolică, ortodoxă, reformată și greco-catolică</em></li>
-          <li class="rv"><span>Grădina Urbană</span><em>parcul central, cu loc de joacă</em></li>
-          <li class="rv"><span>Biciclete de închiriat</span><em>de la Centrul de Informare Turistică</em></li>
+      <div class="nhead">
+        <p class="kick rv">Stațiunea Tășnad</p>
+        <h2 class="lines"><span class="ln">Ștrandul termal,</span><span class="ln"><span class="script">la câțiva pași</span></span></h2>
+        <p class="rv nlead">Hotelul e chiar lângă stațiunea Tășnad, stațiune turistică de interes național din anul 2000. Ziua o petreci la bazinele termale, seara te întorci la cameră.</p>
+      </div>
+      <div class="sgrid"><article class="sc"><svg viewBox="0 0 54 54" aria-hidden="true"><path d="M4 30c4 0 4-3 8-3s4 3 8 3 4-3 8-3 4 3 8 3 4-3 8-3 4 3 8 3"/><path d="M4 38c4 0 4-3 8-3s4 3 8 3 4-3 8-3 4 3 8 3 4-3 8-3 4 3 8 3"/><path d="M18 22V8a4 4 0 0 1 8 0M34 22V8a4 4 0 0 1 8 0M18 14h16"/></svg><b>4</b><h3>bazine termale</h3><p>apă încălzită peste 35°C</p></article><article class="sc"><svg viewBox="0 0 54 54" aria-hidden="true"><path d="M6 40c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3"/><path d="M14 30c0-8 4-14 4-20M27 30c0-9 0-15 0-22M40 30c0-8-4-14-4-20"/></svg><b>2</b><h3>bazine cu hidromasaj</h3><p>cu jeturi, pentru relaxare</p></article><article class="sc"><svg viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="12" r="5"/><path d="M27 17v12M19 23h16M21 40l6-11 6 11"/><path d="M6 46c5 0 5-2 10-2s5 2 10 2 5-2 10-2 5 2 10 2"/></svg><b>1</b><h3>bazin pentru copii</h3><p>apă mai puțin adâncă</p></article><article class="sc"><svg viewBox="0 0 54 54" aria-hidden="true"><path d="M10 46V12h8v8c10 0 14 6 18 14 3 6 6 10 12 12"/><path d="M10 20h8M10 28h8"/></svg><b></b><h3>Tobogane</h3><p>și bazin cu apă rece</p></article><article class="sc"><svg viewBox="0 0 54 54" aria-hidden="true"><rect x="6" y="10" width="42" height="34" rx="2"/><path d="M6 21h42M6 33h42" stroke-dasharray="3 3"/></svg><b>25 m</b><h3>bazin semiolimpic</h3><p>25 × 12,5 metri</p></article><article class="sc"><svg viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="17"/><path d="M27 10v34M10 27h34M15 15c7 6 7 18 0 24M39 15c-7 6-7 18 0 24"/></svg><b></b><h3>Terenuri de sport</h3><p>fotbal și volei, cu nocturnă</p></article></div>
+      <div class="town">
+        <h3 class="rv">Și prin oraș</h3>
+        <ul>
+          <li class="rv"><b>Muzeul Orășenesc</b><span>în Castelul Cserey-Fischer</span></li>
+          <li class="rv"><b>Patru biserici istorice</b><span>romano-catolică, ortodoxă, reformată, greco-catolică</span></li>
+          <li class="rv"><b>Grădina Urbană</b><span>parcul central, cu loc de joacă</span></li>
+          <li class="rv"><b>Biciclete de închiriat</b><span>de la Centrul de Informare Turistică</span></li>
         </ul>
-        <p class="rv nnote">Vara, ștrandul e deschis de la 8 la 22.</p></div>
+        <p class="rv nnote">Vara, ștrandul e deschis de la 8 la 22. Informații de la OMD Tășnad și Primăria Tășnad.</p>
       </div>
     </div>
   </section>
@@ -514,6 +522,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // cifrele despre apa termală cresc când ajungi la ele
   $$(".cnt").forEach((b) => { const n = +b.dataset.n, suf = b.dataset.s || "", plain = b.dataset.plain, o = { v: plain ? n - 60 : 0 };
     gsap.to(o, { v: n, duration: 1.8, ease: "power2.out", scrollTrigger: { trigger: b, start: "top 88%" }, onUpdate: () => (b.textContent = (plain ? Math.round(o.v) : Math.round(o.v).toLocaleString("ro-RO")) + suf) }); });
+  $$(".sc svg").forEach((sv) => $$("path,rect,circle", sv).forEach((p) => { if (p.getAttribute("stroke-dasharray")) return; const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; }));
+  gsap.fromTo(".sc", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: .09, scrollTrigger: { trigger: ".sgrid", start: "top 85%" } });
+  gsap.to(".sc svg path:not([stroke-dasharray]), .sc svg rect:not([stroke-dasharray]), .sc svg circle", { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut", stagger: .05, delay: .3, scrollTrigger: { trigger: ".sgrid", start: "top 85%" } });
   // întrebările se deschid lin
   $$(".qs details").forEach((d) => { const sum = d.querySelector("summary"), p = d.querySelector("p");
     sum.addEventListener("click", (e) => { e.preventDefault();
