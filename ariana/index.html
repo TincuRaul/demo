@@ -29,7 +29,7 @@
   .btn.ghost { background: transparent; color: inherit; box-shadow: inset 0 0 0 1px currentColor; }
   .btn.ghost:hover { background: rgba(255,255,255,.12); }
   :focus-visible { outline: 2px solid var(--bronze); outline-offset: 3px; }
-  .m { display: inline-block; overflow: hidden; vertical-align: top; padding: .14em 0 .2em; margin: -.14em 0 -.2em; }
+  .m { display: inline-block; overflow: hidden; vertical-align: top; padding: .45em .12em .28em; margin: -.45em -.12em -.28em; }
   .m > span { display: inline-block; }
 
   /* literele din meniu se rostogolesc la hover */
@@ -181,11 +181,12 @@
   .sc h3 { font-size: 16px; font-weight: 600; }
   .sc p { font-size: 13.5px; color: var(--mute); line-height: 1.4; }
   .town { margin-top: 50px; text-align: center; }
-  .town h3 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: 28px; }
-  .town ul { list-style: none; margin-top: 18px; display: grid; gap: 0; border-top: 1px solid var(--line); text-align: left; max-width: 760px; margin-left: auto; margin-right: auto; }
-  .town li { display: grid; gap: 2px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-  .town li span { font-size: 14px; color: var(--mute); }
-  .nnote { margin-top: 16px; font-size: 13.5px; color: var(--bronze); }
+  .town h3 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(30px, 5vw, 40px); }
+  .town ul { list-style: none; margin-top: 18px; display: grid; gap: 0; border-top: 1px solid var(--line); text-align: left; max-width: 980px; margin-left: auto; margin-right: auto; }
+  .town li { display: grid; gap: 4px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .town li b { font-size: 20px; font-weight: 600; }
+  .town li span { font-size: 16.5px; color: var(--mute); }
+  .nnote { margin-top: 20px; font-size: 15.5px; color: var(--bronze); }
   /* părerea oaspeților */
   .rev { background: var(--sage); padding: 80px 0; text-align: center; }
   .rev a { display: inline-block; margin-top: 22px; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
