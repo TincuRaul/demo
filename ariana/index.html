@@ -173,11 +173,17 @@
   .nl b { font-weight: 500; color: var(--bronze); white-space: nowrap; }
   /* părerea oaspeților */
   .rev { background: var(--sage); padding: 80px 0; text-align: center; }
-  .rev q { display: block; max-width: 30ch; margin: 18px auto 0; font-family: "Libre Caslon Display", serif; font-size: clamp(26px, 5.6vw, 42px); line-height: 1.15; quotes: "„" "”"; }
-  .rev .who { margin-top: 18px; font-size: 14px; color: var(--mute); }
-  .rev .stars { margin-top: 6px; color: var(--bronze); letter-spacing: .2em; }
   .rev a { display: inline-block; margin-top: 22px; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
 
+  .rev h2 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(32px, 6.4vw, 54px); line-height: 1.05; margin-top: 12px; }
+  .rev h2 .script { display: block; font-size: .8em; color: var(--bronze); }
+  .score2 { margin-top: 18px; font-size: 14px; color: var(--mute); }
+  .score2 b { display: inline-grid; place-items: center; width: 38px; height: 38px; margin-right: 8px; border-radius: 8px 8px 8px 2px; background: #003b95; color: #fff; font-size: 15px; vertical-align: middle; }
+  .rgrid { margin-top: 40px; display: grid; gap: 12px; text-align: left; }
+  .rc { background: rgba(255,255,255,.55); border-radius: 14px; padding: 22px 22px 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; }
+  .rc blockquote { font-size: 15.5px; line-height: 1.6; }
+  .rc figcaption { font-size: 13px; color: var(--mute); display: flex; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line); padding-top: 12px; }
+  .rc figcaption b { color: var(--ink); font-weight: 600; }
   /* seara la piscină */
   .pool { position: relative; min-height: 88svh; overflow: hidden; color: #fff; display: flex; align-items: center; justify-content: center; text-align: center; background: #22303a; }
   .pool__bg { position: absolute; inset: 0; }
@@ -241,7 +247,7 @@
     .stay { padding: 140px 0; }
     .stay .wrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 50px; align-items: start; }
     .stay .pics { margin-top: 120px; }
-    .rev { padding: 110px 0; }
+    .rev { padding: 120px 0; } .rgrid { grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
     .spa-facts { padding: 130px 0; } .nums { grid-template-columns: repeat(3, 1fr); max-width: 1000px; margin: 60px auto 0; }
     .near { padding: 130px 0; } .near .wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; max-width: 1160px; } .nl { margin-top: 0; }
     .info { padding: 130px 0; }
@@ -261,7 +267,7 @@
   <div class="wrap">
     <div style="display:flex;align-items:center;gap:20px"><button class="burger" id="burger" type="button" aria-label="Deschide meniul" aria-expanded="false"><i></i><i></i></button><nav class="nav" aria-label="Meniu"><a href="#camere">Camere</a><a href="#restaurant">Restaurant</a><a href="#spa">Spa</a><a href="#info">Informații</a></nav></div>
     <a class="brand" href="#hero" aria-label="Hotel Ariana"><span class="stars">★★★</span><b>ARIANA</b></a>
-    <div class="right"><a class="btn" href="tel:+40770329749">Rezervă</a></div>
+    <div class="right"><a class="btn bk" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Rezervă</a></div>
   </div>
 </header>
 <div class="menu" id="menu" aria-hidden="true">
@@ -280,8 +286,8 @@
       <label>Sosire<input type="date" id="in" /></label>
       <label>Plecare<input type="date" id="out" /></label>
       <label>Persoane<select id="ppl"><option>1 adult</option><option selected>2 adulți</option><option>2 adulți, 1 copil</option><option>2 adulți, 2 copii</option><option>Grup</option></select></label>
-      <a class="btn" id="ask" href="tel:+40770329749">Verifică disponibilitatea</a>
-      <p class="note">Rezervi direct la hotel, fără intermediari.</p>
+      <a class="btn" id="ask" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Vezi camerele libere</a>
+      <p class="note">Rezervarea se face pe Booking.com.</p>
     </form>
   </section>
 
@@ -305,7 +311,7 @@
   <section class="band">
     <div class="wrap">
       <div class="score rv"><b>8,2</b><span><strong>Foarte bine</strong><br />40 de evaluări pe Booking</span></div>
-      <div class="mid rv"><h3>Cel mai bun preț e la noi</h3><a class="btn" href="tel:+40770329749">Sună: 0770 329 749</a></div>
+      <div class="mid rv"><h3>Rezervă pe Booking</h3><a class="btn bk" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Vezi camerele libere</a></div>
       <p class="vou rv">Acceptăm plata cu vouchere de vacanță.</p>
     </div>
   </section>
@@ -328,7 +334,7 @@
     <div class="track" id="track"><span class="on">Dormi</span><span>Mănânci</span><span>Te relaxezi</span></div>
     <div class="txt" id="txt">
       <div class="on"><h3>Camere pentru familii și cupluri</h3><p>Camere duble și de familie, pentru nefumători, cu WiFi gratuit în tot hotelul.</p><a class="btn" href="#camere">Vezi camerele</a></div>
-      <div><h3>Restaurantul și snack barul</h3><p>Sala de restaurant cu candelabre și arcade luminate, iar afară snack barul, cu terasă pe iarbă.</p><a class="btn" href="tel:+40770329749">Rezervă o masă</a></div>
+      <div><h3>Restaurantul și snack barul</h3><p>Sala de restaurant cu candelabre și arcade luminate, iar afară snack barul, cu terasă pe iarbă.</p><a class="btn bk" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Rezervă o masă</a></div>
       <div><h3>Piscina termală și sauna</h3><p>Apă termală, sauna finlandeză, masaj și terapie Bowen, la câțiva pași de cameră.</p><a class="btn" href="#info">Află programul</a></div>
     </div>
     <div class="dots"><span>1 / 3</span><i><b id="prog"></b></i></div>
@@ -336,10 +342,10 @@
 
   <section class="rooms">
     <div class="wrap">
-      <div class="head"><p class="kick rv">Cazare</p><h2 class="lines"><span class="ln">Alege-ți</span><span class="ln">camera</span></h2><p class="rv">Spune-ne când vii și câți sunteți, iar noi îți spunem ce cameră e liberă și cât costă.</p></div>
+      <div class="head"><p class="kick rv">Cazare</p><h2 class="lines"><span class="ln">Alege-ți</span><span class="ln">camera</span></h2><p class="rv">Camerele libere și prețurile le vezi pe Booking, pe datele tale.</p></div>
       <div class="rlist">
-        <article class="room"><figure><img src="img/camera-m.webp" srcset="img/camera-m.webp 640w, img/camera.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw" alt="Cameră dublă cu fereastră mare" loading="lazy" /></figure><div><h3>Cameră dublă</h3><p>Pat dublu, fereastră mare, televizor și frigider. Pentru cupluri sau pentru cine vine singur la tratament.</p><div class="acts"><a class="btn" href="tel:+40770329749">Rezervă</a><a class="btn ghost" href="#info">Întrebări</a></div></div></article>
-        <article class="room"><figure><img src="img/camera-tv-m.webp" srcset="img/camera-tv-m.webp 640w, img/camera-tv.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw" alt="Cameră cu televizor și frigider" loading="lazy" /></figure><div><h3>Cameră de familie</h3><p>Loc pentru părinți și copii, ca toată familia să stea împreună.</p><div class="acts"><a class="btn" href="tel:+40770329749">Rezervă</a><a class="btn ghost" href="#info">Întrebări</a></div></div></article>
+        <article class="room"><figure><img src="img/camera-m.webp" srcset="img/camera-m.webp 640w, img/camera.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw" alt="Cameră dublă cu fereastră mare" loading="lazy" /></figure><div><h3>Cameră dublă</h3><p>Pat dublu, fereastră mare, televizor și frigider. Pentru cupluri sau pentru cine vine singur la tratament.</p><div class="acts"><a class="btn bk" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Rezervă</a><a class="btn ghost" href="#info">Întrebări</a></div></div></article>
+        <article class="room"><figure><img src="img/camera-tv-m.webp" srcset="img/camera-tv-m.webp 640w, img/camera-tv.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw" alt="Cameră cu televizor și frigider" loading="lazy" /></figure><div><h3>Cameră de familie</h3><p>Loc pentru părinți și copii, ca toată familia să stea împreună.</p><div class="acts"><a class="btn bk" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Rezervă</a><a class="btn ghost" href="#info">Întrebări</a></div></div></article>
       </div>
     </div>
   </section>
@@ -391,9 +397,10 @@
   <section class="rev">
     <div class="wrap">
       <p class="kick rv">Ce spun oaspeții</p>
-      <q class="rv">Am găsit un loc primitor, curat și foarte confortabil. Gazdele, deosebit de amabile și atente la toate detaliile.</q>
-      <p class="who rv">Dorin, România, pe Booking</p>
-      <p class="stars rv" aria-label="8,2 din 10">8,2 din 10 · 40 de evaluări</p>
+      <h2 class="lines"><span class="ln">Oaspeții noștri,</span><span class="ln"><span class="script">în cuvintele lor</span></span></h2>
+      <p class="score2 rv"><b>8,2</b> Foarte bine · 40 de evaluări pe Booking</p>
+      <div class="rgrid"><figure class="rc rv"><blockquote>„Am găsit un loc primitor, curat și foarte confortabil. Gazdele deosebit de amabile și atente la toate detaliile. Un mic dejun, cât și bucate de excepție, bazinul cu apă termală foarte curat și îngrijit. Cu siguranță vom reveni.”</blockquote><figcaption><b>Dorin</b><span>România, pe Booking</span></figcaption></figure><figure class="rc rv"><blockquote>„O experiență excelentă! Hotelul oferă condiții foarte bune pentru un sejur relaxant, iar personalul este amabil, atent și mereu disponibil să ajute. Cel mai mult ne-a impresionat mâncarea.”</blockquote><figcaption><b>Daniel</b><span>România, pe Booking</span></figcaption></figure><figure class="rc rv"><blockquote>„Amabilitatea personalului, inclusiv proprietarii. Curățenie, aerisit. Meniuri foarte gustoase. Piscina cu apă termală.”</blockquote><figcaption><b>Elena</b><span>România, pe Booking</span></figcaption></figure><figure class="rc rv"><blockquote>„O proprietate în plină dezvoltare, o adevărată oază de liniște și relaxare, cu personalul super amabil, curățenie și mâncare à la carte sănătoasă și foarte apetisantă.”</blockquote><figcaption><b>Viorel</b><span>România, pe Booking</span></figcaption></figure><figure class="rc rv"><blockquote>„Liniștea, atmosfera, personalul foarte amabil, mâncarea deosebită.”</blockquote><figcaption><b>Tivadar</b><span>România, pe Booking</span></figcaption></figure><figure class="rc rv"><blockquote>„Totul. Ospitalitatea, curățenia. Ce mai, totul. O să mai merg cu plăcere la ei.”</blockquote><figcaption><b>Pavel</b><span>România, pe Booking</span></figcaption></figure></div>
+      <a class="rv" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html#tab-reviews" target="_blank" rel="noopener">Citește toate recenziile pe Booking</a>
     </div>
   </section>
 
@@ -403,7 +410,7 @@
       <p class="kick rv">Piscina interioară</p>
       <h2 class="lines"><span class="ln">Seara,</span><span class="ln">la piscină</span></h2>
       <p class="rv">Piscină interioară cu apă termală, șezlonguri și geamuri mari prin care vezi apusul peste Tășnad, vara sau iarna.</p>
-      <a class="btn rv" href="tel:+40770329749">Rezervă o cameră</a>
+      <a class="btn bk rv" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Rezervă o cameră</a>
     </div>
   </section>
 
@@ -412,7 +419,7 @@
       <h2 class="lines"><span class="ln">Informații utile</span></h2>
       <div class="qs">
         <details><summary>Unde se află hotelul?</summary><p>Pe strada Magnoliei nr. 4, în Tășnad, județul Satu Mare. Aeroportul din Satu Mare e la 40 km, iar Castelul Károlyi din Carei la 27 km.</p></details>
-        <details><summary>Cum rezerv o cameră?</summary><p>Ne suni la 0770 329 749 sau ne scrii pe Facebook și Instagram (hotelariana_). Îți spunem pe loc ce cameră e liberă și cât costă.</p></details>
+        <details><summary>Cum rezerv o cameră?</summary><p>Rezervi pe <a href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Booking.com</a>, unde vezi camerele libere și prețurile. Pentru întrebări ne suni la 0770 329 749.</p></details>
         <details><summary>Acceptați vouchere de vacanță?</summary><p>Da, poți plăti cazarea cu vouchere de vacanță.</p></details>
         <details><summary>Este inclus micul dejun?</summary><p>Servim micul dejun dimineața. Întreabă la rezervare dacă e inclus în prețul camerei tale.</p></details>
         <details><summary>Piscina e interioară?</summary><p>Da, piscina cu apă termală e interioară, cu geamuri mari, deci o poți folosi indiferent de vreme. Întreabă la recepție programul.</p></details>
@@ -434,7 +441,7 @@
     <div class="legal"><span>© 2026 Hotel Ariana. Demonstrație: textele și pozele sunt de confirmat cu hotelul.</span><a href="https://rtweb.ro">Site realizat de RTWEB</a></div>
   </div>
 </footer>
-<div class="bar" id="bar"><a href="tel:+40770329749">Sună și rezervă</a><a href="#book" id="barbook">Alege datele</a></div>
+<div class="bar" id="bar"><a href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Rezervă pe Booking</a><a href="tel:+40770329749">Sună</a></div>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -446,6 +453,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const f = (d) => d.toISOString().slice(0, 10); $("#in").value = f(d0); $("#out").value = f(d1); $("#in").min = f(new Date());
   $("#in").addEventListener("change", () => { if ($("#out").value <= $("#in").value) { const x = new Date($("#in").value); x.setDate(x.getDate() + 1); $("#out").value = f(x); } });
 
+  const bkUrl = () => { const pp = $("#ppl").value, ad = /^1 /.test(pp) ? 1 : 2, ch = (pp.match(/(\d) cop/) || [0, 0])[1];
+    return `https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html?checkin=${$("#in").value}&checkout=${$("#out").value}&group_adults=${ad}&group_children=${ch}&no_rooms=1&lang=ro`; };
+  const upd = () => ($("#ask").href = bkUrl()); ["in", "out", "ppl"].forEach((id) => $("#" + id).addEventListener("change", upd)); upd();
   // meniul: literele se rostogolesc
   $$(".nav a, .menu nav a").forEach((a) => { const ch = [...a.textContent.trim()], mid = (ch.length - 1) / 2; a.setAttribute("aria-label", a.textContent.trim());
     a.innerHTML = `<span class="roll" aria-hidden="true">${ch.map((c, i) => c === " " ? '<span class="s"></span>' : `<span class="l"><span style="--d:${Math.round(Math.abs(i - mid) * 24)}">${c}</span></span>`).join("")}</span>`; });
