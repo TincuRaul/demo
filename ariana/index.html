@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Hotel Ariana, Tășnad: piscină cu apă termală, saună, restaurant</title>
+<meta name="description" content="Hotel Ariana, Strada Magnoliei 4, Tășnad. Piscină cu apă termală, saună finlandeză, masaj, restaurant și snack bar. Rezervări: 0770 329 749." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Pinyon+Script&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+<link rel="preload" as="image" href="img/arcade-m.webp" imagesrcset="img/arcade-m.webp 800w, img/arcade.webp 1200w" imagesizes="100vw" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+<style>
+  /* culorile hotelului: albul pereților, lemnul și ratanul de la intrare, verdele plantelor, negrul din siglă */
+  :root { --ink: #1c1a17; --mute: rgba(28,26,23,.64); --paper: #fffdfa; --sand: #f2ece2; --sage: #c9d1c3; --bronze: #93663c; --line: rgba(28,26,23,.14); --pad: 20px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+  body { font: 400 16px/1.6 "Instrument Sans", system-ui, sans-serif; color: var(--ink); background: var(--paper); overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  .wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 var(--pad); }
+  .serif { font-family: "Libre Caslon Display", Georgia, serif; font-weight: 400; }
+  .script { font-family: "Pinyon Script", cursive; font-weight: 400; text-transform: none; letter-spacing: 0; }
+  .kick { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 46px; padding: 0 22px; border-radius: 999px; background: var(--bronze); color: #fff; font-weight: 500; font-size: 14.5px; transition: background .3s; }
+  .btn:hover { background: #7d5531; }
+  .btn.ghost { background: transparent; color: inherit; box-shadow: inset 0 0 0 1px currentColor; }
+  .btn.ghost:hover { background: rgba(255,255,255,.12); }
+  :focus-visible { outline: 2px solid var(--bronze); outline-offset: 3px; }
+  .m { display: inline-block; overflow: hidden; vertical-align: top; padding: .14em 0 .2em; margin: -.14em 0 -.2em; }
+  .m > span { display: inline-block; }
+
+  /* literele din meniu se rostogolesc la hover */
+  .roll { display: inline-block; white-space: nowrap; }
+  .roll .l { display: inline-block; overflow: hidden; vertical-align: top; line-height: 1.15; padding-bottom: .06em; margin-bottom: -.06em; }
+  .roll .l > span { display: inline-block; text-shadow: 0 1.2em 0 currentColor; transition: transform .7s cubic-bezier(.76,0,.24,1); transition-delay: calc(var(--d) * 1ms); }
+  .roll .s { display: inline-block; width: .28em; }
+  @media (hover: hover) { a:hover .roll .l > span { transform: translateY(-1.2em); } }
+  .roll.go .l > span { transform: translateY(-1.2em); }
+
+  /* antetul: transparent peste poză, alb după */
+  .top { position: fixed; inset: 0 0 auto; z-index: 40; color: #fff; transition: background .4s, color .4s, transform .45s; }
+  .top .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 70px; }
+  .top.solid { background: rgba(255,253,250,.95); color: var(--ink); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line); }
+  .top.hid { transform: translateY(-100%); }
+  .nav { display: none; gap: 24px; font-size: 14px; }
+  .brand { text-align: center; line-height: 1; }
+  .brand .stars { display: block; font-size: 9px; letter-spacing: .5em; margin-bottom: 4px; padding-left: .5em; }
+  .brand b { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: 21px; letter-spacing: .2em; padding-left: .2em; }
+  .top .right { justify-self: end; display: flex; align-items: center; gap: 12px; }
+  .top .btn { height: 38px; padding: 0 16px; font-size: 13.5px; }
+  .burger { width: 40px; height: 40px; display: grid; place-content: center; gap: 6px; background: none; border: 0; color: inherit; cursor: pointer; justify-self: start; }
+  .burger i { display: block; width: 22px; height: 1.5px; background: currentColor; transition: transform .35s; }
+  .open .burger i:first-child { transform: translateY(3.75px) rotate(45deg); } .open .burger i:last-child { transform: translateY(-3.75px) rotate(-45deg); }
+  .menu { position: fixed; inset: 0; z-index: 35; background: var(--ink); color: #fff; padding: 100px var(--pad) 32px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; visibility: hidden; transition: opacity .3s, visibility 0s .3s; }
+  .open .menu { opacity: 1; visibility: visible; transition: opacity .3s; }
+  .open .top { color: #fff; background: transparent; box-shadow: none; }
+  .menu nav { display: grid; }
+  .menu nav a { font-family: "Libre Caslon Display", serif; font-size: 42px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+  .menu p { color: rgba(255,255,255,.6); font-size: 15px; }
+  html.open { overflow: hidden; }
+
+  /* primul ecran: arcadele de la intrare, titlul, bara de rezervare */
+  .hero { position: relative; height: 100svh; min-height: 640px; overflow: hidden; color: #fff; background: #1b1714; display: flex; flex-direction: column; justify-content: flex-end; }
+  .hero__bg { position: absolute; inset: 0; }
+  .hero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 45% 55%; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,14,11,.45), rgba(18,14,11,.15) 40%, rgba(18,14,11,.7)); }
+  .hero .wrap { position: relative; z-index: 2; text-align: center; padding-bottom: 28px; }
+  .hero h1 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(42px, 11vw, 120px); line-height: .95; letter-spacing: .01em; text-transform: uppercase; }
+  .hero h1 .script { display: block; font-size: .62em; line-height: 1.1; margin-bottom: -.12em; }
+  .hero .sub { margin: 18px auto 0; max-width: 36ch; color: rgba(255,255,255,.86); font-size: 15.5px; }
+  .book { position: relative; z-index: 2; margin: 26px auto 0; width: calc(100% - 2 * var(--pad)); max-width: 820px; background: #fff; color: var(--ink); border-radius: 18px; padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; box-shadow: 0 20px 50px rgba(0,0,0,.25); }
+  .book label { display: grid; gap: 2px; padding: 8px 12px; border-radius: 12px; background: var(--sand); font-size: 11.5px; color: var(--mute); text-transform: uppercase; letter-spacing: .08em; }
+  .book input, .book select { border: 0; background: transparent; font: 500 15px "Instrument Sans", sans-serif; color: var(--ink); text-transform: none; letter-spacing: 0; width: 100%; outline: none; }
+  .book .btn { grid-column: 1 / -1; height: 50px; }
+  .book .note { grid-column: 1 / -1; font-size: 12px; color: var(--mute); text-align: center; padding: 2px 0 4px; }
+
+  /* introducerea, cu facilitățile desenate */
+  .intro { padding: 90px 0 70px; text-align: center; }
+  .intro h2 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(32px, 6.4vw, 54px); line-height: 1.08; margin-top: 14px; }
+  .intro p.lead { max-width: 58ch; margin: 18px auto 0; color: var(--mute); font-size: 16.5px; }
+  .fac { margin-top: 50px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 12px; }
+  .fac div { display: grid; justify-items: center; gap: 10px; font-size: 13.5px; line-height: 1.35; }
+  .fac svg { width: 54px; height: 54px; overflow: visible; }
+  .fac svg * { fill: none; stroke: var(--ink); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* banda cu nota și rezervarea directă */
+  .band { background: var(--sage); padding: 26px 0; }
+  .band .wrap { display: grid; gap: 18px; justify-items: center; text-align: center; }
+  .band .score { display: flex; align-items: center; gap: 12px; font-size: 13.5px; text-align: left; }
+  .band .score b { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 10px 10px 10px 2px; background: #003b95; color: #fff; font-size: 17px; }
+  .band h3 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: 26px; }
+  .band .vou { font-size: 13.5px; color: var(--mute); max-width: 22ch; }
+
+  /* pozele care se desfac la scroll, ca pe Sobha */
+  .fan { padding: 100px 0 60px; text-align: center; overflow: hidden; }
+  .fan h2 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(34px, 7vw, 64px); line-height: 1; text-transform: uppercase; margin-top: 14px; }
+  .fan h2 .script { display: block; font-size: .7em; text-transform: none; }
+  .fan .row { position: relative; margin-top: 46px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+  .fan .row figure { overflow: hidden; }
+  .fan .row img { width: 100%; height: 100%; object-fit: cover; }
+  .fan .c { width: min(76vw, 520px); aspect-ratio: 4 / 5; position: relative; z-index: 2; }
+  .fan .s { width: 30vw; max-width: 300px; aspect-ratio: 3 / 4; flex: none; }
+  .fan p { max-width: 52ch; margin: 34px auto 0; color: var(--mute); }
+
+  /* sliderul negru cu cuvinte mari: Dormi, Mănânci, Te relaxezi */
+  .slider { position: relative; background: #0f0d0b; color: #fff; overflow: hidden; padding: 90px 0 60px; }
+  .slider .bgs img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s; }
+  .slider .bgs img.on { opacity: .28; }
+  .slider .track { position: relative; display: flex; justify-content: center; align-items: baseline; gap: 6vw; white-space: nowrap; font-family: "Libre Caslon Display", serif; font-size: clamp(54px, 14vw, 150px); line-height: 1; transition: transform .9s cubic-bezier(.76,0,.24,1); }
+  .slider .track span { color: rgba(255,255,255,.28); transition: color .6s; cursor: pointer; }
+  .slider .track span.on { color: #fff; }
+  .slider .txt { position: relative; text-align: center; margin-top: 30px; min-height: 160px; }
+  .slider .txt div { position: absolute; inset: 0 var(--pad); opacity: 0; transform: translateY(12px); transition: opacity .6s, transform .6s; pointer-events: none; }
+  .slider .txt div.on { opacity: 1; transform: none; pointer-events: auto; }
+  .slider .txt h3 { font-size: 15px; font-weight: 500; letter-spacing: .02em; }
+  .slider .txt p { max-width: 44ch; margin: 8px auto 18px; color: rgba(255,255,255,.75); font-size: 15px; }
+  .slider .dots { position: relative; display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 30px; font-size: 13px; color: rgba(255,255,255,.6); }
+  .slider .dots i { display: block; width: 60px; height: 1px; background: rgba(255,255,255,.25); position: relative; overflow: hidden; }
+  .slider .dots i b { position: absolute; inset: 0; background: #fff; transform-origin: left; transform: scaleX(0); }
+
+  /* camerele */
+  .rooms { padding: 90px 0 70px; }
+  .rooms .head { max-width: 40ch; }
+  .rooms h2, .stay h2, .info h2 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(30px, 6vw, 46px); line-height: 1.08; margin-top: 12px; }
+  .rooms .head p { margin-top: 14px; color: var(--mute); }
+  .rlist { margin-top: 40px; display: grid; gap: 34px; }
+  .room { display: grid; gap: 16px; }
+  .room figure { aspect-ratio: 4 / 3; overflow: hidden; }
+  .room img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+  @media (hover: hover) { .room:hover img { transform: scale(1.04); } }
+  .room h3 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: 26px; }
+  .room p { color: var(--mute); font-size: 15px; margin: 6px 0 14px; max-width: 46ch; }
+  .room .acts { display: flex; gap: 8px; flex-wrap: wrap; }
+  .room .btn { height: 40px; font-size: 13.5px; padding: 0 18px; }
+  .room .btn.ghost { color: var(--ink); }
+
+  /* trei poze în trepte */
+  .trio { padding: 30px 0 90px; }
+  .trio .wrap { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 10px; align-items: center; }
+  .trio figure { overflow: hidden; aspect-ratio: 4 / 3; }
+  .trio figure.mid { aspect-ratio: 3 / 4; }
+  .trio img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* text mare cu litere mari și un cuvânt scris de mână, peste poze decalate */
+  .stay { padding: 90px 0; overflow: hidden; }
+  .stay .big { font-family: "Libre Caslon Display", serif; font-size: clamp(30px, 6.6vw, 66px); line-height: 1.06; text-transform: uppercase; position: relative; z-index: 2; }
+  .stay .big .script { display: block; text-align: right; font-size: .82em; line-height: .9; color: var(--bronze); }
+  .stay .pics { position: relative; margin-top: 34px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 12px; align-items: end; }
+  .stay .pics figure { overflow: hidden; }
+  .stay .pics img { width: 100%; height: 100%; object-fit: cover; }
+  .stay .pics .a { aspect-ratio: 3 / 4; }
+  .stay .pics .b { aspect-ratio: 4 / 5; }
+
+  /* părerea oaspeților */
+  .rev { background: var(--sage); padding: 80px 0; text-align: center; }
+  .rev q { display: block; max-width: 30ch; margin: 18px auto 0; font-family: "Libre Caslon Display", serif; font-size: clamp(26px, 5.6vw, 42px); line-height: 1.15; quotes: "„" "”"; }
+  .rev .who { margin-top: 18px; font-size: 14px; color: var(--mute); }
+  .rev .stars { margin-top: 6px; color: var(--bronze); letter-spacing: .2em; }
+  .rev a { display: inline-block; margin-top: 22px; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+
+  /* seara la piscină */
+  .pool { position: relative; min-height: 88svh; overflow: hidden; color: #fff; display: flex; align-items: center; justify-content: center; text-align: center; background: #22303a; }
+  .pool__bg { position: absolute; inset: 0; }
+  .pool__bg img { width: 100%; height: 100%; object-fit: cover; }
+  .pool::after { content: ""; position: absolute; inset: 0; background: rgba(15,18,22,.42); }
+  .pool .wrap { position: relative; z-index: 2; }
+  .pool h2 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(36px, 8vw, 72px); line-height: 1.02; margin-top: 12px; }
+  .pool p { max-width: 42ch; margin: 14px auto 24px; color: rgba(255,255,255,.85); }
+  .pool .kick { color: rgba(255,255,255,.75); }
+
+  /* informații utile */
+  .info { padding: 90px 0; }
+  .info .wrap { max-width: 860px; }
+  .info h2 { text-align: center; }
+  .qs { margin-top: 36px; border-top: 1px solid var(--line); }
+  .qs details { border-bottom: 1px solid var(--line); }
+  .qs summary { list-style: none; cursor: pointer; padding: 20px 40px 20px 0; position: relative; font-size: 17px; }
+  .qs summary::-webkit-details-marker { display: none; }
+  .qs summary::after { content: "+"; position: absolute; right: 4px; top: 50%; translate: 0 -50%; font-size: 20px; transition: rotate .4s cubic-bezier(.76,0,.24,1); }
+  .qs details[open] summary::after { rotate: 45deg; }
+  .qs details p { padding: 0 0 20px; color: var(--mute); max-width: 60ch; overflow: hidden; }
+
+  footer { background: #191714; color: #fff; padding: 70px 0 30px; }
+  footer .brand { text-align: left; }
+  footer .brand b { font-size: 26px; }
+  footer .grid { margin-top: 40px; display: grid; gap: 34px; }
+  footer .big a { display: block; font-family: "Libre Caslon Display", serif; font-size: 34px; line-height: 1.2; color: rgba(255,255,255,.9); }
+  footer h4 { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.5); font-weight: 500; margin-bottom: 10px; }
+  footer .cols p, footer .cols a { display: block; color: rgba(255,255,255,.82); font-size: 15px; line-height: 1.8; }
+  footer .legal { margin-top: 50px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 12.5px; color: rgba(255,255,255,.5); }
+
+  .bar { position: fixed; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); z-index: 30; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; transform: translateY(140%); transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+  .bar.on { transform: none; }
+  .bar a { height: 50px; border-radius: 999px; display: grid; place-items: center; font-weight: 500; font-size: 15px; background: #fff; box-shadow: 0 6px 24px rgba(0,0,0,.16); }
+  .bar a:first-child { background: var(--bronze); color: #fff; }
+
+  @media (min-width: 900px) {
+    :root { --pad: 40px; }
+    .nav { display: flex; } .bar { display: none; }
+    .top .wrap { height: 82px; }
+    .hero .wrap { padding-bottom: 34px; }
+    .book { grid-template-columns: 1fr 1fr 1fr auto; border-radius: 999px; padding: 8px; margin-bottom: 40px; }
+    .book label { border-radius: 999px; padding: 8px 20px; }
+    .book .btn { grid-column: auto; height: auto; padding: 0 26px; }
+    .book .note { display: none; }
+    .intro { padding: 130px 0 100px; }
+    .fac { grid-template-columns: repeat(7, 1fr); max-width: 1100px; margin-left: auto; margin-right: auto; }
+    .band .wrap { grid-template-columns: 1fr auto 1fr; align-items: center; }
+    .band .score { justify-self: start; } .band .vou { justify-self: end; text-align: right; }
+    .band .mid { display: flex; align-items: center; gap: 22px; }
+    .fan { padding: 140px 0 90px; }
+    .fan .row { gap: 18px; }
+    .fan .s { width: 22vw; }
+    .slider { padding: 130px 0 80px; }
+    .rooms { padding: 130px 0 90px; }
+    .rooms .wrap { display: grid; grid-template-columns: .8fr 2fr; gap: 60px; }
+    .rlist { margin-top: 0; }
+    .room { grid-template-columns: 1fr 1fr; gap: 34px; align-items: center; }
+    .trio { padding: 40px 0 130px; }
+    .trio .wrap { gap: 22px; }
+    .stay { padding: 140px 0; }
+    .stay .wrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 50px; align-items: start; }
+    .stay .pics { margin-top: 120px; }
+    .rev { padding: 110px 0; }
+    .info { padding: 130px 0; }
+    footer .grid { grid-template-columns: 1.2fr 1fr 1fr 1fr; }
+    footer .big a { font-size: 44px; }
+  }
+  @media (max-width: 899px) {
+    .fan .s { display: none; }
+    .trio .wrap { grid-template-columns: 1fr 1fr; } .trio figure.mid { grid-column: 1 / -1; grid-row: 1; aspect-ratio: 4 / 3; }
+    .slider .track { justify-content: flex-start; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<header class="top" id="top">
+  <div class="wrap">
+    <div style="display:flex;align-items:center;gap:20px"><button class="burger" id="burger" type="button" aria-label="Deschide meniul" aria-expanded="false"><i></i><i></i></button><nav class="nav" aria-label="Meniu"><a href="#camere">Camere</a><a href="#restaurant">Restaurant</a><a href="#spa">Spa</a><a href="#info">Informații</a></nav></div>
+    <a class="brand" href="#hero" aria-label="Hotel Ariana"><span class="stars">★★★</span><b>ARIANA</b></a>
+    <div class="right"><a class="btn" href="tel:+40770329749">Rezervă</a></div>
+  </div>
+</header>
+<div class="menu" id="menu" aria-hidden="true">
+  <nav aria-label="Meniu pe telefon"><a href="#camere">Camere</a><a href="#restaurant">Restaurant</a><a href="#spa">Piscină și spa</a><a href="#info">Informații</a></nav>
+  <p>Strada Magnoliei nr. 4, Tășnad<br /><a href="tel:+40770329749">0770 329 749</a></p>
+</div>
+
+<main>
+  <section class="hero" id="hero">
+    <div class="hero__bg" id="herobg"><img src="img/arcade-m.webp" srcset="img/arcade-m.webp 800w, img/arcade.webp 1200w" sizes="100vw" alt="Intrarea Hotelului Ariana: arcade luminate, scaun din ratan și firma Hotel Ariana" fetchpriority="high" /></div>
+    <div class="wrap">
+      <h1 class="lines"><span class="ln"><span class="script">Apă termală și</span></span><span class="ln">stare de bine</span></h1>
+      <p class="sub rv">Hotel cu piscină termală, saună și restaurant, în stațiunea Tășnad.</p>
+    </div>
+    <form class="book rv" id="book" onsubmit="return false">
+      <label>Sosire<input type="date" id="in" /></label>
+      <label>Plecare<input type="date" id="out" /></label>
+      <label>Persoane<select id="ppl"><option>1 adult</option><option selected>2 adulți</option><option>2 adulți, 1 copil</option><option>2 adulți, 2 copii</option><option>Grup</option></select></label>
+      <a class="btn" id="ask" href="tel:+40770329749">Verifică disponibilitatea</a>
+      <p class="note">Rezervi direct la hotel, fără intermediari.</p>
+    </form>
+  </section>
+
+  <section class="intro" id="spa">
+    <div class="wrap">
+      <p class="kick rv">Stațiunea Tășnad</p>
+      <h2 class="lines"><span class="ln">Un hotel liniștit,</span><span class="ln">cu apă termală</span></h2>
+      <p class="lead rv">La Hotel Ariana te așteaptă o piscină cu apă termală, sauna finlandeză, masajul și restaurantul nostru. Parcarea e gratuită, iar dimineața servim micul dejun.</p>
+      <div class="fac">
+        <div><svg viewBox="0 0 54 54"><path d="M4 30c4 0 4-3 8-3s4 3 8 3 4-3 8-3 4 3 8 3 4-3 8-3 4 3 8 3"/><path d="M4 38c4 0 4-3 8-3s4 3 8 3 4-3 8-3 4 3 8 3 4-3 8-3 4 3 8 3"/><path d="M18 22V8a4 4 0 0 1 8 0M34 22V8a4 4 0 0 1 8 0M18 14h16M18 20h16"/></svg>Piscină cu<br />apă termală</div>
+        <div><svg viewBox="0 0 54 54"><path d="M8 46h38M12 46V24h30v22M12 32h30M12 39h30"/><path d="M20 18c-3-3 3-6 0-10M28 18c-3-3 3-6 0-10M36 18c-3-3 3-6 0-10"/></svg>Saună<br />finlandeză</div>
+        <div><svg viewBox="0 0 54 54"><path d="M27 44c-9-5-14-12-14-20 6 0 11 4 14 9 3-5 8-9 14-9 0 8-5 15-14 20Z"/><path d="M27 33c-3-6-3-14 0-22 3 8 3 16 0 22Z"/></svg>Masaj și<br />terapie Bowen</div>
+        <div><svg viewBox="0 0 54 54"><path d="M17 8v14a5 5 0 0 0 10 0V8M22 8v38M37 46V8c-5 3-7 10-7 18h7"/></svg>Restaurant</div>
+        <div><svg viewBox="0 0 54 54"><path d="M14 10h26l-11 14v14M21 46h16M29 38v8"/><path d="M17 14h20"/><circle cx="38" cy="10" r="4"/></svg>Snack bar</div>
+        <div><svg viewBox="0 0 54 54"><rect x="9" y="9" width="36" height="36" rx="18"/><path d="M22 38V16h7a6 6 0 0 1 0 12h-7"/></svg>Parcare<br />gratuită</div>
+        <div><svg viewBox="0 0 54 54"><path d="M8 16h38v8a4 4 0 0 0 0 8v8H8v-8a4 4 0 0 0 0-8Z"/><path d="M22 16v24" stroke-dasharray="3 3"/></svg>Vouchere<br />de vacanță</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="score rv"><b>8,2</b><span><strong>Foarte bine</strong><br />40 de evaluări pe Booking</span></div>
+      <div class="mid rv"><h3>Cel mai bun preț e la noi</h3><a class="btn" href="tel:+40770329749">Sună: 0770 329 749</a></div>
+      <p class="vou rv">Acceptăm plata cu vouchere de vacanță.</p>
+    </div>
+  </section>
+
+  <section class="fan" id="camere">
+    <div class="wrap">
+      <p class="kick rv">Camerele</p>
+      <h2 class="lines"><span class="ln"><span class="script">liniște și</span></span><span class="ln">lumină</span></h2>
+      <div class="row" id="fanrow">
+        <figure class="s l"><img src="img/hol.webp" alt="Holul spre o cameră a hotelului" loading="lazy" /></figure>
+        <figure class="c"><img src="img/camera-soare.webp" alt="Pat dublu în lumina soarelui, cu lebede din prosoape" loading="lazy" /></figure>
+        <figure class="s r"><img src="img/lebede.webp" alt="Lebede din prosoape cu un bilețel de bun venit" loading="lazy" /></figure>
+      </div>
+      <p class="rv">Camere curate și luminoase, cu pat dublu, televizor și frigider. Pe pat te așteaptă lebedele din prosoape și un bilețel de bun venit.</p>
+    </div>
+  </section>
+
+  <section class="slider" id="restaurant">
+    <div class="bgs"><img class="on" src="img/camera.webp" alt="" /><img src="img/restaurant.webp" alt="" /><img src="img/piscina.webp" alt="" /></div>
+    <div class="track" id="track"><span class="on">Dormi</span><span>Mănânci</span><span>Te relaxezi</span></div>
+    <div class="txt" id="txt">
+      <div class="on"><h3>Camere pentru familii și cupluri</h3><p>Camere duble și de familie, pentru nefumători, cu WiFi gratuit în tot hotelul.</p><a class="btn" href="#camere">Vezi camerele</a></div>
+      <div><h3>Restaurantul și snack barul</h3><p>Sala de restaurant cu candelabre și arcade luminate, iar afară snack barul, cu terasă pe iarbă.</p><a class="btn" href="tel:+40770329749">Rezervă o masă</a></div>
+      <div><h3>Piscina termală și sauna</h3><p>Apă termală, sauna finlandeză, masaj și terapie Bowen, la câțiva pași de cameră.</p><a class="btn" href="#info">Află programul</a></div>
+    </div>
+    <div class="dots"><span>1 / 3</span><i><b id="prog"></b></i></div>
+  </section>
+
+  <section class="rooms">
+    <div class="wrap">
+      <div class="head"><p class="kick rv">Cazare</p><h2 class="lines"><span class="ln">Alege-ți</span><span class="ln">camera</span></h2><p class="rv">Spune-ne când vii și câți sunteți, iar noi îți spunem ce cameră e liberă și cât costă.</p></div>
+      <div class="rlist">
+        <article class="room"><figure><img src="img/camera.webp" alt="Cameră dublă cu fereastră mare" loading="lazy" /></figure><div><h3>Cameră dublă</h3><p>Pat dublu, fereastră mare, televizor și frigider. Pentru cupluri sau pentru cine vine singur la tratament.</p><div class="acts"><a class="btn" href="tel:+40770329749">Rezervă</a><a class="btn ghost" href="#info">Întrebări</a></div></div></article>
+        <article class="room"><figure><img src="img/camera-tv.webp" alt="Cameră cu televizor și frigider" loading="lazy" /></figure><div><h3>Cameră de familie</h3><p>Loc pentru părinți și copii, ca toată familia să stea împreună.</p><div class="acts"><a class="btn" href="tel:+40770329749">Rezervă</a><a class="btn ghost" href="#info">Întrebări</a></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="trio">
+    <div class="wrap">
+      <figure class="rvi"><img src="img/masa.webp" alt="Masă pregătită în restaurant" loading="lazy" /></figure>
+      <figure class="mid rvi"><img src="img/snackbar.webp" alt="Snack barul cu terasă pe iarbă" loading="lazy" /></figure>
+      <figure class="rvi"><img src="img/sauna.webp" alt="Sauna finlandeză" loading="lazy" /></figure>
+    </div>
+  </section>
+
+  <section class="stay">
+    <div class="wrap">
+      <p class="big words">Un hotel mic, la marginea Tășnadului. Apă termală, saună și masă bună, pentru cine vrea <span class="script">să se odihnească.</span></p>
+      <div class="pics"><figure class="a rvi"><img src="img/arcade.webp" alt="Arcadele luminate de la intrare" loading="lazy" style="object-position:40% 50%" /></figure><figure class="b rvi"><img src="img/restaurant.webp" alt="Sala restaurantului cu candelabre" loading="lazy" /></figure></div>
+    </div>
+  </section>
+
+  <section class="rev">
+    <div class="wrap">
+      <p class="kick rv">Ce spun oaspeții</p>
+      <q class="rv">Am găsit un loc primitor, curat și foarte confortabil. Gazdele, deosebit de amabile și atente la toate detaliile.</q>
+      <p class="who rv">Dorin, România, pe Booking</p>
+      <p class="stars rv" aria-label="8,2 din 10">8,2 din 10 · 40 de evaluări</p>
+    </div>
+  </section>
+
+  <section class="pool">
+    <div class="pool__bg" id="poolbg"><img src="img/piscina-m.webp" srcset="img/piscina-m.webp 800w, img/piscina.webp 1600w" sizes="100vw" alt="Piscina cu apă termală la apus" loading="lazy" /></div>
+    <div class="wrap">
+      <p class="kick rv">Piscina termală</p>
+      <h2 class="lines"><span class="ln">Seara,</span><span class="ln">la piscină</span></h2>
+      <p class="rv">Apă termală, șezlonguri și geamuri mari prin care vezi apusul peste Tășnad.</p>
+      <a class="btn rv" href="tel:+40770329749">Rezervă o cameră</a>
+    </div>
+  </section>
+
+  <section class="info" id="info">
+    <div class="wrap">
+      <h2 class="lines"><span class="ln">Informații utile</span></h2>
+      <div class="qs">
+        <details><summary>Unde se află hotelul?</summary><p>Pe strada Magnoliei nr. 4, în Tășnad, județul Satu Mare. Aeroportul din Satu Mare e la 40 km, iar Castelul Károlyi din Carei la 27 km.</p></details>
+        <details><summary>Cum rezerv o cameră?</summary><p>Ne suni la 0770 329 749 sau ne scrii pe Facebook și Instagram (hotelariana_). Îți spunem pe loc ce cameră e liberă și cât costă.</p></details>
+        <details><summary>Acceptați vouchere de vacanță?</summary><p>Da, poți plăti cazarea cu vouchere de vacanță.</p></details>
+        <details><summary>Este inclus micul dejun?</summary><p>Servim micul dejun dimineața. Întreabă la rezervare dacă e inclus în prețul camerei tale.</p></details>
+        <details><summary>Am unde parca?</summary><p>Da, avem parcare privată gratuită pentru oaspeți.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#hero"><span class="stars">★★★</span><b>HOTEL ARIANA</b></a>
+    <div class="grid">
+      <div class="big"><a href="#camere">Camere</a><a href="#restaurant">Restaurant</a><a href="#spa">Piscină și spa</a><a href="#info">Informații</a></div>
+      <div class="cols"><h4>Adresa</h4><p>Strada Magnoliei nr. 4</p><p>445300 Tășnad, Satu Mare</p><a href="https://maps.google.com/?q=Hotel+Ariana+Strada+Magnoliei+4+Tasnad" target="_blank" rel="noopener">Deschide harta</a></div>
+      <div class="cols"><h4>Rezervări</h4><a href="tel:+40770329749">0770 329 749</a><a href="https://www.instagram.com/hotelariana_/" target="_blank" rel="noopener">Instagram</a></div>
+      <div class="cols"><h4>La hotel</h4><p>Piscină cu apă termală</p><p>Saună finlandeză</p><p>Masaj și terapie Bowen</p><p>Restaurant și snack bar</p></div>
+    </div>
+    <div class="legal"><span>© 2026 Hotel Ariana. Demonstrație: textele și pozele sunt de confirmat cu hotelul.</span><a href="https://rtweb.ro">Site realizat de RTWEB</a></div>
+  </div>
+</footer>
+<div class="bar" id="bar"><a href="tel:+40770329749">Sună și rezervă</a><a href="#book" id="barbook">Alege datele</a></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches, desk = matchMedia("(min-width: 900px)").matches;
+
+  // bara de rezervare: datele implicite și mesajul pentru hotel
+  const d0 = new Date(); d0.setDate(d0.getDate() + 7); const d1 = new Date(d0); d1.setDate(d1.getDate() + 2);
+  const f = (d) => d.toISOString().slice(0, 10); $("#in").value = f(d0); $("#out").value = f(d1); $("#in").min = f(new Date());
+  $("#in").addEventListener("change", () => { if ($("#out").value <= $("#in").value) { const x = new Date($("#in").value); x.setDate(x.getDate() + 1); $("#out").value = f(x); } });
+
+  // meniul: literele se rostogolesc
+  $$(".nav a, .menu nav a").forEach((a) => { const ch = [...a.textContent.trim()], mid = (ch.length - 1) / 2; a.setAttribute("aria-label", a.textContent.trim());
+    a.innerHTML = `<span class="roll" aria-hidden="true">${ch.map((c, i) => c === " " ? '<span class="s"></span>' : `<span class="l"><span style="--d:${Math.round(Math.abs(i - mid) * 24)}">${c}</span></span>`).join("")}</span>`; });
+  const html = document.documentElement, burger = $("#burger"), menu = $("#menu");
+  const setMenu = (o) => { html.classList.toggle("open", o); burger.setAttribute("aria-expanded", o); menu.setAttribute("aria-hidden", !o);
+    if (o && !reduce) $$("#menu .roll").forEach((r, k) => { r.classList.remove("go"); setTimeout(() => r.classList.add("go"), 350 + k * 90); setTimeout(() => r.classList.remove("go"), 1150 + k * 90); }); };
+  burger.addEventListener("click", () => setMenu(!html.classList.contains("open")));
+  document.addEventListener("click", (e) => { const a = e.target.closest('a[href^="#"]'); if (!a) return; e.preventDefault(); setMenu(false);
+    const el = document.getElementById(a.getAttribute("href").slice(1)); scrollTo({ top: el ? el.getBoundingClientRect().top + scrollY - (el.id === "hero" || el.id === "book" ? 0 : 70) : 0, behavior: "smooth" }); });
+
+  const hdr = $("#top"), bar = $("#bar"); let lastY = scrollY;
+  const onScroll = () => { const y = scrollY; hdr.classList.toggle("solid", y > innerHeight * .8);
+    if (Math.abs(y - lastY) > 6) { hdr.classList.toggle("hid", y > lastY && y > innerHeight && !html.classList.contains("open")); lastY = y; }
+    bar.classList.toggle("on", y > innerHeight * .9); };
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  // sliderul Dormi / Mănânci / Te relaxezi
+  const words = $$("#track span"), txts = $$("#txt > div"), bgs = $$(".bgs img"); let cur = 0, timer;
+  const go = (i) => { cur = (i + 3) % 3; words.forEach((w, k) => w.classList.toggle("on", k === cur)); txts.forEach((t, k) => t.classList.toggle("on", k === cur)); bgs.forEach((b, k) => b.classList.toggle("on", k === cur));
+    const w = words[cur], tr = $("#track"); tr.style.transform = `translateX(${tr.parentNode.clientWidth / 2 - (w.offsetLeft + w.offsetWidth / 2)}px)`;
+    $(".dots span").textContent = `${cur + 1} / 3`;
+    if (window.gsap && !reduce) gsap.fromTo("#prog", { scaleX: 0 }, { scaleX: 1, duration: 6, ease: "none" });
+    clearTimeout(timer); timer = setTimeout(() => go(cur + 1), 6000); };
+  words.forEach((w, k) => w.addEventListener("click", () => go(k)));
+  let sx = 0; $(".slider").addEventListener("touchstart", (e) => (sx = e.touches[0].clientX), { passive: true });
+  $(".slider").addEventListener("touchend", (e) => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1)); });
+  addEventListener("resize", () => go(cur));
+
+  // titluri: rând cu rând din mască; textul mare: cuvânt cu cuvânt
+  $$(".lines .ln").forEach((l) => { l.outerHTML = `<span class="m" style="display:block"><span>${l.innerHTML}</span></span>`; });
+  $$(".words").forEach((p) => { p.innerHTML = p.innerHTML.replace(/(<span class="script">.*?<\/span>)|([^\s<]+)/g, (w) => `<span class="m"><span>${w}</span></span>`); });
+  go(0);
+
+  if (reduce || !window.gsap) return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.fromTo(".hero .m > span", { yPercent: 110 }, { yPercent: 0, duration: 1.5, ease: "expo.out", stagger: .12, delay: .2 });
+  gsap.fromTo(".hero .rv", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", stagger: .12, delay: .7 });
+  if (desk) {
+    gsap.fromTo("#herobg img", { scale: 1.1 }, { scale: 1, duration: 2.4, ease: "power2.out" });
+    gsap.to("#herobg", { yPercent: 12, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    gsap.fromTo("#poolbg", { yPercent: -8 }, { yPercent: 8, ease: "none", scrollTrigger: { trigger: ".pool", start: "top bottom", end: "bottom top", scrub: true } });
+    // pozele cu camerele: cea din mijloc crește, cele laterale se depărtează, cât derulezi (ca pe Sobha)
+    gsap.fromTo("#fanrow .c", { scale: .78 }, { scale: 1, ease: "none", scrollTrigger: { trigger: "#fanrow", start: "top 90%", end: "center 50%", scrub: .6 } });
+    gsap.fromTo("#fanrow .l", { xPercent: 40, yPercent: 10, opacity: .4 }, { xPercent: 0, yPercent: 0, opacity: 1, ease: "none", scrollTrigger: { trigger: "#fanrow", start: "top 90%", end: "center 50%", scrub: .6 } });
+    gsap.fromTo("#fanrow .r", { xPercent: -40, yPercent: 10, opacity: .4 }, { xPercent: 0, yPercent: 0, opacity: 1, ease: "none", scrollTrigger: { trigger: "#fanrow", start: "top 90%", end: "center 50%", scrub: .6 } });
+    // pozele decalate de lângă textul mare se mișcă în ritmuri diferite
+    gsap.fromTo(".stay .a", { y: 80 }, { y: -40, ease: "none", scrollTrigger: { trigger: ".stay", start: "top bottom", end: "bottom top", scrub: true } });
+    gsap.fromTo(".stay .b", { y: 0 }, { y: -120, ease: "none", scrollTrigger: { trigger: ".stay", start: "top bottom", end: "bottom top", scrub: true } });
+  } else gsap.fromTo("#fanrow .c", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: "#fanrow", start: "top 85%" } });
+
+  $$("main section:not(.hero) .lines").forEach((h) => gsap.fromTo($$(".m > span", h), { yPercent: 110 }, { yPercent: 0, duration: 1.2, ease: "expo.out", stagger: .1, scrollTrigger: { trigger: h, start: "top 85%" } }));
+  $$(".words").forEach((p) => gsap.fromTo($$(".m > span", p), { yPercent: 110 }, { yPercent: 0, duration: 1, ease: "expo.out", stagger: .025, scrollTrigger: { trigger: p, start: "top 80%" } }));
+  $$("main section:not(.hero) .rv").forEach((el) => gsap.fromTo(el, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
+  $$(".rvi").forEach((el) => gsap.fromTo(el, { clipPath: "inset(16% 0 0 0)" }, { clipPath: "inset(0% 0 0 0)", duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
+  $$(".room").forEach((r) => gsap.fromTo(r, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: r, start: "top 85%" } }));
+  // iconițele cu facilitățile se desenează linie cu linie
+  $$(".fac svg").forEach((s, i) => { const ps = $$("path,rect,circle", s); ps.forEach((p) => { const L = p.getTotalLength ? p.getTotalLength() : 200; p.style.strokeDasharray = p.getAttribute("stroke-dasharray") || L; if (!p.getAttribute("stroke-dasharray")) p.style.strokeDashoffset = L; });
+    gsap.to(ps.filter((p) => !p.getAttribute("stroke-dasharray")), { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut", delay: i * .08, scrollTrigger: { trigger: ".fac", start: "top 85%" } }); });
+  gsap.fromTo(".fac > div", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .8, stagger: .08, ease: "power2.out", scrollTrigger: { trigger: ".fac", start: "top 85%" } });
+  // întrebările se deschid lin
+  $$(".qs details").forEach((d) => { const sum = d.querySelector("summary"), p = d.querySelector("p");
+    sum.addEventListener("click", (e) => { e.preventDefault();
+      if (d.open) gsap.to(p, { height: 0, opacity: 0, duration: .45, ease: "power3.inOut", onComplete: () => { d.open = false; gsap.set(p, { clearProps: "all" }); } });
+      else { d.open = true; gsap.fromTo(p, { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: .55, ease: "power3.out" }); } }); });
+});
+</script>
+</body>
+</html>
