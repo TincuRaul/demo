@@ -16,8 +16,9 @@
   /* culorile hotelului: albul pereților, lemnul și ratanul de la intrare, verdele plantelor, negrul din siglă */
   :root { --ink: #1c1a17; --mute: rgba(28,26,23,.64); --paper: #fffdfa; --sand: #f2ece2; --sage: #c9d1c3; --bronze: #93663c; --line: rgba(28,26,23,.14); --pad: 20px; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { -webkit-text-size-adjust: 100%; overflow-x: hidden; }
-  body { font: 400 16px/1.6 "Instrument Sans", system-ui, sans-serif; color: var(--ink); background: var(--paper); overflow-x: hidden; }
+  html { -webkit-text-size-adjust: 100%; overflow-x: hidden; overflow-x: clip; }
+  main, footer, section { overflow-x: clip; }
+  body { font: 400 16px/1.6 "Instrument Sans", system-ui, sans-serif; color: var(--ink); background: var(--paper); overflow-x: hidden; overflow-x: clip; max-width: 100vw; }
   a { color: inherit; text-decoration: none; }
   img { display: block; max-width: 100%; }
   .wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 var(--pad); }
@@ -107,7 +108,7 @@
   .fan p { max-width: 52ch; margin: 34px auto 0; color: var(--mute); }
 
   /* sliderul negru cu cuvinte mari: Dormi, Mănânci, Te relaxezi */
-  .slider { position: relative; background: #0f0d0b; color: #fff; overflow: hidden; padding: 90px 0 60px; }
+  .slider { position: relative; background: #0f0d0b; color: #fff; overflow: hidden; contain: paint; padding: 90px 0 60px; }
   .slider .bgs img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s; }
   .slider .bgs img.on { opacity: .28; }
   .slider .track { position: relative; display: flex; justify-content: center; align-items: baseline; gap: 6vw; white-space: nowrap; font-family: "Libre Caslon Display", serif; font-size: clamp(54px, 14vw, 150px); line-height: 1; transition: transform .9s cubic-bezier(.76,0,.24,1); }
