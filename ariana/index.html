@@ -74,7 +74,10 @@
   .book { position: relative; z-index: 2; margin: 26px auto 0; width: calc(100% - 2 * var(--pad)); max-width: 820px; background: #fff; color: var(--ink); border-radius: 18px; padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; box-shadow: 0 20px 50px rgba(0,0,0,.25); }
   .book label { display: grid; gap: 2px; padding: 8px 12px; border-radius: 12px; background: var(--sand); font-size: 11.5px; color: var(--mute); text-transform: uppercase; letter-spacing: .08em; }
   .book input, .book select { border: 0; background: transparent; font: 500 15px "Instrument Sans", sans-serif; color: var(--ink); text-transform: none; letter-spacing: 0; width: 100%; outline: none; }
-  .book .btn { grid-column: 1 / -1; height: 50px; }
+  .book .btn { grid-column: 1 / -1; height: 50px; background: #003b95; gap: 10px; }
+  .book .btn:hover { background: #002a6b; }
+  .bkl { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: #fff; color: #003b95; font: 700 14px/1 Arial, sans-serif; letter-spacing: -.02em; margin-right: 8px; }
+  .band .btn { background: #003b95; } .band .btn:hover { background: #002a6b; }
   .book .note { grid-column: 1 / -1; font-size: 12px; color: var(--mute); text-align: center; padding: 2px 0 4px; }
 
   /* introducerea, cu facilitățile desenate */
@@ -166,11 +169,14 @@
   .spa-facts .src { margin-top: 30px; font-size: 12px; color: rgba(255,255,255,.45); }
   /* prin împrejurimi */
   .near { padding: 90px 0; }
-  .near .wrap { max-width: 860px; }
-  .near h2 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(30px, 6vw, 46px); margin-top: 12px; }
-  .nl { list-style: none; margin-top: 30px; border-top: 1px solid var(--line); }
-  .nl li { display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 17px; }
-  .nl b { font-weight: 500; color: var(--bronze); white-space: nowrap; }
+  .near h2 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(32px, 6.4vw, 54px); line-height: 1.05; margin-top: 12px; }
+  .near h2 .script { display: block; font-size: .8em; color: var(--bronze); }
+  .nlead { margin-top: 16px; color: var(--mute); max-width: 40ch; } .nsrc { margin-top: 14px; font-size: 12px; color: var(--mute); opacity: .8; }
+  .ncols { display: grid; gap: 34px; margin-top: 40px; } .ncols h3 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: 26px; }
+  .nnote { margin-top: 16px; font-size: 14px; color: var(--bronze); }
+  .nl { list-style: none; margin-top: 14px; border-top: 1px solid var(--line); }
+  .nl li { display: grid; gap: 2px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 16.5px; }
+  .nl em { font-style: normal; font-size: 14px; color: var(--mute); }
   /* părerea oaspeților */
   .rev { background: var(--sage); padding: 80px 0; text-align: center; }
   .rev a { display: inline-block; margin-top: 22px; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
@@ -249,7 +255,7 @@
     .stay .pics { margin-top: 120px; }
     .rev { padding: 120px 0; } .rgrid { grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
     .spa-facts { padding: 130px 0; } .nums { grid-template-columns: repeat(3, 1fr); max-width: 1000px; margin: 60px auto 0; }
-    .near { padding: 130px 0; } .near .wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; max-width: 1160px; } .nl { margin-top: 0; }
+    .near { padding: 130px 0; } .near .wrap { display: grid; grid-template-columns: .9fr 1.6fr; gap: 60px; } .ncols { grid-template-columns: 1fr 1fr; margin-top: 0; gap: 40px; }
     .info { padding: 130px 0; }
     footer .grid { grid-template-columns: 1.2fr 1fr 1fr 1fr; }
     footer .big a { font-size: 44px; }
@@ -286,8 +292,8 @@
       <label>Sosire<input type="date" id="in" /></label>
       <label>Plecare<input type="date" id="out" /></label>
       <label>Persoane<select id="ppl"><option>1 adult</option><option selected>2 adulți</option><option>2 adulți, 1 copil</option><option>2 adulți, 2 copii</option><option>Grup</option></select></label>
-      <a class="btn" id="ask" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Vezi camerele libere</a>
-      <p class="note">Rezervarea se face pe Booking.com.</p>
+      <a class="btn" id="ask" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener"><span class="bkl" aria-hidden="true">B.</span>Rezervă pe Booking</a>
+      <p class="note">Vezi pe loc camerele libere și prețurile, pe Booking.com.</p>
     </form>
   </section>
 
@@ -311,7 +317,7 @@
   <section class="band">
     <div class="wrap">
       <div class="score rv"><b>8,2</b><span><strong>Foarte bine</strong><br />40 de evaluări pe Booking</span></div>
-      <div class="mid rv"><h3>Rezervă pe Booking</h3><a class="btn bk" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Vezi camerele libere</a></div>
+      <div class="mid rv"><h3>Camerele libere, pe Booking</h3><a class="btn bk" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener"><span class="bkl" aria-hidden="true">B.</span>Rezervă pe Booking</a></div>
       <p class="vou rv">Acceptăm plata cu vouchere de vacanță.</p>
     </div>
   </section>
@@ -360,7 +366,7 @@
 
   <section class="stay">
     <div class="wrap">
-      <p class="big words">Un hotel mic, la marginea Tășnadului. Apă termală, saună și masă bună, pentru cine vrea <span class="script">să se odihnească.</span></p>
+      <p class="big words">Un hotel mic, lângă ștrandul termal din Tășnad. Apă termală, saună și masă bună, pentru cine vrea <span class="script">să se odihnească.</span></p>
       <div class="pics"><figure class="a rvi"><img src="img/arcade-m.webp" srcset="img/arcade-m.webp 800w, img/arcade.webp 1200w" sizes="(min-width: 900px) 25vw, 45vw" alt="Arcadele luminate de la intrare" loading="lazy" style="object-position:40% 50%" /></figure><figure class="b rvi"><img src="img/restaurant-m.webp" srcset="img/restaurant-m.webp 800w, img/restaurant.webp 1800w" sizes="(min-width: 900px) 30vw, 60vw" alt="Sala restaurantului cu candelabre" loading="lazy" /></figure></div>
     </div>
   </section>
@@ -381,16 +387,27 @@
 
   <section class="near">
     <div class="wrap">
-      <div><p class="kick rv">Prin împrejurimi</p>
-      <h2 class="lines"><span class="ln">Ce vezi în zonă</span></h2>
-      <p class="rv" style="margin-top:14px;color:var(--mute);max-width:34ch">Câteva locuri de văzut, cu distanța de la hotel.</p></div>
-      <ul class="nl">
-        <li class="rv"><span>Monumentul din Tășnad</span><b>15 minute pe jos</b></li>
-        <li class="rv"><span>Castelul Károlyi, Carei</span><b>27 km</b></li>
-        <li class="rv"><span>Statuia lui Avram Iancu</span><b>27 km</b></li>
-        <li class="rv"><span>Aeroportul Internațional Satu Mare</span><b>40 km</b></li>
-        <li class="rv"><span>Stațiunea Băile Boghiș</span><b>48 km</b></li>
-      </ul>
+      <div><p class="kick rv">Stațiunea Tășnad</p>
+      <h2 class="lines"><span class="ln">Ștrandul termal,</span><span class="ln"><span class="script">la câțiva pași</span></span></h2>
+      <p class="rv nlead">Hotelul e chiar lângă stațiunea Tășnad, stațiune turistică de interes național din anul 2000. Ziua o petreci la bazinele termale, seara te întorci la cameră.</p>
+      <p class="rv nsrc">Informații de la OMD Tășnad și Primăria Tășnad.</p></div>
+      <div class="ncols">
+        <div><h3 class="rv">La ștrand</h3><ul class="nl">
+          <li class="rv"><span>4 bazine termale</span><em>apă încălzită peste 35°C, deschise cam 150 de zile pe an</em></li>
+          <li class="rv"><span>2 bazine cu hidromasaj</span><em>cu jeturi, într-o zonă de relaxare</em></li>
+          <li class="rv"><span>Bazin pentru copii</span><em>apă mai puțin adâncă, cu supraveghere</em></li>
+          <li class="rv"><span>Tobogane și bazin rece</span><em>zona de distracție</em></li>
+          <li class="rv"><span>Bazin semiolimpic</span><em>25 × 12,5 metri</em></li>
+          <li class="rv"><span>Terenuri de sport</span><em>fotbal și volei, cu nocturnă</em></li>
+        </ul></div>
+        <div><h3 class="rv">În oraș</h3><ul class="nl">
+          <li class="rv"><span>Muzeul Orășenesc</span><em>în Castelul Cserey-Fischer, cu arheologie, istorie și etnografie</em></li>
+          <li class="rv"><span>Patru biserici istorice</span><em>romano-catolică, ortodoxă, reformată și greco-catolică</em></li>
+          <li class="rv"><span>Grădina Urbană</span><em>parcul central, cu loc de joacă</em></li>
+          <li class="rv"><span>Biciclete de închiriat</span><em>de la Centrul de Informare Turistică</em></li>
+        </ul>
+        <p class="rv nnote">Vara, ștrandul e deschis de la 8 la 22.</p></div>
+      </div>
     </div>
   </section>
 
@@ -418,7 +435,7 @@
     <div class="wrap">
       <h2 class="lines"><span class="ln">Informații utile</span></h2>
       <div class="qs">
-        <details><summary>Unde se află hotelul?</summary><p>Pe strada Magnoliei nr. 4, în Tășnad, județul Satu Mare. Aeroportul din Satu Mare e la 40 km, iar Castelul Károlyi din Carei la 27 km.</p></details>
+        <details><summary>Unde se află hotelul?</summary><p>Pe strada Magnoliei nr. 4, în Tășnad, județul Satu Mare, chiar lângă stațiunea Tășnad și ștrandul termal.</p></details>
         <details><summary>Cum rezerv o cameră?</summary><p>Rezervi pe <a href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Booking.com</a>, unde vezi camerele libere și prețurile. Pentru întrebări ne suni la 0770 329 749.</p></details>
         <details><summary>Acceptați vouchere de vacanță?</summary><p>Da, poți plăti cazarea cu vouchere de vacanță.</p></details>
         <details><summary>Este inclus micul dejun?</summary><p>Servim micul dejun dimineața. Întreabă la rezervare dacă e inclus în prețul camerei tale.</p></details>
