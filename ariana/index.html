@@ -154,6 +154,23 @@
   .stay .pics .a { aspect-ratio: 3 / 4; }
   .stay .pics .b { aspect-ratio: 4 / 5; }
 
+  /* stațiunea: cifrele reale despre apa termală */
+  .spa-facts { padding: 90px 0; background: #1d2a2f; color: #fff; text-align: center; }
+  .spa-facts h2 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(32px, 6.4vw, 56px); line-height: 1.05; margin-top: 12px; }
+  .spa-facts h2 .script { display: block; font-size: .8em; color: #d8c3a5; }
+  .spa-facts .kick { color: rgba(255,255,255,.6); }
+  .spa-facts .lead { max-width: 56ch; margin: 18px auto 0; color: rgba(255,255,255,.78); }
+  .nums { margin-top: 44px; display: grid; gap: 26px; }
+  .nums b { display: block; font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(52px, 11vw, 92px); line-height: 1; }
+  .nums span { display: block; margin-top: 8px; font-size: 14px; color: rgba(255,255,255,.7); }
+  .spa-facts .src { margin-top: 30px; font-size: 12px; color: rgba(255,255,255,.45); }
+  /* prin împrejurimi */
+  .near { padding: 90px 0; }
+  .near .wrap { max-width: 860px; }
+  .near h2 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(30px, 6vw, 46px); margin-top: 12px; }
+  .nl { list-style: none; margin-top: 30px; border-top: 1px solid var(--line); }
+  .nl li { display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 17px; }
+  .nl b { font-weight: 500; color: var(--bronze); white-space: nowrap; }
   /* părerea oaspeților */
   .rev { background: var(--sage); padding: 80px 0; text-align: center; }
   .rev q { display: block; max-width: 30ch; margin: 18px auto 0; font-family: "Libre Caslon Display", serif; font-size: clamp(26px, 5.6vw, 42px); line-height: 1.15; quotes: "„" "”"; }
@@ -188,7 +205,7 @@
   footer .brand b { font-size: 26px; }
   footer .grid { margin-top: 40px; display: grid; gap: 34px; }
   footer .big a { display: block; font-family: "Libre Caslon Display", serif; font-size: 34px; line-height: 1.2; color: rgba(255,255,255,.9); }
-  footer h4 { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.5); font-weight: 500; margin-bottom: 10px; }
+  footer .fh { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.5); font-weight: 500; margin-bottom: 10px; }
   footer .cols p, footer .cols a { display: block; color: rgba(255,255,255,.82); font-size: 15px; line-height: 1.8; }
   footer .legal { margin-top: 50px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 12.5px; color: rgba(255,255,255,.5); }
 
@@ -225,6 +242,8 @@
     .stay .wrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 50px; align-items: start; }
     .stay .pics { margin-top: 120px; }
     .rev { padding: 110px 0; }
+    .spa-facts { padding: 130px 0; } .nums { grid-template-columns: repeat(3, 1fr); max-width: 1000px; margin: 60px auto 0; }
+    .near { padding: 130px 0; } .near .wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; max-width: 1160px; } .nl { margin-top: 0; }
     .info { padding: 130px 0; }
     footer .grid { grid-template-columns: 1.2fr 1fr 1fr 1fr; }
     footer .big a { font-size: 44px; }
@@ -255,7 +274,7 @@
     <div class="hero__bg" id="herobg"><img src="img/arcade-m.webp" srcset="img/arcade-m.webp 800w, img/arcade.webp 1200w" sizes="100vw" alt="Intrarea Hotelului Ariana: arcade luminate, scaun din ratan și firma Hotel Ariana" fetchpriority="high" /></div>
     <div class="wrap">
       <h1 class="lines"><span class="ln"><span class="script">Apă termală și</span></span><span class="ln">stare de bine</span></h1>
-      <p class="sub rv">Hotel cu piscină termală, saună și restaurant, în stațiunea Tășnad.</p>
+      <p class="sub rv">Hotel cu piscină interioară cu apă termală, saună și restaurant, în stațiunea Tășnad.</p>
     </div>
     <form class="book rv" id="book" onsubmit="return false">
       <label>Sosire<input type="date" id="in" /></label>
@@ -270,9 +289,9 @@
     <div class="wrap">
       <p class="kick rv">Stațiunea Tășnad</p>
       <h2 class="lines"><span class="ln">Un hotel liniștit,</span><span class="ln">cu apă termală</span></h2>
-      <p class="lead rv">La Hotel Ariana te așteaptă o piscină cu apă termală, sauna finlandeză, masajul și restaurantul nostru. Parcarea e gratuită, iar dimineața servim micul dejun.</p>
+      <p class="lead rv">La Hotel Ariana te așteaptă o piscină interioară cu apă termală, sauna finlandeză, masajul și restaurantul nostru. Parcarea e gratuită, iar dimineața servim micul dejun.</p>
       <div class="fac">
-        <div><svg viewBox="0 0 54 54"><path d="M4 30c4 0 4-3 8-3s4 3 8 3 4-3 8-3 4 3 8 3 4-3 8-3 4 3 8 3"/><path d="M4 38c4 0 4-3 8-3s4 3 8 3 4-3 8-3 4 3 8 3 4-3 8-3 4 3 8 3"/><path d="M18 22V8a4 4 0 0 1 8 0M34 22V8a4 4 0 0 1 8 0M18 14h16M18 20h16"/></svg>Piscină cu<br />apă termală</div>
+        <div><svg viewBox="0 0 54 54"><path d="M4 30c4 0 4-3 8-3s4 3 8 3 4-3 8-3 4 3 8 3 4-3 8-3 4 3 8 3"/><path d="M4 38c4 0 4-3 8-3s4 3 8 3 4-3 8-3 4 3 8 3 4-3 8-3 4 3 8 3"/><path d="M18 22V8a4 4 0 0 1 8 0M34 22V8a4 4 0 0 1 8 0M18 14h16M18 20h16"/></svg>Piscină interioară<br />cu apă termală</div>
         <div><svg viewBox="0 0 54 54"><path d="M8 46h38M12 46V24h30v22M12 32h30M12 39h30"/><path d="M20 18c-3-3 3-6 0-10M28 18c-3-3 3-6 0-10M36 18c-3-3 3-6 0-10"/></svg>Saună<br />finlandeză</div>
         <div><svg viewBox="0 0 54 54"><path d="M27 44c-9-5-14-12-14-20 6 0 11 4 14 9 3-5 8-9 14-9 0 8-5 15-14 20Z"/><path d="M27 33c-3-6-3-14 0-22 3 8 3 16 0 22Z"/></svg>Masaj și<br />terapie Bowen</div>
         <div><svg viewBox="0 0 54 54"><path d="M17 8v14a5 5 0 0 0 10 0V8M22 8v38M37 46V8c-5 3-7 10-7 18h7"/></svg>Restaurant</div>
@@ -296,16 +315,16 @@
       <p class="kick rv">Camerele</p>
       <h2 class="lines"><span class="ln"><span class="script">liniște și</span></span><span class="ln">lumină</span></h2>
       <div class="row" id="fanrow">
-        <figure class="s l"><img src="img/hol.webp" alt="Holul spre o cameră a hotelului" loading="lazy" /></figure>
-        <figure class="c"><img src="img/camera-soare.webp" alt="Pat dublu în lumina soarelui, cu lebede din prosoape" loading="lazy" /></figure>
-        <figure class="s r"><img src="img/lebede.webp" alt="Lebede din prosoape cu un bilețel de bun venit" loading="lazy" /></figure>
+        <figure class="s l"><img src="img/hol-m.webp" srcset="img/hol-m.webp 640w, img/hol.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw" alt="Holul spre o cameră a hotelului" loading="lazy" /></figure>
+        <figure class="c"><img src="img/camera-soare-m.webp" srcset="img/camera-soare-m.webp 640w, img/camera-soare.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw" alt="Pat dublu în lumina soarelui, cu lebede din prosoape" loading="lazy" /></figure>
+        <figure class="s r"><img src="img/lebede-m.webp" srcset="img/lebede-m.webp 640w, img/lebede.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw" alt="Lebede din prosoape cu un bilețel de bun venit" loading="lazy" /></figure>
       </div>
       <p class="rv">Camere curate și luminoase, cu pat dublu, televizor și frigider. Pe pat te așteaptă lebedele din prosoape și un bilețel de bun venit.</p>
     </div>
   </section>
 
   <section class="slider" id="restaurant">
-    <div class="bgs"><img class="on" src="img/camera.webp" alt="" /><img src="img/restaurant.webp" alt="" /><img src="img/piscina.webp" alt="" /></div>
+    <div class="bgs"><img class="on" src="img/camera-m.webp" alt="" loading="lazy" /><img src="img/restaurant-m.webp" alt="" loading="lazy" /><img src="img/piscina-m.webp" alt="" loading="lazy" /></div>
     <div class="track" id="track"><span class="on">Dormi</span><span>Mănânci</span><span>Te relaxezi</span></div>
     <div class="txt" id="txt">
       <div class="on"><h3>Camere pentru familii și cupluri</h3><p>Camere duble și de familie, pentru nefumători, cu WiFi gratuit în tot hotelul.</p><a class="btn" href="#camere">Vezi camerele</a></div>
@@ -319,24 +338,53 @@
     <div class="wrap">
       <div class="head"><p class="kick rv">Cazare</p><h2 class="lines"><span class="ln">Alege-ți</span><span class="ln">camera</span></h2><p class="rv">Spune-ne când vii și câți sunteți, iar noi îți spunem ce cameră e liberă și cât costă.</p></div>
       <div class="rlist">
-        <article class="room"><figure><img src="img/camera.webp" alt="Cameră dublă cu fereastră mare" loading="lazy" /></figure><div><h3>Cameră dublă</h3><p>Pat dublu, fereastră mare, televizor și frigider. Pentru cupluri sau pentru cine vine singur la tratament.</p><div class="acts"><a class="btn" href="tel:+40770329749">Rezervă</a><a class="btn ghost" href="#info">Întrebări</a></div></div></article>
-        <article class="room"><figure><img src="img/camera-tv.webp" alt="Cameră cu televizor și frigider" loading="lazy" /></figure><div><h3>Cameră de familie</h3><p>Loc pentru părinți și copii, ca toată familia să stea împreună.</p><div class="acts"><a class="btn" href="tel:+40770329749">Rezervă</a><a class="btn ghost" href="#info">Întrebări</a></div></div></article>
+        <article class="room"><figure><img src="img/camera-m.webp" srcset="img/camera-m.webp 640w, img/camera.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw" alt="Cameră dublă cu fereastră mare" loading="lazy" /></figure><div><h3>Cameră dublă</h3><p>Pat dublu, fereastră mare, televizor și frigider. Pentru cupluri sau pentru cine vine singur la tratament.</p><div class="acts"><a class="btn" href="tel:+40770329749">Rezervă</a><a class="btn ghost" href="#info">Întrebări</a></div></div></article>
+        <article class="room"><figure><img src="img/camera-tv-m.webp" srcset="img/camera-tv-m.webp 640w, img/camera-tv.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw" alt="Cameră cu televizor și frigider" loading="lazy" /></figure><div><h3>Cameră de familie</h3><p>Loc pentru părinți și copii, ca toată familia să stea împreună.</p><div class="acts"><a class="btn" href="tel:+40770329749">Rezervă</a><a class="btn ghost" href="#info">Întrebări</a></div></div></article>
       </div>
     </div>
   </section>
 
   <section class="trio">
     <div class="wrap">
-      <figure class="rvi"><img src="img/masa.webp" alt="Masă pregătită în restaurant" loading="lazy" /></figure>
-      <figure class="mid rvi"><img src="img/snackbar.webp" alt="Snack barul cu terasă pe iarbă" loading="lazy" /></figure>
-      <figure class="rvi"><img src="img/sauna.webp" alt="Sauna finlandeză" loading="lazy" /></figure>
+      <figure class="rvi"><img src="img/masa-m.webp" srcset="img/masa-m.webp 640w, img/masa.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw" alt="Masă pregătită în restaurant" loading="lazy" /></figure>
+      <figure class="mid rvi"><img src="img/snackbar-m.webp" srcset="img/snackbar-m.webp 640w, img/snackbar.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw" alt="Snack barul cu terasă pe iarbă" loading="lazy" /></figure>
+      <figure class="rvi"><img src="img/sauna-m.webp" srcset="img/sauna-m.webp 640w, img/sauna.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw" alt="Sauna finlandeză" loading="lazy" /></figure>
     </div>
   </section>
 
   <section class="stay">
     <div class="wrap">
       <p class="big words">Un hotel mic, la marginea Tășnadului. Apă termală, saună și masă bună, pentru cine vrea <span class="script">să se odihnească.</span></p>
-      <div class="pics"><figure class="a rvi"><img src="img/arcade.webp" alt="Arcadele luminate de la intrare" loading="lazy" style="object-position:40% 50%" /></figure><figure class="b rvi"><img src="img/restaurant.webp" alt="Sala restaurantului cu candelabre" loading="lazy" /></figure></div>
+      <div class="pics"><figure class="a rvi"><img src="img/arcade-m.webp" srcset="img/arcade-m.webp 800w, img/arcade.webp 1200w" sizes="(min-width: 900px) 25vw, 45vw" alt="Arcadele luminate de la intrare" loading="lazy" style="object-position:40% 50%" /></figure><figure class="b rvi"><img src="img/restaurant-m.webp" srcset="img/restaurant-m.webp 800w, img/restaurant.webp 1800w" sizes="(min-width: 900px) 30vw, 60vw" alt="Sala restaurantului cu candelabre" loading="lazy" /></figure></div>
+    </div>
+  </section>
+
+  <section class="spa-facts">
+    <div class="wrap">
+      <p class="kick rv">Stațiunea Tășnad</p>
+      <h2 class="lines"><span class="ln">Apa care face</span><span class="ln"><span class="script">Tășnadul cunoscut</span></span></h2>
+      <p class="lead rv">În 1978, la Tășnad s-a forat un puț de apă termală, iar din același an funcționează ștrandul termal al orașului. Apa are o mineralizare de 9,48 g/l și e folosită de atunci pentru băi.</p>
+      <div class="nums">
+        <div class="rv"><b class="cnt" data-n="1354">1.354</b><span>metri adâncime, de unde vine apa</span></div>
+        <div class="rv"><b class="cnt" data-n="70" data-s="°C">70°C</b><span>temperatura apei la suprafață</span></div>
+        <div class="rv"><b class="cnt" data-n="1978" data-plain="1">1978</b><span>anul în care s-a deschis ștrandul termal</span></div>
+      </div>
+      <p class="src rv">Date de la Primăria Tășnad.</p>
+    </div>
+  </section>
+
+  <section class="near">
+    <div class="wrap">
+      <div><p class="kick rv">Prin împrejurimi</p>
+      <h2 class="lines"><span class="ln">Ce vezi în zonă</span></h2>
+      <p class="rv" style="margin-top:14px;color:var(--mute);max-width:34ch">Distanțele de la hotel, după Booking. Restul plimbărilor ți le recomandăm noi, la recepție.</p></div>
+      <ul class="nl">
+        <li class="rv"><span>Monumentul din Tășnad</span><b>15 minute pe jos</b></li>
+        <li class="rv"><span>Castelul Károlyi, Carei</span><b>27 km</b></li>
+        <li class="rv"><span>Statuia lui Avram Iancu</span><b>27 km</b></li>
+        <li class="rv"><span>Aeroportul Internațional Satu Mare</span><b>40 km</b></li>
+        <li class="rv"><span>Stațiunea Băile Boghiș</span><b>48 km</b></li>
+      </ul>
     </div>
   </section>
 
@@ -352,9 +400,9 @@
   <section class="pool">
     <div class="pool__bg" id="poolbg"><img src="img/piscina-m.webp" srcset="img/piscina-m.webp 800w, img/piscina.webp 1600w" sizes="100vw" alt="Piscina cu apă termală la apus" loading="lazy" /></div>
     <div class="wrap">
-      <p class="kick rv">Piscina termală</p>
+      <p class="kick rv">Piscina interioară</p>
       <h2 class="lines"><span class="ln">Seara,</span><span class="ln">la piscină</span></h2>
-      <p class="rv">Apă termală, șezlonguri și geamuri mari prin care vezi apusul peste Tășnad.</p>
+      <p class="rv">Piscină interioară cu apă termală, șezlonguri și geamuri mari prin care vezi apusul peste Tășnad, vara sau iarna.</p>
       <a class="btn rv" href="tel:+40770329749">Rezervă o cameră</a>
     </div>
   </section>
@@ -367,6 +415,7 @@
         <details><summary>Cum rezerv o cameră?</summary><p>Ne suni la 0770 329 749 sau ne scrii pe Facebook și Instagram (hotelariana_). Îți spunem pe loc ce cameră e liberă și cât costă.</p></details>
         <details><summary>Acceptați vouchere de vacanță?</summary><p>Da, poți plăti cazarea cu vouchere de vacanță.</p></details>
         <details><summary>Este inclus micul dejun?</summary><p>Servim micul dejun dimineața. Întreabă la rezervare dacă e inclus în prețul camerei tale.</p></details>
+        <details><summary>Piscina e interioară?</summary><p>Da, piscina cu apă termală e interioară, cu geamuri mari, deci o poți folosi indiferent de vreme. Întreabă la recepție programul.</p></details>
         <details><summary>Am unde parca?</summary><p>Da, avem parcare privată gratuită pentru oaspeți.</p></details>
       </div>
     </div>
@@ -378,9 +427,9 @@
     <a class="brand" href="#hero"><span class="stars">★★★</span><b>HOTEL ARIANA</b></a>
     <div class="grid">
       <div class="big"><a href="#camere">Camere</a><a href="#restaurant">Restaurant</a><a href="#spa">Piscină și spa</a><a href="#info">Informații</a></div>
-      <div class="cols"><h4>Adresa</h4><p>Strada Magnoliei nr. 4</p><p>445300 Tășnad, Satu Mare</p><a href="https://maps.google.com/?q=Hotel+Ariana+Strada+Magnoliei+4+Tasnad" target="_blank" rel="noopener">Deschide harta</a></div>
-      <div class="cols"><h4>Rezervări</h4><a href="tel:+40770329749">0770 329 749</a><a href="https://www.instagram.com/hotelariana_/" target="_blank" rel="noopener">Instagram</a></div>
-      <div class="cols"><h4>La hotel</h4><p>Piscină cu apă termală</p><p>Saună finlandeză</p><p>Masaj și terapie Bowen</p><p>Restaurant și snack bar</p></div>
+      <div class="cols"><p class="fh">Adresa</p><p>Strada Magnoliei nr. 4</p><p>445300 Tășnad, Satu Mare</p><a href="https://maps.google.com/?q=Hotel+Ariana+Strada+Magnoliei+4+Tasnad" target="_blank" rel="noopener">Deschide harta</a></div>
+      <div class="cols"><p class="fh">Rezervări</p><a href="tel:+40770329749">0770 329 749</a><a href="https://www.instagram.com/hotelariana_/" target="_blank" rel="noopener">Instagram</a></div>
+      <div class="cols"><p class="fh">La hotel</p><p>Piscină cu apă termală</p><p>Saună finlandeză</p><p>Masaj și terapie Bowen</p><p>Restaurant și snack bar</p></div>
     </div>
     <div class="legal"><span>© 2026 Hotel Ariana. Demonstrație: textele și pozele sunt de confirmat cu hotelul.</span><a href="https://rtweb.ro">Site realizat de RTWEB</a></div>
   </div>
@@ -432,7 +481,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (reduce || !window.gsap) return;
   gsap.registerPlugin(ScrollTrigger);
-  gsap.fromTo(".hero .m > span", { yPercent: 110 }, { yPercent: 0, duration: 1.5, ease: "expo.out", stagger: .12, delay: .2 });
+  gsap.fromTo(".hero .m > span", { yPercent: 110 }, { yPercent: 0, duration: 1.2, ease: "expo.out", stagger: .1 });
   gsap.fromTo(".hero .rv", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", stagger: .12, delay: .7 });
   if (desk) {
     gsap.fromTo("#herobg img", { scale: 1.1 }, { scale: 1, duration: 2.4, ease: "power2.out" });
@@ -456,6 +505,9 @@ document.addEventListener("DOMContentLoaded", () => {
   $$(".fac svg").forEach((s, i) => { const ps = $$("path,rect,circle", s); ps.forEach((p) => { const L = p.getTotalLength ? p.getTotalLength() : 200; p.style.strokeDasharray = p.getAttribute("stroke-dasharray") || L; if (!p.getAttribute("stroke-dasharray")) p.style.strokeDashoffset = L; });
     gsap.to(ps.filter((p) => !p.getAttribute("stroke-dasharray")), { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut", delay: i * .08, scrollTrigger: { trigger: ".fac", start: "top 85%" } }); });
   gsap.fromTo(".fac > div", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .8, stagger: .08, ease: "power2.out", scrollTrigger: { trigger: ".fac", start: "top 85%" } });
+  // cifrele despre apa termală cresc când ajungi la ele
+  $$(".cnt").forEach((b) => { const n = +b.dataset.n, suf = b.dataset.s || "", plain = b.dataset.plain, o = { v: plain ? n - 60 : 0 };
+    gsap.to(o, { v: n, duration: 1.8, ease: "power2.out", scrollTrigger: { trigger: b, start: "top 88%" }, onUpdate: () => (b.textContent = (plain ? Math.round(o.v) : Math.round(o.v).toLocaleString("ro-RO")) + suf) }); });
   // întrebările se deschid lin
   $$(".qs details").forEach((d) => { const sum = d.querySelector("summary"), p = d.querySelector("p");
     sum.addEventListener("click", (e) => { e.preventDefault();
