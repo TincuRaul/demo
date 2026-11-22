@@ -71,14 +71,11 @@
   .hero h1 { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(42px, 11vw, 120px); line-height: .95; letter-spacing: .01em; text-transform: uppercase; }
   .hero h1 .script { display: block; font-size: .62em; line-height: 1.1; margin-bottom: -.12em; }
   .hero .sub { margin: 18px auto 0; max-width: 36ch; color: rgba(255,255,255,.86); font-size: 15.5px; }
-  .book { position: relative; z-index: 2; margin: 26px auto 0; width: calc(100% - 2 * var(--pad)); max-width: 820px; background: #fff; color: var(--ink); border-radius: 18px; padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; box-shadow: 0 20px 50px rgba(0,0,0,.25); }
-  .book label { display: grid; gap: 2px; padding: 8px 12px; border-radius: 12px; background: var(--sand); font-size: 11.5px; color: var(--mute); text-transform: uppercase; letter-spacing: .08em; }
-  .book input, .book select { border: 0; background: transparent; font: 500 15px "Instrument Sans", sans-serif; color: var(--ink); text-transform: none; letter-spacing: 0; width: 100%; outline: none; }
-  .book .btn { grid-column: 1 / -1; height: 50px; background: #003b95; gap: 10px; }
-  .book .btn:hover { background: #002a6b; }
+  .book { position: relative; z-index: 2; margin: 26px auto 40px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 0 var(--pad); }
+  .book .btn { height: 52px; padding: 0 26px; font-size: 15px; } .book .btn:first-child { background: #003b95; }
+  .book .btn:first-child:hover { background: #002a6b; }
   .bkl { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: #fff; color: #003b95; font: 700 14px/1 Arial, sans-serif; letter-spacing: -.02em; margin-right: 8px; }
   .band .btn { background: #003b95; } .band .btn:hover { background: #002a6b; }
-  .book .note { grid-column: 1 / -1; font-size: 12px; color: var(--mute); text-align: center; padding: 2px 0 4px; }
 
   /* introducerea, cu facilitățile desenate */
   .intro { padding: 90px 0 70px; text-align: center; }
@@ -231,11 +228,7 @@
     .nav { display: flex; } .bar { display: none; }
     .top .wrap { height: 82px; }
     .hero .wrap { padding-bottom: 34px; }
-    .book { grid-template-columns: 1fr 1fr 1fr auto; border-radius: 999px; padding: 8px; margin-bottom: 40px; }
-    .book label { border-radius: 999px; padding: 8px 20px; }
-    .book .btn { grid-column: auto; height: auto; padding: 0 26px; }
-    .book .note { display: none; }
-    .intro { padding: 130px 0 100px; }
+        .intro { padding: 130px 0 100px; }
     .fac { grid-template-columns: repeat(7, 1fr); max-width: 1100px; margin-left: auto; margin-right: auto; }
     .band .wrap { grid-template-columns: 1fr auto 1fr; align-items: center; }
     .band .score { justify-self: start; } .band .vou { justify-self: end; text-align: right; }
@@ -288,13 +281,7 @@
       <h1 class="lines"><span class="ln"><span class="script">Apă termală și</span></span><span class="ln">stare de bine</span></h1>
       <p class="sub rv">Hotel cu piscină interioară cu apă termală, saună și restaurant, în stațiunea Tășnad.</p>
     </div>
-    <form class="book rv" id="book" onsubmit="return false">
-      <label>Sosire<input type="date" id="in" /></label>
-      <label>Plecare<input type="date" id="out" /></label>
-      <label>Persoane<select id="ppl"><option>1 adult</option><option selected>2 adulți</option><option>2 adulți, 1 copil</option><option>2 adulți, 2 copii</option><option>Grup</option></select></label>
-      <a class="btn" id="ask" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener"><span class="bkl" aria-hidden="true">B.</span>Rezervă pe Booking</a>
-      <p class="note">Vezi pe loc camerele libere și prețurile, pe Booking.com.</p>
-    </form>
+    <div class="book rv" id="book"><a class="btn" href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener"><span class="bkl" aria-hidden="true">B.</span>Rezervă pe Booking</a><a class="btn ghost" href="tel:+40770329749">Sună: 0770 329 749</a></div>
   </section>
 
   <section class="intro" id="spa">
@@ -465,14 +452,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches, desk = matchMedia("(min-width: 900px)").matches;
 
-  // bara de rezervare: datele implicite și mesajul pentru hotel
-  const d0 = new Date(); d0.setDate(d0.getDate() + 7); const d1 = new Date(d0); d1.setDate(d1.getDate() + 2);
-  const f = (d) => d.toISOString().slice(0, 10); $("#in").value = f(d0); $("#out").value = f(d1); $("#in").min = f(new Date());
-  $("#in").addEventListener("change", () => { if ($("#out").value <= $("#in").value) { const x = new Date($("#in").value); x.setDate(x.getDate() + 1); $("#out").value = f(x); } });
-
-  const bkUrl = () => { const pp = $("#ppl").value, ad = /^1 /.test(pp) ? 1 : 2, ch = (pp.match(/(\d) cop/) || [0, 0])[1];
-    return `https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html?checkin=${$("#in").value}&checkout=${$("#out").value}&group_adults=${ad}&group_children=${ch}&no_rooms=1&lang=ro`; };
-  const upd = () => ($("#ask").href = bkUrl()); ["in", "out", "ppl"].forEach((id) => $("#" + id).addEventListener("change", upd)); upd();
   // meniul: literele se rostogolesc
   $$(".nav a, .menu nav a").forEach((a) => { const ch = [...a.textContent.trim()], mid = (ch.length - 1) / 2; a.setAttribute("aria-label", a.textContent.trim());
     a.innerHTML = `<span class="roll" aria-hidden="true">${ch.map((c, i) => c === " " ? '<span class="s"></span>' : `<span class="l"><span style="--d:${Math.round(Math.abs(i - mid) * 24)}">${c}</span></span>`).join("")}</span>`; });
