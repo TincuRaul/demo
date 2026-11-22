@@ -217,12 +217,16 @@
   .info .wrap { max-width: 860px; }
   .info h2 { text-align: center; }
   .qs { margin-top: 36px; border-top: 1px solid var(--line); }
-  .qs details { border-bottom: 1px solid var(--line); }
-  .qs summary { list-style: none; cursor: pointer; padding: 20px 40px 20px 0; position: relative; font-size: 17px; }
-  .qs summary::-webkit-details-marker { display: none; }
-  .qs summary::after { content: "+"; position: absolute; right: 4px; top: 50%; translate: 0 -50%; font-size: 20px; transition: rotate .4s cubic-bezier(.76,0,.24,1); }
-  .qs details[open] summary::after { rotate: 45deg; }
-  .qs details p { padding: 0 0 20px; color: var(--mute); max-width: 60ch; overflow: hidden; }
+  .q { border-bottom: 1px solid var(--line); }
+  .q button { all: unset; box-sizing: border-box; width: 100%; cursor: pointer; padding: 20px 40px 20px 0; position: relative; font-size: 17px; }
+  .q button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .q button::after { content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); font-size: 20px; transition: transform .35s ease; }
+  .q.open button::after { transform: translateY(-50%) rotate(45deg); }
+  .q .a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
+  .q.open .a { grid-template-rows: 1fr; }
+  .q .a p { overflow: hidden; min-height: 0; color: var(--mute); max-width: 60ch; }
+  .q.open .a p { padding-bottom: 20px; }
+
 
   footer { background: #191714; color: #fff; padding: 70px 0 30px; }
   footer .brand { text-align: left; }
@@ -433,12 +437,12 @@
     <div class="wrap">
       <h2 class="lines"><span class="ln">Informații utile</span></h2>
       <div class="qs">
-        <details><summary>Unde se află hotelul?</summary><p>Pe strada Magnoliei nr. 4, în Tășnad, județul Satu Mare, chiar lângă stațiunea Tășnad și ștrandul termal.</p></details>
-        <details><summary>Cum rezerv o cameră?</summary><p>Rezervi pe <a href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Booking.com</a>, unde vezi camerele libere și prețurile. Pentru întrebări ne suni la 0770 329 749.</p></details>
-        <details><summary>Acceptați vouchere de vacanță?</summary><p>Da, poți plăti cazarea cu vouchere de vacanță.</p></details>
-        <details><summary>Este inclus micul dejun?</summary><p>Servim micul dejun dimineața. Întreabă la rezervare dacă e inclus în prețul camerei tale.</p></details>
-        <details><summary>Piscina e interioară?</summary><p>Da, piscina cu apă termală e interioară, cu geamuri mari, deci o poți folosi indiferent de vreme. Întreabă la recepție programul.</p></details>
-        <details><summary>Am unde parca?</summary><p>Da, avem parcare privată gratuită pentru oaspeți.</p></details>
+        <div class="q"><button type="button" aria-expanded="false">Unde se află hotelul?</button><div class="a"><p>Pe strada Magnoliei nr. 4, în Tășnad, județul Satu Mare, chiar lângă stațiunea Tășnad și ștrandul termal.</p></div></div>
+        <div class="q"><button type="button" aria-expanded="false">Cum rezerv o cameră?</button><div class="a"><p>Rezervi pe <a href="https://www.booking.com/hotel/ro/ariana-oras-tasnad.ro.html" target="_blank" rel="noopener">Booking.com</a>, unde vezi camerele libere și prețurile. Pentru întrebări ne suni la 0770 329 749.</p></div></div>
+        <div class="q"><button type="button" aria-expanded="false">Acceptați vouchere de vacanță?</button><div class="a"><p>Da, poți plăti cazarea cu vouchere de vacanță.</p></div></div>
+        <div class="q"><button type="button" aria-expanded="false">Este inclus micul dejun?</button><div class="a"><p>Servim micul dejun dimineața. Întreabă la rezervare dacă e inclus în prețul camerei tale.</p></div></div>
+        <div class="q"><button type="button" aria-expanded="false">Piscina e interioară?</button><div class="a"><p>Da, piscina cu apă termală e interioară, cu geamuri mari, deci o poți folosi indiferent de vreme. Întreabă la recepție programul.</p></div></div>
+        <div class="q"><button type="button" aria-expanded="false">Am unde parca?</button><div class="a"><p>Da, avem parcare privată gratuită pentru oaspeți.</p></div></div>
       </div>
     </div>
   </section>
@@ -496,6 +500,7 @@ document.addEventListener("DOMContentLoaded", () => {
   $$(".words").forEach((p) => { p.innerHTML = p.innerHTML.replace(/(<span class="script">.*?<\/span>)|([^\s<]+)/g, (w) => `<span class="m"><span>${w}</span></span>`); });
   go(0);
 
+  $$(".q button").forEach((b) => b.addEventListener("click", () => { const q = b.parentNode, o = !q.classList.contains("open"); q.classList.toggle("open", o); b.setAttribute("aria-expanded", o); }));
   if (reduce || !window.gsap) return;
   gsap.registerPlugin(ScrollTrigger);
   gsap.fromTo(".hero .m > span", { yPercent: 110 }, { yPercent: 0, duration: 1.2, ease: "expo.out", stagger: .1 });
@@ -529,10 +534,6 @@ document.addEventListener("DOMContentLoaded", () => {
   gsap.fromTo(".sc", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: .09, scrollTrigger: { trigger: ".sgrid", start: "top 85%" } });
   gsap.to(".sc svg path:not([stroke-dasharray]), .sc svg rect:not([stroke-dasharray]), .sc svg circle", { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut", stagger: .05, delay: .3, scrollTrigger: { trigger: ".sgrid", start: "top 85%" } });
   // întrebările se deschid lin
-  $$(".qs details").forEach((d) => { const sum = d.querySelector("summary"), p = d.querySelector("p");
-    sum.addEventListener("click", (e) => { e.preventDefault();
-      if (d.open) gsap.to(p, { height: 0, opacity: 0, duration: .45, ease: "power3.inOut", onComplete: () => { d.open = false; gsap.set(p, { clearProps: "all" }); } });
-      else { d.open = true; gsap.fromTo(p, { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: .55, ease: "power3.out" }); } }); });
 });
 </script>
 </body>
