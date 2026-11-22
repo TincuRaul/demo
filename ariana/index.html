@@ -533,7 +533,6 @@ document.addEventListener("DOMContentLoaded", () => {
   $$(".sc svg").forEach((sv) => $$("path,rect,circle", sv).forEach((p) => { if (p.getAttribute("stroke-dasharray")) return; const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; }));
   gsap.fromTo(".sc", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: .09, scrollTrigger: { trigger: ".sgrid", start: "top 85%" } });
   gsap.to(".sc svg path:not([stroke-dasharray]), .sc svg rect:not([stroke-dasharray]), .sc svg circle", { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut", stagger: .05, delay: .3, scrollTrigger: { trigger: ".sgrid", start: "top 85%" } });
-  // întrebările se deschid lin
 });
 </script>
 </body>
